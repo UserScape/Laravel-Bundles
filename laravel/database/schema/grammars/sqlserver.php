@@ -72,7 +72,7 @@ class SQLServer extends Grammar {
 			// types to the types used by the database system.
 			$sql = $this->wrap($column).' '.$this->type($column);
 
-			$elements = array('incrementer', 'nullable', 'default_value');
+			$elements = array('incrementer', 'nullable', 'defaults');
 
 			foreach ($elements as $element)
 			{
@@ -104,7 +104,7 @@ class SQLServer extends Grammar {
 	 * @param  Fluent  $column
 	 * @return string
 	 */
-	protected function default_value(Table $table, Fluent $column)
+	protected function defaults(Table $table, Fluent $column)
 	{
 		if ( ! is_null($column->default))
 		{
@@ -168,7 +168,7 @@ class SQLServer extends Grammar {
 
 		// SQL Server requires the creation of a full-text "catalog" before
 		// creating a full-text index, so we'll first create the catalog
-		// then add another statement to the array for the real index.
+		// then add another statement for the index.
 		$sql[] = "CREATE FULLTEXT CATALOG {$command->catalog}";
 
 		$create =  "CREATE FULLTEXT INDEX ON ".$this->wrap($table)." ({$columns}) ";
@@ -234,9 +234,6 @@ class SQLServer extends Grammar {
 	{
 		$columns = array_map(array($this, 'wrap'), $command->columns);
 
-		// Once we have wrapped all of the columns, we need to add "drop"
-		// to the front of each column name, then we'll concatenate the
-		// columns using commas like normal and generate the SQL.
 		$columns = implode(', ', array_map(function($column)
 		{
 			return 'DROP '.$column;
@@ -318,7 +315,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_string(Fluent $column)
 	{
-		return 'VARCHAR('.$column->length.')';
+		return 'NVARCHAR('.$column->length.')';
 	}
 
 	/**
@@ -384,7 +381,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_text(Fluent $column)
 	{
-		return 'TEXT';
+		return 'NVARCHAR(MAX)';
 	}
 
 	/**
@@ -395,7 +392,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_blob(Fluent $column)
 	{
-		return 'BINARY';
+		return 'VARBINARY(MAX)';
 	}
 
 }
