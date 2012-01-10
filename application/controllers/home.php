@@ -48,7 +48,7 @@ class Home_Controller extends Controller {
 			'secret' => '265ea9eb57184a294e8fa61766e16c47e4f9b130',
 		));
 
-		if (empty($_POST))
+		if ( ! isset($_GET['code']))
 		{
 			// By sending no options it'll come back here
 			return $provider->authorize();
@@ -58,8 +58,9 @@ class Home_Controller extends Controller {
 			// Howzit?
 			try
 			{
-				$code = (isset($_GET['code'])) ? $_GET['code'] : $_POST['code'];
-				$params = $provider->access($code);
+				$params = $provider->access($_GET['code']);
+				var_dump($params);
+
 				$user = $provider->get_user_info($params['access_token']);
 
 				// Here you should use this information to A) look for a user B) help a new user sign up with existing data.
@@ -68,9 +69,9 @@ class Home_Controller extends Controller {
 				var_dump($user);
 			}
 
-			catch (OAuth2_Exception $e)
+			catch (Exception $e)
 			{
-				show_error('That didnt work: '.$e);
+				var_dump('That didnt work: '.$e);
 			}
 		}
 	}
