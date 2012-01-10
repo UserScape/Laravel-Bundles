@@ -59,14 +59,12 @@ class Home_Controller extends Controller {
 			try
 			{
 				$params = $provider->access($_GET['code']);
-				var_dump($params);
-
-				$user = $provider->get_user_info($params['access_token']);
+				$user = $provider->get_user_info($params);
 
 				// Here you should use this information to A) look for a user B) help a new user sign up with existing data.
 				// If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 				echo "<pre>";
-				var_dump($user);
+				print_r($user);
 			}
 
 			catch (Exception $e)
