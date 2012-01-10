@@ -16,14 +16,14 @@ return array(
 	|
 	*/
 
-	'driver' => '',
+	'driver' => 'cookie',
 
 	/*
 	|--------------------------------------------------------------------------
 	| Session Database
 	|--------------------------------------------------------------------------
 	|
-	| The database table on which the session should be stored. 
+	| The database table on which the session should be stored.
 	|
 	| This option is only relevant when using the "database" session driver.
 	|
@@ -38,7 +38,7 @@ return array(
 	|
 	| Some session drivers require the manual clean-up of expired sessions.
 	| This option specifies the probability of session garbage collection
-	| occuring for any given request. 
+	| occuring for any given request.
 	|
 	| For example, the default value states that garbage collection has about
 	| a 2% (2 / 100) chance of occuring for any given request.

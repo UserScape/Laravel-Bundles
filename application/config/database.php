@@ -40,9 +40,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'database',
+			'database' => 'laravel-bundlestest',
 			'username' => 'root',
-			'password' => 'password',
+			'password' => 'root',
 			'charset'  => 'utf8',
 		),
 

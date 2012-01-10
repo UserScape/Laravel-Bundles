@@ -33,9 +33,10 @@
 |
 */
 
-Router::register(array('GET /', 'GET /home'), function()
+Router::register(array('GET /test', 'GET /test'), function()
 {
-	return View::make('home.index');
+	return View::make('layouts.default')
+		->nest('content', 'home.index', array('name' => 'Taylor'));
 });
 
 /*

@@ -40,7 +40,7 @@ return array(
 	|
 	*/
 
-	'key' => 'Something',
+	'key' => 'a;jkvnask;;ls',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return array(
 	|
 	*/
 
-	'ssl' => true,
+	'ssl' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -142,7 +142,6 @@ return array(
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
 		'Form'       => 'Laravel\\Form',
-		'Hash'       => 'Laravel\\Hash',
 		'HTML'       => 'Laravel\\HTML',
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',
