@@ -14,13 +14,14 @@ class Create_Bundles {
 			$table->create();
 			$table->increments('id');
 			$table->string('title');
+			$table->string('uri');
 			$table->string('summary', 255);
 			$table->text('description');
 			$table->string('website', 255);
 			$table->string('clone_url', 255);
 			$table->string('provider', 255);
 			$table->timestamps();
-			$table->integer('cat_id');
+			$table->integer('category_id');
 			$table->integer('user_id');
 		});
 	}

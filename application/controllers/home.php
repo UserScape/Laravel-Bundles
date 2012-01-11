@@ -36,41 +36,7 @@ class Home_Controller extends Controller {
 
 	public function action_index()
 	{
-		return View::make('home.index');
-	}
-
-	public function action_session($provider)
-	{
-		Bundle::start('laravel-oauth2');
-
-		$provider = OAuth2::provider($provider, array(
-			'id' => '5cadb2b49f5975a8760a',
-			'secret' => '265ea9eb57184a294e8fa61766e16c47e4f9b130',
-		));
-
-		if ( ! isset($_GET['code']))
-		{
-			// By sending no options it'll come back here
-			return $provider->authorize();
-		}
-		else
-		{
-			// Howzit?
-			try
-			{
-				$params = $provider->access($_GET['code']);
-				$user = $provider->get_user_info($params);
-
-				// Here you should use this information to A) look for a user B) help a new user sign up with existing data.
-				// If you store it all in a cookie and redirect to a registration page this is crazy-simple.
-				echo "<pre>";
-				print_r($user);
-			}
-
-			catch (Exception $e)
-			{
-				var_dump('That didnt work: '.$e);
-			}
-		}
+		return View::make('layouts.default')
+			->nest('content', 'home.index', array('name' => 'Taylor'));
 	}
 }

@@ -3185,10 +3185,15 @@ body {
   font-family: 'Ubuntu';
   font-size: 14px;
   color: #6D6D6D;
-  padding-top: 10px;
+  padding-top: 40px;
 }
 
 /* line 7, ../src/_bundles.scss */
+.topbar h3 {
+  font-family: 'Lobster Two';
+}
+
+/* line 11, ../src/_bundles.scss */
 h1.main {
   font-family: 'Lobster Two';
   font-size: 80px;
@@ -3198,13 +3203,13 @@ h1.main {
   text-shadow: 1px 1px 1px #DDD;
   line-height: normal;
 }
-/* line 15, ../src/_bundles.scss */
+/* line 19, ../src/_bundles.scss */
 h1.main a, h1.main a:hover {
   color: #6D6D6D;
   text-decoration: none;
 }
 
-/* line 20, ../src/_bundles.scss */
+/* line 24, ../src/_bundles.scss */
 h2 {
   font-family: 'Quattrocento';
   font-size: 23px;
