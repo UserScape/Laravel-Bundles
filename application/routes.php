@@ -31,13 +31,17 @@
 |			return "Welcome, $name.";
 |		});
 |
+| Routes to controllers:
+|
+| Router::register('GET /', 'home@index');
+|
+| Or, if you want to use a named route with a controller action:
+|
+| Router::register('GET /', array('name' => 'home', 'uses' => 'home@index'));
 */
 
-Router::register(array('GET /test', 'GET /test'), function()
-{
-	return View::make('layouts.default')
-		->nest('content', 'home.index', array('name' => 'Taylor'));
-});
+Router::register('GET /category/(:any)', 'category@detail');
+
 
 /*
 |--------------------------------------------------------------------------
