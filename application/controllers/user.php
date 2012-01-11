@@ -36,21 +36,22 @@ class User_Controller extends Controller {
 			try
 			{
 				$params = $provider->access($_GET['code']);
-				$user = $provider->get_user_info($params);
+				$github_user = $provider->get_user_info($params);
 
 				// Save the user data
 				$user = new User;
-				$user->username = $user->nickname;
-				$user->name = $user->name;
-				$user->email = $user->email;
-				$user->ip_address = 'secret';
-				$user->github_uid = $user->uid;
-				$user->github_token = $params->acccess_token;
+				$user->username = $github_user['nickname'];
+				$user->name = $github_user['name'];
+				$user->email = $github_user['email'];
+				$user->ip_address = Request::ip();
+				$user->github_uid = $github_user['uid'];
+				$user->github_token = $params->access_token;
 				$user->save();
 			}
 			catch (Exception $e)
 			{
-				var_dump($e);
+				// I am hiding the exception and will just redirect with a message
+				return Redirect::to('/');
 			}
 		}
 	}
