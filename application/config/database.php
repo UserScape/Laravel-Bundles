@@ -40,7 +40,7 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'laravel-bundlestest',
+			'database' => 'laravel-bundles',
 			'username' => 'root',
 			'password' => 'root',
 			'charset'  => 'utf8',
