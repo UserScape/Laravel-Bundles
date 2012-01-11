@@ -129,6 +129,7 @@ return array(
 	'aliases' => array(
 		'Arr'        => 'Laravel\\Arr',
 		'Asset'      => 'Laravel\\Asset',
+		'Auth'       => 'Laravel\\Auth',
 		'Autoloader' => 'Laravel\\Autoloader',
 		'Benchmark'  => 'Laravel\\Benchmark',
 		'Bundle'     => 'Laravel\\Bundle',

@@ -38,6 +38,7 @@ spl_autoload_register(array('Laravel\\Autoloader', 'load'));
  * More mappings can also be registered by the developer as needed.
  */
 Autoloader::$mappings = array(
+	'Laravel\\Auth' => SYS_PATH.'auth'.EXT,
 	'Laravel\\Asset' => SYS_PATH.'asset'.EXT,
 	'Laravel\\Benchmark' => SYS_PATH.'benchmark'.EXT,
 	'Laravel\\Blade' => SYS_PATH.'blade'.EXT,
@@ -76,6 +77,7 @@ Autoloader::$mappings = array(
 	'Laravel\\Cache\\Drivers\\File' => SYS_PATH.'cache/drivers/file'.EXT,
 	'Laravel\\Cache\\Drivers\\Memcached' => SYS_PATH.'cache/drivers/memcached'.EXT,
 	'Laravel\\Cache\\Drivers\\Redis' => SYS_PATH.'cache/drivers/redis'.EXT,
+	'Laravel\\Cache\\Drivers\\Database' => SYS_PATH.'cache/drivers/database'.EXT,
 
 	'Laravel\\CLI\\Command' => SYS_PATH.'cli/command'.EXT,
 	'Laravel\\CLI\\Tasks\\Task' => SYS_PATH.'cli/tasks/task'.EXT,
