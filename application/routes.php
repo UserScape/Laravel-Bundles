@@ -43,6 +43,16 @@
 Router::register('GET /category/(:any)', 'category@detail');
 
 
+// ------------------------------------------------------------------------
+
+/**
+ * Api
+ *
+ * Generates an array of the bundle information for artisan.
+ *
+ * @param string $item
+ * @return array
+ */
 Router::register('GET /api/(:any)', function($item)
 {
 	$output = array();
@@ -63,6 +73,42 @@ Router::register('GET /api/(:any)', function($item)
 	}
 
 	return $output;
+});
+
+// ------------------------------------------------------------------------
+
+/**
+ * Tags List
+ *
+ * Generate a list of tags from an ajax call.
+ */
+Router::register('GET /tags', function(){
+
+	$query = Tag::where('tag', 'like', '%'.Input::get('term').'%')->get();
+	$tags = array();
+	foreach ($query as $key => $tag)
+	{
+		$tags[] = $tag->tag;
+	}
+	exit(json_encode($tags));
+});
+
+// ------------------------------------------------------------------------
+
+/**
+ * Dependencies
+ *
+ * Generate a list of dependencies from an ajax call.
+ */
+Router::register('GET /dependencies', function(){
+
+	$query = Listing::where('title', 'like', '%'.Input::get('term').'%')->get();
+	$tags = array();
+	foreach ($query as $key => $tag)
+	{
+		$tags[] = $tag->title;
+	}
+	exit(json_encode($tags));
 });
 
 /*
