@@ -19,8 +19,7 @@
 						<h3><a href="#">Laravel Bundles</a></h3>
 						<ul class="nav">
 							<li class="active"><a href="#">Home</a></li>
-							<li><a href="<?php echo URL::to('categories'); ?>">Categories</a></li>
-							<li><a href="<?php echo URL::to('bundles/add'); ?>">Add Bundle</a></li>
+							<li><a href="<?php echo URL::to('bundle/add'); ?>">Add Bundle</a></li>
 						</ul>
 						<form class="pull-left" action="">
 							<input type="text" placeholder="Search">
@@ -53,6 +52,18 @@
 				<p>&copy; 2012 Laravel</p>
 			</footer>
 		</div>
-		@yield('scripts')
+
+		<script>
+			var SITE_URL = "<?php echo URL::to(); ?>";
+			var BASE_URL = "<?php echo URL::base(); ?>";
+			@if (isset($tags) AND is_array($tags))
+				var initialTags = [
+					@foreach ($tags as $tag)
+						"{{$tag}}",
+					@endforeach
+				];
+			@endif
+		</script>
+		{{Asset::scripts()}}
 	</body>
 </html>
