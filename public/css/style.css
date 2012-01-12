@@ -3216,3 +3216,226 @@ h2 {
   color: #6D6D6D;
   margin-bottom: 0;
 }
+
+/* line 31, ../src/_bundles.scss */
+ul.tags {
+  border-top: 1px solid #ebebeb;
+  padding: 10px 0 0;
+  margin: 0;
+}
+/* line 35, ../src/_bundles.scss */
+ul.tags li.first {
+  border-left: none;
+  padding-left: 0;
+}
+/* line 39, ../src/_bundles.scss */
+ul.tags li {
+  display: inline;
+  padding: 5px;
+  margin: 0;
+  border-left: 1px solid #ebebeb;
+}
+
+/* Auto Complete */
+/* line 48, ../src/_bundles.scss */
+.autocomplete-w1 {
+  background: url(../img/shadow.png) no-repeat bottom right;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 8px 0 0 6px;
+  /* IE6 fix: */
+  _background: none;
+  _margin: 0;
+}
+
+/* line 49, ../src/_bundles.scss */
+.autocomplete {
+  border: 1px solid #999;
+  background: #FFF;
+  cursor: default;
+  text-align: left;
+  max-height: 350px;
+  overflow: auto;
+  margin: -6px 6px 6px -6px;
+  /* IE6 specific: */
+  _height: 350px;
+  _margin: 0;
+  _overflow-x: hidden;
+}
+
+/* line 50, ../src/_bundles.scss */
+.autocomplete .selected {
+  background: #F0F0F0;
+}
+
+/* line 51, ../src/_bundles.scss */
+.autocomplete div {
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+/* line 52, ../src/_bundles.scss */
+.autocomplete strong {
+  font-weight: normal;
+  color: #3399FF;
+}
+
+/* line 1, ../src/_tags.scss */
+.ui-autocomplete {
+  background-color: #fff;
+  position: absolute;
+  cursor: default;
+  list-style: none;
+  margin: 25px 0 0;
+  padding: 0;
+  border: 1px solid #E5E5E5;
+  border-top: none;
+  -moz-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+  -moz-box-shadow: 0 3px 5px #888;
+  -webkit-box-shadow: 0 3px 5px #888;
+  box-shadow: 0 3px 5px #888;
+  font-size: 12px;
+}
+
+/* line 18, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 23, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item a {
+  display: block;
+  padding: 4px 6px;
+  margin: 0;
+  text-decoration: none;
+  line-height: 12px;
+  border-bottom: 1px solid #E5E5E5;
+  border-top: 1px solid #fff;
+  color: #78959D;
+}
+
+/* line 36, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item a.ui-state-hover,
+.ui-autocomplete .ui-menu-item a.ui-state-active {
+  background-color: #c0d1e2;
+  color: #555;
+  border-color: #a6cef7;
+}
+
+/* line 42, ../src/_tags.scss */
+.ui-autocomplete-loading {
+  background: white url(../img/ui-anim_basic_16x16.gif) right center no-repeat;
+}
+
+/* line 46, ../src/_tags.scss */
+ul.tagit {
+  cursor: text;
+  overflow: auto;
+  font-size: 14px;
+  width: 97%;
+  padding: 3px;
+  margin: 2px 6px 16px 0;
+  background: #fff;
+  color: #555;
+  border: 1px solid #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 62, ../src/_tags.scss */
+ul.tagit li {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+  position: relative;
+}
+
+/* line 71, ../src/_tags.scss */
+ul.tagit li.tagit-choice {
+  background-color: #DEE7F8;
+  border: 1px solid #CAD8F3;
+  padding: 2px 13px 3px 4px;
+}
+
+/* line 77, ../src/_tags.scss */
+ul.tagit li.tagit-choice.selected {
+  background-color: #f5b0b0;
+  border-color: #f76464;
+}
+
+/* line 82, ../src/_tags.scss */
+ul.tagit li.tagit-choice:hover {
+  background-color: #bbcef1;
+  border-color: #6d95e0;
+}
+
+/* line 87, ../src/_tags.scss */
+ul.tagit li.tagit-new {
+  padding: 2px 4px 3px;
+  padding: 2px 4px 1px;
+  padding: 2px 4px 1px 0;
+}
+
+/* line 93, ../src/_tags.scss */
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 0 5px 0 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* line 101, ../src/_tags.scss */
+ul.tagit li.tagit-choice a.tagit-close {
+  color: #777777;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  outline: medium none;
+  padding: 2px 0 2px 3px;
+  text-decoration: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* line 116, ../src/_tags.scss */
+ul.tagit li.tagit-choice a.tagit-close:hover {
+  color: #535353;
+}
+
+/* line 120, ../src/_tags.scss */
+ul.tagit input[type="text"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-shadow: none;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: inherit !important;
+  outline: none;
+}
+
+/* line 130, ../src/_tags.scss */
+.tagit-hiddenSelect {
+  display: none;
+}
