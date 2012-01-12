@@ -2,6 +2,7 @@
 class Listing extends Eloquent\Model {
 
 	public static $table = 'bundles';
+	public static $timestamps = true;
 
 	public static function find($id)
 	{
