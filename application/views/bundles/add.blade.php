@@ -70,24 +70,22 @@
 				</div><!-- /clearfix -->
 
 				<div class="clearfix">
-					<label for="category">Category</label>
+					<label for="category_id">Category</label>
 					<div class="input">
-						{{Form::select('category', $categories, '', array('class' => 'mediumSelect'))}}
+						{{Form::select('category_id', $categories, '', array('class' => 'mediumSelect'))}}
 					</div>
 				</div>
 				<div class="clearfix">
-					<label for="xlInput">Tags</label>
+					<label for="tags">Tags</label>
 					<div class="input">
-						<ul id="tags" class="tagit"></ul>
-						<select class="tagit-hiddenSelect" name="tags" multiple="multiple"></select>
+						<ul id="tags" class="tagit" name="tags[]"></ul>
 					</div>
 				</div><!-- /clearfix -->
 
 				<div class="clearfix">
 					<label for="xlInput">Dependencies</label>
 					<div class="input">
-						<ul id="dependencies" class="tagit"></ul>
-						<select class="tagit-hiddenSelect" name="dependencies" multiple="multiple"></select>
+						<ul id="dependencies" class="tagit" name="dependencies[]"></ul>
 					</div>
 				</div><!-- /clearfix -->
 

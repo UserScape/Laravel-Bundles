@@ -59,6 +59,17 @@ class Bundle_Controller extends Controller {
 			return Redirect::to('bundle/add')->with_errors($validator);
 		}
 
+		if ($depends = Input::get('dependencies'))
+		{
+			$dependencies = array();
+			foreach ($depends as $bundle)
+			{
+				var_dump($bundle);
+				//DB::table('dependencies')->insert(array('bundle_id' => $listing->id, 'dependency_id' => $bundle->id));
+			}
+		}
+		die;
+
 		$title = Input::get('title');
 
 		$listing = new Listing;
@@ -66,14 +77,29 @@ class Bundle_Controller extends Controller {
 		$listing->summary = Input::get('summary');
 		$listing->description = Input::get('description');
 		$listing->website = Input::get('website');
-		$listing->location = Input::get('clone_url');
+		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->user_id = 1;
 		$listing->uri = Str::slug($title, '_');
 		$listing->save();
 
-		// How do we get the id just inserted?
+		// Now save tags
+		$tag = new Tag;
+		$tag->save_tags($listing->id, Input::get('tags'));
+
+		// Now save dependencies
+		// @todo - This is nasty. Has to be a cleaner way.
+		// @todo - Also need to get the id by its title.
+		if ($depends = Input::get('dependencies'))
+		{
+			$dependencies = array();
+			foreach ($depends as $bundle)
+			{
+				DB::table('dependencies')->insert(array('bundle_id' => $listing->id, 'dependency_id' => $bundle->id));
+			}
+		}
+
 		var_dump($listing->id);die;
 	}
 

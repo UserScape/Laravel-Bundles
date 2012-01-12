@@ -13,5 +13,4 @@ Autoloader::psr(APP_PATH.'models');
 
 Autoloader::map(array(
 	'OAuth2' => APP_PATH.'libraries/oauth/OAuth2.php',
-	'Slug' => APP_PATH.'libraries/slug.php',
 ));

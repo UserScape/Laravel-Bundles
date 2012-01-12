@@ -8,42 +8,56 @@ class Tag extends Eloquent\Model {
 		return $this->has_many('Listing');
 	}
 
+	/**
+	 * Save tags
+	 *
+	 * Saves the tags for a bundle
+	 *
+	 * @param int $id
+	 * @param array $tags
+	 * @return bool
+	 */
 	public function save_tags($id, $tags)
 	{
-		// First remove old
-		$affected = DB::table('bundle_tags')->where('bundle_id', '=', $id)->delete();
+		// First remove any existing tags for this bundle
+		DB::table('bundle_tags')->where('bundle_id', '=', $id)->delete();
 
 		if ( ! is_array($tags))
 		{
-			return FALSE; // No tags
+			return false; // No tags
 		}
 
 		foreach ($tags AS $key => $tag)
 		{
 			$tag_id = $this->add_tag($tag);
-			$data = array('tags_tag_id' => $tag_id, 'tags_media_id' => $id);
-			$this->db->insert('media_tags', $data);
+			$data = array('tag_id' => $tag_id, 'bundle_id' => $id);
+			DB::table('bundle_tags')->insert($data);
 		}
 
-		return TRUE;
+		return true;
 	}
 
+	/**
+	 * Add tag
+	 *
+	 * Adds a new tag if an existing one is not found.
+	 *
+	 * @param string $tag
+	 * @return int id
+	 */
 	public function add_tag($tag)
 	{
-		$tag_check = parent::where('tag', '=', $tag)->first();
+		$tag_check = static::query('Tag')->where('tag', '=', $tag)->first();
 
-		var_dump($tag_check);die;
-		$this->db->from('tags')->where('tag', $tag);
-		$query = $this->db->get();
-
-		if ($query->num_rows() > 0)
+		if ( ! is_null($tag_check))
 		{
-			$row = $query->row();
-			return $row->id;
+			return $tag_check->id;
 		}
 
-		$this->db->insert('tags', array('tag' => $tag));
+		$tag = new static(array('tag' => $tag));
 
-		return $this->db->insert_id();
+		$tag->save();
+
+		return $tag->id;
 	}
 }
