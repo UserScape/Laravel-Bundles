@@ -17,6 +17,11 @@ class Listing extends Eloquent\Model {
 
 	public function tags()
 	{
-		return $this->has_and_belongs_to_many('Tag');
+		return $this->has_and_belongs_to_many('Tag', 'bundle_tags', 'bundle_id');
+	}
+
+	public function dependencies()
+	{
+		return $this->has_many('Dependency', 'bundle_id');
 	}
 }

@@ -12,4 +12,5 @@ Autoloader::map(array(
 	'Category' => APP_PATH.'models/category.php',
 	'Listing' => APP_PATH.'models/listing.php',
 	'Tag' => APP_PATH.'models/tag.php',
+	'Dependency' => APP_PATH.'models/dependency.php',
 ));

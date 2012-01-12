@@ -43,6 +43,28 @@
 Router::register('GET /category/(:any)', 'category@detail');
 
 
+Router::register('GET /api/(:any)', function($item)
+{
+	$output = array();
+	if ($bundle = Listing::find($item))
+	{
+		$dependencies = array();
+		foreach ($bundle->dependencies AS $dependency)
+		{
+			$dependencies[] = $dependency->dependency_id;
+		}
+
+		$output = array(
+			'name' => $bundle->title,
+			'provider' => $bundle->provider,
+			'location' => $bundle->clone_url,
+			'dependencies' => $dependencies
+		);
+	}
+
+	return $output;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Route Filters
