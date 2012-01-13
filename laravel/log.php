@@ -27,15 +27,21 @@ class Log {
 	/**
 	 * Write a message to the log file.
 	 *
+	 * <code>
+	 *		// Write an "error" messge to the log file
+	 *		Log::write('error', 'Something went horribly wrong!');
+	 *
+	 *		// Write an "error" message using the class' magic method
+	 *		Log::error('Something went horribly wrong!');
+	 * </code>
+	 *
 	 * @param  string  $type
 	 * @param  string  $message
 	 * @return void
 	 */
 	public static function write($type, $message)
 	{
-		$type = Str::upper($type);
-
-		$message = date('Y-m-d H:i:s')." {$type} - {$message}".PHP_EOL;
+		$message = date('Y-m-d H:i:s').' '.Str::upper($type)." - {$message}".PHP_EOL;
 
 		File::append(STORAGE_PATH.'logs/'.date('Y-m').'.log', $message);
 	}

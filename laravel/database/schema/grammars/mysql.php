@@ -77,7 +77,7 @@ class MySQL extends Grammar {
 			// Each of the data type's have their own definition creation method,
 			// which is responsible for creating the SQL for the type. This lets
 			// us to keep the syntax easy and fluent, while translating the
-			// types to the types used by the database system.
+			// types to the types used by the database.
 			$sql = $this->wrap($column).' '.$this->type($column);
 
 			$elements = array('nullable', 'defaults', 'incrementer');
@@ -221,15 +221,12 @@ class MySQL extends Grammar {
 	 */
 	public function drop_column(Table $table, Fluent $command)
 	{
-		$columns = array_map(array($this, 'wrap'), $command->columns);
-
-		$columns = implode(', ', array_map(function($column)
+		foreach ($command->columns as $column)
 		{
-			return 'DROP '.$column;
+			$sql[] = 'ALTER TABLE '.$this->wrap($table).' DROP '.$this->wrap($column);
+		}
 
-		}, $columns));
-
-		return 'ALTER TABLE '.$this->wrap($table).' '.$columns;
+		return $sql;
 	}
 
 	/**

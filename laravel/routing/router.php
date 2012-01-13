@@ -142,22 +142,9 @@ class Router {
 		// If we can't find a literal match, we'll iterate through all of
 		// the registered routes attempting to find a matching route that
 		// uses wildcards or regular expressions.
-		//
-		// Since routes that don't use wildcards or regular expressions
-		// should have been caught by the literal route check, we will
-		// only check routes that have a parentheses, indicating that
-		// there are wildcards or regular expressions.
-		foreach (static::$routes as $route => $action)
+		if ( ! is_null($route = static::search($destination)))
 		{
-			if (strpos($route, '(') !== false)
-			{
-				if (preg_match('#^'.static::wildcards($route).'$#', $destination))
-				{
-					$parameters = static::parameters($destination, $route);
-
-					return new Route($route, $action, $parameters);
-				}
-			}
+			return $route;
 		}
 
 		// If there are no literal matches and no routes that match the
@@ -167,6 +154,30 @@ class Router {
 		$segments = array_diff(explode('/', trim($uri, '/')), array(''));
 
 		return static::controller(DEFAULT_BUNDLE, $method, $destination, $segments);
+	}
+
+	/**
+	 * Attempt to match a destination to one of the registered routes.
+	 *
+	 * @param  string  $destination
+	 * @return Route
+	 */
+	protected static function search($destination)
+	{
+		foreach (static::$routes as $route => $action)
+		{
+			// Since routes that don't use wildcards or regular expressions
+			// should have been caught by the literal route check, we will
+			// only check routes that have a parentheses, indicating that
+			// there are wildcards or regular expressions.
+			if (strpos($route, '(') !== false)
+			{
+				if (preg_match('#^'.static::wildcards($route).'$#', $destination, $parameters))
+				{
+					return new Route($route, $action, array_slice($parameters, 1));
+				}
+			}
+		}
 	}
 
 	/**
@@ -278,37 +289,5 @@ class Router {
 
 		return str_replace(array_keys(static::$patterns), array_values(static::$patterns), $key);
 	}
-
-	/**
-	 * Extract the parameters from a URI based on a route URI.
-	 *
-	 * Any route segment wrapped in parentheses is considered a parameter.
-	 *
-	 * @param  string  $uri
-	 * @param  string  $route
-	 * @return array
-	 */
-	protected static function parameters($uri, $route)
-	{
-		list($uri, $route) = array(explode('/', $uri), explode('/', $route));
-
-		$count = count($route);
-
-		$parameters = array();
-
-		// To find the parameters that should be passed into the route, we will
-		// iterate through the route segments, and if the segment is enclosed
-		// in parentheses, we'll take the matching segment from the request
-		// URI and add it to the array of parameters.
-		for ($i = 0; $i < $count; $i++)
-		{
-			if (preg_match('/\(.+\)/', $route[$i]) and isset($uri[$i]))
-			{
-				$parameters[] = $uri[$i];
-			}
-		}
-
-		return $parameters;
-	}	
 
 }

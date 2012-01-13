@@ -69,7 +69,7 @@ class SQLServer extends Grammar {
 			// Each of the data type's have their own definition creation method,
 			// which is responsible for creating the SQL for the type. This lets
 			// us to keep the syntax easy and fluent, while translating the
-			// types to the types used by the database system.
+			// types to the types used by the database.
 			$sql = $this->wrap($column).' '.$this->type($column);
 
 			$elements = array('incrementer', 'nullable', 'defaults');
@@ -168,7 +168,8 @@ class SQLServer extends Grammar {
 
 		// SQL Server requires the creation of a full-text "catalog" before
 		// creating a full-text index, so we'll first create the catalog
-		// then add another statement for the index.
+		// then add another statement for the index. The catalog will
+		// be updated automatically by the server.
 		$sql[] = "CREATE FULLTEXT CATALOG {$command->catalog}";
 
 		$create =  "CREATE FULLTEXT INDEX ON ".$this->wrap($table)." ({$columns}) ";
@@ -176,7 +177,7 @@ class SQLServer extends Grammar {
 		// Full-text indexes must specify a unique, non-nullable column as
 		// the index "key" and this should have been created manually by
 		// the developer in a separate column addition command, so we
-		// can just specify the name in this statement.
+		// can just specify it in this statement.
 		$sql[] = $create .= "KEY INDEX {$command->key} ON {$command->catalog}";
 
 		return $sql;
@@ -232,15 +233,12 @@ class SQLServer extends Grammar {
 	 */
 	public function drop_column(Table $table, Fluent $command)
 	{
-		$columns = array_map(array($this, 'wrap'), $command->columns);
-
-		$columns = implode(', ', array_map(function($column)
+		foreach ($command->columns as $column)
 		{
-			return 'DROP '.$column;
+			$sql[] = 'ALTER TABLE '.$this->wrap($table).' DROP '.$this->wrap($column);
+		}
 
-		}, $columns));
-
-		return 'ALTER TABLE '.$this->wrap($table).' '.$columns;
+		return $sql;
 	}
 
 	/**

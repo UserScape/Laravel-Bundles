@@ -43,8 +43,6 @@ class Event {
 	/**
 	 * Fire an event so that all listeners are called.
 	 *
-	 * The responses from the events will be returned in an array.
-	 *
 	 * <code>
 	 *		// Fire the "start" event
 	 *		$responses = Event::fire('start');

@@ -80,7 +80,7 @@ class Command {
 
 		// First we'll check to see if the task has been registered in
 		// the application IoC container. This allows dependencies to
-		// be injected into tasks for greater testability.
+		// be injected into tasks for more testability.
 		if (IoC::registered("task: {$identifier}"))
 		{
 			return IoC::resolve("task: {$identifier}");
@@ -90,10 +90,10 @@ class Command {
 		{
 			require $path;
 
-			// Task names are formatted similarly to controllers. "_Task" is appended
-			// to the class name, and the bundle is prefixed onto the class name.
-			// Tasks are not namespaced so we can maintain the convenience of
-			// not having to escape out to the global namespace.
+			// We append "_Task" to the class name so the developer doesn't have
+			// to escape out to the global namespace everytime they want to use
+			// one of the Laravel classes. Even though namespaces are supported
+			// this is much more convenient for coding.
 			$bundle = Bundle::class_prefix($bundle);
 
 			$task = '\\'.$bundle.Str::classify($task).'_Task';

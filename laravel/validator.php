@@ -415,11 +415,16 @@ class Validator {
 	 */
 	protected function validate_unique($attribute, $value, $parameters)
 	{
-		if ( ! isset($parameters[1])) $parameters[1] = $attribute;
-
 		if (is_null($this->db)) $this->db = Database::connection();
 
-		return $this->db->table($parameters[0])->where($parameters[1], '=', $value)->count() == 0;
+		$query = $this->db->table($parameters[0])->where($attribute, '=', $value);
+
+		if (isset($parameters[1]))
+		{
+			$query->where('id', '<>', $parameters[1]);
+		}
+
+		return $query->count() == 0;
 	}
 
 	/**
