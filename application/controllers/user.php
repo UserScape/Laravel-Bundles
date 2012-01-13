@@ -45,8 +45,13 @@ class User_Controller extends Controller {
 				$user->email = $github_user['email'];
 				$user->ip_address = Request::ip();
 				$user->github_uid = $github_user['uid'];
-				$user->github_token = $params->access_token;
+				$user->github_token = Crypter::encrypt($params->access_token);
 				$user->save();
+
+				if (Auth::attempt($github_user['nickname'], $params->access_token))
+				{
+					return Redirect::to('');
+				}
 			}
 			catch (Exception $e)
 			{
