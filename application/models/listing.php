@@ -23,6 +23,6 @@ class Listing extends Eloquent\Model {
 
 	public function dependencies()
 	{
-		return $this->has_many('Dependency', 'bundle_id');
+		return $this->has_and_belongs_to_many('Listing', 'dependencies', 'bundle_id', 'dependency_id');
 	}
 }
