@@ -43,20 +43,6 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_add()
 	{
-		// Get the tags
-		// This will not be used here. But on the edit page.
-		/*
-		$tag_query = Tag::where('tag', 'like', Input::get('term').'%')->get();
-		$tags = array();
-		foreach ($tag_query as $key => $tag)
-		{
-			$tags[$key] = $tag->tag;
-		}
-
-		return View::make('layouts.default')
-			->nest('content', 'bundles.add')
-			->with('tags', $tags);
-		*/
 		return View::make('layouts.default')
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories
