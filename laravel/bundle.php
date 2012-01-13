@@ -54,7 +54,7 @@ class Bundle {
 		// start script for reverse routing efficiency purposes.
 		static::routes($bundle);
 
-		static::$started[] = $bundle;
+		static::$started[] = strtolower($bundle);
 	}
 
 	/**
@@ -71,7 +71,6 @@ class Bundle {
 		{
 			require $path;
 		}
-
 	}
 
 	/**
