@@ -17,6 +17,12 @@ class Create_Categories {
 			$table->string('uri');
 			$table->text('description');
 		});
+
+		DB::table('categories')->insert(array('title' => 'Authentication', 'uri' => 'authentication'));
+		DB::table('categories')->insert(array('title' => 'Api', 'uri' => 'api'));
+		DB::table('categories')->insert(array('title' => 'HTML/UI', 'uri' => 'html-ui'));
+		DB::table('categories')->insert(array('title' => 'Database', 'uri' => 'database'));
+		DB::table('categories')->insert(array('title' => 'Security', 'uri' => 'security'));
 	}
 
 	/**
