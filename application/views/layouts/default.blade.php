@@ -25,7 +25,13 @@
 							<input type="text" placeholder="Search">
 						</form>
 						<ul class="secondary-nav">
-							<li class="login"><a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a></li>
+							<li class="login">
+								@if (Auth::check())
+								You are logged in
+								@else
+								<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
+								@endif
+							</li>
 						</ul>
 					</div>
 				</div><!-- /topbar-inner -->
