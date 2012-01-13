@@ -5,6 +5,12 @@ class Category extends Eloquent\Model {
 
 	public static $per_page = 10;
 
+	/**
+	 * Find a category
+	 *
+	 * @param mixed $id - int or string
+	 * @return mixed
+	 */
 	public static function find($id)
 	{
 		if (is_numeric($id))
@@ -17,6 +23,11 @@ class Category extends Eloquent\Model {
 		}
 	}
 
+	/**
+	 * Get bundles in a category
+	 *
+	 * @return mixed
+	 */
 	public function bundles()
 	{
 		return $this->has_many('Listing');
