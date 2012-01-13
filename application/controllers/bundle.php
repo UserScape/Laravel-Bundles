@@ -168,17 +168,19 @@ class Bundle_Controller extends Controller {
 
 
 	/**
-	 * Add a bundle
+	 * Edit a bundle
 	 *
-	 * This handles the posted data from the get_add method above.
+	 * This handles the posted data from the get_edit method above.
 	 *
+	 * @param int $id
+	 * @return void Redirects based on status.
 	 */
 	public function post_edit($id = '')
 	{
+		// Make sure we are valid.
 		if ( ! is_numeric($id))
 		{
-			// @todo - 404 this.
-			die('you messed up.');
+			return Response::error('404');
 		}
 
 		Input::flash();
