@@ -132,12 +132,11 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_detail($item = '')
 	{
-		if ($item == '')
+		if ( ! $bundle = Listing::find($item))
 		{
 			return Response::error('404');
 		}
 
-		$bundle = Listing::find($item);
 		return View::make('layouts.default')
 			->nest('content', 'bundles.detail', array(
 				'bundle' => $bundle
