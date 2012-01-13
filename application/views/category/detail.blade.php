@@ -7,15 +7,17 @@
 
 
 	@if (count($bundles) > 0)
-		<table>
+		<table class="bordered-table zebra-striped">
 			<tr>
 				<th>#</th>
 				<th>Title</th>
+				<th>Summary</th>
 			</tr>
 			@foreach ($bundles->results as $bundle)
 				<tr>
 					<td>{{$bundle->id}}</td>
 					<td><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></td>
+					<td>{{$bundle->summary}}</td>
 				</tr>
 			@endforeach
 		</table>

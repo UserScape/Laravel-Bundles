@@ -7,6 +7,7 @@ View::composer('layouts.default', function($view)
 	// Asset::add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js');
 	Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
 	Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+	Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
 });
 
 Autoloader::psr(APP_PATH.'models');

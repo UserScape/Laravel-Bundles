@@ -59,29 +59,30 @@
 			</footer>
 		</div>
 
-		<script>
-			var SITE_URL = "<?php echo URL::to(); ?>";
-			var BASE_URL = "<?php echo URL::base(); ?>";
-			@if (isset($tags) AND is_array($tags))
-				var initialTags = [
-					@foreach ($tags as $tag)
-						"{{$tag}}",
-					@endforeach
-				];
-			@else
-				var initialTags = [];
-			@endif
+<script>
+var SITE_URL = "<?php echo URL::to(); ?>";
+var BASE_URL = "<?php echo URL::base(); ?>";
+@if (isset($tags) AND is_array($tags))
+	var initialTags = [
+		@foreach ($tags as $tag)
+			"{{$tag}}",
+		@endforeach
+	];
+@else
+	var initialTags = [];
+@endif
 
-			@if (isset($dependencies) AND is_array($dependencies))
-				var initialDependenciesTags = [
-					@foreach ($dependencies as $item)
-						"{{$item}}",
-					@endforeach
-				];
-			@else
-				var initialDependenciesTags = [];
-			@endif
-		</script>
+@if (isset($dependencies) AND is_array($dependencies))
+	var initialDependenciesTags = [
+		@foreach ($dependencies as $item)
+			"{{$item}}",
+		@endforeach
+	];
+@else
+	var initialDependenciesTags = [];
+@endif
+</script>
 		{{Asset::scripts()}}
+		<script>$(function () { prettyPrint() })</script>
 	</body>
 </html>
