@@ -48,6 +48,7 @@ Autoloader::$mappings = array(
 	'Laravel\\Cookie' => SYS_PATH.'cookie'.EXT,
 	'Laravel\\Crypter' => SYS_PATH.'crypter'.EXT,
 	'Laravel\\Database' => SYS_PATH.'database'.EXT,
+	'Laravel\\Error' => SYS_PATH.'error'.EXT,
 	'Laravel\\Event' => SYS_PATH.'event'.EXT,
 	'Laravel\\File' => SYS_PATH.'file'.EXT,
 	'Laravel\\Fluent' => SYS_PATH.'fluent'.EXT,
