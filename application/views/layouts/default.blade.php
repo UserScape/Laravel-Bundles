@@ -62,6 +62,18 @@
 						"{{$tag}}",
 					@endforeach
 				];
+			@else
+				var initialTags = [];
+			@endif
+
+			@if (isset($dependencies) AND is_array($dependencies))
+				var initialDependenciesTags = [
+					@foreach ($dependencies as $item)
+						"{{$item}}",
+					@endforeach
+				];
+			@else
+				var initialDependenciesTags = [];
 			@endif
 		</script>
 		{{Asset::scripts()}}
