@@ -2,10 +2,26 @@
 
 class Bundle_Controller extends Controller {
 
+	/**
+	 * Tell Laravel we want this class restful. See:
+	 * http://laravel.com/docs/start/controllers#restful
+	 *
+	 * @param bool
+	 */
 	public $restful = true;
 
+	/**
+	 * Array of categories. Used in the forms.
+	 *
+	 * @param array
+	 */
 	protected $categories = array();
 
+	/**
+	 * Construct
+	 *
+	 * Pull out needed items and assign assets.
+	 */
 	public function __construct()
 	{
 		Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
@@ -17,6 +33,12 @@ class Bundle_Controller extends Controller {
 		}
 	}
 
+	/**
+	 * Add a bundle
+	 *
+	 * Create the add bundle form which will send the posted
+	 * data to the post_add method.
+	 */
 	public function get_add()
 	{
 		// Get the tags
@@ -39,6 +61,13 @@ class Bundle_Controller extends Controller {
 			));
 	}
 
+
+	/**
+	 * Add a bundle
+	 *
+	 * This handles the posted data from the get_add method above.
+	 *
+	 */
 	public function post_add()
 	{
 		Input::flash();
@@ -59,18 +88,8 @@ class Bundle_Controller extends Controller {
 			return Redirect::to('bundle/add')->with_errors($validator);
 		}
 
-		if ($depends = Input::get('dependencies'))
-		{
-			$dependencies = array();
-			foreach ($depends as $bundle)
-			{
-				var_dump($bundle);
-				//DB::table('dependencies')->insert(array('bundle_id' => $listing->id, 'dependency_id' => $bundle->id));
-			}
-		}
-		die;
-
 		$title = Input::get('title');
+		$uri = Str::slug($title, '_');
 
 		$listing = new Listing;
 		$listing->title = $title;
@@ -80,8 +99,8 @@ class Bundle_Controller extends Controller {
 		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
-		$listing->user_id = 1;
-		$listing->uri = Str::slug($title, '_');
+		$listing->user_id = 1; //@todo - Get user id from auth
+		$listing->uri = $uri;
 		$listing->save();
 
 		// Now save tags
@@ -89,18 +108,20 @@ class Bundle_Controller extends Controller {
 		$tag->save_tags($listing->id, Input::get('tags'));
 
 		// Now save dependencies
-		// @todo - This is nasty. Has to be a cleaner way.
-		// @todo - Also need to get the id by its title.
-		if ($depends = Input::get('dependencies'))
+		if ($dependencies = Input::get('dependencies'))
 		{
-			$dependencies = array();
-			foreach ($depends as $bundle)
+			foreach ($dependencies as $dependency)
 			{
+				$bundle = Listing::where('title', '=', $dependency)->first();
+				if (is_null($bundle))
+				{
+					continue;
+				}
 				DB::table('dependencies')->insert(array('bundle_id' => $listing->id, 'dependency_id' => $bundle->id));
 			}
 		}
 
-		var_dump($listing->id);die;
+		return Redirect::to('bundle/detail/'.$uri);
 	}
 
 	/**
