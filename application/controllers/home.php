@@ -36,6 +36,11 @@ class Home_Controller extends Controller {
 
 	public function action_index()
 	{
+		if (Auth::check())
+		{
+			echo "You're logged in!";
+		}
+
 		return View::make('layouts.default')
 			->nest('content', 'home.index', array('name' => 'Taylor'));
 	}
