@@ -18,8 +18,8 @@
 					<div class="container">
 						<h3><a href="#">Laravel Bundles</a></h3>
 						<ul class="nav">
-							<li class="active"><a href="#">Home</a></li>
-							<li><a href="<?php echo URL::to('bundle/add'); ?>">Add Bundle</a></li>
+							<li class="active"><a href="{{URL::to()}}">Home</a></li>
+							<li><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
 						</ul>
 						<form class="pull-left" action="">
 							<input type="text" placeholder="Search">
