@@ -3,7 +3,7 @@ class Tag extends Eloquent\Model {
 
 	public static $table = 'tags';
 
-	public static $per_page = 10;
+	public static $per_page = 1;
 
 	/**
 	 * Find a tag

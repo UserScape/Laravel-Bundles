@@ -3,6 +3,8 @@ class Category extends Eloquent\Model {
 
 	public static $table = 'categories';
 
+	public static $per_page = 10;
+
 	public static function find($id)
 	{
 		if (is_numeric($id))
