@@ -15,7 +15,7 @@
 <ul class="tags">
 	<li class="first">Tagged:</li>
 	@foreach ($bundle->tags as $tag)
-		<li>{{HTML::link('search/tag/'.$tag->uri, $tag->tag)}}</li>
+		<li>{{HTML::link('search/tag/'.$tag->tag, $tag->tag)}}</li>
 	@endforeach
 </ul>
 @endif
