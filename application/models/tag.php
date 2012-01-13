@@ -3,9 +3,32 @@ class Tag extends Eloquent\Model {
 
 	public static $table = 'tags';
 
+	public static $per_page = 10;
+
+	/**
+	 * Find a tag
+	 *
+	 * @param mixed $id - Either int or string
+	 * @return mixed
+	 */
+	public static function find($id)
+	{
+		if (is_numeric($id))
+		{
+			return parent::find($id);
+		}
+		else
+		{
+			return parent::where('tag', '=', $id)->first();
+		}
+	}
+
+	/**
+	 * Get bundles by tag
+	 */
 	public function bundles()
 	{
-		return $this->has_many('Listing');
+		return $this->has_and_belongs_to_many('Listing', 'bundle_tags', null, 'bundle_id');
 	}
 
 	/**
