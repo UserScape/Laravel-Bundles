@@ -2,8 +2,10 @@
 
 <p>{{$bundle->description}}</p>
 
-<h2>Installation</h2>
-<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->uri}}</pre>
+<div class="installation">
+	<h2>Installation</h2>
+	<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->uri}}</pre>
+</div>
 
 @if (count($bundle->dependencies) > 0)
 <ul class="tags">
