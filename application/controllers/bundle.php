@@ -77,7 +77,7 @@ class Bundle_Controller extends Controller {
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '_');
+		$uri = Str::slug($title, '-');
 
 		$listing = new Listing;
 		$listing->title = $title;
@@ -92,23 +92,12 @@ class Bundle_Controller extends Controller {
 		$listing->save();
 
 		// Now save tags
-		$tag = new Tag;
-		$tag->save_tags($listing->id, Input::get('tags'));
+		$this->_save_tags($listing->id);
 
 		// Now save dependencies
-		if ($dependencies = Input::get('dependencies'))
-		{
-			foreach ($dependencies as $dependency)
-			{
-				$bundle = Listing::where('title', '=', $dependency)->first();
-				if (is_null($bundle))
-				{
-					continue;
-				}
-				DB::table('dependencies')->insert(array('bundle_id' => $listing->id, 'dependency_id' => $bundle->id));
-			}
-		}
+		$this->_save_dependencies($listing->id);
 
+		// Finally get us out of here.
 		return Redirect::to('bundle/detail/'.$uri);
 	}
 
@@ -191,7 +180,7 @@ class Bundle_Controller extends Controller {
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '_');
+		$uri = Str::slug($title, '-');
 
 		$listing = Listing::find($id);
 		$listing->title = $title;
@@ -206,24 +195,49 @@ class Bundle_Controller extends Controller {
 		$listing->save();
 
 		// Now save tags
-		$tag = new Tag;
-		$tag->save_tags($id, Input::get('tags'));
+		$this->_save_tags($id);
 
 		// Now save dependencies
-		if ($dependencies = Input::get('dependencies'))
-		{
-			foreach ($dependencies as $dependency)
-			{
-				$bundle = Listing::where('title', '=', $dependency)->first();
-				if (is_null($bundle))
-				{
-					continue;
-				}
-				DB::table('dependencies')->insert(array('bundle_id' => $id, 'dependency_id' => $bundle->id));
-			}
-		}
+		$this->_save_dependencies($id);
 
 		return Redirect::to('bundle/edit/'.$id)->with('message', 'success');
+	}
+
+	/**
+	 * Save Tags
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	private function _save_tags($id)
+	{
+		$tag = new Tag;
+		return $tag->save_tags($id, Input::get('tags'));
+	}
+
+	/**
+	 * Save Dependencies
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	private function _save_dependencies($id)
+	{
+		if ( ! $dependencies = Input::get('dependencies'))
+		{
+			return false;
+		}
+
+		foreach ($dependencies as $dependency)
+		{
+			$bundle = Listing::where('title', '=', $dependency)->first();
+			if (is_null($bundle))
+			{
+				continue;
+			}
+			DB::table('dependencies')->insert(array('bundle_id' => $id, 'dependency_id' => $bundle->id));
+		}
+		return true;
 	}
 
 	/**
