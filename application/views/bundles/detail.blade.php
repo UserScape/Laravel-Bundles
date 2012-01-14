@@ -8,8 +8,8 @@
 </div>
 
 @if (count($bundle->dependencies) > 0)
-<ul class="tags">
-	<li class="first">Dependencies:</li>
+<h2>Dependencies:</h2>
+<ul>
 	@foreach ($bundle->dependencies as $dependency)
 		<li>{{HTML::link('bundle/detail/'.$dependency->uri, $dependency->title)}}</li>
 	@endforeach

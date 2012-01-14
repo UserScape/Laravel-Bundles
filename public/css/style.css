@@ -3386,8 +3386,18 @@ ul.tags li {
   color: #93A1A1;
 }
 
+/* line 55, ../src/_bundles.scss */
+#bundle.add .bundle_extras {
+  display: none;
+}
+
+/* line 60, ../src/_bundles.scss */
+#bundle.edit .info {
+  display: none;
+}
+
 /* Auto Complete */
-/* line 54, ../src/_bundles.scss */
+/* line 66, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3399,7 +3409,7 @@ ul.tags li {
   _margin: 0;
 }
 
-/* line 55, ../src/_bundles.scss */
+/* line 67, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3414,18 +3424,18 @@ ul.tags li {
   _overflow-x: hidden;
 }
 
-/* line 56, ../src/_bundles.scss */
+/* line 68, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 57, ../src/_bundles.scss */
+/* line 69, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 58, ../src/_bundles.scss */
+/* line 70, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

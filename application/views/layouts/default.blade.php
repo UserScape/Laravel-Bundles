@@ -9,7 +9,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 	</head>
-	<body>
+	<body id="{{URI::segment(1)}}" class="{{URI::segment(2, 'index')}}">
 
 		<!-- Navigation -->
 		<div class="topbar-wrapper" style="z-index: 5;">

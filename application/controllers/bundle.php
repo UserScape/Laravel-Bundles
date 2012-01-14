@@ -24,15 +24,41 @@ class Bundle_Controller extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->filter('before', array('auth'))
-                     ->only(array('add', 'edit'));
 		Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
+		$this->filter('before', array('auth'))
+			->only(array('add', 'edit'));
+		$this->_setup_github();
+
 		// Get the categories
 		$cats = Category::all();
 		foreach ($cats as $cat)
 		{
 			$this->categories[$cat->id] = $cat->title;
 		}
+	}
+
+	/**
+	 * Setup GitHub
+	 *
+	 * Includes the api and sets up the repo list
+	 */
+	private function _setup_github()
+	{
+		require_once APP_PATH.'libraries/Github/Autoloader.php';
+		Github_Autoloader::register();
+		$this->github = new Github_Client();
+
+		$this->repos = array();
+
+		if ($all_repos = $this->github->getRepoApi()->getUserRepos(Auth::user()->username))
+		{
+			// format repos into a select list
+			foreach ($all_repos as $repo)
+			{
+				$this->repos[$repo['name']] = $repo['name'];
+			}
+		}
+		sort($this->repos);
 	}
 
 	/**
@@ -45,10 +71,20 @@ class Bundle_Controller extends Controller {
 	{
 		return View::make('layouts.default')
 			->nest('content', 'bundles.form', array(
-				'categories' => $this->categories
+				'categories' => $this->categories,
+				'repos' => $this->repos,
 			));
 	}
 
+	/**
+	 * Get the repo data
+	 *
+	 * Uses the github api to pull in the repo info.
+	 */
+	public function post_repo()
+	{
+		return json_encode($this->github->getRepoApi()->show(Auth::user()->username, Input::get('repo')));
+	}
 
 	/**
 	 * Add a bundle
@@ -137,7 +173,8 @@ class Bundle_Controller extends Controller {
 		return View::make('layouts.default')
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
-				'bundle' => $bundle
+				'bundle' => $bundle,
+				'repos' => $this->repos,
 			))
 			->with('tags', $tags)
 			->with('dependencies', $dependencies);

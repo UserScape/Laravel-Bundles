@@ -34,70 +34,85 @@
 				</div><!-- /clearfix -->
 
 				<div class="clearfix">
-					<label for="xlInput">Clone URL</label>
+					<label for="normalSelect">Repo</label>
 					<div class="input">
-						<input class="xlarge error" id="xlInput" name="location" size="30" type="text" value="{{(Input::old('location') != null) ? Input::old('location') : $bundle->location}}">
+						<!-- @todo - Add this to the db -->
+						{{Form::select('repo', $repos, (Input::old('repo') != null) ? Input::old('repo') : $bundle->title, array('id' => 'repo'))}}
 					</div>
 				</div><!-- /clearfix -->
 
-				<div class="clearfix">
-					<label for="title">Title</label>
-					<div class="input">
-						<input class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $bundle->title}}">
-					</div>
-				</div><!-- /clearfix -->
-
-				<div class="clearfix">
-					<label for="summary">Summary</label>
-					<div class="input">
-						<textarea class="xxlarge" id="summary" name="summary" rows="5">{{(Input::old('summary') != null) ? Input::old('summary') : $bundle->summary}}</textarea>
-						<span class="help-block">
-							The summary will be displayed in the bundle list.
-						</span>
-					</div>
+				<div class="alert-message block-message info">
+					<p><strong>Note:</strong> Once you select your repo the details section will load</p>
 				</div>
 
-				<div class="clearfix">
-					<label for="description">Description</label>
-					<div class="input">
-						<textarea class="xxlarge" id="description" name="description" rows="8">{{(Input::old('description') != null) ? Input::old('description') : $bundle->description}}</textarea>
-						<span class="help-block">
-							The description is used on the bundle details page.
-						</span>
-					</div>
-				</div>
+				<div class="bundle_extras">
 
-				<div class="clearfix">
-					<label for="website">Website</label>
-					<div class="input">
-						<input class="xlarge" id="website" name="website" size="30" type="text" value="{{(Input::old('website') != null) ? Input::old('website') : $bundle->website}}">
-					</div>
-				</div><!-- /clearfix -->
+					<div class="clearfix">
+						<label for="xlInput">Clone URL</label>
+						<div class="input">
+							<input class="xlarge error" id="location" name="location" size="30" type="text" value="{{(Input::old('location') != null) ? Input::old('location') : $bundle->location}}">
+						</div>
+					</div><!-- /clearfix -->
 
-				<div class="clearfix">
-					<label for="category_id">Category</label>
-					<div class="input">
-						<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
-						{{Form::select('category_id', $categories, $selected, array('class' => 'mediumSelect'))}}
-					</div>
-				</div>
-				<div class="clearfix">
-					<label for="tags">Tags</label>
-					<div class="input">
-						<ul id="tags" class="tagit" name="tags[]"></ul>
-					</div>
-				</div><!-- /clearfix -->
+					<div class="clearfix">
+						<label for="title">Title</label>
+						<div class="input">
+							<input class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $bundle->title}}">
+						</div>
+					</div><!-- /clearfix -->
 
-				<div class="clearfix">
-					<label for="xlInput">Dependencies</label>
-					<div class="input">
-						<ul id="dependencies" class="tagit" name="dependencies[]"></ul>
+					<div class="clearfix">
+						<label for="summary">Summary</label>
+						<div class="input">
+							<textarea class="xxlarge" id="summary" name="summary" rows="5">{{(Input::old('summary') != null) ? Input::old('summary') : $bundle->summary}}</textarea>
+							<span class="help-block">
+								The summary will be displayed in the bundle list.
+							</span>
+						</div>
 					</div>
-				</div><!-- /clearfix -->
 
-				<div class="actions">
-					<input type="submit" class="btn primary" value="Save">&nbsp;
-					<button type="reset" class="btn">Cancel</button>
+					<div class="clearfix">
+						<label for="description">Description</label>
+						<div class="input">
+							<textarea class="xxlarge" id="description" name="description" rows="8">{{(Input::old('description') != null) ? Input::old('description') : $bundle->description}}</textarea>
+							<span class="help-block">
+								The description is used on the bundle details page.
+							</span>
+						</div>
+					</div>
+
+					<div class="clearfix">
+						<label for="website">Website</label>
+						<div class="input">
+							<input class="xlarge" id="website" name="website" size="30" type="text" value="{{(Input::old('website') != null) ? Input::old('website') : $bundle->website}}">
+						</div>
+					</div><!-- /clearfix -->
+
+					<div class="clearfix">
+						<label for="category_id">Category</label>
+						<div class="input">
+							<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
+							{{Form::select('category_id', $categories, $selected, array('class' => 'mediumSelect'))}}
+						</div>
+					</div>
+					<div class="clearfix">
+						<label for="tags">Tags</label>
+						<div class="input">
+							<ul id="tags" class="tagit" name="tags[]"></ul>
+						</div>
+					</div><!-- /clearfix -->
+
+					<div class="clearfix">
+						<label for="xlInput">Dependencies</label>
+						<div class="input">
+							<ul id="dependencies" class="tagit" name="dependencies[]"></ul>
+						</div>
+					</div><!-- /clearfix -->
+
+					<div class="actions">
+						<input type="submit" class="btn primary" value="Save">&nbsp;
+						<button type="reset" class="btn">Cancel</button>
+					</div>
 				</div>
 
 			</fieldset>
