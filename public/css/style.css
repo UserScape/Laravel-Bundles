@@ -3453,9 +3453,10 @@ ul.tags li {
 .ui-autocomplete .ui-menu-item {
   padding: 0;
   margin: 0;
+  float: none;
 }
 
-/* line 23, ../src/_tags.scss */
+/* line 24, ../src/_tags.scss */
 .ui-autocomplete .ui-menu-item a {
   display: block;
   padding: 4px 6px;
@@ -3467,7 +3468,7 @@ ul.tags li {
   color: #78959D;
 }
 
-/* line 36, ../src/_tags.scss */
+/* line 37, ../src/_tags.scss */
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
 .ui-autocomplete .ui-menu-item a.ui-state-active {
   background-color: #c0d1e2;
@@ -3475,12 +3476,12 @@ ul.tags li {
   border-color: #a6cef7;
 }
 
-/* line 42, ../src/_tags.scss */
+/* line 43, ../src/_tags.scss */
 .ui-autocomplete-loading {
   background: white url(../img/ui-anim_basic_16x16.gif) right center no-repeat;
 }
 
-/* line 46, ../src/_tags.scss */
+/* line 47, ../src/_tags.scss */
 ul.tagit {
   cursor: text;
   overflow: auto;
@@ -3508,7 +3509,7 @@ ul.tagit {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* line 62, ../src/_tags.scss */
+/* line 63, ../src/_tags.scss */
 ul.tagit li {
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -3518,33 +3519,33 @@ ul.tagit li {
   position: relative;
 }
 
-/* line 71, ../src/_tags.scss */
+/* line 72, ../src/_tags.scss */
 ul.tagit li.tagit-choice {
   background-color: #DEE7F8;
   border: 1px solid #CAD8F3;
   padding: 2px 13px 3px 4px;
 }
 
-/* line 77, ../src/_tags.scss */
+/* line 78, ../src/_tags.scss */
 ul.tagit li.tagit-choice.selected {
   background-color: #f5b0b0;
   border-color: #f76464;
 }
 
-/* line 82, ../src/_tags.scss */
+/* line 83, ../src/_tags.scss */
 ul.tagit li.tagit-choice:hover {
   background-color: #bbcef1;
   border-color: #6d95e0;
 }
 
-/* line 87, ../src/_tags.scss */
+/* line 88, ../src/_tags.scss */
 ul.tagit li.tagit-new {
   padding: 2px 4px 3px;
   padding: 2px 4px 1px;
   padding: 2px 4px 1px 0;
 }
 
-/* line 93, ../src/_tags.scss */
+/* line 94, ../src/_tags.scss */
 ul.tagit li.tagit-choice input {
   display: block;
   float: left;
@@ -3553,7 +3554,7 @@ ul.tagit li.tagit-choice input {
   padding-bottom: 2px;
 }
 
-/* line 101, ../src/_tags.scss */
+/* line 102, ../src/_tags.scss */
 ul.tagit li.tagit-choice a.tagit-close {
   color: #777777;
   cursor: pointer;
@@ -3569,12 +3570,12 @@ ul.tagit li.tagit-choice a.tagit-close {
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-/* line 116, ../src/_tags.scss */
+/* line 117, ../src/_tags.scss */
 ul.tagit li.tagit-choice a.tagit-close:hover {
   color: #535353;
 }
 
-/* line 120, ../src/_tags.scss */
+/* line 121, ../src/_tags.scss */
 ul.tagit input[type="text"] {
   -moz-box-sizing: border-box;
   -webkit-box-shadow: none;
@@ -3585,7 +3586,7 @@ ul.tagit input[type="text"] {
   outline: none;
 }
 
-/* line 130, ../src/_tags.scss */
+/* line 131, ../src/_tags.scss */
 .tagit-hiddenSelect {
   display: none;
 }
