@@ -22,8 +22,8 @@ class User_Controller extends Controller {
 
 		// @todo - Move these to config.
 		$provider = OAuth2::provider($provider, array(
-			'id' => '5cadb2b49f5975a8760a',
-			'secret' => '265ea9eb57184a294e8fa61766e16c47e4f9b130',
+			'id' => Config::get('github.'.$id),
+			'secret' => Config::get('github.'.$secret),
 		));
 
 		if ( ! isset($_GET['code']))
@@ -38,19 +38,31 @@ class User_Controller extends Controller {
 				$params = $provider->access($_GET['code']);
 				$github_user = $provider->get_user_info($params);
 
-				// Save the user data
-				$user = new User;
-				$user->username = $github_user['nickname'];
-				$user->name = $github_user['name'];
-				$user->email = $github_user['email'];
-				$user->ip_address = Request::ip();
-				$user->github_uid = $github_user['uid'];
-				$user->github_token = Crypter::encrypt($params->access_token);
-				$user->save();
+				// Save or update the user data
+				if ($existing = User::where('username', '=', $github_user['nickname'])->first())
+				{
+					$existing->name = $github_user['name'];
+					$existing->email = $github_user['email'];
+					$existing->ip_address = Request::ip();
+					$existing->github_uid = $github_user['uid'];
+					$existing->github_token = Crypter::encrypt($params->access_token);
+					$existing->save();
+				}
+				else
+				{
+					$user = new User;
+					$user->username = $github_user['nickname'];
+					$user->name = $github_user['name'];
+					$user->email = $github_user['email'];
+					$user->ip_address = Request::ip();
+					$user->github_uid = $github_user['uid'];
+					$user->github_token = Crypter::encrypt($params->access_token);
+					$user->save();
+				}
 
 				if (Auth::attempt($github_user['nickname'], $params->access_token))
 				{
-					return Redirect::to('');
+					return Redirect::to('/');
 				}
 			}
 			catch (Exception $e)
