@@ -27,7 +27,6 @@ class Bundle_Controller extends Controller {
 		Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
 		$this->filter('before', array('auth'))
 			->only(array('add', 'edit'));
-		$this->_setup_github();
 
 		// Get the categories
 		$cats = Category::all();
@@ -69,6 +68,7 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_add()
 	{
+		$this->_setup_github();
 		return View::make('layouts.default')
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
@@ -150,6 +150,8 @@ class Bundle_Controller extends Controller {
 		{
 			return Response::error('404');
 		}
+
+		$this->_setup_github();
 
 		// Get the tags and assign them to the layout for js.
 		$tag_query = Tag::where('tag', 'like', Input::get('term').'%')->get();
@@ -237,7 +239,9 @@ class Bundle_Controller extends Controller {
 		// Now save dependencies
 		$this->_save_dependencies($id);
 
-		return Redirect::to('bundle/edit/'.$id)->with('message', 'success');
+		return Redirect::to('bundle/edit/'.$id)
+			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
+			->with('message_class', 'success');
 	}
 
 	/**

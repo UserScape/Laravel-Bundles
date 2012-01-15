@@ -153,3 +153,13 @@ Filter::register('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
 });
+
+Filter::register('auth', function()
+{
+	if ( ! Auth::check())
+	{
+		return Redirect::to('/')
+			->with('message', '<strong>Error!</strong> You must be logged in to access that page.')
+			->with('message_class', 'error');
+	}
+});
