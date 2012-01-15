@@ -104,6 +104,13 @@
 						</div>
 					</div><!-- /clearfix -->
 
+					<div class="clearfix">
+					<label for="active">Active</label>
+					<div class="input">
+						{{Form::select('active', array('y' => 'Yes', 'n' => 'No'), (Input::old('active') != null) ? Input::old('active') : $bundle->active, array('id' => 'active'))}}
+					</div>
+				</div><!-- /clearfix -->
+
 					<div class="actions">
 						<input type="submit" class="btn primary" value="Save">&nbsp;
 						<button type="reset" class="btn">Cancel</button>

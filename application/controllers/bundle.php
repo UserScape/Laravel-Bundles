@@ -83,6 +83,7 @@ class Bundle_Controller extends Controller {
 	 */
 	public function post_repo()
 	{
+		$this->_setup_github();
 		return json_encode($this->github->getRepoApi()->show(Auth::user()->username, Input::get('repo')));
 	}
 
@@ -123,6 +124,7 @@ class Bundle_Controller extends Controller {
 		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
+		$listing->active = Input::get('active', 'n');
 		$listing->user_id = 1; //@todo - Get user id from auth
 		$listing->uri = $uri;
 		$listing->save();
@@ -229,6 +231,7 @@ class Bundle_Controller extends Controller {
 		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
+		$listing->active = Input::get('active', 'n');
 		$listing->user_id = 1; //@todo - Get user id from auth
 		$listing->uri = $uri;
 		$listing->save();
