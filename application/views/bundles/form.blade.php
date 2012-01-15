@@ -15,12 +15,6 @@
 		</ul>
 	@endif
 
-	@if (Session::get('message') == 'success')
-		<div class="alert-message success">
-			<p><strong>Saved!</strong> Your bundle has been saved.</p>
-		</div>
-	@endif
-
 	<div class="row">
 		{{Form::open()}}
 			<fieldset>
@@ -38,6 +32,7 @@
 					<div class="input">
 						<!-- @todo - Add this to the db -->
 						{{Form::select('repo', $repos, (Input::old('repo') != null) ? Input::old('repo') : $bundle->title, array('id' => 'repo'))}}
+						<span id="ajax-loader">{{HTML::image('img/ui-anim_basic_16x16.gif', 'Loading...')}}</span>
 					</div>
 				</div><!-- /clearfix -->
 

@@ -51,6 +51,7 @@
 					</ul>
 				</div>
 				<div class="span11">
+					{{View::make('partials.messages')->render()}}
 					{{$content}}
 				</div>
 			</div>
