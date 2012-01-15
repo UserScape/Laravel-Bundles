@@ -51,6 +51,11 @@ ul.tags {
 	}
 }
 
+#bundle {
+	#ajax-loader {
+		display: none;
+	}
+}
 #bundle.add {
 	.bundle_extras {
 		display: none;
