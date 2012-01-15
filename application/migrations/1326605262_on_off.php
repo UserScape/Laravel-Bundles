@@ -11,7 +11,7 @@ class On_Off {
 	{
 		Schema::table('bundles', function($table)
 		{
-			$table->string('active', 1);
+			$table->string('active', 1)->default('y');
 			$table->key('index', 'active');
 		});
 	}
