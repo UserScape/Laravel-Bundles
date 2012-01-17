@@ -2,7 +2,7 @@
 	<h1>{{Auth::user()->name}} Listings</h1>
 
 
-	@if (count($bundles) > 0)
+	@if (count($bundles->results) > 0)
 		<table class="table zebra-striped">
 			@foreach ($bundles->results as $bundle)
 				<tr class="status_{{$bundle->active}}">

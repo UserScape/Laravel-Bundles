@@ -1,5 +1,4 @@
-
-@if (count($bundles) > 0)
+@if (count($bundles->results) > 0)
 	<table class="table zebra-striped">
 		@foreach ($bundles->results as $bundle)
 			<tr>
