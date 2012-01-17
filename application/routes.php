@@ -116,6 +116,33 @@ Router::register('GET /dependencies', function(){
 	exit(json_encode($tags));
 });
 
+// ------------------------------------------------------------------------
+
+/**
+ * Rating
+ *
+ * Rate a listing
+ */
+Router::register('POST /rate', function(){
+
+	if ( ! Auth::check())
+	{
+		exit(json_encode(array('error' => 'You must be logged in')));
+	}
+
+	if ($listing = Listing::find(Input::get('id')))
+	{
+		// update the install log for record keeping.
+		$rating = new Rating;
+		$rating->listing_id = $listing->id;
+		$rating->user_id = Auth::user()->id;
+		$rating->ip_address = Request::ip();
+		$rating->save();
+		exit(json_encode(array('success' => 'true')));
+	}
+	exit(json_encode(array('error' => 'Could not save your rating.')));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Route Filters

@@ -3388,9 +3388,10 @@ ul.tags {
 /* line 55, ../src/_bundles.scss */
 ul.tags li.first {
   border-left: none;
-  padding-left: 0;
+  padding-left: 22px;
+  background: url(../img/tag.png) no-repeat left center;
 }
-/* line 59, ../src/_bundles.scss */
+/* line 60, ../src/_bundles.scss */
 ul.tags li {
   display: inline;
   padding: 5px;
@@ -3398,84 +3399,95 @@ ul.tags li {
   border-left: 1px solid #ebebeb;
 }
 
-/* line 68, ../src/_bundles.scss */
+/* line 69, ../src/_bundles.scss */
 .installation pre:before {
   content: " $ ";
   color: #93A1A1;
 }
 
 /* Add/Edit Bundles */
-/* line 76, ../src/_bundles.scss */
+/* line 77, ../src/_bundles.scss */
 #bundle #ajax-loader {
   display: none;
 }
 
-/* line 81, ../src/_bundles.scss */
+/* line 82, ../src/_bundles.scss */
 #bundle.add .bundle_extras {
   display: none;
 }
 
-/* line 86, ../src/_bundles.scss */
+/* line 87, ../src/_bundles.scss */
 #bundle.edit .info {
   display: none;
 }
 
 /* End */
 /* Bundle Details */
-/* line 94, ../src/_bundles.scss */
+/* line 95, ../src/_bundles.scss */
 #bundle.detail h1 {
   margin: 0;
+  font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 97, ../src/_bundles.scss */
+/* line 99, ../src/_bundles.scss */
+#bundle.detail .info {
+  border-right: 1px solid #ddd;
+  padding: 0 10px 0 0;
+}
+/* line 103, ../src/_bundles.scss */
 #bundle.detail .meta {
   margin: 0 0 20px 0;
   padding: 0;
-  color: #ccc;
+  /*@include border-radius(4px);
+  border: 1px solid #ddd;*/
 }
-/* line 102, ../src/_bundles.scss */
+/* line 109, ../src/_bundles.scss */
+#bundle.detail .meta li {
+  color: #111;
+}
+/* line 112, ../src/_bundles.scss */
 #bundle.detail .meta a {
   color: #ccc;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
 }
-/* line 107, ../src/_bundles.scss */
+/* line 117, ../src/_bundles.scss */
 #bundle.detail .meta a:hover {
   color: #ccc;
   border-bottom: none;
 }
 
 /* End */
-/* line 116, ../src/_bundles.scss */
+/* line 126, ../src/_bundles.scss */
 #home .grid .info {
   width: 290px;
 }
 
-/* line 124, ../src/_bundles.scss */
+/* line 134, ../src/_bundles.scss */
 table h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 127, ../src/_bundles.scss */
+/* line 137, ../src/_bundles.scss */
 table a {
   color: #222;
 }
-/* line 130, ../src/_bundles.scss */
+/* line 140, ../src/_bundles.scss */
 table .item:nth-child(even) {
   background-color: whiteSmoke;
 }
-/* line 133, ../src/_bundles.scss */
+/* line 143, ../src/_bundles.scss */
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
-/* line 136, ../src/_bundles.scss */
+/* line 146, ../src/_bundles.scss */
 table td.gravatar {
   width: 70px;
 }
-/* line 139, ../src/_bundles.scss */
+/* line 149, ../src/_bundles.scss */
 table img.gravatar {
   border: 1px solid #ccc;
   padding: 2px;
 }
-/* line 143, ../src/_bundles.scss */
+/* line 153, ../src/_bundles.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3483,17 +3495,22 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 150, ../src/_bundles.scss */
+/* line 160, ../src/_bundles.scss */
 table .meta {
   width: 50px;
 }
-/* line 153, ../src/_bundles.scss */
+/* line 163, ../src/_bundles.scss */
 table tr.status_n {
   opacity: 0.5;
 }
 
+/* line 168, ../src/_bundles.scss */
+.hide {
+  display: none;
+}
+
 /* Auto Complete */
-/* line 159, ../src/_bundles.scss */
+/* line 172, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3505,7 +3522,7 @@ table tr.status_n {
   _margin: 0;
 }
 
-/* line 160, ../src/_bundles.scss */
+/* line 173, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3520,18 +3537,18 @@ table tr.status_n {
   _overflow-x: hidden;
 }
 
-/* line 161, ../src/_bundles.scss */
+/* line 174, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 162, ../src/_bundles.scss */
+/* line 175, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 163, ../src/_bundles.scss */
+/* line 176, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

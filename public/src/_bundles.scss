@@ -54,7 +54,8 @@ ul.tags {
 	margin: 0;
 	li.first{
 		border-left: none;
-		padding-left: 0;
+		padding-left: 22px;
+		background: url(../img/tag.png) no-repeat left center;
 	}
 	li {
 		display: inline;
@@ -93,12 +94,21 @@ ul.tags {
 #bundle.detail {
 	h1 {
 		margin: 0;
+		font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
+	}
+	.info {
+		border-right: 1px solid #ddd;
+		padding: 0 10px 0 0;
 	}
 	.meta {
 		margin: 0 0 20px 0;
 		padding: 0;
-		color: #ccc;
+		/*@include border-radius(4px);
+		border: 1px solid #ddd;*/
 
+		li {
+			color: #111;
+		}
 		a {
 			color: #ccc;
 			text-decoration:none;
@@ -155,6 +165,9 @@ table {
 	}
 }
 
+.hide {
+	display: none;
+}
 /* Auto Complete */
 .autocomplete-w1 { background:url(../img/shadow.png) no-repeat bottom right; position:absolute; top:0px; left:0px; margin:8px 0 0 6px; /* IE6 fix: */ _background:none; _margin:0; }
 .autocomplete { border:1px solid #999; background:#FFF; cursor:default; text-align:left; max-height:350px; overflow:auto; margin:-6px 6px 6px -6px; /* IE6 specific: */ _height:350px;  _margin:0; _overflow-x:hidden; }

@@ -23,4 +23,26 @@ $(function() {
 			}
 		});
 	});
+	$('#rate').click(function(){
+		var id = $(this).attr('data-id');
+		$.ajax({
+			beforeSend: function() {
+				$('#rate').fadeOut();
+			},
+			type: "POST",
+			url: SITE_URL+'rate',
+			data: "id="+id,
+			dataType: "json",
+			success: function(resp) {
+				console.log(resp)
+				if (resp.success){
+					$('#msg_text').html('Thank you for rating.');
+					$('#msg_box').addClass('success').fadeIn();
+				} else {
+					$('#msg_text').html(resp.error);
+					$('#msg_box').addClass('info').fadeIn();
+				}
+			}
+		});
+	});
 });
