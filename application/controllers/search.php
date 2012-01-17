@@ -34,7 +34,7 @@ class Search_Controller extends Controller {
 		// need to reset select clause because eloquent sets select for many to
 		// many relationships
 		$model->query->selects = null;
-		$bundles = $model->paginate(1);
+		$bundles = $model->paginate(Config::get('application.per_page'));
 
 		return View::make('layouts.default')
 			->nest('content', 'category.detail', array(
