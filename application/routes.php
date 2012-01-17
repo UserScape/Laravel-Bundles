@@ -56,7 +56,7 @@ Router::register('GET /category/(:any)', 'category@detail');
 Router::register('GET /api/(:any)', function($item)
 {
 	$output = array();
-	if ($bundle = Listing::find($item))
+	if ($bundle = Listing::where_uri($item)->first())
 	{
 		$dependencies = array();
 		foreach ($bundle->dependencies AS $dependency)
@@ -70,6 +70,11 @@ Router::register('GET /api/(:any)', function($item)
 			'location' => $bundle->clone_url,
 			'dependencies' => $dependencies
 		);
+
+		// update the install log for record keeping.
+		$install = new Install;
+		$install->bundle_id = $bundle->id;
+		$install->save();
 	}
 
 	return $output;
