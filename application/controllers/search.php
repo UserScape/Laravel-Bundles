@@ -29,7 +29,7 @@ class Search_Controller extends Controller {
 			return Redirect::to('search');
 		}
 
-		$tag = Tag::where_uri($item);
+		$tag = Tag::where_tag($item)->first();
 		$model = $tag->bundles();
 		// need to reset select clause because eloquent sets select for many to
 		// many relationships
