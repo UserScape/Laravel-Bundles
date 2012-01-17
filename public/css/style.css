@@ -3487,9 +3487,13 @@ table .info {
 table .meta {
   width: 50px;
 }
+/* line 153, ../src/_bundles.scss */
+table tr.status_n {
+  opacity: 0.5;
+}
 
 /* Auto Complete */
-/* line 156, ../src/_bundles.scss */
+/* line 159, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3501,7 +3505,7 @@ table .meta {
   _margin: 0;
 }
 
-/* line 157, ../src/_bundles.scss */
+/* line 160, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3516,18 +3520,18 @@ table .meta {
   _overflow-x: hidden;
 }
 
-/* line 158, ../src/_bundles.scss */
+/* line 161, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 159, ../src/_bundles.scss */
+/* line 162, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 160, ../src/_bundles.scss */
+/* line 163, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

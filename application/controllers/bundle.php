@@ -294,9 +294,16 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_detail($item = '')
 	{
-		if ( ! $bundle = Listing::where_uri($item)->where_active('y')->first())
+		$bundle = Listing::where_uri($item)->first();
+
+		// This check is so the owner of the listing can
+		// still preview the item when it isn't active.
+		if ($bundle->active == 'n')
 		{
-			return Response::error('404');
+			if (Auth::user()->id != $bundle->user_id)
+			{
+				return Response::error('404');
+			}
 		}
 
 		return View::make('layouts.default')

@@ -72,4 +72,14 @@ class User_Controller extends Controller {
 			}
 		}
 	}
+
+	public function action_listings()
+	{
+		$bundles = Listing::where_user_id(Auth::user()->id)->paginate(Config::get('application.per_page'));
+		return View::make('layouts.default')
+			->nest('content', 'user.listings', array(
+				'category' => $category,
+				'bundles' => $bundles
+			));
+	}
 }
