@@ -7,6 +7,9 @@
 				<ul class="nav">
 					<li class="active"><a href="{{URL::to()}}">Home</a></li>
 					<li><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
+					@if (Auth::check())
+					<li><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
+					@endif
 				</ul>
 				<form class="pull-left" action="">
 					<input type="text" placeholder="Search Bundles">
@@ -14,7 +17,7 @@
 				<ul class="secondary-nav">
 					<li class="login">
 						@if (Auth::check())
-						You are logged in
+						<a class="" href="{{URL::to('user/profile')}}">Your Account</a>
 						@else
 						<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
 						@endif

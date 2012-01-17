@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<footer>
-				<p>&copy; 2012 Laravel</p>
+				<p>&copy; 2012 Userscape</p>
 			</footer>
 		</div>
 
