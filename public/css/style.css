@@ -3326,10 +3326,10 @@ $green:     #859900;
 
 /* line 1, ../src/_bundles.scss */
 body {
-  font-family: 'Ubuntu';
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   color: #6D6D6D;
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 /* line 7, ../src/_bundles.scss */
@@ -3353,26 +3353,44 @@ h1.main a, h1.main a:hover {
   text-decoration: none;
 }
 
-/* line 24, ../src/_bundles.scss */
-h2 {
-  font-family: 'Quattrocento';
-  font-size: 23px;
+/* line 27, ../src/_bundles.scss */
+.sidebar h2 {
+  font-size: 21px;
   color: #6D6D6D;
-  margin-bottom: 0;
+  margin: 0;
+}
+/* line 33, ../src/_bundles.scss */
+.sidebar ul {
+  margin: 0;
+}
+/* line 36, ../src/_bundles.scss */
+.sidebar li {
+  position: relative;
+  border-bottom: 1px solid #C4C4C4;
+  margin: 0;
+  padding: 5px;
+  display: block;
+  list-style-type: none;
+  cursor: pointer;
+}
+/* line 45, ../src/_bundles.scss */
+.sidebar li a {
+  display: block;
+  color: #333;
 }
 
-/* line 31, ../src/_bundles.scss */
+/* line 51, ../src/_bundles.scss */
 ul.tags {
   border-top: 1px solid #ebebeb;
   padding: 10px 0 0;
   margin: 0;
 }
-/* line 35, ../src/_bundles.scss */
+/* line 55, ../src/_bundles.scss */
 ul.tags li.first {
   border-left: none;
   padding-left: 0;
 }
-/* line 39, ../src/_bundles.scss */
+/* line 59, ../src/_bundles.scss */
 ul.tags li {
   display: inline;
   padding: 5px;
@@ -3380,29 +3398,63 @@ ul.tags li {
   border-left: 1px solid #ebebeb;
 }
 
-/* line 48, ../src/_bundles.scss */
+/* line 68, ../src/_bundles.scss */
 .installation pre:before {
   content: " $ ";
   color: #93A1A1;
 }
 
-/* line 55, ../src/_bundles.scss */
+/* line 75, ../src/_bundles.scss */
 #bundle #ajax-loader {
   display: none;
 }
 
-/* line 60, ../src/_bundles.scss */
+/* line 80, ../src/_bundles.scss */
 #bundle.add .bundle_extras {
   display: none;
 }
 
-/* line 65, ../src/_bundles.scss */
+/* line 85, ../src/_bundles.scss */
 #bundle.edit .info {
   display: none;
 }
 
+/* line 92, ../src/_bundles.scss */
+#home .grid .info {
+  width: 290px;
+}
+
+/* line 100, ../src/_bundles.scss */
+table h3 {
+  font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
+}
+/* line 103, ../src/_bundles.scss */
+table a {
+  color: #222;
+}
+/* line 106, ../src/_bundles.scss */
+table .item:nth-child(even) {
+  background-color: whiteSmoke;
+}
+/* line 109, ../src/_bundles.scss */
+table .item {
+  border-bottom: 1px solid #E5E5E5;
+}
+/* line 112, ../src/_bundles.scss */
+table .info {
+  float: left;
+  width: 350px;
+  margin-right: 12px;
+  position: relative;
+  top: -3px;
+}
+/* line 119, ../src/_bundles.scss */
+table .meta {
+  width: 50px;
+}
+
 /* Auto Complete */
-/* line 71, ../src/_bundles.scss */
+/* line 125, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3414,7 +3466,7 @@ ul.tags li {
   _margin: 0;
 }
 
-/* line 72, ../src/_bundles.scss */
+/* line 126, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3429,18 +3481,18 @@ ul.tags li {
   _overflow-x: hidden;
 }
 
-/* line 73, ../src/_bundles.scss */
+/* line 127, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 74, ../src/_bundles.scss */
+/* line 128, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 75, ../src/_bundles.scss */
+/* line 129, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

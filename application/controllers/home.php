@@ -36,7 +36,20 @@ class Home_Controller extends Controller {
 
 	public function action_index()
 	{
-		return View::make('layouts.default')
-			->nest('content', 'home.index', array('name' => 'Taylor'));
+		$latest = DB::table('bundles')
+			->where('active', '=', 'y')
+			->order_by('created_at', 'desc')
+			->take(10)
+			->get();
+
+		$categories = Category::all();
+
+		// var_dump(Laravel\Database\Connection::$queries);
+
+		return View::make('layouts.home')
+			->nest('content', 'home.index', array(
+				'latest' => $latest,
+				'categories' => $categories,
+			));
 	}
 }

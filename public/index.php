@@ -14,29 +14,34 @@
 define('LARAVEL_START', microtime(true));
 
 // --------------------------------------------------------------
+// Define the directory separator for the environment.
+// --------------------------------------------------------------
+define('DS', DIRECTORY_SEPARATOR);
+
+// --------------------------------------------------------------
 // The path to the application directory.
 // --------------------------------------------------------------
-define('APP_PATH', realpath('../application').'/');
+define('APP_PATH', realpath('../application').DS);
 
 // --------------------------------------------------------------
 // The path to the bundles directory.
 // --------------------------------------------------------------
-define('BUNDLE_PATH', realpath('../bundles').'/');
+define('BUNDLE_PATH', realpath('../bundles').DS);
 
 // --------------------------------------------------------------
 // The path to the storage directory.
 // --------------------------------------------------------------
-define('STORAGE_PATH', realpath('../storage').'/');
+define('STORAGE_PATH', realpath('../storage').DS);
 
 // --------------------------------------------------------------
 // The path to the Laravel directory.
 // --------------------------------------------------------------
-define('SYS_PATH', realpath('../laravel').'/');
+define('SYS_PATH', realpath('../laravel').DS);
 
 // --------------------------------------------------------------
 // The path to the public directory.
 // --------------------------------------------------------------
-define('PUBLIC_PATH', realpath(__DIR__).'/');
+define('PUBLIC_PATH', realpath(__DIR__).DS);
 
 // --------------------------------------------------------------
 // Launch Laravel.

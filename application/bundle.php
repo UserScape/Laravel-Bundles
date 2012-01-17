@@ -1,4 +1,9 @@
 <?php
+View::composer('layouts.home', function($view)
+{
+	$view->with('categories', Category::all());
+	Asset::add('style', 'css/style.css');
+});
 View::composer('layouts.default', function($view)
 {
 	$view->with('categories', Category::all());

@@ -5,24 +5,5 @@
 		<h1>{{$category->title}}</h1>
 	@endif
 
-
-	@if (count($bundles) > 0)
-		<table class="bordered-table zebra-striped">
-			<tr>
-				<th>#</th>
-				<th>Title</th>
-				<th>Summary</th>
-			</tr>
-			@foreach ($bundles->results as $bundle)
-				<tr>
-					<td>{{$bundle->id}}</td>
-					<td><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></td>
-					<td>{{$bundle->summary}}</td>
-				</tr>
-			@endforeach
-		</table>
-		{{$bundles->links()}}
-	@else
-		<p>No bundles in this category yet. Why not create one?</p>
-	@endif
+	{{View::make('partials.grid')->with('bundles', $bundles)->render()}}
 </section>

@@ -9,50 +9,24 @@
 		<link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 	</head>
-	<body id="{{URI::segment(1)}}" class="{{URI::segment(2, 'index')}}">
+	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 
-		<!-- Navigation -->
-		<div class="topbar-wrapper" style="z-index: 5;">
-			<div class="topbar" data-dropdown="dropdown">
-				<div class="topbar-inner">
-					<div class="container">
-						<h3><a href="#">Laravel Bundles</a></h3>
-						<ul class="nav">
-							<li class="active"><a href="{{URL::to()}}">Home</a></li>
-							<li><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
-						</ul>
-						<form class="pull-left" action="">
-							<input type="text" placeholder="Search">
-						</form>
-						<ul class="secondary-nav">
-							<li class="login">
-								@if (Auth::check())
-								You are logged in
-								@else
-								<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
-								@endif
-							</li>
-						</ul>
-					</div>
-				</div><!-- /topbar-inner -->
-			</div><!-- /topbar -->
-		</div>
-		<!-- End Navigation -->
+		{{View::make('partials.header')->render()}}
 
 		<div class="container">
-			<h1 class="main"><a href="http://laravel.com/">Laravel Bundles</a></h1>
-			<div class="row show-grid">
-				<div class="span5">
+
+			<div class="row">
+				<div class="span12">
+					{{View::make('partials.messages')->render()}}
+					{{$content}}
+				</div>
+				<div class="sidebar span4">
 					<h2>Categories</h2>
 					<ul>
 					@foreach ($categories as $category)
 						<li><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
 					@endforeach
 					</ul>
-				</div>
-				<div class="span11">
-					{{View::make('partials.messages')->render()}}
-					{{$content}}
 				</div>
 			</div>
 			<footer>

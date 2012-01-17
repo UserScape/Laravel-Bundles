@@ -1,8 +1,8 @@
 body {
-	font-family: 'Ubuntu';
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	color: #6D6D6D;
-	padding-top: 40px;
+	padding-top: 60px;
 }
 .topbar h3 {
 	font-family: 'Lobster Two';
@@ -21,13 +21,33 @@ h1.main {
 		text-decoration: none;
 	}
 }
-h2 {
-	font-family: 'Quattrocento';
-	font-size: 23px;
-	color: #6D6D6D;
-	margin-bottom: 0;
-}
 
+.sidebar {
+
+	h2 {
+		font-size: 21px;
+		color: #6D6D6D;
+		margin: 0;
+	}
+
+	ul {
+		margin: 0;
+	}
+	li {
+		position: relative;
+		border-bottom: 1px solid #C4C4C4;
+		margin: 0;
+		padding: 5px;
+		display: block;
+		list-style-type: none;
+		cursor: pointer;
+
+		a {
+			display:block;
+			color: #333;
+		}
+	}
+}
 ul.tags {
 	border-top: 1px solid #ebebeb;
 	padding: 10px 0 0;
@@ -64,6 +84,40 @@ ul.tags {
 #bundle.edit {
 	.info {
 		display: none;
+	}
+}
+
+#home {
+	.grid {
+		.info {
+			width: 290px;
+		}
+	}
+}
+
+table {
+
+	h3 {
+		font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
+	}
+	a {
+		color: #222;
+	}
+	.item:nth-child(even) {
+		background-color: whiteSmoke;
+    }
+    .item {
+		border-bottom: 1px solid #E5E5E5;
+    }
+	.info {
+		float: left;
+        width: 350px;
+        margin-right: 12px;
+        position: relative;
+        top: -3px;
+	}
+	.meta {
+		width: 50px;
 	}
 }
 
