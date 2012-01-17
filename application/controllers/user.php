@@ -22,8 +22,8 @@ class User_Controller extends Controller {
 
 		// @todo - Move these to config.
 		$provider = OAuth2::provider($provider, array(
-			'id' => Config::get('github.'.$id),
-			'secret' => Config::get('github.'.$secret),
+			'id' => Config::get('github.id'),
+			'secret' => Config::get('github.secret'),
 		));
 
 		if ( ! isset($_GET['code']))
