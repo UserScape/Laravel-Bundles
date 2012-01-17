@@ -49,7 +49,7 @@ foreach ($_SERVER['argv'] as $key => $value)
  */
 IoC::register('task: bundle', function()
 {
-	return new Tasks\Bundle\Installer(new Tasks\Bundle\Repository);
+	return new Tasks\Bundle\Bundler;
 });
 
 /**

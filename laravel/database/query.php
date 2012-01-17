@@ -550,6 +550,45 @@ class Query {
 	}
 
 	/**
+	 * Get an array with the values of a given column.
+	 *
+	 * @param  string  $column
+	 * @param  string  $key
+	 * @return array
+	 */
+	public function lists($column, $key = null)
+	{
+		$columns = (is_null($key)) ? array($column) : array($column, $key);
+
+		$results = $this->get($columns);
+
+		// First we will get the array of values for the requested column.
+		// Of course, this array will simply have numeric keys. After we
+		// have this array we will determine if we need to key the array
+		// by another column from the result set.
+		$values = array_map(function($row) use ($column)
+		{
+			return $row->$column;
+
+		}, $results);
+
+		// If a key was provided, we will extract an array of keys and
+		// set the keys on the array of values using the array_combine
+		// function provided by PHP, which should give us the proper
+		// array form to return from the method.
+		if ( ! is_null($key))
+		{
+			return array_combine(array_map(function($row) use ($key)
+			{
+				return $row->$key;
+
+			}, $results), $values);
+		}
+
+		return $values;
+	}
+
+	/**
 	 * Execute the query as a SELECT statement.
 	 *
 	 * @param  array  $columns

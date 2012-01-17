@@ -9,9 +9,9 @@
 define('EXT', '.php');
 define('CRLF', "\r\n");
 define('BLADE_EXT', '.blade.php');
-define('CACHE_PATH', STORAGE_PATH.'cache/');
-define('DATABASE_PATH', STORAGE_PATH.'database/');
-define('SESSION_PATH', STORAGE_PATH.'sessions/');
+define('CACHE_PATH', STORAGE_PATH.'cache'.DS);
+define('DATABASE_PATH', STORAGE_PATH.'database'.DS);
+define('SESSION_PATH', STORAGE_PATH.'sessions'.DS);
 define('DEFAULT_BUNDLE', 'application');
 define('MB_STRING', (int) function_exists('mb_get_info'));
 
@@ -83,8 +83,9 @@ Autoloader::$mappings = array(
 
 	'Laravel\\CLI\\Command' => SYS_PATH.'cli/command'.EXT,
 	'Laravel\\CLI\\Tasks\\Task' => SYS_PATH.'cli/tasks/task'.EXT,
-	'Laravel\\CLI\\Tasks\\Bundle\\Installer' => SYS_PATH.'cli/tasks/bundle/installer'.EXT,
+	'Laravel\\CLI\\Tasks\\Bundle\\Bundler' => SYS_PATH.'cli/tasks/bundle/bundler'.EXT,
 	'Laravel\\CLI\\Tasks\\Bundle\\Repository' => SYS_PATH.'cli/tasks/bundle/repository'.EXT,
+	'Laravel\\CLI\\Tasks\\Bundle\\Publisher' => SYS_PATH.'cli/tasks/bundle/publisher'.EXT,
 	'Laravel\\CLI\\Tasks\\Bundle\\Providers\\Provider' => SYS_PATH.'cli/tasks/bundle/providers/provider'.EXT,
 	'Laravel\\CLI\\Tasks\\Bundle\\Providers\\Github' => SYS_PATH.'cli/tasks/bundle/providers/github'.EXT,
 	'Laravel\\CLI\\Tasks\\Migrate\\Migrator' => SYS_PATH.'cli/tasks/migrate/migrator'.EXT,

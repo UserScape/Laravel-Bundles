@@ -1,39 +1,25 @@
 <?php namespace Laravel\CLI\Tasks\Bundle; defined('APP_PATH') or die('No direct script access.');
 
 use Laravel\IoC;
+use Laravel\Bundle;
 use Laravel\CLI\Tasks\Task;
 
-IoC::register('bundle.provider: github', function()
+IoC::singleton('bundle.repository', function()
 {
-	return new \Laravel\CLI\Tasks\Bundle\Providers\Github;
+	return new Repository;
 });
 
-class Installer extends Task {
+IoC::singleton('bundle.publisher', function()
+{
+	return new Publisher;
+});
 
-	/**
-	 * An instance of the Bundle API repository.
-	 *
-	 * @var Repository
-	 */
-	protected $repository;
+IoC::singleton('bundle.provider: github', function()
+{
+	return new Providers\Github;
+});
 
-	/**
-	 * The methods that the bundle command can handle.
-	 *
-	 * @var array
-	 */
-	protected $methods = array('install');
-
-	/**
-	 * Create a new instance of the Bundle CLI command.
-	 *
-	 * @param  Repository
-	 * @return void
-	 */
-	public function __construct(Repository $repository)
-	{
-		$this->repository = $repository;
-	}
+class Bundler extends Task {
 
 	/**
 	 * Install the given bundles into the application.
@@ -43,6 +29,8 @@ class Installer extends Task {
 	 */
 	public function install($bundles)
 	{
+		$publisher = IoC::resolve('bundle.publisher');
+
 		foreach ($this->get($bundles) as $bundle)
 		{
 			if (is_dir(BUNDLE_PATH.$bundle['name']))
@@ -62,6 +50,29 @@ class Installer extends Task {
 			$provider = "bundle.provider: {$bundle['provider']}";
 
 			IoC::resolve($provider)->install($bundle);
+
+			$publisher->publish($bundle);
+		}
+	}
+
+	/**
+	 * Publish bundle assets to the public directory.
+	 *
+	 * @param  array  $bundles
+	 * @return void
+	 */
+	public function publish($bundles)
+	{
+		// If no bundles are passed to the command, we'll just gather all
+		// of the installed bundle names and publish the assets for each
+		// for each one of the bundles to the public directory.
+		if (count($bundles) == 0) $bundles = Bundle::all();
+
+		$publisher = IoC::resolve('bundle.publisher');
+
+		foreach ($bundles as $bundle)
+		{
+			$publisher->publish($bundle);
 		}
 	}
 
@@ -75,17 +86,19 @@ class Installer extends Task {
 	{
 		$responses = array();
 
+		$repository = IoC::resolve('bundle.repository');
+
 		// This method is primarily responsible for gathering the data
 		// for all bundles that need to be installed. This allows us
 		// to verify the existence of the bundle before even getting
 		// started on the actual installation process.
 		foreach ($bundles as $bundle)
 		{
-			// First, we'll call the bundle repository to gather the bundle data
+			// First we'll call the bundle repository to gather the bundle data
 			// array, which contains all of the information needed to install
 			// the bundle into the application. We'll verify that the bundle
-			// exists and that the bundle API is responding for each bundle.
-			$response = $this->repository->get($bundle);
+			// exists and the API is responding for each bundle.
+			$response = $repository->get($bundle);
 
 			if ( ! $response)
 			{

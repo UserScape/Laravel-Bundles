@@ -75,11 +75,7 @@ class Database {
 	 */
 	public function ran($bundle)
 	{
-		return array_map(function($migration)
-		{
-			return $migration->name;
-
-		} , $this->table()->where_bundle($bundle)->get());
+		return $this->table()->where_bundle($bundle)->lists('name');
 	}
 
 	/**

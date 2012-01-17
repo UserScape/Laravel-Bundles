@@ -148,7 +148,7 @@ class Bundle {
 	 */
 	public static function path($bundle)
 	{
-		return ($bundle != DEFAULT_BUNDLE) ? BUNDLE_PATH.strtolower($bundle).'/' : APP_PATH;
+		return ($bundle != DEFAULT_BUNDLE) ? BUNDLE_PATH.strtolower($bundle).DS : APP_PATH;
 	}
 
 	/**
