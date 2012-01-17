@@ -98,7 +98,7 @@ class Bundle_Controller extends Controller {
 		Input::flash();
 		$rules = array(
 			'location'     => 'required|url',
-			'title'        => 'required|max:200|unique:bundles',
+			'title'        => 'required|max:200|unique:listings',
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',
@@ -205,7 +205,7 @@ class Bundle_Controller extends Controller {
 
 		$rules = array(
 			'location'     => 'required|url',
-			'title'        => 'required|max:200|unique:bundles,'.$id,
+			'title'        => 'required|max:200|unique:listings,'.$id,
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',
@@ -267,6 +267,8 @@ class Bundle_Controller extends Controller {
 	 */
 	private function _save_dependencies($id)
 	{
+		DB::table('dependencies')->where('listing_id', '=', $id)->delete();
+
 		if ( ! $dependencies = Input::get('dependencies'))
 		{
 			return false;
@@ -274,12 +276,12 @@ class Bundle_Controller extends Controller {
 
 		foreach ($dependencies as $dependency)
 		{
-			$bundle = Listing::where('title', '=', $dependency)->first();
+			$bundle = Listing::where_title($dependency)->first();
 			if (is_null($bundle))
 			{
 				continue;
 			}
-			DB::table('dependencies')->insert(array('bundle_id' => $id, 'dependency_id' => $bundle->id));
+			DB::table('dependencies')->insert(array('listing_id' => $id, 'dependency_id' => $bundle->id));
 		}
 		return true;
 	}
@@ -292,7 +294,7 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_detail($item = '')
 	{
-		if ( ! $bundle = Listing::find($item))
+		if ( ! $bundle = Listing::where_uri($item)->where_active('y')->first())
 		{
 			return Response::error('404');
 		}

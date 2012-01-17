@@ -3432,30 +3432,50 @@ ul.tags li {
   padding: 0;
   color: #ccc;
 }
+/* line 102, ../src/_bundles.scss */
+#bundle.detail .meta a {
+  color: #ccc;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+/* line 107, ../src/_bundles.scss */
+#bundle.detail .meta a:hover {
+  color: #ccc;
+  border-bottom: none;
+}
 
 /* End */
-/* line 106, ../src/_bundles.scss */
+/* line 116, ../src/_bundles.scss */
 #home .grid .info {
   width: 290px;
 }
 
-/* line 114, ../src/_bundles.scss */
+/* line 124, ../src/_bundles.scss */
 table h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 117, ../src/_bundles.scss */
+/* line 127, ../src/_bundles.scss */
 table a {
   color: #222;
 }
-/* line 120, ../src/_bundles.scss */
+/* line 130, ../src/_bundles.scss */
 table .item:nth-child(even) {
   background-color: whiteSmoke;
 }
-/* line 123, ../src/_bundles.scss */
+/* line 133, ../src/_bundles.scss */
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
-/* line 126, ../src/_bundles.scss */
+/* line 136, ../src/_bundles.scss */
+table td.gravatar {
+  width: 70px;
+}
+/* line 139, ../src/_bundles.scss */
+table img.gravatar {
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+/* line 143, ../src/_bundles.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3463,13 +3483,13 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 133, ../src/_bundles.scss */
+/* line 150, ../src/_bundles.scss */
 table .meta {
   width: 50px;
 }
 
 /* Auto Complete */
-/* line 139, ../src/_bundles.scss */
+/* line 156, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3481,7 +3501,7 @@ table .meta {
   _margin: 0;
 }
 
-/* line 140, ../src/_bundles.scss */
+/* line 157, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3496,18 +3516,18 @@ table .meta {
   _overflow-x: hidden;
 }
 
-/* line 141, ../src/_bundles.scss */
+/* line 158, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 142, ../src/_bundles.scss */
+/* line 159, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 143, ../src/_bundles.scss */
+/* line 160, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

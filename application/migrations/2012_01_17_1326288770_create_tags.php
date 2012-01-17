@@ -9,12 +9,12 @@ class Create_Tags {
 	 */
 	public function up()
 	{
-		Schema::table('bundle_tags', function($table)
+		Schema::table('listing_tags', function($table)
 		{
 			$table->create();
 			$table->increments('id');
 			$table->integer('tag_id');
-			$table->integer('bundle_id');
+			$table->integer('listing_id');
 		});
 		Schema::table('tags', function($table)
 		{
@@ -31,7 +31,7 @@ class Create_Tags {
 	 */
 	public function down()
 	{
-		Schema::table('bundle_tags', function($table)
+		Schema::table('listing_tags', function($table)
 		{
 			$table->drop();
 		});

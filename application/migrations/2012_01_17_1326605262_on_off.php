@@ -9,7 +9,7 @@ class On_Off {
 	 */
 	public function up()
 	{
-		Schema::table('bundles', function($table)
+		Schema::table('listings', function($table)
 		{
 			$table->string('active', 1)->default('y');
 			$table->index('active');
@@ -23,7 +23,7 @@ class On_Off {
 	 */
 	public function down()
 	{
-		Schema::table('bundles', function($table)
+		Schema::table('listings', function($table)
 		{
 			// $table->drop_key('index', 'active');
 			$table->drop_column('active');

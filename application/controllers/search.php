@@ -29,10 +29,8 @@ class Search_Controller extends Controller {
 			return Redirect::to('search');
 		}
 
-		$tag = Tag::find($item);
-
+		$tag = Tag::where_uri($item);
 		$model = $tag->bundles();
-
 		// need to reset select clause because eloquent sets select for many to
 		// many relationships
 		$model->query->selects = null;

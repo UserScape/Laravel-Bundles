@@ -13,7 +13,7 @@ class Create_Dependencies {
 		{
 			$table->create();
 			$table->increments('id');
-			$table->integer('bundle_id');
+			$table->integer('listing_id');
 			$table->integer('dependency_id');
 		});
 	}

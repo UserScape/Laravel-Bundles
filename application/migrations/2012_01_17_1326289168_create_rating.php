@@ -13,7 +13,7 @@ class Create_Rating {
 		{
 			$table->create();
 			$table->increments('id');
-			$table->integer('bundle_id');
+			$table->integer('listing_id');
 			$table->integer('user_id');
 			$table->string('ip_address');
 			$table->timestamps();

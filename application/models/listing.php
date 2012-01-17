@@ -1,24 +1,9 @@
 <?php
 class Listing extends Eloquent\Model {
 
-	public static $table = 'bundles';
+	public static $table = 'listings';
 
 	public static $timestamps = true;
-
-	/**
-	 * Find the bundle either by id or string
-	 */
-	public static function find($id)
-	{
-		if (is_numeric($id))
-		{
-			return parent::find($id);
-		}
-		else
-		{
-			return parent::where('uri', '=', $id)->first();
-		}
-	}
 
 	/**
 	 * Get the user
@@ -27,7 +12,7 @@ class Listing extends Eloquent\Model {
 	 */
 	public function user()
 	{
-		return $this->has_one('User');
+		return $this->belongs_to('User');
 	}
 
 	/**
@@ -35,7 +20,7 @@ class Listing extends Eloquent\Model {
 	 */
 	public function tags()
 	{
-		return $this->has_and_belongs_to_many('Tag', 'bundle_tags', 'bundle_id');
+		return $this->has_and_belongs_to_many('Tag', 'listing_tags', 'listing_id');
 	}
 
 	/**
@@ -43,6 +28,6 @@ class Listing extends Eloquent\Model {
 	 */
 	public function dependencies()
 	{
-		return $this->has_and_belongs_to_many('Listing', 'dependencies', 'bundle_id', 'dependency_id');
+		return $this->has_and_belongs_to_many('Listing', 'dependencies', 'listing_id', 'dependency_id');
 	}
 }

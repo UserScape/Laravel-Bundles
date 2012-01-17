@@ -9,7 +9,7 @@ class Create_Bundles {
 	 */
 	public function up()
 	{
-		Schema::table('bundles', function($table)
+		Schema::table('listings', function($table)
 		{
 			$table->create();
 			$table->increments('id');
@@ -33,7 +33,7 @@ class Create_Bundles {
 	 */
 	public function down()
 	{
-		Schema::table('bundles', function($table)
+		Schema::table('listings', function($table)
 		{
 			$table->drop();
 		});

@@ -97,7 +97,17 @@ ul.tags {
 	.meta {
 		margin: 0 0 20px 0;
 		padding: 0;
-		color: #ccc
+		color: #ccc;
+
+		a {
+			color: #ccc;
+			text-decoration:none;
+			border-bottom: 1px solid #ccc;
+		}
+		a:hover {
+			color: #ccc;
+			border-bottom: none;
+		}
 	}
 }
 /* End */
@@ -119,16 +129,23 @@ table {
 	}
 	.item:nth-child(even) {
 		background-color: whiteSmoke;
-    }
-    .item {
+	}
+	.item {
 		border-bottom: 1px solid #E5E5E5;
-    }
+	}
+	td.gravatar {
+		width: 70px;
+	}
+	img.gravatar {
+		border: 1px solid #ccc;
+		padding: 2px;
+	}
 	.info {
 		float: left;
-        width: 350px;
-        margin-right: 12px;
-        position: relative;
-        top: -3px;
+		width: 350px;
+		margin-right: 12px;
+		position: relative;
+		top: -3px;
 	}
 	.meta {
 		width: 50px;

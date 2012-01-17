@@ -254,7 +254,7 @@ class Connection {
 
 					$sql = preg_replace('~\(\.\.\.\)~', "({$parameters})", $sql, 1);
 				}
-			}			
+			}
 		}
 
 		return trim($sql);

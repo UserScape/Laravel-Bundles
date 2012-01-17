@@ -6,29 +6,11 @@ class Tag extends Eloquent\Model {
 	public static $per_page = 1;
 
 	/**
-	 * Find a tag
-	 *
-	 * @param mixed $id - Either int or string
-	 * @return mixed
-	 */
-	public static function find($id)
-	{
-		if (is_numeric($id))
-		{
-			return parent::find($id);
-		}
-		else
-		{
-			return parent::where('tag', '=', $id)->first();
-		}
-	}
-
-	/**
 	 * Get bundles by tag
 	 */
 	public function bundles()
 	{
-		return $this->has_and_belongs_to_many('Listing', 'bundle_tags', null, 'bundle_id');
+		return $this->has_and_belongs_to_many('Listing', 'listing_tags', null, 'listing_id');
 	}
 
 	/**
@@ -43,7 +25,7 @@ class Tag extends Eloquent\Model {
 	public function save_tags($id, $tags)
 	{
 		// First remove any existing tags for this bundle
-		DB::table('bundle_tags')->where('bundle_id', '=', $id)->delete();
+		DB::table('listing_tags')->where('listing_id', '=', $id)->delete();
 
 		if ( ! is_array($tags))
 		{
@@ -53,8 +35,8 @@ class Tag extends Eloquent\Model {
 		foreach ($tags AS $key => $tag)
 		{
 			$tag_id = $this->add_tag($tag);
-			$data = array('tag_id' => $tag_id, 'bundle_id' => $id);
-			DB::table('bundle_tags')->insert($data);
+			$data = array('tag_id' => $tag_id, 'listing_id' => $id);
+			DB::table('listing_tags')->insert($data);
 		}
 
 		return true;
