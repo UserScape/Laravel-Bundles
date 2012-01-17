@@ -5,24 +5,6 @@ use Laravel\Database as DB;
 class Database {
 
 	/**
-	 * The CLI options.
-	 *
-	 * @var array
-	 */
-	protected $options;
-
-	/**
-	 * Create a new migration database instance.
-	 *
-	 * @param  array  $options
-	 * @return void
-	 */
-	public function __construct($options)
-	{
-		$this->options = $options;
-	}
-
-	/**
 	 * Log a migration in the migration table.
 	 *
 	 * @param  string  $bundle
@@ -95,9 +77,7 @@ class Database {
 	 */
 	protected function table()
 	{
-		$connection = DB::connection(array_get($this->options, 'db'));
-
-		return $connection->table('laravel_migrations');
+		return DB::connection()->table('laravel_migrations');
 	}
 
 }

@@ -34,7 +34,7 @@ class Asset {
 	}
 
 	/**
-	 * Magic Method for calling methods on the default Asset container.
+	 * Magic Method for calling methods on the default container.
 	 *
 	 * <code>
 	 *		// Call the "styles" method on the default container
@@ -59,6 +59,13 @@ class Asset_Container {
 	 * @var string
 	 */
 	public $name;
+
+	/**
+	 * The bundle that the assets belong to.
+	 *
+	 * @var string
+	 */
+	public $bundle = DEFAULT_BUNDLE;
 
 	/**
 	 * All of the registered assets.
@@ -148,6 +155,29 @@ class Asset_Container {
 	}
 
 	/**
+	 * Returns the full-path for an asset.
+	 *
+	 * @param  string  $source
+	 * @return string
+	 */
+	public function path($source)
+	{
+		return Bundle::assets($this->bundle).$source;
+	}
+
+	/**
+	 * Set the bundle that the container's assets belong to.
+	 *
+	 * @param  string           $bundle
+	 * @return Asset_Container
+	 */
+	public function bundle($bundle)
+	{
+		$this->bundle = $bundle;
+		return $this;
+	}
+
+	/**
 	 * Add an asset to the array of registered assets.
 	 *
 	 * @param  string  $type
@@ -218,6 +248,14 @@ class Asset_Container {
 		if ( ! isset($this->assets[$group][$name])) return '';
 
 		$asset = $this->assets[$group][$name];
+
+		// If the bundle source is not a complete URL, we will go ahead and prepend
+		// the bundle's asset path to the source provided with the asset. This will
+		// ensure that we attach the correct path to the asset.
+		if (filter_var($asset['source'], FILTER_VALIDATE_URL) === false)
+		{
+			$asset['source'] = Bundle::assets($this->bundle).$asset['source'];
+		}
 
 		return HTML::$group($asset['source'], $asset['attributes']);
 	}

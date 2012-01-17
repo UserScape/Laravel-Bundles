@@ -199,6 +199,80 @@ function head($array)
 }
 
 /**
+ * Generate an application URL.
+ *
+ * <code>
+ *		// Create a URL to a location within the application
+ *		$url = path('user/profile');
+ *
+ *		// Create a HTTPS URL to a location within the application
+ *		$url = path('user/profile', true);
+ * </code>
+ *
+ * @param  string  $url
+ * @param  bool    $https
+ * @return string
+ */
+function path($url = '', $https = false)
+{
+	return Laravel\URL::to($url, $https);
+}
+
+/**
+ * Generate an application URL to an asset.
+ *
+ * @param  string  $url
+ * @param  bool    $https
+ * @return string
+ */
+function asset($url, $https = false)
+{
+	return Laravel\URL::to_asset($url, $https);
+}
+
+/**
+ * Generate a URL to a controller action.
+ *
+ * <code>
+ *		// Generate a URL to the "index" method of the "user" controller
+ *		$url = action('user@index');
+ *
+ *		// Generate a URL to http://example.com/user/profile/taylor
+ *		$url = action('user@profile', array('taylor'));
+ * </code>
+ *
+ * @param  string  $action
+ * @param  array   $parameters
+ * @param  bool    $https
+ * @return string
+ */
+function action($action, $parameters = array(), $https = false)
+{
+	return Laravel\URL::to_action($action, $parameters, $https);
+}
+
+/**
+ * Generate a URL from a route name.
+ *
+ * <code>
+ *		// Create a URL to the "profile" named route
+ *		$url = route('profile');
+ *
+ *		// Create a URL to the "profile" named route with wildcard parameters
+ *		$url = route('profile', array($username));
+ * </code>
+ *
+ * @param  string  $name
+ * @param  array   $parameters
+ * @param  bool    $https
+ * @return string
+ */
+function route($name, $parameters = array(), $https = false)
+{
+	return Laravel\URL::to_route($name, $parameters, $https);
+}
+
+/**
  * Determine if a given string begins with a given value.
  *
  * @param  string  $haystack

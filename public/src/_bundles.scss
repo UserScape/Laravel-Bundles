@@ -71,6 +71,7 @@ ul.tags {
 	}
 }
 
+/* Add/Edit Bundles */
 #bundle {
 	#ajax-loader {
 		display: none;
@@ -86,7 +87,20 @@ ul.tags {
 		display: none;
 	}
 }
+/* End */
 
+/* Bundle Details */
+#bundle.detail {
+	h1 {
+		margin: 0;
+	}
+	.meta {
+		margin: 0 0 20px 0;
+		padding: 0;
+		color: #ccc
+	}
+}
+/* End */
 #home {
 	.grid {
 		.info {

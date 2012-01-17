@@ -32,7 +32,7 @@ set_exception_handler(function($e)
  */
 set_error_handler(function($code, $error, $file, $line)
 {
-	Error::error($code, $error, $file, $line);
+	Error::native($code, $error, $file, $line);
 });
 
 /**

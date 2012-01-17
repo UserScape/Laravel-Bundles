@@ -152,6 +152,17 @@ class Bundle {
 	}
 
 	/**
+	 * Return the root asset path for the given bundle.
+	 *
+	 * @param  string  $bundle
+	 * @return string
+	 */
+	public static function assets($bundle)
+	{
+		return ($bundle != DEFAULT_BUNDLE) ? URL::base()."/bundles/{$bundle}/" : URL::base().'/';
+	}
+
+	/**
 	 * Get the bundle name from a given identifier.
 	 *
 	 * <code>

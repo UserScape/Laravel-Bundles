@@ -146,7 +146,7 @@ class Autoloader {
 
 		}, (array) $directory);
 
-		static::$psr = array_merge(static::$psr, $directories);
+		static::$psr = array_unique(array_merge(static::$psr, $directories));
 	}
 
 }

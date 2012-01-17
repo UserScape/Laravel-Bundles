@@ -216,12 +216,18 @@ class Postgres extends Grammar {
 	 */
 	public function drop_column(Table $table, Fluent $command)
 	{
-		foreach ($command->columns as $column)
-		{
-			$sql[] = 'ALTER TABLE '.$this->wrap($table).' DROP COLUMN '.$this->wrap($column);
-		}
+		$columns = array_map(array($this, 'wrap'), $command->columns);
 
-		return $sql;
+		// Once we the array of column names, we need to add "drop" to the
+		// front of each column, then we'll concatenate the columns using
+		// commas and generate the alter statement SQL.
+		$columns = implode(', ', array_map(function($column)
+		{
+			return 'DROP COLUMN '.$column;
+
+		}, $columns));
+
+		return 'ALTER TABLE '.$this->wrap($table).' '.$columns;
 	}
 
 	/**

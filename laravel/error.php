@@ -43,7 +43,7 @@ class Error {
 	 * @param  int     $line
 	 * @return void
 	 */
-	public static function error($code, $error, $file, $line)
+	public static function native($code, $error, $file, $line)
 	{
 		if (error_reporting() === 0) return;
 

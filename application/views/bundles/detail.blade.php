@@ -1,4 +1,5 @@
 <h1>{{$bundle->title}}</h1>
+<p class="meta">Added on {{$bundle->created_at}} by ##username##</p>
 
 <p>{{$bundle->description}}</p>
 

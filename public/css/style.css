@@ -3404,43 +3404,58 @@ ul.tags li {
   color: #93A1A1;
 }
 
-/* line 75, ../src/_bundles.scss */
+/* Add/Edit Bundles */
+/* line 76, ../src/_bundles.scss */
 #bundle #ajax-loader {
   display: none;
 }
 
-/* line 80, ../src/_bundles.scss */
+/* line 81, ../src/_bundles.scss */
 #bundle.add .bundle_extras {
   display: none;
 }
 
-/* line 85, ../src/_bundles.scss */
+/* line 86, ../src/_bundles.scss */
 #bundle.edit .info {
   display: none;
 }
 
-/* line 92, ../src/_bundles.scss */
+/* End */
+/* Bundle Details */
+/* line 94, ../src/_bundles.scss */
+#bundle.detail h1 {
+  margin: 0;
+}
+/* line 97, ../src/_bundles.scss */
+#bundle.detail .meta {
+  margin: 0 0 20px 0;
+  padding: 0;
+  color: #ccc;
+}
+
+/* End */
+/* line 106, ../src/_bundles.scss */
 #home .grid .info {
   width: 290px;
 }
 
-/* line 100, ../src/_bundles.scss */
+/* line 114, ../src/_bundles.scss */
 table h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 103, ../src/_bundles.scss */
+/* line 117, ../src/_bundles.scss */
 table a {
   color: #222;
 }
-/* line 106, ../src/_bundles.scss */
+/* line 120, ../src/_bundles.scss */
 table .item:nth-child(even) {
   background-color: whiteSmoke;
 }
-/* line 109, ../src/_bundles.scss */
+/* line 123, ../src/_bundles.scss */
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
-/* line 112, ../src/_bundles.scss */
+/* line 126, ../src/_bundles.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3448,13 +3463,13 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 119, ../src/_bundles.scss */
+/* line 133, ../src/_bundles.scss */
 table .meta {
   width: 50px;
 }
 
 /* Auto Complete */
-/* line 125, ../src/_bundles.scss */
+/* line 139, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3466,7 +3481,7 @@ table .meta {
   _margin: 0;
 }
 
-/* line 126, ../src/_bundles.scss */
+/* line 140, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3481,18 +3496,18 @@ table .meta {
   _overflow-x: hidden;
 }
 
-/* line 127, ../src/_bundles.scss */
+/* line 141, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 128, ../src/_bundles.scss */
+/* line 142, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 129, ../src/_bundles.scss */
+/* line 143, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;

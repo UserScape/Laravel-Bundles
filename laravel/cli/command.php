@@ -10,10 +10,9 @@ class Command {
 	 * Run a CLI task with the given arguments.
 	 *
 	 * @param  array  $arguments
-	 * @param  array  $options
 	 * @return void
 	 */
-	public static function run($arguments = array(), $options = array())
+	public static function run($arguments = array())
 	{
 		if ( ! isset($arguments[0]))
 		{
@@ -32,12 +31,6 @@ class Command {
 		{
 			throw new \Exception("Sorry, I can't find that task.");
 		}
-
-		// Before calling the task method, we need to set the CLI options
-		// on the task. These options are not considered to be arguments
-		// to the task, but rather optional values that control various
-		// peripheral aspects of the task's execution.
-		$task->options = $options;
 
 		$task->$method(array_slice($arguments, 1));
 	}
@@ -86,20 +79,31 @@ class Command {
 			return IoC::resolve("task: {$identifier}");
 		}
 
+		// If the task file exists, we'll format the bundle and task
+		// name into a task class name and resolve an instance of
+		// the so that the requested method may be executed.
 		if (file_exists($path = Bundle::path($bundle).'tasks/'.$task.EXT))
 		{
 			require $path;
 
-			// We append "_Task" to the class name so the developer doesn't have
-			// to escape out to the global namespace everytime they want to use
-			// one of the Laravel classes. Even though namespaces are supported
-			// this is much more convenient for coding.
-			$bundle = Bundle::class_prefix($bundle);
-
-			$task = '\\'.$bundle.Str::classify($task).'_Task';
+			$task = static::format($bundle, $task);
 
 			return new $task;
 		}
+	}
+
+	/**
+	 * Format a bundle and task into a task class name.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $task
+	 * @return string
+	 */
+	protected static function format($bundle, $task)
+	{
+		$prefix = Bundle::class_prefix($bundle);
+
+		return '\\'.$prefix.Str::clasify($task).'_Task';
 	}
 
 }

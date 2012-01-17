@@ -12,7 +12,7 @@ class On_Off {
 		Schema::table('bundles', function($table)
 		{
 			$table->string('active', 1)->default('y');
-			$table->key('index', 'active');
+			$table->index('active');
 		});
 	}
 
@@ -25,8 +25,8 @@ class On_Off {
 	{
 		Schema::table('bundles', function($table)
 		{
+			// $table->drop_key('index', 'active');
 			$table->drop_column('active');
-			$table->drop_key('index', 'active');
 		});
 	}
 

@@ -191,8 +191,10 @@ class Migrator extends Task {
 		// The migration path is prefixed with the UNIX timestamp, which
 		// is a better way of ordering migrations than a simple integer
 		// incrementation, since developers may start working on the
-		// next migration at the same time.
-		$path = Bundle::path($bundle).'migrations/'.time().'_'.$migration.EXT;
+		// next migration at the same time unknowingly.
+		$date = date('Y_m_d').'_'.time();
+
+		$path = Bundle::path($bundle).'migrations/'.$date.'_'.$migration.EXT;
 
 		File::put($path, $this->stub($bundle, $migration));
 

@@ -12,30 +12,6 @@ use Laravel\Database as DB;
 Bundle::start(DEFAULT_BUNDLE);
 
 /**
- * CLI options may be specified using a --option=value syntax.
- * This allows the passing of options that control peripheral
- * parts of the task, such as the database connection.
- */
-$options = array();
-
-foreach ($_SERVER['argv'] as $key => $value)
-{
-	if (starts_with($value, '--'))
-	{
-		$value = substr($value, 2);
-
-		list($option_key, $option_value) = explode('=', $value);
-
-		$options[$option_key] = $option_value;
-
-		// Once we have the option value, we will remove the
-		// option from the array of CLI arguments so that it
-		// is not passed to the task as an argument.
-		unset($_SERVER['argv'][$key]);
-	}
-}
-
-/**
  * We will register all of the Laravel provided tasks inside the IoC
  * container so they can be resolved by the task class. This allows
  * us to seamlessly add tasks to the CLI so that the Task class
@@ -58,9 +34,9 @@ IoC::register('task: bundle', function()
  * of the migration resolver and database classes, which are used
  * to perform various support functions for the migrator.
  */
-IoC::register('task: migrate', function() use ($options)
+IoC::register('task: migrate', function()
 {
-	$database = new Tasks\Migrate\Database($options);
+	$database = new Tasks\Migrate\Database;
 
 	$resolver = new Tasks\Migrate\Resolver($database);
 
@@ -76,7 +52,7 @@ IoC::register('task: migrate', function() use ($options)
  */
 try
 {
-	Command::run(array_slice($_SERVER['argv'], 1), $options);
+	Command::run(array_slice($_SERVER['argv'], 1));
 }
 catch (\Exception $e)
 {
