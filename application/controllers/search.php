@@ -41,6 +41,22 @@ class Search_Controller extends Controller {
 				'tag' => $tag,
 				'bundles' => $bundles
 			));
+	}
 
+	public function get_user($item = '')
+	{
+		$user = User::where_username($item)->first();
+
+		if ( ! $user)
+		{
+			return Redirect::to('search');
+		}
+		$bundles = Listing::where_active('y')->where_user_id($user->id)->paginate(Config::get('application.per_page'));
+
+		return View::make('layouts.default')
+			->nest('content', 'category.detail', array(
+				'user' => $user,
+				'bundles' => $bundles
+			));
 	}
 }
