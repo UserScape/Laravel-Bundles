@@ -4,8 +4,8 @@ class User_Controller extends Controller {
 
 	public function action_index()
 	{
-		$user = new User;
-		return View::make('home.index');
+		return View::make('layouts.default')
+			->nest('content', 'user.login', array());
 	}
 
 	/**
@@ -81,5 +81,11 @@ class User_Controller extends Controller {
 				'category' => $category,
 				'bundles' => $bundles
 			));
+	}
+
+	public function action_logout()
+	{
+		Auth::logout();
+		return Redirect::to('/');
 	}
 }

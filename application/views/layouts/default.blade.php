@@ -6,8 +6,8 @@
 		{{Asset::styles()}}
 		<!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+		<link rel="shortcut icon" href="{{URL::to_asset('img/favicon.ico')}}">
+
 	</head>
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 

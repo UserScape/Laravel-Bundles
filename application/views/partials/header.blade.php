@@ -20,7 +20,7 @@
 							<li><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
 							<li><a href="#">Another Link</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Another link</a></li>
+							<li><a href="{{URL::to('user/logout')}}">Logout</a></li>
 						</ul>
 					</li>
 					@else
