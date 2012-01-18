@@ -29,4 +29,5 @@ Autoloader::psr(APP_PATH.'models');
 Autoloader::map(array(
 	'OAuth2' => APP_PATH.'libraries/oauth/OAuth2.php',
 	'Gravatar' => APP_PATH.'libraries/gravatar.php',
+	'Nav' => APP_PATH.'libraries/nav.php',
 ));
