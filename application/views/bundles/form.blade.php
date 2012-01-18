@@ -52,14 +52,14 @@
 					<div class="clearfix">
 						<label for="title">Title</label>
 						<div class="input">
-							<input class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $bundle->title}}">
+							<input required="required" class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $bundle->title}}">
 						</div>
 					</div><!-- /clearfix -->
 
 					<div class="clearfix">
 						<label for="summary">Summary</label>
 						<div class="input">
-							<textarea class="xxlarge" id="summary" name="summary" rows="5">{{(Input::old('summary') != null) ? Input::old('summary') : $bundle->summary}}</textarea>
+							<textarea required="required" class="xxlarge" id="summary" name="summary" rows="5">{{(Input::old('summary') != null) ? Input::old('summary') : $bundle->summary}}</textarea>
 							<span class="help-block">
 								The summary will be displayed in the bundle list.
 							</span>
@@ -69,7 +69,7 @@
 					<div class="clearfix">
 						<label for="description">Description</label>
 						<div class="input">
-							<textarea class="xxlarge" id="description" name="description" rows="8">{{(Input::old('description') != null) ? Input::old('description') : $bundle->description}}</textarea>
+							<textarea required="required" class="xxlarge" id="description" name="description" rows="8">{{(Input::old('description') != null) ? Input::old('description') : $bundle->description}}</textarea>
 							<span class="help-block">
 								The description is used on the bundle details page.
 							</span>
@@ -86,8 +86,10 @@
 					<div class="clearfix">
 						<label for="category_id">Category</label>
 						<div class="input">
-							<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
-							{{Form::select('category_id', $categories, $selected, array('class' => 'mediumSelect'))}}
+							<?php
+							$selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id;
+							?>
+							{{Form::select('category_id', $categories, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
 						</div>
 					</div>
 					<div class="clearfix">
