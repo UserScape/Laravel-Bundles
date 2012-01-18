@@ -24,7 +24,6 @@ class Bundle_Controller extends Controller {
 	 */
 	public function __construct()
 	{
-		Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
 		$this->filter('before', array('auth'))
 			->only(array('add', 'edit'));
 
