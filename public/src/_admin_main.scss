@@ -1,0 +1,16 @@
+// gradient is applied to it's own element because overflow visible is not honored by ie when filter is present
+// For backwards compatibility, include .topbar .fill
+.topbar-inner,
+.topbar .fill {
+	background-color: #00A0D1;
+	@include gradient-vertical(#00A0D1, #00A0D2);
+	$shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+	@include box-shadow($shadow);
+}
+
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	color: #6D6D6D;
+	padding-top: 60px;
+}
