@@ -7,21 +7,27 @@
 				<ul class="nav">
 					<li class="active"><a href="{{URL::to()}}">Home</a></li>
 					<li><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
-					@if (Auth::check())
-					<li><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
-					@endif
+					<li><a href="">What are Bundles?</a></li>
 				</ul>
 				<form class="pull-left" action="">
 					<input type="text" placeholder="Search Bundles">
 				</form>
-				<ul class="secondary-nav">
-					<li class="login">
-						@if (Auth::check())
-						<a class="" href="{{URL::to('user/profile')}}">Your Account</a>
-						@else
-						<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
-						@endif
+				<ul class="nav secondary-nav">
+					@if (Auth::check())
+					<li class="menu">
+						<a class="menu" href="{{URL::to('user/profile')}}">Hello {{Auth::user()->name}}</a>
+						<ul class="menu-dropdown">
+							<li><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
+							<li><a href="#">Another Link</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Another link</a></li>
+						</ul>
 					</li>
+					@else
+					<li class="login">
+						<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
+					</li>
+					@endif
 				</ul>
 			</div>
 		</div><!-- /topbar-inner -->

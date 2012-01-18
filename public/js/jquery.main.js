@@ -1,4 +1,5 @@
 $(function() {
+	$('#topbar').dropdown();
 	$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
 	$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
 	$('#repo').change(function(){
@@ -66,6 +67,10 @@ $(function() {
 				}
 			}
 		});
+	});
+	$("a[rel=dependency]")
+		.popover({
+		offset: 10
 	});
 });
 

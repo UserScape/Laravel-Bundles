@@ -186,7 +186,6 @@ class Bundle_Controller extends Controller {
 			->with('dependencies', $dependencies);
 	}
 
-
 	/**
 	 * Edit a bundle
 	 *
@@ -331,5 +330,27 @@ class Bundle_Controller extends Controller {
 				'rating_class' => $rating_class,
 				'ratings' => $ratings,
 			));
+	}
+
+	/**
+	 * Get a bundle
+	 *
+	 * This is used via the ajax popover to show a bundle.
+	 *
+	 * @return string
+	 */
+	public function post_ajax()
+	{
+		if ($listing = Listing::find(Input::get('id')))
+		{
+			$vars = array(
+				'id' => $listing->id,
+				'uri' => $listing->uri,
+				'title' => $listing->title,
+				'summary' => $listing->summary
+			);
+			exit(json_encode($vars));
+		}
+		exit(json_encode(array('error' => 'Could not load bundle.')));
 	}
 }

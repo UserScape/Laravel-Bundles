@@ -1,7 +1,5 @@
 <section id="bundles">
-	<h1>{{Auth::user()->name}} Listings</h1>
-
-
+	<h1>Your Bundles</h1>
 	@if (count($bundles->results) > 0)
 		<table class="table zebra-striped">
 			@foreach ($bundles->results as $bundle)
@@ -28,5 +26,4 @@
 	@else
 		<p>You haven't added any listings yet.</p>
 	@endif
-
 </section>
