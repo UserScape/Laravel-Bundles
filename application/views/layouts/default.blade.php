@@ -34,6 +34,20 @@
 			</footer>
 		</div>
 
+		<div id="modal-from-dom" class="modal hide fade">
+			<div class="modal-header">
+				<a href="#" class="close">&times;</a>
+				<h3 class="title">Modal Heading</h3>
+			</div>
+			<div class="modal-body">
+				<p>One fine body…</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn primary">Primary</a>
+				<a href="#" class="btn secondary">Secondary</a>
+			</div>
+		</div>
+
 <script>
 var SITE_URL = "<?php echo URL::to(); ?>";
 var BASE_URL = "<?php echo URL::base(); ?>";

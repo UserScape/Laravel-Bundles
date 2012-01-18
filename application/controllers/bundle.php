@@ -30,6 +30,7 @@ class Bundle_Controller extends Controller {
 
 		// Get the categories
 		$cats = Category::all();
+		$this->categories[0] = 'Please Select';
 		foreach ($cats as $cat)
 		{
 			$this->categories[$cat->id] = $cat->title;
@@ -58,6 +59,7 @@ class Bundle_Controller extends Controller {
 			}
 		}
 		sort($this->repos);
+		$this->repos[0] = 'Please Select';
 	}
 
 	/**

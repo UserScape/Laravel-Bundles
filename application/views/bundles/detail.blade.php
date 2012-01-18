@@ -29,4 +29,3 @@
 	@endforeach
 </ul>
 @endif
-
