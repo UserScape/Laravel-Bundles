@@ -5,8 +5,7 @@
 			<div class="container">
 				<h3><a href="#">Laravel Bundles</a></h3>
 				<ul class="nav">
-					<?php /* @todo - The home page active isn't working */ ?>
-					<li class=""><a href="{{URL::to()}}">Home</a></li>
+					<li class="{{Nav::active('/')}}"><a href="{{URL::to()}}">Home</a></li>
 					<li class="{{Nav::active('bundle/add')}}"><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
 					<li><a href="">What are Bundles?</a></li>
 					<li><a href="">Make a bundle</a></li>

@@ -19,7 +19,7 @@
 		<h2><a href="#">Categories</a></h2>
 		<ul>
 		@foreach ($categories as $category)
-			<li><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
+			<li><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
 		@endforeach
 		</ul>
 	</div>

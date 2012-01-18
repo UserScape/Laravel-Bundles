@@ -27,14 +27,18 @@
 						<h2>Categories</h2>
 						<ul>
 						@foreach ($categories as $category)
+							@if (isset($selected_cat) AND $selected_cat == $category->id)
+							<li class="active"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+							@else
 							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+							@endif
 						@endforeach
 						</ul>
 					</div>
 				</div>
 			</div>
 			<footer>
-				<p>&copy; 2012 Userscape</p>
+				<p>&copy; {{date('Y')}} Userscape</p>
 			</footer>
 		</div>
 
