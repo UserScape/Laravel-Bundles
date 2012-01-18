@@ -1,4 +1,4 @@
-<?php namespace Laravel; use Closure;
+<?php namespace Laravel; use Closure, FilesystemIterator;
 
 class File {
 
@@ -157,10 +157,14 @@ class File {
 	{
 		$mimes = Config::get('mimes');
 
+		$mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+
+		// The MIME configuration file contains an array of file extensions and
+		// their associated MIME types. We will spin through each extension the
+		// developer wants to check to determine if the file's MIME type is in
+		// the list of MIMEs we have for that extension.
 		foreach ((array) $extensions as $extension)
 		{
-			$mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
-
 			if (isset($mimes[$extension]) and in_array($mime, (array) $mimes[$extension]))
 			{
 				return true;
@@ -169,5 +173,52 @@ class File {
 
 		return false;
 	}
+
+	/**
+	 * Recursively copy directory contents to another directory.
+	 *
+	 * @param  string  $source
+	 * @param  string  $destination
+	 * @return void
+	 */
+	public static function copy_dir($source, $destination)
+	{
+		if ( ! is_dir($source)) return;
+
+		// First we need to create the destination directory if it doesn't
+		// already exists. This directory hosts all of the assets we copy
+		// from the installed bundle's source directory.
+		if ( ! is_dir($destination))
+		{
+			mkdir($destination);
+		}
+
+		$items = new FilesystemIterator($source, FilesystemIterator::SKIP_DOTS);
+
+		foreach ($items as $item)
+		{
+			$location = $destination.DS.$item->getBasename();
+
+			// If the file system item is a directory, we will recurse the
+			// function, passing in the item directory. To get the proper
+			// destination path, we'll add the basename of the source to
+			// to the destination directory.
+			if ($item->isDir())
+			{
+				$path = $item->getRealPath();
+
+				static::copy_dir($path, $location);
+			}
+			// If the file system item is an actual file, we can copy the
+			// file from the bundle asset directory to the public asset
+			// directory. The "copy" method will overwrite any existing
+			// files with the same name.
+			else
+			{
+				copy($item->getRealPath(), $location);
+			}
+		}
+	}
+
 
 }

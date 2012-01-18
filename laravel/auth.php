@@ -62,7 +62,7 @@ class Auth {
 	{
 		if ( ! is_null(static::$user)) return static::$user;
 
-		$id = Session::get(Auth::user_key);
+		$id = IoC::core('session')->get(Auth::user_key);
 
 		// To retrieve the user, we'll first attempt to use the "user" Closure
 		// defined in the auth configuration file, passing in the ID. The user
@@ -191,7 +191,7 @@ class Auth {
 		// This method assumes the "remember me" cookie should have the same
 		// configuration as the session cookie. Since this cookie, like the
 		// session cookie, should be kept very secure, it's probably safe
-		// to assume the settings are the same for this cookie.
+		// to assume the cookie settings are the same.
 		$config = Config::get('session');
 
 		extract($config, EXTR_SKIP);
