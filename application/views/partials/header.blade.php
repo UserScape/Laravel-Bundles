@@ -9,8 +9,8 @@
 					<li><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
 					<li><a href="">What are Bundles?</a></li>
 				</ul>
-				<form class="pull-left" action="">
-					<input type="text" placeholder="Search Bundles">
+				<form method="get" class="pull-left" action="{{URL::to('search')}}">
+					<input type="text" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
 				</form>
 				<ul class="nav secondary-nav">
 					@if (Auth::check())

@@ -13,7 +13,24 @@ class Search_Controller extends Controller {
 
 	public function get_index()
 	{
-		// Show search form.
+		$bundles = array();
+		$term = '';
+		if ($term = strip_tags(Input::get('q')))
+		{
+			$bundles = Listing::where_active('y')->or_where(function($query)
+			{
+				$query->where('title', 'LIKE', '%'.$term.'%');
+				$query->or_where('summary', 'LIKE', '%'.$term.'%');
+				$query->or_where('description', 'LIKE', '%'.$term.'%');
+			})
+			->paginate(Config::get('application.per_page'));
+		}
+
+		return View::make('layouts.default')
+			->nest('content', 'category.detail', array(
+				'term' => $term,
+				'bundles' => $bundles
+			));
 	}
 
 	/**

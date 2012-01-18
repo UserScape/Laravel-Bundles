@@ -17,7 +17,11 @@
 			</tr>
 		@endforeach
 	</table>
-	{{$bundles->links()}}
+	@if ($q = strip_tags(Input::get('q')))
+		{{$bundles->appends(array('q' => $q))->links()}}
+	@else
+		{{$bundles->links()}}
+	@endif
 @else
-	<p>No bundles in this category yet. Why not create one?</p>
+	<p>No bundles was found matching your request.</p>
 @endif
