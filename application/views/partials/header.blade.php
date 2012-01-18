@@ -15,7 +15,7 @@
 				</form>
 				<ul class="nav secondary-nav">
 					@if (Auth::check())
-					<li class="menu {{Nav::active('user/')}}">
+					<li class="menu {{Nav::active('user/*')}}">
 						<a class="menu" href="{{URL::to('user/profile')}}">Hello {{Auth::user()->name}}</a>
 						<ul class="menu-dropdown">
 							<li class="{{Nav::active('user/bundles')}}"><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
