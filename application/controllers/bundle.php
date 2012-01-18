@@ -306,9 +306,28 @@ class Bundle_Controller extends Controller {
 			}
 		}
 
+		// See if we can rate or have already rated
+		$rating_class = 'notactive';
+		if ($user = Auth::user()->id)
+		{
+			if ( ! Rating::where_user_id($user)->where('listing_id', '=', $bundle->id)->get())
+			{
+				$rating_class = 'active';
+			}
+			else
+			{
+				$rating_class = 'rated';
+			}
+		}
+
+		// Get the total ratings
+		$ratings = Rating::where_listing_id($bundle->id)->count();
+
 		return View::make('layouts.default')
 			->nest('content', 'bundles.detail', array(
-				'bundle' => $bundle
+				'bundle' => $bundle,
+				'rating_class' => $rating_class,
+				'ratings' => $ratings,
 			));
 	}
 }

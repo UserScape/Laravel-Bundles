@@ -25,6 +25,16 @@ $(function() {
 	});
 	$('#rate').click(function(){
 		var id = $(this).attr('data-id');
+		var status = $(this).attr('data-active');
+
+		if (status == 'notactive') {
+			alert('You must be logged in to rate.');
+			return false;
+		} else if (status == 'rated') {
+			alert('You have already rated this.');
+			return false;
+		}
+
 		$.ajax({
 			beforeSend: function() {
 				$('#rate').fadeOut();

@@ -37,7 +37,7 @@ class Home_Controller extends Controller {
 	public function action_index()
 	{
 		$latest = DB::table('listings')
-			->where('active', '=', 'y')
+			->where_active('y')
 			->order_by('created_at', 'desc')
 			->take(10)
 			->get();

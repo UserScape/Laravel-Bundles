@@ -3429,65 +3429,68 @@ ul.tags li {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
 /* line 99, ../src/_bundles.scss */
-#bundle.detail .info {
-  border-right: 1px solid #ddd;
-  padding: 0 10px 0 0;
-}
-/* line 103, ../src/_bundles.scss */
 #bundle.detail .meta {
   margin: 0 0 20px 0;
   padding: 0;
-  /*@include border-radius(4px);
-  border: 1px solid #ddd;*/
+  color: #ccc;
 }
-/* line 109, ../src/_bundles.scss */
-#bundle.detail .meta li {
-  color: #111;
-}
-/* line 112, ../src/_bundles.scss */
+/* line 103, ../src/_bundles.scss */
 #bundle.detail .meta a {
   color: #ccc;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
 }
-/* line 117, ../src/_bundles.scss */
+/* line 108, ../src/_bundles.scss */
 #bundle.detail .meta a:hover {
   color: #ccc;
   border-bottom: none;
 }
+/* line 113, ../src/_bundles.scss */
+#bundle.detail .rating {
+  float: right;
+}
+/* line 115, ../src/_bundles.scss */
+#bundle.detail .rating #rate.notactive, #bundle.detail .rating #rate.rated {
+  opacity: 0.5;
+}
+/* line 119, ../src/_bundles.scss */
+#bundle.detail .rating #rate span {
+  background: url(../img/thumbsup.png) no-repeat left center;
+  padding-left: 20px;
+}
 
 /* End */
-/* line 126, ../src/_bundles.scss */
+/* line 129, ../src/_bundles.scss */
 #home .grid .info {
   width: 290px;
 }
 
-/* line 134, ../src/_bundles.scss */
+/* line 137, ../src/_bundles.scss */
 table h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 137, ../src/_bundles.scss */
+/* line 140, ../src/_bundles.scss */
 table a {
   color: #222;
 }
-/* line 140, ../src/_bundles.scss */
+/* line 143, ../src/_bundles.scss */
 table .item:nth-child(even) {
   background-color: whiteSmoke;
 }
-/* line 143, ../src/_bundles.scss */
+/* line 146, ../src/_bundles.scss */
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
-/* line 146, ../src/_bundles.scss */
+/* line 149, ../src/_bundles.scss */
 table td.gravatar {
   width: 70px;
 }
-/* line 149, ../src/_bundles.scss */
+/* line 152, ../src/_bundles.scss */
 table img.gravatar {
   border: 1px solid #ccc;
   padding: 2px;
 }
-/* line 153, ../src/_bundles.scss */
+/* line 156, ../src/_bundles.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3495,22 +3498,22 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 160, ../src/_bundles.scss */
+/* line 163, ../src/_bundles.scss */
 table .meta {
   width: 50px;
 }
-/* line 163, ../src/_bundles.scss */
+/* line 166, ../src/_bundles.scss */
 table tr.status_n {
   opacity: 0.5;
 }
 
-/* line 168, ../src/_bundles.scss */
+/* line 171, ../src/_bundles.scss */
 .hide {
   display: none;
 }
 
 /* Auto Complete */
-/* line 172, ../src/_bundles.scss */
+/* line 175, ../src/_bundles.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3522,7 +3525,7 @@ table tr.status_n {
   _margin: 0;
 }
 
-/* line 173, ../src/_bundles.scss */
+/* line 176, ../src/_bundles.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3537,18 +3540,18 @@ table tr.status_n {
   _overflow-x: hidden;
 }
 
-/* line 174, ../src/_bundles.scss */
+/* line 177, ../src/_bundles.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 175, ../src/_bundles.scss */
+/* line 178, ../src/_bundles.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 176, ../src/_bundles.scss */
+/* line 179, ../src/_bundles.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;
