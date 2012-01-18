@@ -57,7 +57,6 @@ $(function() {
 			data: "id="+id,
 			dataType: "json",
 			success: function(resp) {
-				console.log(resp)
 				if (resp.success){
 					$('#msg_text').html('Thank you for rating.');
 					$('#msg_box').addClass('success').fadeIn();

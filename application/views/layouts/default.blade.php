@@ -17,16 +17,20 @@
 
 			<div class="row">
 				<div class="span12">
-					{{View::make('partials.messages')->render()}}
-					{{$content}}
+					<div class="main">
+						{{View::make('partials.messages')->render()}}
+						{{$content}}
+					</div>
 				</div>
-				<div class="sidebar span4">
-					<h2>Categories</h2>
-					<ul>
-					@foreach ($categories as $category)
-						<li><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
-					@endforeach
-					</ul>
+				<div class="span4">
+					<div class="sidebar">
+						<h2>Categories</h2>
+						<ul>
+						@foreach ($categories as $category)
+							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+						@endforeach
+						</ul>
+					</div>
 				</div>
 			</div>
 			<footer>

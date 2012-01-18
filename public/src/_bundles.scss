@@ -21,31 +21,41 @@ h1.main {
 		text-decoration: none;
 	}
 }
-
+div.main {
+	// border-right: 1px solid #ebebeb;
+}
 .sidebar {
 
 	h2 {
 		font-size: 21px;
 		color: #6D6D6D;
-		margin: 0;
+		border-bottom: 1px #EEE solid;
+		margin-bottom: 0.75em;
 	}
-
 	ul {
 		margin: 0;
 	}
-	li {
-		position: relative;
-		border-bottom: 1px solid #C4C4C4;
-		margin: 0;
-		padding: 5px;
-		display: block;
-		list-style-type: none;
-		cursor: pointer;
-
+	li.active {
 		a {
-			display:block;
-			color: #333;
+			color: #555;
+			text-decoration: none;
 		}
+	}
+	li {
+		margin-left: 2em;
+		margin-bottom: 0.5em;
+		color: #555;
+		a {
+			margin-left: -15px;
+			margin-bottom: 1px;
+			padding: 6px 0 0 15px;
+		}
+	}
+	hr {
+		margin: 26px 0;
+		border: 0;
+		border-top: 1px solid #EEE;
+		border-bottom: 1px solid white;
 	}
 }
 ul.tags {
@@ -109,6 +119,9 @@ ul.tags {
 			color: #ccc;
 			border-bottom: none;
 		}
+	}
+	.installation {
+		width: 500px;
 	}
 	.rating {
 		float: right;

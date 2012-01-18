@@ -16,7 +16,9 @@
 <h2>Dependencies:</h2>
 <ul>
 	@foreach ($bundle->dependencies as $dependency)
-		<li>{{HTML::link('bundle/detail/'.$dependency->uri, $dependency->title, array('rel' => 'dependency', 'data-original-title' => $dependency->title, 'data-content' => $dependency->summary))}}</li>
+		@if ($dependency->active == 'y')
+			<li>{{HTML::link('bundle/detail/'.$dependency->uri, $dependency->title, array('rel' => 'dependency', 'data-original-title' => $dependency->title, 'data-content' => $dependency->summary))}}</li>
+		@endif
 	@endforeach
 </ul>
 @endif
