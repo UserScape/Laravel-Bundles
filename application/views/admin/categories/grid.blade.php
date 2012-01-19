@@ -1,5 +1,8 @@
 <div class="page-header clearfix">
-	<h1>Categories</h1>
+	<h1 class="pull-left">Categories</h1>
+	<div class="pull-right">
+		<a href="{{URL::to('admin_cats/add')}}" class="btn success">Add Category</a>
+	</div>
 </div>
 <div class="row">
 	<div class="span14">

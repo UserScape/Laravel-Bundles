@@ -1,8 +1,8 @@
 <?php
 /**
- * Admin cats controller
+ * Admin pages controller
  *
- * This controller is used for admins to manage categories.
+ * This controller is used for admins to manage pages.
  *
  * @license     http://www.opensource.org/licenses/mit MIT License
  * @copyright   UserScape, Inc. (http://userscape.com)
@@ -12,7 +12,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_cats_Controller extends Controller {
+class Admin_pages_Controller extends Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -22,6 +22,18 @@ class Admin_cats_Controller extends Controller {
 	 */
 	public $restful = true;
 
+	protected $pages = array();
+
+	public function __construct()
+	{
+		$pages = Page::all();
+		$this->pages = array(0 => '');
+		foreach ($pages as $page)
+		{
+			$this->pages[$page->id] = $page->title;
+		}
+	}
+
 	/**
 	 * Index
 	 *
@@ -29,28 +41,28 @@ class Admin_cats_Controller extends Controller {
 	 */
 	public function get_index()
 	{
-		$categories = Category::order_by('title', 'asc')->get();
+		$pages = Page::order_by('order', 'asc')->get();
 		return View::make('layouts.admin')
-			->nest('content', 'admin.categories.grid', array(
-				'categories' => $categories,
+			->nest('content', 'admin.pages.grid', array(
+				'pages' => $pages,
 			));
 	}
 
 	/**
-	 * Add a bundle
+	 * Add a page
 	 *
-	 * Ability to add a new category
+	 * Ability to add a new page
 	 */
 	public function get_add()
 	{
 		return View::make('layouts.admin')
-			->nest('content', 'admin.categories.form', array(
-				'category' => array(),
+			->nest('content', 'admin.pages.form', array(
+				'parent_pages' => $this->pages,
 			));
 	}
 
 	/**
-	 * Add a category
+	 * Add a page
 	 *
 	 * This handles the posted data from the get_add method above.
 	 *
@@ -62,52 +74,58 @@ class Admin_cats_Controller extends Controller {
 
 		$rules = array(
 			'title'       => 'required',
+			'uri'         => 'unique:pages',
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_cats/add')->with_errors($validator);
+			return Redirect::to('admin_pages/add')->with_errors($validator);
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		if ( ! $uri = Input::get('uri'))
+		{
+			$uri = Str::slug($title, '-');
+		}
 
-		$cat = new Category;
-		$cat->title = $title;
-		$cat->uri = $uri;
-		$cat->description = Input::get('description');
-		$cat->save();
+		$page = new Page;
+		$page->title = $title;
+		$page->uri = $uri;
+		$page->content = Input::get('content');
+		$page->parent = Input::get('parent');
+		$page->save();
 
-		return Redirect::to('admin_cats/')
-			->with('message', '<strong>Saved!</strong> Your category has been saved.')
+		return Redirect::to('admin_pages/')
+			->with('message', '<strong>Saved!</strong> Your page has been saved.')
 			->with('message_class', 'success');
 	}
 
 	/**
-	 * Edit a category
+	 * Edit a bundle
 	 *
-	 * Create the form which will send the posted
-	 * data to the post_edit method.
+	 * Create the edit bundle form which will send the posted
+	 * data to the post_add method.
 	 */
 	public function get_edit($id = '')
 	{
 		// See if we can get the bundle
-		if ( ! $cat = Category::find($id))
+		if ( ! $page = Page::find($id))
 		{
 			return Response::error('404');
 		}
 
 		// Pass everything off to the view and assign it where it should go
 		return View::make('layouts.admin')
-			->nest('content', 'admin.categories.form', array(
-				'category' => $cat,
+			->nest('content', 'admin.pages.form', array(
+				'page' => $page,
+				'parent_pages' => $this->pages,
 			));
 	}
 
 	/**
-	 * Edit a category
+	 * Edit a bundle
 	 *
 	 * This handles the posted data from the get_edit method above.
 	 *
@@ -126,26 +144,31 @@ class Admin_cats_Controller extends Controller {
 
 		$rules = array(
 			'title'       => 'required',
+			'uri'         => 'unique:pages,'.$id,
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_cats/edit/'.$id)->with_errors($validator);
+			return Redirect::to('admin_pages/edit/'.$id)->with_errors($validator);
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		if ( ! $uri = Input::get('uri'))
+		{
+			$uri = Str::slug($title, '-');
+		}
 
-		$cat = Category::find($id);
-		$cat->title = $title;
-		$cat->uri = $uri;
-		$cat->description = Input::get('description');
-		$cat->save();
+		$page = Page::find($id);
+		$page->title = $title;
+		$page->uri = $uri;
+		$page->content = Input::get('content');
+		$page->parent = Input::get('parent');
+		$page->save();
 
-		return Redirect::to('admin_cats/edit/'.$id)
-			->with('message', '<strong>Saved!</strong> Your category has been saved.')
+		return Redirect::to('admin_pages/edit/'.$id)
+			->with('message', '<strong>Saved!</strong> Your page has been saved.')
 			->with('message_class', 'success');
 	}
 }

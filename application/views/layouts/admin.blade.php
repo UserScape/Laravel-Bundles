@@ -19,6 +19,7 @@
 						<li class="{{Nav::active('admin')}}"><a href="{{URL::to('admin')}}">Home</a></li>
 						<li class="{{Nav::active('admin_bundles')}}"><a href="{{URL::to('admin_bundles')}}">Bundles</a></li>
 						<li class="{{Nav::active('admin_users')}}"><a href="{{URL::to('admin_users')}}">Users</a></li>
+						<li class="{{Nav::active('admin_pages')}}"><a href="{{URL::to('admin_pages')}}">Pages</a></li>
 						<li class="{{Nav::active('admin_cats')}}"><a href="{{URL::to('admin_cats')}}">Categories</a></li>
 					</ul>
 				</div>
