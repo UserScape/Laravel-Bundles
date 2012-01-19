@@ -24,7 +24,7 @@
 			{{$content}}
 
 			<footer>
-				<p>&copy; 2012 Laravel</p>
+				<p>&copy; {{date("Y")}} UserScape</p>
 			</footer>
 		</div>
 		{{Asset::scripts()}}

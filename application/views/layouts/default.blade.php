@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<footer>
-				<p>&copy; {{date('Y')}} Userscape</p>
+				<p>&copy; {{date("Y")}} UserScape</p>
 			</footer>
 		</div>
 
