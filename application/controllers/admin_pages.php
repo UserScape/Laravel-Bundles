@@ -26,6 +26,7 @@ class Admin_pages_Controller extends Controller {
 
 	public function __construct()
 	{
+		$this->filter('before', array('admin_auth'));
 		$pages = Page::all();
 		$this->pages = array(0 => '');
 		foreach ($pages as $page)

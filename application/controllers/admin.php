@@ -19,6 +19,7 @@ class Admin_Controller extends Controller {
 	 */
 	public function action_index()
 	{
+		$this->filter('before', array('admin_auth'));
 		return View::make('layouts.admin')
 			->nest('content', 'admin.index', array(
 				'categories' => array(),

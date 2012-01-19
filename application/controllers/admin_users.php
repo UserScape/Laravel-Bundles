@@ -34,6 +34,16 @@ class Admin_users_Controller extends Controller {
 	);
 
 	/**
+	 * Construct
+	 *
+	 * Setup the auth
+	 */
+	public function __construct()
+	{
+		$this->filter('before', array('admin_auth'));
+	}
+
+	/**
 	 * Index
 	 *
 	 * Show the bundle newt_grid_free(grid, recurse)

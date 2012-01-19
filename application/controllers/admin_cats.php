@@ -23,6 +23,16 @@ class Admin_cats_Controller extends Controller {
 	public $restful = true;
 
 	/**
+	 * Construct
+	 *
+	 * Setup the auth
+	 */
+	public function __construct()
+	{
+		$this->filter('before', array('admin_auth'));
+	}
+
+	/**
 	 * Index
 	 *
 	 * Show the category grid.

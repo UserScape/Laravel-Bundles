@@ -36,6 +36,7 @@ class Admin_bundles_Controller extends Controller {
 	 */
 	public function __construct()
 	{
+		$this->filter('before', array('admin_auth'));
 		// Get the categories
 		$cats = Category::all();
 		$this->categories[0] = 'Any Category';

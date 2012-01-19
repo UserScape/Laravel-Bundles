@@ -186,6 +186,16 @@ Filter::register('csrf', function()
 	if (Request::forged()) return Response::error('500');
 });
 
+Filter::register('admin_auth', function()
+{
+	if ( ! Auth::check() OR Auth::user()->group_id != 1)
+	{
+		return Redirect::to('/')
+			->with('message', '<strong>Error!</strong> You must be an adminsitrator to access that page.')
+			->with('message_class', 'error');
+	}
+});
+
 Filter::register('auth', function()
 {
 	if ( ! Auth::check())
