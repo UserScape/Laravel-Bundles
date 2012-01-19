@@ -5,8 +5,6 @@
 		<meta charset="utf-8">
 		<title>Administration</title>
 		{{Asset::styles()}}
-		<!-- fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
 	</head>
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 
