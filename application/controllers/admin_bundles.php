@@ -36,7 +36,7 @@ class Admin_bundles_Controller extends Controller {
 	/**
 	 * Index
 	 *
-	 * Show the bundle newt_grid_free(grid, recurse)
+	 * Show the bundle grid
 	 */
 	public function get_index()
 	{

@@ -20,7 +20,6 @@
 						<li class="{{Nav::active('admin_bundles')}}"><a href="{{URL::to('admin_bundles')}}">Bundles</a></li>
 						<li class="{{Nav::active('admin_users')}}"><a href="{{URL::to('admin_users')}}">Users</a></li>
 						<li class="{{Nav::active('admin_cats')}}"><a href="{{URL::to('admin_cats')}}">Categories</a></li>
-						<li class="{{Nav::active('admin_tags')}}"><a href="{{URL::to('admin_tags')}}">Tags</a></li>
 					</ul>
 				</div>
 			</div>
