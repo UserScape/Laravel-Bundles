@@ -77,6 +77,15 @@ body {
 	}
 }
 
+#admin_users {
+	.gravatar {
+		float: left;
+		margin-right: 10px;
+	}
+	td {
+		line-height: 3em;
+	}
+}
 table {
 
 	h3 {

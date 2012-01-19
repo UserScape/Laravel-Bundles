@@ -19,6 +19,7 @@
 					<th>Name</th>
 					<th>Username</th>
 					<th>Email</th>
+					<th>Group</th>
 				</tr>
 				@foreach ($users->results as $user)
 					<tr>
@@ -31,6 +32,13 @@
 						</td>
 						<td>
 							{{$user->email}}
+						</td>
+						<td>
+							@if ($user->group == 1)
+								<span class="label important">Administrator</span>
+							@else
+								<span class="label">Normal User</span>
+							@endif
 						</td>
 					</tr>
 				@endforeach

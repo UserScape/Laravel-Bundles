@@ -16,6 +16,7 @@ class Create_Users {
 			$table->string('username');
 			$table->string('name');
 			$table->string('email');
+			$table->integer('group')->default(2);
 			$table->string('ip_address');
 			$table->integer('github_uid');
 			$table->string('github_token');

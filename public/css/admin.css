@@ -3429,32 +3429,42 @@ body {
   margin: 20px 0;
 }
 
-/* line 82, ../src/_admin_main.scss */
+/* line 81, ../src/_admin_main.scss */
+#admin_users .gravatar {
+  float: left;
+  margin-right: 10px;
+}
+/* line 85, ../src/_admin_main.scss */
+#admin_users td {
+  line-height: 3em;
+}
+
+/* line 91, ../src/_admin_main.scss */
 table h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-/* line 85, ../src/_admin_main.scss */
+/* line 94, ../src/_admin_main.scss */
 table a {
   color: #222;
 }
-/* line 88, ../src/_admin_main.scss */
+/* line 97, ../src/_admin_main.scss */
 table .item:nth-child(even) {
   background-color: whiteSmoke;
 }
-/* line 91, ../src/_admin_main.scss */
+/* line 100, ../src/_admin_main.scss */
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
-/* line 94, ../src/_admin_main.scss */
+/* line 103, ../src/_admin_main.scss */
 table td.gravatar {
   width: 70px;
 }
-/* line 97, ../src/_admin_main.scss */
+/* line 106, ../src/_admin_main.scss */
 table img.gravatar {
   border: 1px solid #ccc;
   padding: 2px;
 }
-/* line 101, ../src/_admin_main.scss */
+/* line 110, ../src/_admin_main.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3462,36 +3472,36 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 108, ../src/_admin_main.scss */
+/* line 117, ../src/_admin_main.scss */
 table .meta {
   width: 150px;
   font-size: 11px;
 }
-/* line 112, ../src/_admin_main.scss */
+/* line 121, ../src/_admin_main.scss */
 table tr.status_n {
   opacity: 0.5;
 }
 
-/* line 117, ../src/_admin_main.scss */
+/* line 126, ../src/_admin_main.scss */
 .clearfix {
   margin-bottom: 18px;
   zoom: 1;
 }
 
-/* line 121, ../src/_admin_main.scss */
+/* line 130, ../src/_admin_main.scss */
 .clearfix:before, .clearfix:after {
   display: table;
   content: "";
   zoom: 1;
 }
 
-/* line 126, ../src/_admin_main.scss */
+/* line 135, ../src/_admin_main.scss */
 .clearfix:after {
   clear: both;
 }
 
 /* Auto Complete */
-/* line 131, ../src/_admin_main.scss */
+/* line 140, ../src/_admin_main.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3503,7 +3513,7 @@ table tr.status_n {
   _margin: 0;
 }
 
-/* line 132, ../src/_admin_main.scss */
+/* line 141, ../src/_admin_main.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3518,29 +3528,29 @@ table tr.status_n {
   _overflow-x: hidden;
 }
 
-/* line 133, ../src/_admin_main.scss */
+/* line 142, ../src/_admin_main.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 134, ../src/_admin_main.scss */
+/* line 143, ../src/_admin_main.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 135, ../src/_admin_main.scss */
+/* line 144, ../src/_admin_main.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;
 }
 
-/* line 137, ../src/_admin_main.scss */
+/* line 146, ../src/_admin_main.scss */
 .pull-right {
   float: right;
 }
 
-/* line 140, ../src/_admin_main.scss */
+/* line 149, ../src/_admin_main.scss */
 .pull-left {
   float: left;
 }
