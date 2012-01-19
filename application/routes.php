@@ -41,6 +41,7 @@
 */
 
 Router::register('GET /category/(:any)', 'category@detail');
+Router::register('GET /page/(:any)', 'page@detail');
 
 
 // ------------------------------------------------------------------------

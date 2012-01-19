@@ -7,8 +7,10 @@
 				<ul class="nav">
 					<li class="{{Nav::active('/')}}"><a href="{{URL::to()}}">Home</a></li>
 					<li class="{{Nav::active('bundle/add')}}"><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
-					<li><a href="">What are Bundles?</a></li>
-					<li><a href="">Make a bundle</a></li>
+					<?php $pages = Nav::pages(); ?>
+					@foreach ($pages as $page)
+					<li class="{{Nav::active('page/'.$page->uri)}}"><a href="{{URL::to('page/'.$page->uri)}}">{{$page->title}}</a></li>
+					@endforeach
 				</ul>
 				<form method="get" class="pull-left" action="{{URL::to('search')}}">
 					<input type="text" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
@@ -35,3 +37,5 @@
 	</div><!-- /topbar -->
 </div>
 <!-- End Navigation -->
+
+<?php Nav::pages(); ?>

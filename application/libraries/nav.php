@@ -76,4 +76,14 @@ class Nav {
 
 		return $count;
 	}
+
+	/**
+	 * Get pages
+	 *
+	 * Get a list of pages for the nav.
+	 */
+	public static function pages($depth = 0)
+	{
+		return Page::where_parent($depth)->get();
+	}
 }
