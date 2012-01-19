@@ -3460,11 +3460,20 @@ table td.gravatar {
   width: 70px;
 }
 /* line 106, ../src/_admin_main.scss */
+table td span.total {
+  font-size: 23px;
+  line-height: 1em;
+}
+/* line 109, ../src/_admin_main.scss */
+table td span.total a {
+  color: #7089B3;
+}
+/* line 113, ../src/_admin_main.scss */
 table img.gravatar {
   border: 1px solid #ccc;
   padding: 2px;
 }
-/* line 110, ../src/_admin_main.scss */
+/* line 117, ../src/_admin_main.scss */
 table .info {
   float: left;
   width: 350px;
@@ -3472,36 +3481,36 @@ table .info {
   position: relative;
   top: -3px;
 }
-/* line 117, ../src/_admin_main.scss */
+/* line 124, ../src/_admin_main.scss */
 table .meta {
   width: 150px;
   font-size: 11px;
 }
-/* line 121, ../src/_admin_main.scss */
+/* line 128, ../src/_admin_main.scss */
 table tr.status_n {
   opacity: 0.5;
 }
 
-/* line 126, ../src/_admin_main.scss */
+/* line 133, ../src/_admin_main.scss */
 .clearfix {
   margin-bottom: 18px;
   zoom: 1;
 }
 
-/* line 130, ../src/_admin_main.scss */
+/* line 137, ../src/_admin_main.scss */
 .clearfix:before, .clearfix:after {
   display: table;
   content: "";
   zoom: 1;
 }
 
-/* line 135, ../src/_admin_main.scss */
+/* line 142, ../src/_admin_main.scss */
 .clearfix:after {
   clear: both;
 }
 
 /* Auto Complete */
-/* line 140, ../src/_admin_main.scss */
+/* line 147, ../src/_admin_main.scss */
 .autocomplete-w1 {
   background: url(../img/shadow.png) no-repeat bottom right;
   position: absolute;
@@ -3513,7 +3522,7 @@ table tr.status_n {
   _margin: 0;
 }
 
-/* line 141, ../src/_admin_main.scss */
+/* line 148, ../src/_admin_main.scss */
 .autocomplete {
   border: 1px solid #999;
   background: #FFF;
@@ -3528,29 +3537,29 @@ table tr.status_n {
   _overflow-x: hidden;
 }
 
-/* line 142, ../src/_admin_main.scss */
+/* line 149, ../src/_admin_main.scss */
 .autocomplete .selected {
   background: #F0F0F0;
 }
 
-/* line 143, ../src/_admin_main.scss */
+/* line 150, ../src/_admin_main.scss */
 .autocomplete div {
   padding: 2px 5px;
   white-space: nowrap;
 }
 
-/* line 144, ../src/_admin_main.scss */
+/* line 151, ../src/_admin_main.scss */
 .autocomplete strong {
   font-weight: normal;
   color: #3399FF;
 }
 
-/* line 146, ../src/_admin_main.scss */
+/* line 153, ../src/_admin_main.scss */
 .pull-right {
   float: right;
 }
 
-/* line 149, ../src/_admin_main.scss */
+/* line 156, ../src/_admin_main.scss */
 .pull-left {
   float: left;
 }

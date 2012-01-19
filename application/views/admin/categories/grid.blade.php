@@ -7,8 +7,8 @@
 			<table class="table zebra-striped">
 				<tr>
 					<th>Name</th>
-					<th>Active Bundles</th>
 					<th>Description</th>
+					<th>Active Bundles</th>
 				</tr>
 				@foreach ($categories as $cat)
 					<tr>
@@ -16,10 +16,10 @@
 							<h3><a href="{{URL::to('admin_cats/edit/'.$cat->id)}}">{{$cat->title}}</a></h3>
 						</td>
 						<td>
-							{{Nav::cat_count($cat->id)}}
+							{{$cat->description}}
 						</td>
 						<td>
-							{{$cat->description}}
+							<span class="total">{{HTML::link('admin_bundles?category='.$cat->id, Nav::cat_count($cat->id))}}</span>
 						</td>
 					</tr>
 				@endforeach

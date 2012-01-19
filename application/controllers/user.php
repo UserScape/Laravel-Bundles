@@ -20,7 +20,6 @@ class User_Controller extends Controller {
 	{
 		Bundle::start('laravel-oauth2');
 
-		// @todo - Move these to config.
 		$provider = OAuth2::provider($provider, array(
 			'id' => Config::get('github.id'),
 			'secret' => Config::get('github.secret'),
@@ -57,6 +56,7 @@ class User_Controller extends Controller {
 					$user->ip_address = Request::ip();
 					$user->github_uid = $github_user['uid'];
 					$user->github_token = Crypter::encrypt($params->access_token);
+					$user->group_id = (User::count() == 0) ? 1 : 2;
 					$user->save();
 				}
 

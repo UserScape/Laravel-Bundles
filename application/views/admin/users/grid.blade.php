@@ -3,7 +3,7 @@
 	<div class="filter pull-right">
 		<form method="get" action="{{URL::to('admin_users')}}">
 			Show Users in
-			<?php $selected = (Input::old('group') != null) ? Input::old('group') : ''; ?>
+			<?php $selected = Input::get('group') ?>
 			{{Form::select('group', $groups, $selected, array('class' => 'smallSelect'))}}
 			with
 			<input type="text" placeholder="Keywords" name="q" value="{{strip_tags(Input::get('q'))}}">
@@ -34,7 +34,7 @@
 							{{$user->email}}
 						</td>
 						<td>
-							@if ($user->group == 1)
+							@if ($user->group_id == 1)
 								<span class="label important">Administrator</span>
 							@else
 								<span class="label">Normal User</span>

@@ -41,7 +41,7 @@
 					<label for="category_id">Group</label>
 					<div class="input">
 						<?php
-						$selected = (Input::old('group') != null) ? Input::old('group') : $user->group;
+						$selected = (Input::old('group') != null) ? Input::old('group') : $user->group_id;
 						?>
 						{{Form::select('group', $groups, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
 					</div>

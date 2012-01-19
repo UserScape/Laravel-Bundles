@@ -3,7 +3,7 @@
 	<div class="filter pull-right">
 		<form method="get" action="{{URL::to('admin_bundles')}}">
 			Show Bundles in
-			<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
+			<?php $selected = Input::get('category'); ?>
 			{{Form::select('category', $categories, $selected, array('class' => 'smallSelect'))}}
 			with
 			<input type="text" placeholder="Keywords" name="q" value="{{strip_tags(Input::get('q'))}}">

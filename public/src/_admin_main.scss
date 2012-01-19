@@ -103,6 +103,13 @@ table {
 	td.gravatar {
 		width: 70px;
 	}
+	td span.total {
+		font-size: 23px;
+		line-height: 1em;
+		a {
+			color: #7089B3;
+		}
+	}
 	img.gravatar {
 		border: 1px solid #ccc;
 		padding: 2px;

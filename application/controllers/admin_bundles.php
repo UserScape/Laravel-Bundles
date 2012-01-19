@@ -41,26 +41,23 @@ class Admin_bundles_Controller extends Controller {
 	public function get_index()
 	{
 		// Are we searching?
-		// @todo - This aint working but I am moving on to something more important.
-		// can't get my ahead around best way of doing it.
 		if ($cat = Input::get('category') OR $term = strip_tags(Input::get('q')))
 		{
-			$bundles = Listing::where('1', '=', '1');
+			$listings = Listing::order_by('title', 'desc');
 
 			if ($term)
 			{
-				$bundles->where('title', 'LIKE', '%'.$term.'%')
+				$listings->where('title', 'LIKE', '%'.$term.'%')
 					->or_where('summary', 'LIKE', '%'.$term.'%')
 					->or_where('description', 'LIKE', '%'.$term.'%');
 			}
 
 			if ($cat > 0)
 			{
-				$bundles->where('category_id', '=', $cat);
+				$listings->where_category_id($cat);
 			}
-			$bundles->paginate(20);
 
-			var_dump(Laravel\Database\Connection::$queries);
+			$bundles = $listings->paginate(20);
 		}
 		else
 		{

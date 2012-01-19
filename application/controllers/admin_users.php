@@ -36,26 +36,22 @@ class Admin_users_Controller extends Controller {
 	public function get_index()
 	{
 		// Are we searching?
-		// @todo - This aint working but I am moving on to something more important.
-		// can't get my ahead around best way of doing it.
-		if ($cat = Input::get('category') OR $term = strip_tags(Input::get('q')))
+		if ($group = Input::get('group') OR $term = strip_tags(Input::get('q')))
 		{
-			$bundles = Listing::where('1', '=', '1');
+			$users_query = User::order_by('username', 'asc');
 
 			if ($term)
 			{
-				$bundles->where('title', 'LIKE', '%'.$term.'%')
-					->or_where('summary', 'LIKE', '%'.$term.'%')
-					->or_where('description', 'LIKE', '%'.$term.'%');
+				$users_query->where('name', 'LIKE', '%'.$term.'%')
+					->or_where('username', 'LIKE', '%'.$term.'%')
+					->or_where('email', 'LIKE', '%'.$term.'%');
 			}
 
-			if ($cat > 0)
+			if ($group > 0)
 			{
-				$bundles->where('category_id', '=', $cat);
+				$users_query->where('group_id', '=', $group);
 			}
-			$bundles->paginate(20);
-
-			var_dump(Laravel\Database\Connection::$queries);
+			$users = $users_query->paginate(20);
 		}
 		else
 		{
@@ -126,7 +122,7 @@ class Admin_users_Controller extends Controller {
 		$user->username = Input::get('username');
 		$user->name = Input::get('name');
 		$user->email = Input::get('email');
-		$user->group = Input::get('group');
+		$user->group_id = Input::get('group');
 		$user->save();
 
 		return Redirect::to('admin_users/edit/'.$id)
