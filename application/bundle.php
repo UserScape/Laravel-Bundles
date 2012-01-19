@@ -8,7 +8,7 @@ View::composer('layouts.home', function($view)
 	Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
 	Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
 	Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
-	Asset::add('tools', 'js/jquery.tools.js', array('jquery'));
+	Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
 	Asset::add('bootstrap-modal', 'js/bootstrap-modal.js', array('jquery'));
 	//Asset::add('bootstrap-alerts', 'js/bootstrap-alerts.js', array('jquery'));
 	Asset::add('bootstrap-twipsy', 'js/bootstrap-twipsy.js', array('jquery'));
@@ -26,7 +26,7 @@ View::composer('layouts.default', function($view)
 	Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
 	Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
 	Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
-	Asset::add('tools', 'js/jquery.tools.js', array('jquery'));
+	Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
 	Asset::add('bootstrap-modal', 'js/bootstrap-modal.js', array('jquery'));
 	//Asset::add('bootstrap-alerts', 'js/bootstrap-alerts.js', array('jquery'));
 	Asset::add('bootstrap-twipsy', 'js/bootstrap-twipsy.js', array('jquery'));
@@ -46,7 +46,7 @@ View::composer('layouts.admin', function($view)
 	Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
 	Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
 	Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
-	Asset::add('tools', 'js/jquery.tools.js', array('jquery'));
+	Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
 	Asset::add('bootstrap-modal', 'js/bootstrap-modal.js', array('jquery'));
 	//Asset::add('bootstrap-alerts', 'js/bootstrap-alerts.js', array('jquery'));
 	Asset::add('bootstrap-twipsy', 'js/bootstrap-twipsy.js', array('jquery'));
