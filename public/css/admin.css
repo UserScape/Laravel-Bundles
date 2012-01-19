@@ -3324,7 +3324,12 @@ $green:     #859900;
   color: #b5bd68;
 }
 
-/* line 4, ../src/_admin_main.scss */
+/* line 3, ../src/_admin_main.scss */
+.topbar {
+  position: relative;
+}
+
+/* line 7, ../src/_admin_main.scss */
 .topbar-inner,
 .topbar .fill {
   background-color: #00A0D1;
@@ -3344,40 +3349,40 @@ $green:     #859900;
   -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
-/* line 10, ../src/_admin_main.scss */
+/* line 13, ../src/_admin_main.scss */
 .topbar-inner a,
 .topbar .fill a {
   color: #fff;
 }
-/* line 14, ../src/_admin_main.scss */
+/* line 17, ../src/_admin_main.scss */
 .topbar-inner .secondary-nav li,
 .topbar .fill .secondary-nav li {
   border: none;
 }
 
-/* line 19, ../src/_admin_main.scss */
+/* line 22, ../src/_admin_main.scss */
 body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   color: #6D6D6D;
-  padding-top: 40px;
+  padding-top: 0px;
   background-color: #eee;
 }
 
-/* line 27, ../src/_admin_main.scss */
+/* line 30, ../src/_admin_main.scss */
 .container > footer p {
   text-align: center;
   /* center align it with the container */
 }
 
-/* line 30, ../src/_admin_main.scss */
+/* line 33, ../src/_admin_main.scss */
 .container {
   width: 820px;
   /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
 }
 
 /* The white background content wrapper */
-/* line 35, ../src/_admin_main.scss */
+/* line 38, ../src/_admin_main.scss */
 .content {
   background-color: #fff;
   padding: 20px;
@@ -3392,7 +3397,7 @@ body {
 }
 
 /* Page header tweaks */
-/* line 48, ../src/_admin_main.scss */
+/* line 51, ../src/_admin_main.scss */
 .page-header {
   background-color: #f5f5f5;
   padding: 20px 20px 10px;
@@ -3400,21 +3405,302 @@ body {
 }
 
 /* Styles you shouldn't keep as they are for displaying this base example only */
-/* line 56, ../src/_admin_main.scss */
+/* line 59, ../src/_admin_main.scss */
 .content .span10,
 .content .span4 {
   min-height: 500px;
 }
 
 /* Give a quick and non-cross-browser friendly divider */
-/* line 61, ../src/_admin_main.scss */
+/* line 64, ../src/_admin_main.scss */
 .content .span4 {
   margin-left: 0;
   padding-left: 19px;
   border-left: 1px solid #eee;
 }
 
-/* line 67, ../src/_admin_main.scss */
+/* line 70, ../src/_admin_main.scss */
 .topbar .btn {
   border: 0;
+}
+
+/* line 75, ../src/_admin_main.scss */
+.messages .alert-message {
+  margin: 20px 0;
+}
+
+/* line 82, ../src/_admin_main.scss */
+table h3 {
+  font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
+}
+/* line 85, ../src/_admin_main.scss */
+table a {
+  color: #222;
+}
+/* line 88, ../src/_admin_main.scss */
+table .item:nth-child(even) {
+  background-color: whiteSmoke;
+}
+/* line 91, ../src/_admin_main.scss */
+table .item {
+  border-bottom: 1px solid #E5E5E5;
+}
+/* line 94, ../src/_admin_main.scss */
+table td.gravatar {
+  width: 70px;
+}
+/* line 97, ../src/_admin_main.scss */
+table img.gravatar {
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+/* line 101, ../src/_admin_main.scss */
+table .info {
+  float: left;
+  width: 350px;
+  margin-right: 12px;
+  position: relative;
+  top: -3px;
+}
+/* line 108, ../src/_admin_main.scss */
+table .meta {
+  width: 150px;
+  font-size: 11px;
+}
+/* line 112, ../src/_admin_main.scss */
+table tr.status_n {
+  opacity: 0.5;
+}
+
+/* line 117, ../src/_admin_main.scss */
+.clearfix {
+  margin-bottom: 18px;
+  zoom: 1;
+}
+
+/* line 121, ../src/_admin_main.scss */
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  zoom: 1;
+}
+
+/* line 126, ../src/_admin_main.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* Auto Complete */
+/* line 131, ../src/_admin_main.scss */
+.autocomplete-w1 {
+  background: url(../img/shadow.png) no-repeat bottom right;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 8px 0 0 6px;
+  /* IE6 fix: */
+  _background: none;
+  _margin: 0;
+}
+
+/* line 132, ../src/_admin_main.scss */
+.autocomplete {
+  border: 1px solid #999;
+  background: #FFF;
+  cursor: default;
+  text-align: left;
+  max-height: 350px;
+  overflow: auto;
+  margin: -6px 6px 6px -6px;
+  /* IE6 specific: */
+  _height: 350px;
+  _margin: 0;
+  _overflow-x: hidden;
+}
+
+/* line 133, ../src/_admin_main.scss */
+.autocomplete .selected {
+  background: #F0F0F0;
+}
+
+/* line 134, ../src/_admin_main.scss */
+.autocomplete div {
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
+/* line 135, ../src/_admin_main.scss */
+.autocomplete strong {
+  font-weight: normal;
+  color: #3399FF;
+}
+
+/* line 137, ../src/_admin_main.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 140, ../src/_admin_main.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 1, ../src/_tags.scss */
+.ui-autocomplete {
+  background-color: #fff;
+  position: absolute;
+  cursor: default;
+  list-style: none;
+  margin: 25px 0 0;
+  padding: 0;
+  border: 1px solid #E5E5E5;
+  border-top: none;
+  -moz-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+  -moz-box-shadow: 0 3px 5px #888;
+  -webkit-box-shadow: 0 3px 5px #888;
+  box-shadow: 0 3px 5px #888;
+  font-size: 12px;
+}
+
+/* line 18, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item {
+  padding: 0;
+  margin: 0;
+  float: none;
+}
+
+/* line 24, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item a {
+  display: block;
+  padding: 4px 6px;
+  margin: 0;
+  text-decoration: none;
+  line-height: 12px;
+  border-bottom: 1px solid #E5E5E5;
+  border-top: 1px solid #fff;
+  color: #78959D;
+}
+
+/* line 37, ../src/_tags.scss */
+.ui-autocomplete .ui-menu-item a.ui-state-hover,
+.ui-autocomplete .ui-menu-item a.ui-state-active {
+  background-color: #c0d1e2;
+  color: #555;
+  border-color: #a6cef7;
+}
+
+/* line 43, ../src/_tags.scss */
+.ui-autocomplete-loading {
+  background: white url(../img/ui-anim_basic_16x16.gif) right center no-repeat;
+}
+
+/* line 47, ../src/_tags.scss */
+ul.tagit {
+  cursor: text;
+  overflow: auto;
+  font-size: 14px;
+  width: 97%;
+  padding: 3px;
+  margin: 2px 6px 16px 0;
+  background: #fff;
+  color: #555;
+  border: 1px solid #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 63, ../src/_tags.scss */
+ul.tagit li {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+  position: relative;
+}
+
+/* line 72, ../src/_tags.scss */
+ul.tagit li.tagit-choice {
+  background-color: #DEE7F8;
+  border: 1px solid #CAD8F3;
+  padding: 2px 13px 3px 4px;
+}
+
+/* line 78, ../src/_tags.scss */
+ul.tagit li.tagit-choice.selected {
+  background-color: #f5b0b0;
+  border-color: #f76464;
+}
+
+/* line 83, ../src/_tags.scss */
+ul.tagit li.tagit-choice:hover {
+  background-color: #bbcef1;
+  border-color: #6d95e0;
+}
+
+/* line 88, ../src/_tags.scss */
+ul.tagit li.tagit-new {
+  padding: 2px 4px 3px;
+  padding: 2px 4px 1px;
+  padding: 2px 4px 1px 0;
+}
+
+/* line 94, ../src/_tags.scss */
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 0 5px 0 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* line 102, ../src/_tags.scss */
+ul.tagit li.tagit-choice a.tagit-close {
+  color: #777777;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  outline: medium none;
+  padding: 2px 0 2px 3px;
+  text-decoration: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* line 117, ../src/_tags.scss */
+ul.tagit li.tagit-choice a.tagit-close:hover {
+  color: #535353;
+}
+
+/* line 121, ../src/_tags.scss */
+ul.tagit input[type="text"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-shadow: none;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: inherit !important;
+  outline: none;
+}
+
+/* line 131, ../src/_tags.scss */
+.tagit-hiddenSelect {
+  display: none;
 }
