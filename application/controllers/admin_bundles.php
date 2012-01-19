@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Admin bundles controller
+ *
+ * This controller is used for admins to manage bundles.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Controllers
+ * @filesource
+ */
 class Admin_bundles_Controller extends Controller {
 
 	/**

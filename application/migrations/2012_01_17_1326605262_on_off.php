@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Create On Off
+ *
+ * Alter the listings table and add an on/off switch.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Migrations
+ * @filesource
+ */
 class On_Off {
 
 	/**

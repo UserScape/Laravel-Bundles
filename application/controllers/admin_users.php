@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Admin users controller
+ *
+ * This controller is used for admins to manage users.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Controllers
+ * @filesource
+ */
 class Admin_users_Controller extends Controller {
 
 	/**
@@ -20,13 +32,6 @@ class Admin_users_Controller extends Controller {
 		1 => 'Administrator',
 		2 => 'Normal User',
 	);
-
-	/**
-	 * Construct
-	 *
-	 * Setup categories
-	 */
-	public function __construct() {}
 
 	/**
 	 * Index

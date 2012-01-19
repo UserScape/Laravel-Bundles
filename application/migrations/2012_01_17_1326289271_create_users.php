@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Create Users
+ *
+ * A migration for creating the users table.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Migrations
+ * @filesource
+ */
 class Create_Users {
 
 	/**

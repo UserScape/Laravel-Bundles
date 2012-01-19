@@ -1,4 +1,21 @@
 <?php
+/**
+ * Bundle
+ *
+ * Basic laravel settings
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Models
+ * @filesource
+ */
+
+/**
+ * Home page composer
+ */
 View::composer('layouts.home', function($view)
 {
 	$view->with('categories', Category::all());
@@ -17,6 +34,9 @@ View::composer('layouts.home', function($view)
 	Asset::add('bootstrap-scrollspy', 'js/bootstrap-scrollspy.js', array('jquery'));
 });
 
+/**
+ * Default front-end composer
+ */
 View::composer('layouts.default', function($view)
 {
 	$view->with('categories', Category::all());
@@ -38,6 +58,9 @@ View::composer('layouts.default', function($view)
 	Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
 });
 
+/**
+ * Admin layout composer
+ */
 View::composer('layouts.admin', function($view)
 {
 	Asset::add('style', 'css/admin.css');
@@ -58,6 +81,11 @@ View::composer('layouts.admin', function($view)
 	Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
 });
 
+/**
+ * Autoloader
+ *
+ * Tell laravel to autoload models and libraries.
+ */
 Autoloader::psr(array(
 	APP_PATH.'models',
 	APP_PATH.'libraries',

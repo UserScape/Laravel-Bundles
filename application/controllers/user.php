@@ -1,7 +1,24 @@
 <?php
-
+/**
+ * User controller
+ *
+ * Basic user operations. Login, logout, and view their bundles.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Controllers
+ * @filesource
+ */
 class User_Controller extends Controller {
 
+	/**
+	 * Index
+	 *
+	 * Show a login form or login text.
+	 */
 	public function action_index()
 	{
 		return View::make('layouts.default')
@@ -73,6 +90,13 @@ class User_Controller extends Controller {
 		}
 	}
 
+	/**
+	 * Bundles
+	 *
+	 * Show a list of the current users bundles
+	 *
+	 * @return string
+	 */
 	public function action_bundles()
 	{
 		$bundles = Listing::where_user_id(Auth::user()->id)->paginate(Config::get('application.per_page'));
@@ -84,6 +108,11 @@ class User_Controller extends Controller {
 			));
 	}
 
+	/**
+	 * Logout
+	 *
+	 * Allow the user to logout and redirect to home.
+	 */
 	public function action_logout()
 	{
 		Auth::logout();

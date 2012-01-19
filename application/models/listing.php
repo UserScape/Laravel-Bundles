@@ -1,8 +1,29 @@
 <?php
+/**
+ * Listing
+ *
+ * Model for handling the listings/bundles table.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Models
+ * @filesource
+ */
 class Listing extends Eloquent\Model {
 
+	/**
+	 * Manually set the table
+	 * @param string $table
+	 */
 	public static $table = 'listings';
 
+	/**
+	 * Use timestamps
+	 * @param bool $timestamps
+	 */
 	public static $timestamps = true;
 
 	/**

@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Search controller
+ *
+ * Allows you to search tags, users, and by keywords
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Controllers
+ * @filesource
+ */
 class Search_Controller extends Controller {
 
 	/**
@@ -11,19 +23,25 @@ class Search_Controller extends Controller {
 	public $restful = true;
 
 
+	/**
+	 * Search index
+	 *
+	 * Used by keyword searching.
+	 */
 	public function get_index()
 	{
 		$bundles = array();
 		$term = '';
 		if ($term = strip_tags(Input::get('q')))
 		{
-			$bundles = Listing::where_active('y')->or_where(function($query)
+			$listings = Listing::where_active('y')->where(function($query)
 			{
+				$term = strip_tags(Input::get('q'));
 				$query->where('title', 'LIKE', '%'.$term.'%');
 				$query->or_where('summary', 'LIKE', '%'.$term.'%');
 				$query->or_where('description', 'LIKE', '%'.$term.'%');
-			})
-			->paginate(Config::get('application.per_page'));
+			});
+			$bundles = $listings->paginate(Config::get('application.per_page'));
 		}
 
 		return View::make('layouts.default')
@@ -36,7 +54,8 @@ class Search_Controller extends Controller {
 	/**
 	 * Search by a tag
 	 *
-	 * @param string $tag
+	 * @param string $item
+	 * @return string
 	 */
 	public function get_tag($item = '')
 	{
@@ -60,6 +79,14 @@ class Search_Controller extends Controller {
 			));
 	}
 
+	/**
+	 * Get User
+	 *
+	 * Find a user by their username and return their listings
+	 *
+	 * @param string $item - The username
+	 * @return string
+	 */
 	public function get_user($item = '')
 	{
 		$user = User::where_username($item)->first();

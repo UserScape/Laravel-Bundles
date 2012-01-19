@@ -14,7 +14,7 @@
 		<div class="topbar">
 			<div class="fill">
 				<div class="container">
-					<a class="brand" href="#">Project name</a>
+					<a class="brand" href="#">Bundles Admin</a>
 					<ul class="nav">
 						<li class="{{Nav::active('admin')}}"><a href="{{URL::to('admin')}}">Home</a></li>
 						<li class="{{Nav::active('admin_bundles')}}"><a href="{{URL::to('admin_bundles')}}">Bundles</a></li>
