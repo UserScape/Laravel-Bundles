@@ -10,20 +10,21 @@ body {
 h1, h2, h3 {
 	font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-.hero-unit {
-	padding: 30px 60px;
-	.pull-left {
-		width: 60%;
-	}
-	ul {
-		margin: 0;
-	}
-	li {
-		margin-left: 2em;
-		margin-bottom: 0.5em;
-		color: #555;
+
+.main {
+	p {
+		font-size: 16px;
+		margin-bottom: 20px;
 	}
 }
+
+/* Home Page */
+
+.hero-unit {
+	padding: 30px 60px;
+}
+
+/* Header */
 .topbar {
 	h3 {
 		font-family: 'Lobster Two';
@@ -88,87 +89,8 @@ h1, h2, h3 {
 	}
 }
 
-h1.main {
-	font-family: 'Lobster Two';
-	font-size: 80px;
-	color: #6D6D6D;
-	margin: 0 0 20px;
-	padding: 0;
-	text-shadow: 1px 1px 1px #DDD;
-	line-height: normal;
-	a,a:hover {
-		color: #6D6D6D;
-		text-decoration: none;
-	}
-}
-.main {
-	p {
-		font-size: 16px;
-		margin-bottom: 20px;
-	}
-}
-ul.inline {
-	li {
-		display: inline;
-		padding: 5px 10px;
-		margin: 0;
-	}
-}
-footer {
-	background: url(../img/footer-bg.png);
-	height: 100%;
-	ul.footer {
-		margin: 0;
-	}
-	h3 {
-		color: #B7B7B7;
-		margin: 0;
-		padding: 0;
-		background: url(../img/nav-footer-spacer.png) repeat-x bottom;
-		letter-spacing: 1px;
-		text-shadow: 0 1px 0 #000;
-		text-transform: uppercase;
-		font-size: 15px;
-		font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
-	}
-	ul {
-		padding: 0;
-		margin: 0;
-		color: #ccc;
-		li:last-child{
-			background: none;
-		}
-		li {
-			padding: 8px 0;
-			margin: 0;
-			color: #ccc;
-			font-size: 12px;
-			text-shadow: 0 1px 0 #000;
-			a {
-				color: #fff;
-			}
-			a:hover {
-				color: #fff;
-			}
-		}
-	}
-	.cats {
-		li {
-			background: url(../img/nav-footer-spacer.png) repeat-x bottom left;
-			width: 150px;
-		}
-	}
-	img {
-		margin: 30px 0 0 40px;
-	}
-}
 
-iframe {
-	padding: 3px;
-	margin: 10px 0 20px;
-	border: 1px solid #CCC;
-	background: #EBEBEB;
-}
+/* Sidebar */
 .sidebar {
 
 	h2 {
@@ -202,22 +124,6 @@ iframe {
 		border: 0;
 		border-top: 1px solid #EEE;
 		border-bottom: 1px solid white;
-	}
-}
-ul.tags {
-	border-top: 1px solid #ebebeb;
-	padding: 10px 0 0;
-	margin: 0;
-	li.first{
-		border-left: none;
-		padding-left: 22px;
-		background: url(../img/tag.png) no-repeat left center;
-	}
-	li {
-		display: inline;
-		padding: 5px;
-		margin: 0;
-		border-left: 1px solid #ebebeb;
 	}
 }
 
@@ -283,7 +189,25 @@ ul.tags {
 		}
 	}
 }
+ul.tags {
+	border-top: 1px solid #ebebeb;
+	padding: 10px 0 0;
+	margin: 0;
+	li.first{
+		border-left: none;
+		padding-left: 22px;
+		background: url(../img/tag.png) no-repeat left center;
+	}
+	li {
+		display: inline;
+		padding: 5px;
+		margin: 0;
+		border-left: 1px solid #ebebeb;
+	}
+}
 /* End */
+
+/* Home Page */
 #home {
 	.grid {
 		.info {
@@ -292,8 +216,8 @@ ul.tags {
 	}
 }
 
+/* Table grid styles */
 table {
-
 	h3 {
 		font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 	}
@@ -328,6 +252,64 @@ table {
 	}
 }
 
+/* Footer */
+footer {
+	background: url(../img/footer-bg.png);
+	height: 100%;
+	ul.footer {
+		margin: 0;
+	}
+	h3 {
+		color: #B7B7B7;
+		margin: 0;
+		padding: 0;
+		background: url(../img/nav-footer-spacer.png) repeat-x bottom;
+		letter-spacing: 1px;
+		text-shadow: 0 1px 0 #000;
+		text-transform: uppercase;
+		font-size: 15px;
+		font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
+	}
+	ul {
+		padding: 0;
+		margin: 0;
+		color: #ccc;
+		li:last-child{
+			background: none;
+		}
+		li {
+			padding: 8px 0;
+			margin: 0;
+			color: #ccc;
+			font-size: 12px;
+			text-shadow: 0 1px 0 #000;
+			a {
+				color: #fff;
+			}
+			a:hover {
+				color: #fff;
+			}
+		}
+	}
+	.cats {
+		li {
+			background: url(../img/nav-footer-spacer.png) repeat-x bottom left;
+			width: 150px;
+		}
+	}
+	img {
+		margin: 30px 0 0 40px;
+	}
+}
+
+/* Utilities */
+iframe {
+	padding: 3px;
+	margin: 10px 0 20px;
+	border: 1px solid #CCC;
+	background: #EBEBEB;
+}
+
 .alert-message p {
 	margin-bottom: 0;
 }
@@ -335,13 +317,6 @@ table {
 .hide {
 	display: none;
 }
-/* Auto Complete */
-.autocomplete-w1 { background:url(../img/shadow.png) no-repeat bottom right; position:absolute; top:0px; left:0px; margin:8px 0 0 6px; /* IE6 fix: */ _background:none; _margin:0; }
-.autocomplete { border:1px solid #999; background:#FFF; cursor:default; text-align:left; max-height:350px; overflow:auto; margin:-6px 6px 6px -6px; /* IE6 specific: */ _height:350px;  _margin:0; _overflow-x:hidden; }
-.autocomplete .selected { background:#F0F0F0; }
-.autocomplete div { padding:2px 5px; white-space:nowrap; }
-.autocomplete strong { font-weight:normal; color:#3399FF; }
-
 
 .clearfix {
   margin-bottom: 18px;
