@@ -178,54 +178,13 @@ class Admin_bundles_Controller extends Controller {
 		$listing->save();
 
 		// Now save tags
-		$this->_save_tags($id);
+		$listing->save_tags($id);
 
 		// Now save dependencies
-		$this->_save_dependencies($id);
+		$listing->save_dependencies($id);
 
 		return Redirect::to('admin_bundles/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
 			->with('message_class', 'success');
 	}
-
-
-	/**
-	 * Save Tags
-	 *
-	 * @param int $id
-	 * @return bool
-	 */
-	private function _save_tags($id)
-	{
-		$tag = new Tag;
-		return $tag->save_tags($id, Input::get('tags'));
-	}
-
-	/**
-	 * Save Dependencies
-	 *
-	 * @param int $id
-	 * @return bool
-	 */
-	private function _save_dependencies($id)
-	{
-		DB::table('dependencies')->where('listing_id', '=', $id)->delete();
-
-		if ( ! $dependencies = Input::get('dependencies'))
-		{
-			return false;
-		}
-
-		foreach ($dependencies as $dependency)
-		{
-			$bundle = Listing::where_title($dependency)->first();
-			if (is_null($bundle))
-			{
-				continue;
-			}
-			DB::table('dependencies')->insert(array('listing_id' => $id, 'dependency_id' => $bundle->id));
-		}
-		return true;
-	}
-
 }

@@ -51,4 +51,46 @@ class Listing extends Eloquent\Model {
 	{
 		return $this->has_and_belongs_to_many('Listing', 'dependencies', 'listing_id', 'dependency_id');
 	}
+
+	/**
+	 * Save Tags
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	public function save_tags($id)
+	{
+		$tag = new Tag;
+		return $tag->save_tags($id, Input::get('tags'));
+	}
+
+	/**
+	 * Save Dependencies
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	public function save_dependencies($id)
+	{
+		DB::table('dependencies')->where('listing_id', '=', $id)->delete();
+
+		if ( ! $dependencies = Input::get('dependencies'))
+		{
+			return false;
+		}
+
+		foreach ($dependencies as $dependency)
+		{
+			// Rest the where clause to keep from have the wrong query.
+			self::reset_where();
+
+			$bundle = self::where_title($dependency)->first();
+			if (is_null($bundle))
+			{
+				continue;
+			}
+			DB::table('dependencies')->insert(array('listing_id' => $id, 'dependency_id' => $bundle->id));
+		}
+		return true;
+	}
 }
