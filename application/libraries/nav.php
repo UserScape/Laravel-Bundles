@@ -84,6 +84,6 @@ class Nav {
 	 */
 	public static function pages($depth = 0)
 	{
-		return Page::where_parent($depth)->get();
+		return Page::where_parent($depth)->where_nav('y')->get();
 	}
 }

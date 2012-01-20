@@ -61,6 +61,13 @@ h1, h2, h3 {
 	div ul li.active > a, div li.active > a {
 		background: none;
 	}
+	ul.secondary-nav, .secondary-nav li {
+		background: none;
+	}
+	.gravatar {
+		float: left;
+		margin: -2px 10px;
+	}
 	input {
 		color: #fff;
 		text-shadow: 0 1px 0 #111;
@@ -90,6 +97,12 @@ h1.main {
 	a,a:hover {
 		color: #6D6D6D;
 		text-decoration: none;
+	}
+}
+.main {
+	p {
+		font-size: 16px;
+		margin-bottom: 20px;
 	}
 }
 ul.inline {
@@ -148,6 +161,12 @@ footer {
 	}
 }
 
+iframe {
+	padding: 3px;
+	margin: 10px 0 20px;
+	border: 1px solid #CCC;
+	background: #EBEBEB;
+}
 .sidebar {
 
 	h2 {
@@ -248,9 +267,6 @@ ul.tags {
 			color: #ccc;
 			border-bottom: none;
 		}
-	}
-	p {
-		font-size: 16px;
 	}
 	.installation {
 		width: 500px;

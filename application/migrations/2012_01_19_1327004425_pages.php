@@ -31,6 +31,7 @@
 			$table->text('content');
 			$table->integer('parent');
 			$table->integer('order');
+			$table->string('nav', 1)->default('y');
 			$table->timestamps();
 			$table->index('order');
 			$table->index('parent');

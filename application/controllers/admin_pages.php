@@ -96,6 +96,7 @@ class Admin_pages_Controller extends Controller {
 		$page->uri = $uri;
 		$page->content = Input::get('content');
 		$page->parent = Input::get('parent');
+		$page->nav = Input::get('nav');
 		$page->save();
 
 		return Redirect::to('admin_pages/')
@@ -166,10 +167,18 @@ class Admin_pages_Controller extends Controller {
 		$page->uri = $uri;
 		$page->content = Input::get('content');
 		$page->parent = Input::get('parent');
+		$page->nav = Input::get('nav');
 		$page->save();
 
 		return Redirect::to('admin_pages/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your page has been saved.')
 			->with('message_class', 'success');
+	}
+
+	public function post_delete($id)
+	{
+		$page = Page::find($id);
+		$page->delete();
+		return json_encode(array('success' => true));
 	}
 }

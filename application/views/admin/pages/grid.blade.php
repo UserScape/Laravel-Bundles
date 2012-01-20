@@ -10,11 +10,15 @@
 			<table class="table zebra-striped">
 				<tr>
 					<th>Title</th>
+					<th>Actions</th>
 				</tr>
 				@foreach ($pages as $page)
 					<tr>
 						<td>
 							<h3><a href="{{URL::to('admin_pages/edit/'.$page->id)}}">{{$page->title}}</a></h3>
+						</td>
+						<td>
+							<a class="btn danger delete" href="{{URL::to('admin_pages/delete/'.$page->id)}}">Delete</a>
 						</td>
 					</tr>
 				@endforeach

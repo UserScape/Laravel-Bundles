@@ -53,6 +53,17 @@
 					</div>
 				</div>
 
+				<div class="clearfix">
+					<label for="nav">Show in Nav</label>
+					<div class="input">
+						<?php
+						$selected = (Input::old('nav') != null) ? Input::old('nav') : $page->nav;
+						$options = array('y' => 'Yes', 'n' => 'No');
+						?>
+						{{Form::select('nav', $options, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
+					</div>
+				</div>
+
 				<div class="actions">
 					<input type="submit" class="btn primary" value="Save">&nbsp;
 					<button type="reset" class="btn">Cancel</button>

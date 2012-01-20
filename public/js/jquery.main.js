@@ -71,7 +71,32 @@ $(function() {
 		.popover({
 		offset: 10
 	});
+
+	// Delete from the grid
+	$('a.delete, a.remove').live('click', function () {
+		var link = this;
+		var id = $(link).attr("data-id");
+		removemsg = "Are you sure you want to delete this record? \n It cannot be undone!";
+		if (confirm(removemsg)) {
+			if (link.href) {
+				$.ajax({
+					type: "POST",
+					url: link.href,
+					data: "confirm=true",
+					dataType: "json",
+					success: function(resp) {
+						if (resp.success == true) {
+							$(link).closest('tr').fadeOut();
+						}
+					}
+				});
+				return false;
+			}
+		}
+		return false;
+	});
 });
+
 
 
 $(function () {

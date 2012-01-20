@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="span-one-third">
-				{{HTML::image('img/createdbyuserscape.png')}}
+				<a href="http://userscape.com">{{HTML::image('img/createdbyuserscape.png')}}</a>
 			</div>
 		</div>
 	</div>
