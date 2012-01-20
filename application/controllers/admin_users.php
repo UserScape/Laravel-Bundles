@@ -23,7 +23,7 @@ class Admin_users_Controller extends Controller {
 	public $restful = true;
 
 	/**
-	 * Array of categories. Used in the forms.
+	 * Array of user groups.
 	 *
 	 * @param array
 	 */
