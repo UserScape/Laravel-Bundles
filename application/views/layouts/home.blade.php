@@ -16,9 +16,8 @@
 		<div class="container">
 
 			<div class="hero-unit">
-				<h1>Hello, world!</h1>
-				<p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.	</p>
-				<p><a class="btn primary large">Learn more »</a></p>
+				<h1>Laravel Bundles</h1>
+				<p>This site is a Laravel community project that allows developers to easily share bundles with the community.</p>
 			</div>
 
 			{{$content}}
