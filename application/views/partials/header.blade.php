@@ -18,7 +18,7 @@
 				<ul class="nav secondary-nav">
 					@if (Auth::check())
 					<li class="menu {{Nav::active('user/*')}}">
-						<a class="menu" href="{{URL::to('user/profile')}}">{{HTML::image(Gravatar::from_email($user->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}} Hello {{Auth::user()->name}}</a>
+						<a class="menu" href="{{URL::to('user/profile')}}">{{HTML::image(Gravatar::from_email(Auth::user()->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}} Hello {{Auth::user()->name}}</a>
 						<ul class="menu-dropdown">
 							<li class="{{Nav::active('user/bundles')}}"><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
 							<li class="{{Nav::active('bundle/add')}}"><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>

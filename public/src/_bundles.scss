@@ -66,7 +66,9 @@ h1, h2, h3 {
 	}
 	.gravatar {
 		float: left;
-		margin: -2px 10px;
+		margin: -4px 10px;
+		padding: 2px;
+		border: 1px solid #ccc;
 	}
 	input {
 		color: #fff;
@@ -219,16 +221,6 @@ ul.tags {
 	}
 }
 
-.installation {
-	h2 {
-		margin: 20px 0;
-	}
-	pre:before {
-		content: " $ ";
-		color: #93A1A1;
-	}
-}
-
 /* Add/Edit Bundles */
 #bundle {
 	#ajax-loader {
@@ -268,8 +260,15 @@ ul.tags {
 			border-bottom: none;
 		}
 	}
+	h2 {
+		margin: 20px 0;
+	}
 	.installation {
 		width: 500px;
+		pre:before {
+			content: " $ ";
+			color: #93A1A1;
+		}
 	}
 	.rating {
 		float: right;
@@ -327,6 +326,10 @@ table {
 	tr.status_n {
 		opacity: 0.5;
 	}
+}
+
+.alert-message p {
+	margin-bottom: 0;
 }
 
 .hide {
