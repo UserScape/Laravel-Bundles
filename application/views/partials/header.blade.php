@@ -37,5 +37,4 @@
 	</div><!-- /topbar -->
 </div>
 <!-- End Navigation -->
-
 <?php Nav::pages(); ?>

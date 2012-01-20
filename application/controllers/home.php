@@ -23,7 +23,7 @@ class Home_Controller extends Controller {
 		$latest = DB::table('listings')
 			->where_active('y')
 			->order_by('updated_at', 'desc')
-			->take(10)
+			->take(5)
 			->get();
 
 		$categories = Category::all();
@@ -40,7 +40,7 @@ class Home_Controller extends Controller {
 		$popular = DB::table('listings')
 			->where_active('y')
 			->where_in('id', $ratings_in)
-			->take(10)
+			->take(5)
 			->get();
 
 		// var_dump(Laravel\Database\Connection::$queries);

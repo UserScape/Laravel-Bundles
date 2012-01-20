@@ -16,31 +16,15 @@
 		<div class="container">
 
 			<div class="hero-unit clearfix">
-				<div class="pull-left">
-					<h1>Laravel Bundles</h1>
-					<p>This site is a Laravel community project that allows developers to easily share bundles with the community.</p>
-				</div>
-				<div class="pull-right">
-					<h3>Categories</h3>
-					<ul class="">
-						@foreach ($categories as $category)
-						<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
-					@endforeach
-					</ul>
-				</div>
+				<h1>Laravel Bundles</h1>
+				<p>This site is a Laravel community project that allows developers to easily share and discover bundles.</p>
 			</div>
 
 			{{$content}}
-
-			<footer>
-				<ul class="footer unstyled">
-					<li class="first">&copy; {{date("Y")}} <a href="http://userscape.com">UserScape, inc.</a></li>
-				@foreach ($categories as $category)
-					<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
-				@endforeach
-				</ul>
-			</footer>
 		</div>
+
+		{{View::make('partials.footer')->with('categories', $categories)->render()}}
+
 		{{Asset::scripts()}}
 	</body>
 </html>

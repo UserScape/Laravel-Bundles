@@ -37,10 +37,9 @@
 					</div>
 				</div>
 			</div>
-			<footer>
-				<p>&copy; {{date("Y")}} UserScape</p>
-			</footer>
 		</div>
+
+		{{View::make('partials.footer')->with('categories', $categories)->render()}}
 
 		<div id="modal-from-dom" class="modal hide fade">
 			<div class="modal-header">

@@ -1,11 +1,11 @@
+<div class="rating pull-right">
+	<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="btn info {{$rating_class}}"><span>Like</span></button> <span>{{$ratings}} likes</span>
+</div>
+
 <h1>{{$bundle->title}}</h1>
 <p class="meta">Added on {{date("D M jS, Y", strtotime($bundle->created_at))}} by {{HTML::link('search/user/'.$bundle->user->username, $bundle->user->name)}}</p>
 
 <p>{{$bundle->description}}</p>
-
-<div class="rating">
-	<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="btn info {{$rating_class}}"><span>Like</span></button> <span>{{$ratings}} likes</span>
-</div>
 
 <div class="installation">
 	<h2>Installation</h2>
