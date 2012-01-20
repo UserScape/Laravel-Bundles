@@ -2,7 +2,24 @@ body {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	color: #6D6D6D;
-	padding-top: 60px;
+	padding-top: 80px;
+}
+.container {
+	padding: 10px 0;
+}
+.hero-unit {
+	padding: 30px 60px;
+	.pull-left {
+		width: 60%;
+	}
+	ul {
+		margin: 0;
+	}
+	li {
+		margin-left: 2em;
+		margin-bottom: 0.5em;
+		color: #555;
+	}
 }
 .topbar h3 {
 	font-family: 'Lobster Two';
@@ -21,8 +38,31 @@ h1.main {
 		text-decoration: none;
 	}
 }
-div.main {
-	// border-right: 1px solid #ebebeb;
+ul.inline {
+	li {
+		display: inline;
+		padding: 5px 10px;
+		margin: 0;
+	}
+}
+.footer {
+	padding: 10px 0 0;
+	margin: 0;
+	color: #555;
+	li.first{
+		border-left: none;
+		padding-left: 22px;
+	}
+	li {
+		display: inline;
+		padding: 5px 10px;
+		margin: 0;
+		border-left: 1px solid #ebebeb;
+		color: #555;
+		a {
+			color: #555;
+		}
+	}
 }
 .sidebar {
 
@@ -190,3 +230,17 @@ table {
 .autocomplete .selected { background:#F0F0F0; }
 .autocomplete div { padding:2px 5px; white-space:nowrap; }
 .autocomplete strong { font-weight:normal; color:#3399FF; }
+
+
+.clearfix {
+  margin-bottom: 18px;
+  zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  zoom: 1;
+}
+.clearfix:after {
+  clear: both;
+}
