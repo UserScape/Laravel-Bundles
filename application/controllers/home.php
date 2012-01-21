@@ -15,7 +15,11 @@
 class Home_Controller extends Controller {
 
 	/**
-	 * @todo finish this.
+	 * Home page
+	 *
+	 * Handles all the queries to get the home page data
+	 *
+	 * @return mixed
 	 */
 	public function action_index()
 	{
@@ -36,6 +40,7 @@ class Home_Controller extends Controller {
 		{
 			$ratings_in[] = $item->listing_id;
 		}
+
 		// Now get the listing info
 		$popular = DB::table('listings')
 			->where_active('y')

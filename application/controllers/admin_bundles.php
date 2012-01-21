@@ -132,7 +132,7 @@ class Admin_bundles_Controller extends Controller {
 	 * This handles the posted data from the get_edit method above.
 	 *
 	 * @param int $id
-	 * @return void Redirects based on status.
+	 * @return mixed Redirects based on status.
 	 */
 	public function post_edit($id = '')
 	{
