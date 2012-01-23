@@ -153,7 +153,7 @@ class Bundle_Controller extends Controller {
 		$listing->save();
 
 		// Now save tags
-		$listing::save_tags($listing->id);
+		$listing->save_tags($listing->id);
 
 		// Now save dependencies
 		$listing->save_dependencies($listing->id);
@@ -181,12 +181,13 @@ class Bundle_Controller extends Controller {
 
 		$this->_setup_github();
 
-		// Get the tags and assign them to the layout for js.
-		$tag_query = Tag::where('tag', 'like', Input::get('term').'%')->get();
-		$tags = array();
-		foreach ($tag_query as $key => $tag)
+		// Get the associated tags.
+		if (count($bundle->tags) > 0)
 		{
-			$tags[$key] = $tag->tag;
+			foreach ($bundle->tags as $key => $tag)
+			{
+				$tags[$key] = $tag->tag;
+			}
 		}
 
 		// Get the dependencies and assign them to the layout for js.
