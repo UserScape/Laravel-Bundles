@@ -4,21 +4,6 @@ use Laravel\IoC;
 use Laravel\Bundle;
 use Laravel\CLI\Tasks\Task;
 
-IoC::singleton('bundle.repository', function()
-{
-	return new Repository;
-});
-
-IoC::singleton('bundle.publisher', function()
-{
-	return new Publisher;
-});
-
-IoC::singleton('bundle.provider: github', function()
-{
-	return new Providers\Github;
-});
-
 class Bundler extends Task {
 
 	/**
@@ -51,7 +36,7 @@ class Bundler extends Task {
 
 			IoC::resolve($provider)->install($bundle);
 
-			$publisher->publish($bundle);
+			$publisher->publish($bundle['name']);
 		}
 	}
 
@@ -72,7 +57,7 @@ class Bundler extends Task {
 
 		foreach ($bundles as $bundle)
 		{
-			$publisher->publish($bundle);
+			$publisher->publish($bundle['name']);
 		}
 	}
 

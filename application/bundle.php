@@ -11,6 +11,7 @@
  * @package     Laravel-Bundles
  * @subpackage  Models
  * @filesource
+ * @todo        This is nasty and needs refactoring
  */
 
 /**
