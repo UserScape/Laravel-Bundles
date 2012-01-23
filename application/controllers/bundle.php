@@ -143,8 +143,8 @@ class Bundle_Controller extends Controller {
 
 		$listing = new Listing;
 		$listing->title = $title;
-		$listing->summary = Input::get('summary');
-		$listing->description = Input::get('description');
+		$listing->summary = strip_tags(Input::get('summary'));
+		$listing->description = strip_tags(Input::get('description'));
 		$listing->website = Input::get('website');
 		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
@@ -253,8 +253,8 @@ class Bundle_Controller extends Controller {
 
 		$listing = Listing::find($id);
 		$listing->title = $title;
-		$listing->summary = Input::get('summary');
-		$listing->description = Input::get('description');
+		$listing->summary = strip_tags(Input::get('summary'));
+		$listing->description = strip_tags(Input::get('description'));
 		$listing->website = Input::get('website');
 		$listing->location = Input::get('location');
 		$listing->provider = Input::get('provider', 'github');
@@ -269,9 +269,26 @@ class Bundle_Controller extends Controller {
 		// Now save dependencies
 		$listing->save_dependencies($id);
 
-		return Redirect::to('bundle/edit/'.$id)
+		return Redirect::to('user/bundles')
 			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
 			->with('message_class', 'success');
+	}
+
+	/**
+	 * Delete
+	 *
+	 * Delete a bundle
+	 */
+	public function post_delete($id)
+	{
+		$listing = Listing::find($id);
+		if (Input::get('confirm') == 'true' and Auth::user()->id == $listing->user_id)
+		{
+			$listing->delete();
+			// @todo - Delete everything associated.
+			return json_encode(array('success' => true));
+		}
+		return json_encode(array('error' => true));
 	}
 
 	/**

@@ -176,6 +176,11 @@ h1, h2, h3 {
 			color: #93A1A1;
 		}
 	}
+	#readme {
+		code {
+			background: none;
+		}
+	}
 	.rating {
 		float: right;
 		#rate.notactive,#rate.rated {
