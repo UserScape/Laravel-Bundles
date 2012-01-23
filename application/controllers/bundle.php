@@ -106,7 +106,9 @@ class Bundle_Controller extends Controller {
 	public function post_repo()
 	{
 		$this->_setup_github();
-		return json_encode($this->github->getRepoApi()->show(Auth::user()->username, Input::get('repo')));
+		$vars = $this->github->getRepoApi()->show(Auth::user()->username, Input::get('repo'));
+		$vars['readme'] = Github_helper::load_readme(Auth::user()->username, Input::get('repo'));
+		return json_encode($vars);
 	}
 
 	/**

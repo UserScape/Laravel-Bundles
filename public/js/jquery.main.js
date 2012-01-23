@@ -19,6 +19,7 @@ $(function() {
 				$('#title').val(id);
 				$('#location').val(resp.url);
 				$('#summary').val(resp.description);
+				$('#description').val(resp.readme);
 				$('#website').val(resp.homepage);
 				$('.bundle_extras').fadeIn();
 			}

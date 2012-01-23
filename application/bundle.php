@@ -89,5 +89,9 @@ View::composer('layouts.admin', function($view)
  */
 Autoloader::psr(array(
 	APP_PATH.'models',
-	APP_PATH.'libraries',
+	APP_PATH.'libraries'
+));
+
+Autoloader::map(array(
+	'Github_helper' => APP_PATH.'libraries/github_helper.php'
 ));

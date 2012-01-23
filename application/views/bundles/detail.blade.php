@@ -5,7 +5,7 @@
 <h1>{{$bundle->title}}</h1>
 <p class="meta">Added on {{date("D M jS, Y", strtotime($bundle->created_at))}} by {{HTML::link('search/user/'.$bundle->user->username, $bundle->user->name)}}</p>
 
-<p>{{$bundle->description}}</p>
+<p>{{Github_helper::markdown($bundle->description)}}</p>
 
 <div class="installation">
 	<h2>Installation</h2>
