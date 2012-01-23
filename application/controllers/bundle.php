@@ -34,6 +34,8 @@ class Bundle_Controller extends Controller {
 	 * Construct
 	 *
 	 * Pull out needed items and assign assets.
+	 *
+	 * @return void
 	 */
 	public function __construct()
 	{
@@ -53,6 +55,8 @@ class Bundle_Controller extends Controller {
 	 * Setup GitHub
 	 *
 	 * Includes the api and sets up the repo list
+	 *
+	 * @return void
 	 */
 	private function _setup_github()
 	{
@@ -79,6 +83,8 @@ class Bundle_Controller extends Controller {
 	 *
 	 * Create the add bundle form which will send the posted
 	 * data to the post_add method.
+	 *
+	 * @return string
 	 */
 	public function get_add()
 	{
@@ -94,6 +100,8 @@ class Bundle_Controller extends Controller {
 	 * Get the repo data
 	 *
 	 * Uses the github api to pull in the repo info.
+	 *
+	 * @return string json
 	 */
 	public function post_repo()
 	{
@@ -106,6 +114,7 @@ class Bundle_Controller extends Controller {
 	 *
 	 * This handles the posted data from the get_add method above.
 	 *
+	 * @return string view
 	 */
 	public function post_add()
 	{
@@ -158,8 +167,11 @@ class Bundle_Controller extends Controller {
 	 *
 	 * Create the edit bundle form which will send the posted
 	 * data to the post_add method.
+	 *
+	 * @param int $id
+	 * @return string view
 	 */
-	public function get_edit($id = '')
+	public function get_edit($id = 0)
 	{
 		// See if we can get the bundle
 		if ( ! $bundle = Listing::find($id))
@@ -204,9 +216,9 @@ class Bundle_Controller extends Controller {
 	 * This handles the posted data from the get_edit method above.
 	 *
 	 * @param int $id
-	 * @return void Redirects based on status.
+	 * @return string view
 	 */
-	public function post_edit($id = '')
+	public function post_edit($id = 0)
 	{
 		// Make sure we are valid.
 		if ( ! is_numeric($id))
@@ -262,7 +274,7 @@ class Bundle_Controller extends Controller {
 	/**
 	 * Bundle detail page
 	 *
-	 * @param string item
+	 * @param string $item
 	 * @return string view
 	 */
 	public function get_detail($item = '')
@@ -310,7 +322,7 @@ class Bundle_Controller extends Controller {
 	 *
 	 * This is used via the ajax popover to show a bundle.
 	 *
-	 * @return string
+	 * @return string json
 	 */
 	public function post_ajax()
 	{

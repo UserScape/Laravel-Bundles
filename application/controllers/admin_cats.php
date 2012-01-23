@@ -36,6 +36,8 @@ class Admin_cats_Controller extends Controller {
 	 * Index
 	 *
 	 * Show the category grid.
+	 *
+	 * @return string
 	 */
 	public function get_index()
 	{
@@ -50,6 +52,8 @@ class Admin_cats_Controller extends Controller {
 	 * Add a bundle
 	 *
 	 * Ability to add a new category
+	 *
+	 * @return string
 	 */
 	public function get_add()
 	{
@@ -64,7 +68,7 @@ class Admin_cats_Controller extends Controller {
 	 *
 	 * This handles the posted data from the get_add method above.
 	 *
-	 * @return void Redirects based on status.
+	 * @return string
 	 */
 	public function post_add()
 	{
@@ -100,8 +104,11 @@ class Admin_cats_Controller extends Controller {
 	 *
 	 * Create the form which will send the posted
 	 * data to the post_edit method.
+	 *
+	 * @param int $id
+	 * @return string
 	 */
-	public function get_edit($id = '')
+	public function get_edit($id = 0)
 	{
 		// See if we can get the bundle
 		if ( ! $cat = Category::find($id))
@@ -122,9 +129,9 @@ class Admin_cats_Controller extends Controller {
 	 * This handles the posted data from the get_edit method above.
 	 *
 	 * @param int $id
-	 * @return void Redirects based on status.
+	 * @return string
 	 */
-	public function post_edit($id = '')
+	public function post_edit($id = 0)
 	{
 		// Make sure we are valid.
 		if ( ! is_numeric($id))

@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="span-one-third">
 				<h3>Resources</h3>
-				<ul class="footer unstyled">
+				<ul class="footer unstyled resources">
 					<li><a href="http://laravel.com">Laravel Framework</a></li>
 					<li><a href="http://laravel.com">User Guide</a></li>
 					<li><a href="http://forums.laravel.com/">Community Forums</a></li>

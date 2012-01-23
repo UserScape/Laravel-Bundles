@@ -15,7 +15,12 @@
 class Page_Controller extends Controller {
 
 	/**
-	 * @todo finish this.
+	 * Page Detail
+	 *
+	 * Pulls the page from the db and throws it into a generic view
+	 *
+	 * @param string $uri
+	 * @return string
 	 */
 	public function action_detail($uri = '')
 	{
