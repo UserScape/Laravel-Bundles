@@ -28,7 +28,7 @@
 					</li>
 					@else
 					<li class="login">
-						<a class="btn primary" href="<?php echo URL::to('user/login'); ?>">Login With GitHub</a>
+						<a class="btn primary" href="{{URL::to('user/login')}}">Login With GitHub</a>
 					</li>
 					@endif
 				</ul>
