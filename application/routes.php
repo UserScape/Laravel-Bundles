@@ -175,6 +175,24 @@ Router::register('POST /rate', function(){
 Filter::register('before', function()
 {
 	// Do stuff before every request to your application...
+	$current_page = URI::current();
+
+	// Set an array of ignored pages. This should ideally be switched to use
+	// wildcard filtering.
+	$ignored_pages = array(
+		'user/login',
+		'user/login/github'
+	);
+
+	// If it is not an ignored page then set a goto session.
+	if ( ! Auth::check() AND ! in_array($current_page, $ignored_pages))
+	{
+		Session::put('goto', $current_page);
+	}
+	elseif (Auth::check() AND Session::has('goto'))
+	{
+		Session::forget('goto');
+	}
 });
 
 Filter::register('after', function()

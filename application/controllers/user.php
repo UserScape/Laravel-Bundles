@@ -79,6 +79,12 @@ class User_Controller extends Controller {
 
 				if (Auth::attempt($github_user['nickname'], $params->access_token))
 				{
+					if ($goto = Session::get('goto'))
+					{
+						$goto = strip_tags($goto);
+						$goto = str_replace('.', '', $goto);
+						return Redirect::to($goto);
+					}
 					return Redirect::to('/');
 				}
 			}
