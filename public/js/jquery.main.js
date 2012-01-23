@@ -72,6 +72,7 @@ $(function() {
 		.popover({
 		offset: 10
 	});
+	$('.tabs').tabs();
 
 	// Delete from the grid
 	$('a.delete, a.remove').live('click', function () {

@@ -54,7 +54,7 @@ View::composer('layouts.default', function($view)
 	Asset::add('bootstrap-popover', 'js/bootstrap-popover.js', array('jquery'));
 	Asset::add('bootstrap-dropdown', 'js/bootstrap-dropdown.js', array('jquery'));
 	Asset::add('bootstrap-scrollspy', 'js/bootstrap-scrollspy.js', array('jquery'));
-	//Asset::add('bootstrap-tabs', 'js/bootstrap-tabs.js', array('jquery'));
+	Asset::add('bootstrap-tabs', 'js/bootstrap-tabs.js', array('jquery'));
 	//Asset::add('bootstrap-buttons', 'js/bootstrap-buttons.js', array('jquery'));
 	Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
 });
