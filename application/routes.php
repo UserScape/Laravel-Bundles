@@ -210,7 +210,7 @@ Filter::register('admin_auth', function()
 	if ( ! Auth::check() OR Auth::user()->group_id != 1)
 	{
 		return Redirect::to('/')
-			->with('message', '<strong>Error!</strong> You must be an adminsitrator to access that page.')
+			->with('message', '<strong>Error!</strong> You must be an administrator to access that page.')
 			->with('message_class', 'error');
 	}
 });
