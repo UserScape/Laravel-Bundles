@@ -308,6 +308,9 @@ class Bundle_Controller extends Controller {
 			}
 		}
 
+		// installs
+		$installs = Listing::installs($bundle->id);
+
 		// Get the total ratings
 		$ratings = Rating::where_listing_id($bundle->id)->count();
 
@@ -317,6 +320,7 @@ class Bundle_Controller extends Controller {
 				'bundle' => $bundle,
 				'rating_class' => $rating_class,
 				'ratings' => $ratings,
+				'installs' => $installs,
 			));
 	}
 

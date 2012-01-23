@@ -53,6 +53,15 @@ class Listing extends Eloquent\Model {
 	}
 
 	/**
+	 * Get a list of total installs
+	 * @todo ask Taylor about this.
+	 */
+	public static function installs($id)
+	{
+		return DB::table('installs')->where('bundle_id', '=', $id)->count();
+	}
+
+	/**
 	 * Save Tags
 	 *
 	 * @param int $id
