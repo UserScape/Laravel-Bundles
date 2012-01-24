@@ -51,7 +51,7 @@ return array(
 	|
 	*/
 
-	'per_page' => 10,
+	'per_page' => 2,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -153,7 +153,7 @@ return array(
 		'Event'      => 'Laravel\\Event',
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
-		'Form'       => 'Laravel\\Form',
+		'Form'       => 'Bootstrap\\Form',
 		'HTML'       => 'Laravel\\HTML',
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',

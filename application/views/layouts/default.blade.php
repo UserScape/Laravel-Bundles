@@ -16,21 +16,24 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="span12">
+				<div class="span8">
 					<div class="main">
 						{{View::make('partials.messages')->render()}}
 						{{$content}}
 					</div>
 				</div>
 				<div class="span4">
-					<div class="sidebar">
-						<h2>Categories</h2>
-						<ul>
+					<div class="well" style="padding: 8px 0;">
+						<ul class="nav list">
+							<li class="list-header">
+								Categories
+							</li>
 						@foreach ($categories as $category)
 							@if (isset($selected_cat) AND $selected_cat == $category->id)
-							<li class="active"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+							<li class="active"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
 							@else
-							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a>
+							</li>
 							@endif
 						@endforeach
 						</ul>

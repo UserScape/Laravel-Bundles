@@ -1,5 +1,6 @@
 $(function() {
 	$('#topbar').dropdown();
+	$('.tabs a').tabs('show');
 	$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
 	$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
 	$('#repo').change(function(){
@@ -72,7 +73,6 @@ $(function() {
 		.popover({
 		offset: 10
 	});
-	$('.tabs').tabs();
 
 	// Delete from the grid
 	$('a.delete, a.remove').live('click', function () {

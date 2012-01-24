@@ -1,7 +1,7 @@
 <footer>
 	<div class="container clearfix">
 		<div class="row">
-			<div class="span-one-third">
+			<div class="span4">
 				<h3>Resources</h3>
 				<ul class="footer unstyled resources">
 					<li><a href="http://laravel.com">Laravel Framework</a></li>
@@ -10,7 +10,7 @@
 					<li><a href="{{URL::to('page/about')}}">About this app</a></li>
 				</ul>
 			</div>
-			<div class="span-one-third">
+			<div class="span4">
 				<h3>Categories</h3>
 				<div class="clearfix">
 					<ul class="pull-left unstyled cats">
@@ -29,7 +29,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="span-one-third">
+			<div class="span4">
 				<a href="http://userscape.com">{{HTML::image('img/createdbyuserscape.png')}}</a>
 			</div>
 		</div>

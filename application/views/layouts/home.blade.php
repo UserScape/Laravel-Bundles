@@ -14,11 +14,10 @@
 		{{View::make('partials.header')->render()}}
 
 		<div class="container">
-
-			<div class="hero-unit clearfix">
+			<header class="jumbotron subhead well" id="overview">
 				<h1>Laravel Bundles</h1>
-				<p>This site is a Laravel community project that allows developers to easily share and discover bundles.</p>
-			</div>
+				<p class="lead">This site is a Laravel community project that allows developers to easily share and discover bundles.</p>
+			</header>
 
 			{{$content}}
 		</div>
