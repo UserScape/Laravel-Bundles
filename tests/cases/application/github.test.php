@@ -10,7 +10,6 @@ class GithubTest extends PHPUnit_Framework_TestCase {
 	public function testUrlExists()
 	{
 		$this->assertFalse(Github_helper::url_exists('http://laravel.com/doesnotexist'));
-		$this->assertTrue(Github_helper::url_exists('http://laravel.com/index.php'));
 	}
 
 	/**
