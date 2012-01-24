@@ -77,7 +77,7 @@ class User_Controller extends Controller {
 					$user->save();
 				}
 
-				if (Auth::attempt($github_user['nickname'], $params->access_token))
+				if (Auth::attempt($github_user['nickname'], $params->access_token, true))
 				{
 					if ($goto = Session::get('goto'))
 					{

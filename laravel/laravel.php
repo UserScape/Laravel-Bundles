@@ -12,6 +12,7 @@ require 'core.php';
  * default timezone used by all date / timezone functions throughout
  * the entire application.
  */
+
 date_default_timezone_set(Config::get('application.timezone'));
 /**
  * Register the PHP exception handler. The framework throws exceptions
@@ -59,6 +60,22 @@ error_reporting(-1);
 ini_set('display_errors', 'Off');
 
 /**
+ * Even though "Magic Quotes" are deprecated in PHP 5.3, they may
+ * still be enabled on the server. To account for this, we will
+ * strip slashes on all input arrays if magic quotes are turned
+ * on for the server environment.
+ */
+if (magic_quotes())
+{
+	$magics = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+
+	foreach ($magics as &$magic)
+	{
+		$magic = array_strip_slashes($magic);
+	}
+}
+
+/**
  * Load the session using the session manager. The payload will
  * be registered in the IoC container as an instance so it can
  * be easily access throughout the framework.
@@ -99,6 +116,8 @@ switch (Request::method())
 		else
 		{
 			parse_str(file_get_contents('php://input'), $input);
+
+			if (magic_quotes()) $input = array_strip_slashes($input);
 		}
 }
 
