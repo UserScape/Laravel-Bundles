@@ -13,6 +13,16 @@
 // --------------------------------------------------------------
 define('LARAVEL_START', microtime(true));
 
+$host = $_SERVER['HTTP_HOST'];
+if ($host == 'laravel-bundles.dev' OR strpos($host, 'localhost') !== FALSE)
+{
+	$_SERVER['LARAVEL_ENV'] = 'local';
+}
+else
+{
+	$_SERVER['LARAVEL_ENV'] = 'staging';
+}
+
 // --------------------------------------------------------------
 // Define the directory separator for the environment.
 // --------------------------------------------------------------
