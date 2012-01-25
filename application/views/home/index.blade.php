@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span8">
+	<div class="span6">
 		<h2>Most Popular</h2>
 		@if (count($popular) > 0)
 			<table class="table zebra-striped">
@@ -21,7 +21,7 @@
 		</table>
 		@endif
 	</div>
-	<div class="span8">
+	<div class="span6">
 		<h2>Recently Updated</h2>
 		@if (count($latest) > 0)
 			<table class="table zebra-striped">

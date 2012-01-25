@@ -1,6 +1,6 @@
 {{Bootstrap::header('Manage Pages')}}
 <div class="row">
-	<div class="span14">
+	<div class="span12">
 
 		@if (count($errors->messages) > 0)
 			<div class="alert-message error">
@@ -13,36 +13,20 @@
 			</ul>
 		@endif
 
-		{{Form::open()}}
-			<fieldset>
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 
-				<div class="clearfix">
-					<label for="title">Title</label>
-					<div class="input">
-						<input required="required" class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $page->title}}">
-					</div>
-				</div><!-- /clearfix -->
+			{{Form::field('text', 'title', 'Title', array(Input::old('title', $page->title), array('class' => 'span6', 'required' => 'required')))}}
 
-				<div class="clearfix">
-					<label for="title">URI</label>
-					<div class="input">
-						<div class="input-prepend">
-							<span class="add-on">{{URL::to()}}</span>
-							<input class="medium" id="uri" name="uri" size="16" type="text" value="{{(Input::old('uri') != null) ? Input::old('uri') : $page->uri}}">
-						</div>
-						<span class="help-block">
-							The uri is what will be used to locate the page. If it is left blank it will be automatically created from the title.
-						</span>
-					</div>
-				</div><!-- /clearfix -->
+			{{Form::field('text', 'uri', 'URI', array(Input::old('uri', $page->uri), array('class' => 'span6'), array('help' => 'The uri is what will be used to locate the page. If it is left blank it will be automatically created from the title.')))}}
 
-				<div class="clearfix">
-					<label for="content">Content</label>
-					<div class="input">
-						<textarea class="xxlarge" id="content" name="content" rows="20">{{(Input::old('content') != null) ? Input::old('content') : $page->content}}</textarea>
-					</div>
+			<fieldset class="control-group">
+				<label class="control-label" for="content">Content</label>
+				<div class="controls">
+					<textarea required="required" class="span6" id="content" name="content" rows="8">{{(Input::old('content') != null) ? Input::old('content') : $page->content}}</textarea>
 				</div>
+			</fieldset>
 
+			<!--
 				<div class="clearfix">
 					<label for="category_id">Parent</label>
 					<div class="input">
@@ -52,24 +36,21 @@
 						{{Form::select('parent', $parent_pages, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
 					</div>
 				</div>
+			-->
 
-				<div class="clearfix">
-					<label for="nav">Show in Nav</label>
-					<div class="input">
-						<?php
+			<fieldset class="control-group">
+				<label class="control-label" for="nav">Show in Nav</label>
+				<div class="controls">
+					<?php
 						$selected = (Input::old('nav') != null) ? Input::old('nav') : $page->nav;
 						$options = array('y' => 'Yes', 'n' => 'No');
-						?>
-						{{Form::select('nav', $options, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
-					</div>
+					?>
+					{{Form::select('nav', $options, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
 				</div>
-
-				<div class="actions">
-					<input type="submit" class="btn primary" value="Save">&nbsp;
-					<button type="reset" class="btn">Cancel</button>
-				</div>
-
 			</fieldset>
+
+			{{Form::actions(array(Form::submit('Save', array('class' => 'primary')), Form::reset('Cancel')))}}
+
 		{{Form::close()}}
 	</div>
 </div>
