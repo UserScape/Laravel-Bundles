@@ -5,18 +5,21 @@
 	</div>
 
 	@if (count($errors->messages) > 0)
-		<div class="alert-message error">
+		<div class="alert alert-error">
 			<p><strong>Houston!</strong> We have a problem.</p>
+			<ul>
+			@foreach ($errors->all('<li>:message</li>') as $error)
+				{{$error}}
+			@endforeach
+			</ul>
 		</div>
-		<ul>
-		@foreach ($errors->all('<li>:message</li>') as $error)
-			{{$error}}
-		@endforeach
-		</ul>
+
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal error'))}}
+
+	@else
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 	@endif
 
-
-		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 
 			<fieldset class="control-group">
 				<label class="control-label" for="normalSelect">Provider</label>
@@ -36,8 +39,8 @@
 				</div>
 			</fieldset>
 
-			<div class="alert-message block-message info">
-				<p><strong>Note:</strong> Once you select your repo the details section will load</p>
+			<div class="alert alert-info info">
+				<strong>Note:</strong> Once you select your repo the details section will load
 			</div>
 
 			<div class="bundle_extras">
@@ -66,12 +69,7 @@
 					</div>
 				</fieldset>
 
-				<fieldset class="control-group">
-					<label class="control-label" for="website">Website</label>
-					<div class="controls">
-						<input class="xlarge" required="required" id="website" name="website" type="text" value="{{(Input::old('website') != null) ? Input::old('website') : $bundle->website}}">
-					</div>
-				</fieldset>
+				{{Form::field('text', 'website', 'Website', array(Input::old('website', $bundle->website)))}}
 
 				<fieldset class="control-group">
 					<label class="control-label" for="category_id">Category</label>

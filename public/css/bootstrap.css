@@ -3322,6 +3322,12 @@ h1, h2, h3 {
 #bundle.add .bundle_extras {
   display: none;
 }
+#bundle.add .error .alert {
+  display: none;
+}
+#bundle.add .error .bundle_extras {
+  display: block;
+}
 #bundle.edit .info {
   display: none;
 }

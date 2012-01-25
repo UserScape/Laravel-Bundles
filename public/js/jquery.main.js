@@ -87,7 +87,7 @@ $(function() {
 					data: "confirm=true",
 					dataType: "json",
 					success: function(resp) {
-						if (resp.success == true) {
+						if (resp.success === true) {
 							$(link).closest('tr').fadeOut();
 						}
 					}
