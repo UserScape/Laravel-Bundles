@@ -3319,6 +3319,9 @@ h1, h2, h3 {
 #bundle #ajax-loader {
   display: none;
 }
+#bundle textarea {
+  width: 80%;
+}
 #bundle.add .bundle_extras {
   display: none;
 }
