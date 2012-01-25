@@ -19,10 +19,24 @@ class User_Controller extends Controller {
 	 *
 	 * Show a login form or login text.
 	 */
-	public function action_index()
+	public function action_index($item = '')
 	{
+		$user = User::where_username($item)->first();
+
+		if ($user)
+		{
+			$bundles = Listing::where_active('y')->where_user_id($user->id)->paginate(Config::get('application.per_page'));
+		}
+		else
+		{
+			$bundles = null;
+		}
+
 		return View::make('layouts.default')
-			->nest('content', 'user.login', array());
+			->nest('content', 'user.bundles', array(
+				'user' => $user,
+				'bundles' => $bundles
+			));
 	}
 
 	/**
