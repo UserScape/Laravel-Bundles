@@ -1090,7 +1090,7 @@ table .headerSortUp:after {
   opacity: 0.6;
 }
 i {
-  background-image: url(docs/assets/img/glyphicons-halflings-sprite.png);
+  background-image: url(../img/glyphicons-halflings-sprite.png);
   background-position: 0 0;
   background-repeat: no-repeat;
   display: inline-block;
@@ -3313,7 +3313,7 @@ h1, h2, h3 {
   float: left;
   margin: -4px 10px;
   padding: 2px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
 }
 /* Add/Edit Bundles */
 #bundle #ajax-loader {
@@ -3442,6 +3442,21 @@ table .meta {
 }
 table tr.status_n {
   opacity: 0.5;
+}
+table .dropdown-menu .remove a {
+  color: #C43C35;
+}
+table .dropdown-menu .remove a:hover {
+  color: #fff;
+  background: #C43C35;
+}
+.nav.list .list-header {
+  margin-bottom: 10px;
+}
+.nav.list .active > a {
+  color: #111;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ebebeb;
 }
 /* Footer */
 footer {
