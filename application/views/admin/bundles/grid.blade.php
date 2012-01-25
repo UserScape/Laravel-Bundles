@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
 	<h1 class="pull-left">Bundles</h1>
 	<div class="filter pull-right">
-		<form method="get" action="{{URL::to('admin_bundles')}}">
+		<form method="get" class="form-search" action="{{URL::to('admin_bundles')}}">
 			Show Bundles in
 			<?php $selected = Input::get('category'); ?>
 			{{Form::select('category', $categories, $selected, array('class' => 'smallSelect'))}}
@@ -12,9 +12,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="span14">
+	<div class="span12">
 		@if (count($bundles->results) > 0)
-			<table class="table zebra-striped">
+			<table class="table table-striped">
 				@foreach ($bundles->results as $bundle)
 					<tr class="status_{{$bundle->active}}">
 						<td class="gravatar">

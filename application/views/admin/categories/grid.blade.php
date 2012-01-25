@@ -5,9 +5,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="span14">
+	<div class="span12">
 		@if (count($categories) > 0)
-			<table class="table zebra-striped">
+			<table class="table table-striped">
 				<tr>
 					<th>Name</th>
 					<th>Description</th>

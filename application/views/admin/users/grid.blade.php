@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
 	<h1 class="pull-left">Users</h1>
 	<div class="filter pull-right">
-		<form method="get" action="{{URL::to('admin_users')}}">
+		<form method="get" class="form-search" action="{{URL::to('admin_users')}}">
 			Show Users in
 			<?php $selected = Input::get('group') ?>
 			{{Form::select('group', $groups, $selected, array('class' => 'smallSelect'))}}
@@ -12,9 +12,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="span14">
+	<div class="span12">
 		@if (count($users->results) > 0)
-			<table class="table zebra-striped">
+			<table class="table table-striped">
 				<tr>
 					<th>Name</th>
 					<th>Username</th>

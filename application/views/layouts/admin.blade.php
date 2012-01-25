@@ -9,16 +9,16 @@
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 
 		<!-- Navigation -->
-		<div class="topbar">
-			<div class="fill">
+		<div class="navbar navbar-static">
+			<div class="navbar-inner">
 				<div class="container">
-					<a class="brand" href="#">Bundles Admin</a>
+					<a class="brand" href="{{URL::to('admin')}}">Bundles Admin</a>
 					<ul class="nav">
 						<li class="{{Nav::active('admin')}}"><a href="{{URL::to('admin')}}">Home</a></li>
-						<li class="{{Nav::active('admin_bundles')}}"><a href="{{URL::to('admin_bundles')}}">Bundles</a></li>
-						<li class="{{Nav::active('admin_users')}}"><a href="{{URL::to('admin_users')}}">Users</a></li>
-						<li class="{{Nav::active('admin_pages')}}"><a href="{{URL::to('admin_pages')}}">Pages</a></li>
-						<li class="{{Nav::active('admin_cats')}}"><a href="{{URL::to('admin_cats')}}">Categories</a></li>
+						<li class="{{Nav::active('admin_bundles*')}}"><a href="{{URL::to('admin_bundles')}}">Bundles</a></li>
+						<li class="{{Nav::active('admin_users*')}}"><a href="{{URL::to('admin_users')}}">Users</a></li>
+						<li class="{{Nav::active('admin_pages*')}}"><a href="{{URL::to('admin_pages')}}">Pages</a></li>
+						<li class="{{Nav::active('admin_cats*')}}"><a href="{{URL::to('admin_cats')}}">Categories</a></li>
 					</ul>
 				</div>
 			</div>
