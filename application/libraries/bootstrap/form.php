@@ -2,6 +2,7 @@
 
 use \HTML;
 use \ReflectionClass;
+use \Session;
 
 /**
  * Form generation geared around Bootstrap from Twitter.
@@ -55,6 +56,14 @@ class Form extends \Laravel\Form {
 
 		// Name is always the first argument passed to form fields
 		array_unshift($args, $name);
+
+		// Any errors?
+		$errors = Session::get('errors');
+
+		if ($errors and $errors->has($name))
+		{
+			$class .= ' error';
+		}
 
 		// Build the HTML
 		$out  = '<fieldset class="'.$class.'">';
