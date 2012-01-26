@@ -24,14 +24,18 @@ class Github_helper {
 	 */
 	public static function url_exists($url)
 	{
-		$ch = curl_init($url);
+		$ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_NOBODY, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$status = array();
-		preg_match('/HTTP\/.* ([0-9]+) .*/', @curl_exec($ch) , $status);
-		return ($status[1] == 200);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		$content = curl_exec($ch);
+		$headers = curl_getinfo($ch);
+		curl_close($ch);
+
+		return ($headers['http_code'] == 200) ? true : null;
 	}
 
 	/**
@@ -48,6 +52,7 @@ class Github_helper {
 		curl_setopt($ch,CURLOPT_URL,$url);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		$content = curl_exec($ch);
 		curl_close($ch);
 		return $content;
