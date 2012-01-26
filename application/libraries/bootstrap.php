@@ -20,11 +20,15 @@ class Bootstrap {
 	 * Build the html for a common bootstrap header
 	 *
 	 * @param string $text
-	 * @return string
+	 * @return mixed string or null
 	 */
-	public static function header($text = '')
+	public static function header($text = null)
 	{
-		return '<div class="page-header"><h1>'.$text.'</h1></div>';
+		if ( ! is_null($text))
+		{
+			$text = '<div class="page-header"><h1>'.$text.'</h1></div>';
+		}
+		return $text;
 	}
 
 }
