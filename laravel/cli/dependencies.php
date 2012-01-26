@@ -26,6 +26,27 @@ IoC::register('task: bundle', function()
 });
 
 /**
+ * The key task is responsible for generating a secure, random
+ * key for use by the application when encrypting strings or
+ * setting the hash values on cookie signatures.
+ */
+IoC::singleton('task: key', function()
+{
+	return new Tasks\Key;
+});
+
+/**
+ * The session task is responsible for performing tasks related
+ * to the session store of the application. It can do things
+ * such as generating the session table or clearing expired
+ * sessions from storage.
+ */
+IoC::singleton('task: session', function()
+{
+	return new Tasks\Session\Manager;
+});
+
+/**
  * The bundle repository is responsible for communicating with
  * the Laravel bundle sources to get information regarding any
  * bundles that are requested for installation.
