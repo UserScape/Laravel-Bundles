@@ -20,12 +20,12 @@
 			<ul class="nav pull-right">
 				@if (Auth::check())
 				<li class="dropdown menu {{Nav::active('user/*')}}">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="{{URL::to('user/profile')}}">{{HTML::image(Gravatar::from_email(Auth::user()->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}} Hello {{Auth::user()->name}} <b class="caret"></b></a>
+					<a class="dropdown-toggle" data-toggle="dropdown" href="{{URL::to('user/'.Auth::user()->username)}}">{{HTML::image(Gravatar::from_email(Auth::user()->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}} Hello {{Auth::user()->name}} <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li class="{{Nav::active('user/bundles')}}"><a href="{{URL::to('user/bundles')}}">Your Bundles</a></li>
+						<li class="{{Nav::active('user/*')}}"><a href="{{URL::to('user/'.Auth::user()->username.'/bundles')}}">Your Bundles</a></li>
 						<li class="{{Nav::active('bundle/add')}}"><a href="{{URL::to('bundle/add')}}">Add Bundle</a></li>
 						<li class="divider"></li>
-						<li class="{{Nav::active('user/logout')}}"><a href="{{URL::to('user/logout')}}">Logout</a></li>
+						<li class="{{Nav::active('user/logout')}}"><a href="{{URL::to('user/'.Auth::user()->username.'/logout')}}">Logout</a></li>
 					</ul>
 				</li>
 				@else

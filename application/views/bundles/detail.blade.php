@@ -3,7 +3,7 @@
 </div>
 
 <h1>{{$bundle->title}}</h1>
-<p class="meta">Added on {{date("D M jS, Y", strtotime($bundle->created_at))}} by {{HTML::link('search/user/'.$bundle->user->username, $bundle->user->name)}}</p>
+<p class="meta">Added on {{date("D M jS, Y", strtotime($bundle->created_at))}} by {{HTML::link('user/'.$bundle->user->username, $bundle->user->name)}}</p>
 
 
 	<ul id="tab" class="nav tabs">

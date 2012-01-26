@@ -42,8 +42,8 @@
 
 Router::register('GET /category/(:any)', 'category@detail');
 Router::register('GET /user/login', 'user@login');
-Router::register('GET /user/logout', 'user@logout');
-Router::register('GET /user/bundles', 'user@bundles');
+Router::register('GET /user/(:any)/bundles', 'user@bundles');
+Router::register('GET /user/(:any)/logout', 'user@logout');
 Router::register('GET /user/(:any)', 'user@index');
 Router::register('GET /page/(:any)', 'page@detail');
 
