@@ -6,7 +6,7 @@
 			<ul class="nav">
 				<li class="{{Nav::active('/')}}">{{HTML::link('', 'Home')}}</li>
 				<li class="vertical-divider"></li>
-				<li class="{{Nav::active('bundle/add')}}">{{HTML::link('bundles/add', 'Add Bundle')}}</li>
+				<li class="{{Nav::active('bundle/add')}}">{{HTML::link('bundle/add', 'Add Bundle')}}</li>
 				<li class="vertical-divider"></li>
 				<?php $pages = Nav::pages(); ?>
 				@foreach ($pages as $page)
