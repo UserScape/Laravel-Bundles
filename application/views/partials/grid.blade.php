@@ -6,7 +6,7 @@
 					{{HTML::image(Gravatar::from_email($bundle->user->email, 60), $bundle->user->username, array('width' => 60, 'height' => '60', 'class' => 'gravatar'))}}
 				</td>
 				<td>
-					<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
+					<h3>{{HTML::link('bundle/detail/'.$bundle->uri, $bundle->title)}}</h3>
 					<div class="summary">{{$bundle->summary}}</div>
 				</td>
 				<td class="meta">

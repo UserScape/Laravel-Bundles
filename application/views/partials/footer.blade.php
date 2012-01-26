@@ -4,10 +4,10 @@
 			<div class="span4">
 				<h3>Resources</h3>
 				<ul class="footer unstyled resources">
-					<li><a href="http://laravel.com">Laravel Framework</a></li>
-					<li><a href="http://laravel.com">User Guide</a></li>
-					<li><a href="http://forums.laravel.com/">Community Forums</a></li>
-					<li><a href="{{URL::to('page/about')}}">About this app</a></li>
+					<li>{{HTML::link('http://laravel.com', 'Laravel Framework')}}</li>
+					<li>{{HTML::link('http://laravel.com/docs', 'User Guide')}}</li>
+					<li>{{HTML::link('http://forums.laravel.com', 'Community Forums')}}</li>
+					<li>{{HTML::link('page/about', 'About this app')}}</li>
 				</ul>
 			</div>
 			<div class="span4">
@@ -16,14 +16,14 @@
 					<ul class="pull-left unstyled cats">
 						@foreach ($categories as $key => $category)
 							@if ($key <= 3)
-							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+							<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} ({{Nav::cat_count($category->id)}})</li>
 							@endif
 						@endforeach
 					</ul>
 					<ul class="pull-left unstyled cats">
 						@foreach ($categories as $key => $category)
 							@if ($key >= 4)
-								<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a> ({{Nav::cat_count($category->id)}})</li>
+								<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} ({{Nav::cat_count($category->id)}})</li>
 							@endif
 						@endforeach
 					</ul>
