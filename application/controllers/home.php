@@ -32,21 +32,24 @@ class Home_Controller extends Controller {
 
 		$categories = Category::all();
 
+		$popular = null;
+
 		// Get the most popular
-		$ratings = DB::query('SELECT listing_id, COUNT(*) as total FROM rating GROUP BY listing_id ORDER BY total desc');
-
-		$ratings_in = array();
-		foreach ($ratings as $item)
+		if ($ratings = DB::query('SELECT listing_id, COUNT(*) as total FROM rating GROUP BY listing_id ORDER BY total desc'))
 		{
-			$ratings_in[] = $item->listing_id;
-		}
+			$ratings_in = array();
+			foreach ($ratings as $item)
+			{
+				$ratings_in[] = $item->listing_id;
+			}
 
-		// Now get the listing info
-		$popular = DB::table('listings')
-			->where_active('y')
-			->where_in('id', $ratings_in)
-			->take(5)
-			->get();
+			// Now get the listing info
+			$popular = DB::table('listings')
+				->where_active('y')
+				->where_in('id', $ratings_in)
+				->take(5)
+				->get();
+		}
 
 		// var_dump(Laravel\Database\Connection::$queries);
 
