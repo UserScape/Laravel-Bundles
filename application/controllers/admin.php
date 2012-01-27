@@ -20,9 +20,24 @@ class Admin_Controller extends Controller {
 	public function action_index()
 	{
 		$this->filter('before', array('admin_auth'));
+
+		// Get the new listings
+		$new = DB::table('listings')
+			->order_by('created_at', 'desc')
+			->take(5)
+			->get();
+
+		// Get the last updated listings
+		$updated = DB::table('listings')
+			->order_by('updated_at', 'desc')
+			->take(5)
+			->get();
+
 		return View::make('layouts.admin')
 			->nest('content', 'admin.index', array(
 				'categories' => array(),
+				'new' => $new,
+				'updated' => $updated
 			));
 	}
 }
