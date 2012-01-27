@@ -3400,11 +3400,6 @@ table tr.status_n {
 footer {
   padding: 30px 0;
 }
-footer p {
-  text-align: center;
-  /* center align it with the container */
-
-}
 .clearfix {
   margin-bottom: 18px;
   zoom: 1;

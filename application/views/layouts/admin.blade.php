@@ -49,12 +49,19 @@
 			<div class="content">
 				{{$content}}
 			</div>
-
-			<footer>
-				<p>&copy; {{date("Y")}} Userscape</p>
-			</footer>
-
 		</div> <!-- /container -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="span3">
+						<p>&copy; 2012 - UserScape
+					</div>
+					<div class="span3 offset6">
+						<a href="http://userscape.com">{{HTML::image('img/createdbyuserscape-admin.png')}}</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 <script>
 var SITE_URL = "<?php echo URL::to(); ?>";
 var BASE_URL = "<?php echo URL::base(); ?>";

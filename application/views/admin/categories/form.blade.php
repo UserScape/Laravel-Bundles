@@ -1,6 +1,6 @@
 {{Bootstrap::header('Manage Category')}}
 <div class="row">
-	<div class="span14">
+	<div class="span12">
 
 		@if (count($errors->messages) > 0)
 			<div class="alert-message error">
@@ -13,29 +13,19 @@
 			</ul>
 		@endif
 
-		{{Form::open()}}
-			<fieldset>
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 
-				<div class="clearfix">
-					<label for="title">Title</label>
-					<div class="input">
-						<input required="required" class="xlarge" id="title" name="title" size="30" type="text" value="{{(Input::old('title') != null) ? Input::old('title') : $category->title}}">
-					</div>
-				</div><!-- /clearfix -->
+			{{Form::field('text', 'title', 'Title', array(Input::old('title', $category->title), array('class' => 'span6', 'required' => 'required')))}}
 
-				<div class="clearfix">
-					<label for="Description">Description</label>
-					<div class="input">
-						<textarea class="xxlarge" id="description" name="description" rows="5">{{(Input::old('description') != null) ? Input::old('description') : $category->description}}</textarea>
-					</div>
+			<fieldset class="control-group">
+				<label class="control-label" for="description">Description</label>
+				<div class="controls">
+					<textarea class="span6" id="description" name="description" rows="5">{{(Input::old('description') != null) ? Input::old('description') : $category->description}}</textarea>
 				</div>
-
-				<div class="actions">
-					<input type="submit" class="btn primary" value="Save">&nbsp;
-					<button type="reset" class="btn">Cancel</button>
-				</div>
-
 			</fieldset>
+
+			{{Form::actions(array(Form::submit('Save', array('class' => 'primary')), Form::reset('Cancel')))}}
+
 		{{Form::close()}}
 	</div>
 </div>
