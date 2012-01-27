@@ -36,6 +36,6 @@
 		</table>
 		{{$bundles->links()}}
 	@else
-		<p>You haven't added any listings yet.</p>
+		<p>You haven't added any bundles yet.</p>
 	@endif
 </section>

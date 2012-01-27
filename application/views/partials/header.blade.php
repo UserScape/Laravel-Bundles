@@ -22,7 +22,8 @@
 				<li class="dropdown menu {{Nav::active('user/*')}}">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="{{URL::to('user/'.Auth::user()->username)}}">{{HTML::image(Gravatar::from_email(Auth::user()->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}} Hello {{Auth::user()->name}} <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li class="{{Nav::active('user/*')}}">{{HTML::link('user/'.Auth::user()->username, 'Your Bundles')}}</li>
+						<li class="{{Nav::active('user/'.Auth::user()->username)}}">{{HTML::link('user/'.Auth::user()->username, 'Your Bundles')}}</li>
+						<li class="{{Nav::active('user/'.Auth::user()->username.'/*')}}">{{HTML::link('user/'.Auth::user()->username.'/bundles', 'Manage Bundles')}}</li>
 						<li class="{{Nav::active('bundle/add')}}">{{HTML::link('bundle/add', 'Add Bundle')}}</li>
 						<li class="divider"></li>
 						<li class="{{Nav::active('user/logout')}}">{{HTML::link('user/'.Auth::user()->username.'/logout', 'Logout')}}</li>

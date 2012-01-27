@@ -68,9 +68,7 @@
 				<fieldset class="control-group">
 					<label class="control-label" for="category_id">{{Lang::line('form.category')->get()}}</label>
 					<div class="controls">
-						<?php
-							$selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id;
-							?>
+						<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
 						{{Form::select('category_id', $categories, $selected, array('id' => 'category_id', 'required' => 'required'))}}
 					</div>
 				</fieldset>
