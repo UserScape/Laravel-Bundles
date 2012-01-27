@@ -52,33 +52,6 @@ class Bundle_Controller extends Controller {
 	}
 
 	/**
-	 * Setup GitHub
-	 *
-	 * Includes the api and sets up the repo list
-	 *
-	 * @return void
-	 */
-	private function _setup_github()
-	{
-		require_once APP_PATH.'libraries/Github/Autoloader.php';
-		Github_Autoloader::register();
-		$this->github = new Github_Client();
-
-		$this->repos = array();
-
-		if ($all_repos = $this->github->getRepoApi()->getUserRepos(Auth::user()->username))
-		{
-			// format repos into a select list
-			foreach ($all_repos as $repo)
-			{
-				$this->repos[$repo['name']] = $repo['name'];
-			}
-		}
-		sort($this->repos);
-		$this->repos[0] = Lang::line('please_select')->get();
-	}
-
-	/**
 	 * Add a bundle
 	 *
 	 * Create the add bundle form which will send the posted
@@ -88,11 +61,10 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_add()
 	{
-		$this->_setup_github();
 		return View::make('layouts.default')
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
-				'repos' => $this->repos,
+				'repos' => Github_helper::repos(),
 			));
 	}
 
@@ -105,8 +77,8 @@ class Bundle_Controller extends Controller {
 	 */
 	public function post_repo()
 	{
-		$this->_setup_github();
-		$vars = $this->github->getRepoApi()->show(Auth::user()->username, Input::get('repo'));
+		$github = Github_helper::setup();
+		$vars = $github->getRepoApi()->show(Auth::user()->username, Input::get('repo'));
 		$vars['readme'] = Github_helper::load_readme(Auth::user()->username, Input::get('repo'));
 		return json_encode($vars);
 	}
@@ -181,8 +153,6 @@ class Bundle_Controller extends Controller {
 			return Response::error('404');
 		}
 
-		$this->_setup_github();
-
 		// Get the associated tags.
 		if (count($bundle->tags) > 0)
 		{
@@ -207,7 +177,8 @@ class Bundle_Controller extends Controller {
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
 				'bundle' => $bundle,
-				'repos' => $this->repos,
+				'repos' => Github_helper::repos(),
+				'action' => 'edit'
 			))
 			->with('tags', $tags)
 			->with('dependencies', $dependencies);
@@ -269,7 +240,7 @@ class Bundle_Controller extends Controller {
 		// Now save dependencies
 		$listing->save_dependencies($id);
 
-		return Redirect::to('user/bundles')
+		return Redirect::to('user/'.Auth::user()->username.'/bundles')
 			->with('message', Lang::line('success')->get())
 			->with('message_class', 'success');
 	}
@@ -278,8 +249,11 @@ class Bundle_Controller extends Controller {
 	 * Delete
 	 *
 	 * Delete a bundle
+	 *
+	 * @param int $id
+	 * @return string json
 	 */
-	public function post_delete($id)
+	public function post_delete($id = 0)
 	{
 		$listing = Listing::find($id);
 		if (Input::get('confirm') == 'true' and Auth::user()->id == $listing->user_id)
@@ -350,7 +324,7 @@ class Bundle_Controller extends Controller {
 	/**
 	 * Get a bundle
 	 *
-	 * This is used via the ajax popover to show a bundle.
+	 * This is used via the ajax popover to show a dependency.
 	 *
 	 * @return string json
 	 */

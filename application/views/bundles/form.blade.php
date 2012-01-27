@@ -1,7 +1,11 @@
 <section id="add">
 
 	<div class="page-header">
+		@if ($action == 'edit')
+		<h1>{{Lang::line('form.edit')->get()}}</h1>
+		@else
 		<h1>{{Lang::line('form.add')->get()}}</h1>
+		@endif
 	</div>
 
 	@if (count($errors->messages) > 0)
@@ -28,6 +32,7 @@
 				</div>
 			</fieldset>
 
+			@if ($action != 'edit')
 			<fieldset class="control-group">
 				<label class="control-label" for="repo">{{Lang::line('form.repo')->get()}}</label>
 				<div class="controls">
@@ -36,6 +41,7 @@
 					<span id="ajax-loader">{{HTML::image('img/ui-anim_basic_16x16.gif', 'Loading...')}}</span>
 				</div>
 			</fieldset>
+			@endif
 
 			<div class="alert alert-info info">
 				<strong>{{Lang::line('form.note')->get()}}</strong> {{Lang::line('form.note_txt')->get()}}

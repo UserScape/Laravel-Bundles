@@ -14,6 +14,39 @@
  */
 class Github_helper {
 
+	public static function setup()
+	{
+		require_once APP_PATH.'libraries/Github/Autoloader.php';
+		Github_Autoloader::register();
+		return new Github_Client();
+	}
+
+	/**
+	 * Setup GitHub
+	 *
+	 * Includes the api and sets up the repo list
+	 *
+	 * @return array
+	 */
+	public static function repos()
+	{
+		$github = self::setup();
+
+		$repos = array();
+
+		if ($all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
+		{
+			// format repos into a select list
+			foreach ($all_repos as $repo)
+			{
+				$repos[$repo['name']] = $repo['name'];
+			}
+		}
+		sort($repos);
+		$repos[0] = Lang::line('please_select')->get();
+		return $repos;
+	}
+
 	/**
 	 * Url Exists
 	 *

@@ -24,5 +24,5 @@ return array(
 	'no'              => 'No',
 	'save'            => 'Save',
 	'cancel'          => 'Cancel',
-	'success'         => '<strong>Saved!</strong> Your bundle has been saved.';
+	'success'         => '<strong>Saved!</strong> Your bundle has been saved.'
 );
