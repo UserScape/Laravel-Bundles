@@ -42,9 +42,15 @@ class Admin_cats_Controller extends Controller {
 	public function get_index()
 	{
 		$categories = Category::order_by('title', 'asc')->get();
+		$cat_select = array();
+		foreach ($categories as $cat)
+		{
+			$cat_select[$cat->id] = $cat->title;
+		}
 		return View::make('layouts.admin')
 			->nest('content', 'admin.categories.grid', array(
 				'categories' => $categories,
+				'cat_select' => $cat_select,
 			));
 	}
 
@@ -165,4 +171,31 @@ class Admin_cats_Controller extends Controller {
 			->with('message', '<strong>Saved!</strong> Your category has been saved.')
 			->with('message_class', 'success');
 	}
+
+	/**
+	 * Delete
+	 *
+	 * Delete a category
+	 *
+	 * @return string json
+	 */
+	public function post_delete()
+	{
+		$id = Input::get('id');
+		$new_id = Input::get('category');
+
+		if ($cat = Category::find($id))
+		{
+			$cat->delete();
+
+			// Change the category for all bundles
+			$affected = DB::table('listings')
+                    ->where('category_id', '=', $id)
+                    ->update(array('category_id' => $new_id));
+
+			return json_encode(array('success' => true));
+		}
+		return json_encode(array('error' => true));
+	}
+
 }

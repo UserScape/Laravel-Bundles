@@ -15,22 +15,15 @@
 	<div class="span12">
 		@if (count($bundles->results) > 0)
 			<table class="table table-striped">
-				<tr>
-					<th colspan="2">Title</th>
-					<th>User</th>
-					<th>Actions</th>
-				</tr>
 				@foreach ($bundles->results as $bundle)
 					<tr class="status_{{$bundle->active}}">
-						<td class="gravatar">
-							{{HTML::image(Gravatar::from_email($bundle->user->email, 60), $bundle->user->username, array('width' => 60, 'height' => '60', 'class' => 'gravatar'))}}
-						</td>
 						<td>
 							<h3><a href="{{URL::to('admin_bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
 							<div class="summary">{{Str::limit($bundle->summary, 100)}}</div>
 						</td>
-						<td>
-							{{HTML::link('admin_users/edit/'.$bundle->user->id, $bundle->user->name)}}
+						<td class="user">
+							{{HTML::image(Gravatar::from_email($bundle->user->email, 24), $bundle->user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}}
+							<div>{{HTML::link('admin_users/edit/'.$bundle->user->id, $bundle->user->name)}}</div>
 						</td>
 						<td>
 							{{View::make('partials.admin-actions')->with('bundle', $bundle)->render()}}

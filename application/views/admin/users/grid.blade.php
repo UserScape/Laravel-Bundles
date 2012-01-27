@@ -28,7 +28,7 @@
 							<h3><a href="{{URL::to('admin_users/edit/'.$user->id)}}">{{$user->name}}</a></h3>
 						</td>
 						<td>
-							<div class="summary">{{$user->username}}</div>
+							{{$user->username}}
 						</td>
 						<td>
 							{{$user->email}}

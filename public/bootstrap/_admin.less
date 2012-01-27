@@ -1,8 +1,5 @@
 // Bundle App Admin
 // ----------------
-i.white {
-	background-image: url(../img/glyphicons-halflings-sprite-white.png);
-}
 .topbar {
 	position: relative;
 }
@@ -54,14 +51,8 @@ body {
 	box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
-/* Forms *
-
-.form-search,
-.form-inline,
-.form-horizontal {
-	textarea {
-		width: 100%;
-	}
+i.white {
+	background-image: url(../img/glyphicons-halflings-sprite-white.png);
 }
 
 /* Page header tweaks */
@@ -94,7 +85,7 @@ ul.tags {
 		margin-right: 10px;
 	}
 	td {
-		line-height: 3em;
+		line-height: 2em;
 	}
 }
 table {
@@ -110,19 +101,26 @@ table {
 	.item {
 		border-bottom: 1px solid #E5E5E5;
 	}
-	td.gravatar {
-		width: 70px;
-	}
-	td span.total {
-		font-size: 23px;
-		line-height: 1em;
-		a {
-			color: #7089B3;
+	td {
+		span.total {
+			font-size: 23px;
+			line-height: 1em;
+			a {
+				color: #7089B3;
+			}
+		}
+		&.user {
+			width: 200px;
+			div {
+				padding-top: 5px;
+			}
 		}
 	}
 	img.gravatar {
 		border: 1px solid #ccc;
 		padding: 2px;
+		float: left;
+		margin-right: 10px;
 	}
 	.info {
 		float: left;
@@ -144,6 +142,8 @@ footer {
 	padding: 30px 0;
 }
 
+/* Clearfix hacks */
+
 .clearfix {
   margin-bottom: 18px;
   zoom: 1;
@@ -156,10 +156,3 @@ footer {
 .clearfix:after {
   clear: both;
 }
-
-/* Auto Complete */
-.autocomplete-w1 { background:url(../img/shadow.png) no-repeat bottom right; position:absolute; top:0px; left:0px; margin:8px 0 0 6px; /* IE6 fix: */ _background:none; _margin:0; }
-.autocomplete { border:1px solid #999; background:#FFF; cursor:default; text-align:left; max-height:350px; overflow:auto; margin:-6px 6px 6px -6px; /* IE6 specific: */ _height:350px;  _margin:0; _overflow-x:hidden; }
-.autocomplete .selected { background:#F0F0F0; }
-.autocomplete div { padding:2px 5px; white-space:nowrap; }
-.autocomplete strong { font-weight:normal; color:#3399FF; }

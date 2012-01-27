@@ -97,6 +97,25 @@ $(function() {
 		}
 		return false;
 	});
+
+	$('.delete-cat').live('submit', function(){
+		var form_data = $(this).serialize();
+		$.ajax({
+			type: "POST",
+			url: SITE_URL+'admin_cats/delete',
+			data: form_data,
+			dataType: "json",
+			success: function(resp) {
+				console.log(resp);
+				if (resp.success === true) {
+					$(this).closest('tr').fadeOut();
+					// reload the page so totals are updated
+					location.reload();
+				}
+			}
+		});
+		return false;
+	});
 });
 
 
