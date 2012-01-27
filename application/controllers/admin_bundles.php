@@ -187,4 +187,31 @@ class Admin_bundles_Controller extends Controller {
 			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
 			->with('message_class', 'success');
 	}
+
+	/**
+	 * Delete
+	 *
+	 * Delete a bundle
+	 *
+	 * @param int $id
+	 * @return string json
+	 */
+	public function post_delete($id = 0)
+	{
+		$listing = Listing::find($id);
+		if (Input::get('confirm') == 'true')
+		{
+			$listing->delete();
+
+			// Delete all associations
+			$tags = DB::table('listing_tags')->where('listing_id', '=', $id)->delete();
+			$dependencies = DB::table('dependencies')->where('listing_id', '=', $id)->delete();
+			$rating = DB::table('rating')->where('listing_id', '=', $id)->delete();
+			$installs = DB::table('installs')->where('bundle_id', '=', $id)->delete();
+
+			return json_encode(array('success' => true));
+		}
+		return json_encode(array('error' => true));
+	}
+
 }

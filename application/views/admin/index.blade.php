@@ -5,7 +5,7 @@
 		<div class="tabbable tabs-top">
 			<ul id="tab" class="nav tabs">
 				<li class="active"><a href="#new" data-toggle="tab"><i class="icon inbox"></i> New Bundles</a></li>
-				<li><a href="#updated" data-toggle="tab"><i class="icon refresh"></i> Recently Updated</a></li>
+				<li><a href="#updated" data-toggle="tab"><i class="icon edit"></i> Recently Updated</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="new">
@@ -17,6 +17,9 @@
 								<td>
 									<h3><a href="{{URL::to('admin_bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
 									<div class="summary">{{$bundle->summary}}</div>
+								</td>
+								<td>
+									{{View::make('partials.admin-actions')->with('bundle', $bundle)->render()}}
 								</td>
 							</tr>
 						@endforeach
@@ -32,6 +35,9 @@
 								<td>
 									<h3><a href="{{URL::to('admin_bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
 									<div class="summary">{{$bundle->summary}}</div>
+								</td>
+								<td>
+									{{View::make('partials.admin-actions')->with('bundle', $bundle)->render()}}
 								</td>
 							</tr>
 						@endforeach

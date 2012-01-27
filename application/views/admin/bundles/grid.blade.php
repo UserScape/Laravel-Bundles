@@ -15,6 +15,11 @@
 	<div class="span12">
 		@if (count($bundles->results) > 0)
 			<table class="table table-striped">
+				<tr>
+					<th colspan="2">Title</th>
+					<th>User</th>
+					<th>Actions</th>
+				</tr>
 				@foreach ($bundles->results as $bundle)
 					<tr class="status_{{$bundle->active}}">
 						<td class="gravatar">
@@ -22,14 +27,13 @@
 						</td>
 						<td>
 							<h3><a href="{{URL::to('admin_bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
-							<div class="summary">{{$bundle->summary}}</div>
+							<div class="summary">{{Str::limit($bundle->summary, 100)}}</div>
 						</td>
-						<td class="meta">
-							<ul>
-								<li><strong>User:</strong> {{HTML::link('admin_users/edit/'.$bundle->user->id, $bundle->user->name)}}</li>
-								<li><strong>Created:</strong> {{date("M jS, Y", strtotime($bundle->created_at))}}</li>
-								<li><strong>Updated:</strong> {{date("M jS, Y", strtotime($bundle->updated_at))}}</li>
-							</ul>
+						<td>
+							{{HTML::link('admin_users/edit/'.$bundle->user->id, $bundle->user->name)}}
+						</td>
+						<td>
+							{{View::make('partials.admin-actions')->with('bundle', $bundle)->render()}}
 						</td>
 					</tr>
 				@endforeach
