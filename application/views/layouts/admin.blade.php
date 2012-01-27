@@ -20,6 +20,9 @@
 						<li class="{{Nav::active('admin_pages*')}}"><a href="{{URL::to('admin_pages')}}">Pages</a></li>
 						<li class="{{Nav::active('admin_cats*')}}"><a href="{{URL::to('admin_cats')}}">Categories</a></li>
 					</ul>
+					<ul class="nav pull-right">
+						<li><a target="_blank" href="{{URL::to('/')}}" class="main-site"><i class="white icon plus"></i> Main Site</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

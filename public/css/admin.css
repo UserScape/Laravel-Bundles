@@ -3256,7 +3256,10 @@ a.thumbnail:hover {
   .offset12  { .offset(12); }
 
 }
-*/.topbar {
+*/i.white {
+  background-image: url(../img/glyphicons-halflings-sprite-white.png);
+}
+.topbar {
   position: relative;
 }
 .navbar-inner {
@@ -3282,6 +3285,14 @@ a.thumbnail:hover {
 }
 .navbar-inner .secondary-nav li {
   border: none;
+}
+.navbar-inner .nav li a.main-site {
+  color: #ebebeb;
+  opacity: 0.7;
+}
+.navbar-inner .nav li a.main-site:hover {
+  opacity: 1;
+  color: #fff;
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
