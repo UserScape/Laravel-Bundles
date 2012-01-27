@@ -1,6 +1,12 @@
 $(function() {
+
+	// Header pull down
 	$('#topbar').dropdown();
+
+	// Bundle detail page tabs
 	$('.tabs a').tabs('show');
+
+	// Adding / Editing Bundles
 	$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
 	$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
 	$('#repo').change(function(){
@@ -26,6 +32,8 @@ $(function() {
 			}
 		});
 	});
+
+	// Bundle Rating
 	$('#rate').click(function(){
 		var id = $(this).attr('data-id');
 		var status = $(this).attr('data-active');
@@ -69,6 +77,8 @@ $(function() {
 			}
 		});
 	});
+
+	// Dependency roll over.
 	$("a[rel=dependency]")
 		.popover({
 		offset: 10
@@ -98,6 +108,7 @@ $(function() {
 		return false;
 	});
 
+	// Delete a category
 	$('.delete-cat').live('submit', function(){
 		var form_data = $(this).serialize();
 		$.ajax({
@@ -106,7 +117,6 @@ $(function() {
 			data: form_data,
 			dataType: "json",
 			success: function(resp) {
-				console.log(resp);
 				if (resp.success === true) {
 					$(this).closest('tr').fadeOut();
 					// reload the page so totals are updated
@@ -119,7 +129,8 @@ $(function() {
 });
 
 
-
+// jquerytools bootstrap validation
+// http://bit.ly/wNYDE9
 $(function () {
 	function find_container(input) {
 		return input.parent().parent();
