@@ -3280,11 +3280,13 @@ a.thumbnail:hover {
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
-.navbar-inner a, .navbar-inner .nav li a {
+.navbar-inner .nav li a {
   color: #fff;
+  opacity: 1;
 }
-.navbar-inner .secondary-nav li {
-  border: none;
+.navbar-inner .nav li a:hover {
+  background: #08C;
+  opacity: 0.8;
 }
 .navbar-inner .nav li a.main-site {
   color: #ebebeb;
@@ -3293,6 +3295,7 @@ a.thumbnail:hover {
 .navbar-inner .nav li a.main-site:hover {
   opacity: 1;
   color: #fff;
+  background: transparent;
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
