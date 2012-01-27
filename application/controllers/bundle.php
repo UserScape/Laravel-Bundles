@@ -75,7 +75,7 @@ class Bundle_Controller extends Controller {
 			}
 		}
 		sort($this->repos);
-		$this->repos[0] = 'Please Select';
+		$this->repos[0] = Lang::line('please_select')->get();
 	}
 
 	/**
@@ -270,7 +270,7 @@ class Bundle_Controller extends Controller {
 		$listing->save_dependencies($id);
 
 		return Redirect::to('user/bundles')
-			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
+			->with('message', Lang::line('success')->get())
 			->with('message_class', 'success');
 	}
 
@@ -285,7 +285,13 @@ class Bundle_Controller extends Controller {
 		if (Input::get('confirm') == 'true' and Auth::user()->id == $listing->user_id)
 		{
 			$listing->delete();
-			// @todo - Delete everything associated.
+
+			// Delete all associations
+			$tags = DB::table('listing_tags')->where('listing_id', '=', $id)->delete();
+			$dependencies = DB::table('dependencies')->where('listing_id', '=', $id)->delete();
+			$rating = DB::table('rating')->where('listing_id', '=', $id)->delete();
+			$installs = DB::table('installs')->where('bundle_id', '=', $id)->delete();
+
 			return json_encode(array('success' => true));
 		}
 		return json_encode(array('error' => true));

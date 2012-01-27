@@ -16,6 +16,7 @@ return array(
 	'description_txt' => 'The description is used on the bundle details page.',
 	'website'         => 'Website',
 	'category'        => 'Category',
+	'please_select'   => 'Please Select',
 	'tags'            => 'Tags',
 	'dependencies'    => 'Dependencies',
 	'active'          => 'Active',
@@ -23,4 +24,5 @@ return array(
 	'no'              => 'No',
 	'save'            => 'Save',
 	'cancel'          => 'Cancel',
+	'success'         => '<strong>Saved!</strong> Your bundle has been saved.';
 );

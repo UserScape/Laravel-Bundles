@@ -25,7 +25,9 @@ class Category_Controller extends Controller {
 	{
 		$category = Category::where_uri($cat)->first();
 
-		$bundles = Listing::where_active('y')->where_category_id($category->id)->paginate(Config::get('application.per_page'));
+		$bundles = Listing::where_active('y')
+			->where_category_id($category->id)
+			->paginate(Config::get('application.per_page'));
 
 		return View::make('layouts.default')
 			->nest('content', 'category.detail', array(
