@@ -4,6 +4,6 @@
 	</div>
 @endif
 
-<div id="msg_box" class="hide alert-message">
+<div id="msg_box" class="hide alert alert-message">
 	<p id="msg_text"></p>
 </div>

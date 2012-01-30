@@ -1,5 +1,5 @@
 <div class="rating pull-right">
-	<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="btn info {{$rating_class}}"><span>Like</span></button> <span>{{$ratings}} likes</span>
+	<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="btn info {{$rating_class}}"><span>Like</span></button> <span id="ratings">{{$ratings}} likes</span>
 </div>
 
 <h1>{{$bundle->title}}</h1>

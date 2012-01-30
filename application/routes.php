@@ -143,7 +143,11 @@ Router::register('POST /rate', function(){
 		$rating->user_id = Auth::user()->id;
 		$rating->ip_address = Request::ip();
 		$rating->save();
-		exit(json_encode(array('success' => 'true')));
+
+		// Get the total ratings
+		$vars['ratings'] = Rating::where_listing_id($listing->id)->count();
+		$vars['success'] = 'true';
+		exit(json_encode($vars));
 	}
 	exit(json_encode(array('error' => 'Could not save your rating.')));
 });

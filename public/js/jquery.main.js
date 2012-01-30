@@ -60,7 +60,7 @@ $(function() {
 
 		$.ajax({
 			beforeSend: function() {
-				$('#rate').fadeOut();
+				$('#rate').addClass('rated');
 			},
 			type: "POST",
 			url: SITE_URL+'rate',
@@ -68,11 +68,12 @@ $(function() {
 			dataType: "json",
 			success: function(resp) {
 				if (resp.success){
+					$('#ratings').html(resp.ratings +' likes');
 					$('#msg_text').html('Thank you for rating.');
-					$('#msg_box').addClass('success').fadeIn();
+					$('#msg_box').addClass('alert-success').fadeIn();
 				} else {
 					$('#msg_text').html(resp.error);
-					$('#msg_box').addClass('info').fadeIn();
+					$('#msg_box').addClass('alert-info').fadeIn();
 				}
 			}
 		});
