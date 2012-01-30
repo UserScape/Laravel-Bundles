@@ -1,4 +1,4 @@
-<?php namespace Laravel; defined('APP_PATH') or die('No direct script access.');
+<?php namespace Laravel; defined('DS') or die('No direct script access.');
 
 class Autoloader {
 
@@ -81,7 +81,7 @@ class Autoloader {
 			// match the name of their bundle.
 			if (Bundle::exists($namespace) and ! Bundle::started($namespace))
 			{
-				Bundle::start($namespace);
+				Bundle::start(strtolower($namespace));
 
 				static::load($class);
 			}
@@ -108,7 +108,14 @@ class Autoloader {
 		// slashes to directory slashes.
 		$file = str_replace(array('\\', '_'), '/', $class);
 
-		$directories = (is_nulL($directory)) ? static::$psr : array($directory);
+		if (is_null($directory))
+		{
+			$directories = static::$psr;
+		}
+		else
+		{
+			$directories = array($directory);
+		}
 
 		// Once we have formatted the class name, we will simply spin
 		// through the registered PSR-0 directories and attempt to
@@ -117,9 +124,11 @@ class Autoloader {
 		// We will check for both lowercase and CamelCase files as
 		// Laravel uses a lowercase version of PSR-0, while true
 		// PSR-0 uses CamelCase for all file names.
+		$lower = strtolower($file);
+
 		foreach ($directories as $directory)
 		{
-			if (file_exists($path = $directory.strtolower($file).EXT))
+			if (file_exists($path = $directory.$lower.EXT))
 			{
 				return require $path;
 			}
@@ -135,7 +144,7 @@ class Autoloader {
 	 *
 	 * <code>
 	 *		// Register a class mapping with the Autoloader
-	 *		Autoloader::map(array('User' => APP_PATH.'models/user.php'));
+	 *		Autoloader::map(array('User' => path('app').'models/user.php'));
 	 * </code>
 	 *
 	 * @param  array  $mappings

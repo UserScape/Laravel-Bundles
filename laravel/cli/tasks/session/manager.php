@@ -17,9 +17,16 @@ class Manager extends Task {
 	 * @param  array  $arguments
 	 * @return void
 	 */
-	public function table($arguments = array())
+	public function install($arguments = array())
 	{
 		$migrator = IoC::resolve('task: migrate');
+
+		$key = IoC::resolve('task: key');
+
+		// Since sessions can't work without an application key, we will go
+		// ahead and set the key if one has not already been set for the
+		// application so the developer doesn't need to set it.
+		$key->generate();
 
 		// To create the session table, we will actually create a database
 		// migration and then run it. This allows the application to stay
@@ -27,7 +34,7 @@ class Manager extends Task {
 		// generated on the database.
 		$migration = $migrator->make(array('create_session_table'));
 
-		$stub = SYS_PATH.'cli/tasks/session/migration'.EXT;
+		$stub = path('sys').'cli/tasks/session/migration'.EXT;
 
 		File::put($migration, File::get($stub));
 
@@ -35,7 +42,7 @@ class Manager extends Task {
 		// Since the developer is requesting that the session table be
 		// created on the database, we'll set the driver to database
 		// to save an extra step for the developer.
-		$config = File::get(APP_PATH.'config/session'.EXT);
+		$config = File::get(path('app').'config/session'.EXT);
 
 		$config = str_replace(
 			"'driver' => '',",
@@ -43,7 +50,7 @@ class Manager extends Task {
 			$config
 		);
 
-		File::put(APP_PATH.'config/session'.EXT, $config);
+		File::put(path('app').'config/session'.EXT, $config);
 
 		echo PHP_EOL;
 

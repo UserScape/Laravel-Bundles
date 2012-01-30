@@ -1,4 +1,4 @@
-<?php namespace Laravel\Routing; use Closure, Laravel\Bundle;
+<?php namespace Laravel\Routing; use Closure, Laravel\Str, Laravel\Bundle;
 
 class Router {
 
@@ -59,11 +59,6 @@ class Router {
 			// need to add it to the action array as a "uses" clause, which will
 			// indicate to the route to call the controller when the route is
 			// executed by the application.
-			//
-			// Note that all route actions are converted to arrays. This just
-			// gives us a convenient and consistent way of accessing it since
-			// we can always make an assumption that the action is an array,
-			// and it lets us store the URIs on the action for each route.
 			if (is_string($action))
 			{
 				static::$routes[$uri]['uses'] = $action;
@@ -74,9 +69,6 @@ class Router {
 			// handled by the route instance.
 			else
 			{
-				// PHP 5.3.2 has a bug that causes closures cast as arrays
-				// to yield an empty array. We will work around this by
-				// manually adding the Closure instance to a new array.
 				if ($action instanceof Closure) $action = array($action);
 
 				static::$routes[$uri] = (array) $action;
@@ -87,8 +79,7 @@ class Router {
 	}
 
 	/**
-	 * Find a route by name.
-	 *
+	 * Find a route by the route's assigned name.
 	 *
 	 * @param  string  $name
 	 * @return array
@@ -102,7 +93,7 @@ class Router {
 		// the bundle that are installed for the application.
 		if (count(static::$names) == 0)
 		{
-			foreach (Bundle::all() as $bundle)
+			foreach (Bundle::names() as $bundle)
 			{
 				Bundle::routes($bundle);
 			}
@@ -121,7 +112,7 @@ class Router {
 	}
 
 	/**
-	 * Search the routes for the route matching a request method and URI.
+	 * Search the routes for the route matching a method and URI.
 	 *
 	 * @param  string   $method
 	 * @param  string   $uri
@@ -129,6 +120,12 @@ class Router {
 	 */
 	public static function route($method, $uri)
 	{
+		// First we will make sure the bundle that handles the given URI has
+		// been started for the current request. Bundles may handle any URI
+		// as long as it begins with the string in the "handles" item of
+		// the bundle's registration array.
+		Bundle::start($bundle = Bundle::handles($uri));
+
 		// All route URIs begin with the request method and have a leading
 		// slash before the URI. We'll put the request method and URI in
 		// that format so we can easily check for literal matches.
@@ -140,39 +137,54 @@ class Router {
 		}
 
 		// If we can't find a literal match, we'll iterate through all of
-		// the registered routes attempting to find a matching route that
-		// uses wildcards or regular expressions.
-		if ( ! is_null($route = static::search($destination)))
+		// the registered routes to find a matching route that uses some
+		// regular expressions or wildcards.
+		if ( ! is_null($route = static::match($destination)))
 		{
 			return $route;
 		}
 
-		// If there are no literal matches and no routes that match the
-		// request, we'll use convention to search for a controller to
-		// handle the request. If no controller can be found, the 404
-		// error response will be returned by the application.
-		$segments = array_diff(explode('/', trim($uri, '/')), array(''));
+		// If the bundle handling the request is not the default bundle,
+		// we want to remove the root "handles" string from the URI so
+		// it will not interfere with searching for a controller.
+		//
+		// If we left it on the URI, the root controller for the bundle
+		// would need to be nested in directories matching the clause.
+		// This will not intefere with the Route::handles method
+		// as the destination is used to set the route's URIs.
+		if ($bundle !== DEFAULT_BUNDLE)
+		{
+			$uri = str_replace(Bundle::get($bundle)->handles, '', $uri);
 
-		return static::controller(DEFAULT_BUNDLE, $method, $destination, $segments);
+			$uri = ltrim($uri, '/');
+		}
+
+		$segments = Str::segments($uri);
+
+		return static::controller($bundle, $method, $destination, $segments);
 	}
 
 	/**
-	 * Attempt to match a destination to one of the registered routes.
+	 * Iterate through every route to find a matching route.
 	 *
 	 * @param  string  $destination
 	 * @return Route
 	 */
-	protected static function search($destination)
+	protected static function match($destination)
 	{
 		foreach (static::$routes as $route => $action)
 		{
-			// Since routes that don't use wildcards or regular expressions
-			// should have been caught by the literal route check, we will
-			// only check routes that have a parentheses, indicating that
-			// there are wildcards or regular expressions.
+			// We only need to check routes with regular expressions since
+			// all other routes would have been able to be caught by the
+			// check for literal matches we just did.
 			if (strpos($route, '(') !== false)
 			{
-				if (preg_match('#^'.static::wildcards($route).'$#', $destination, $parameters))
+				$pattern = '#^'.static::wildcards($route).'$#';
+
+				// If we get a match, we'll return the route and slice off
+				// the first parameter match, as preg_match sets the first
+				// array item to the full-text match.
+				if (preg_match($pattern, $destination, $parameters))
 				{
 					return new Route($route, $action, array_slice($parameters, 1));
 				}
@@ -191,13 +203,22 @@ class Router {
 	 */
 	protected static function controller($bundle, $method, $destination, $segments)
 	{
-		// If there are no more segments in the URI, we will just create a route
-		// for the default controller of the bundle, which is "home". We'll also
-		// use the default method, which is "index".
 		if (count($segments) == 0)
 		{
-			$uri = ($bundle == DEFAULT_BUNDLE) ? '/' : "/{$bundle}";
+			$uri = '/';
 
+			// If the bundle is not the default bundle for the application, we'll
+			// set the root URI as the root URI registered with the bundle in the
+			// bundle configuration file for the application. It's registered in
+			// the bundle configuration using the "handles" clause.
+			if ($bundle !== DEFAULT_BUNDLE)
+			{
+				$uri = '/'.Bundle::get($bundle)->handles;
+			}
+
+			// We'll generate a default "uses" clause for the route action that
+			// points to the default controller and method for the bundle so
+			// that the route will execute the default.
 			$action = array('uses' => Bundle::prefix($bundle).'home@index');
 
 			return new Route($method.' '.$uri, $action);
@@ -205,30 +226,13 @@ class Router {
 
 		$directory = Bundle::path($bundle).'controllers/';
 
-		// We need to determine in which directory to look for the controllers.
-		// If the first segment of the request corresponds to a bundle that
-		// is installed for the application, we will use that bundle's
-		// controller path, otherwise we'll use the application's.
-		if (Bundle::routable($segments[0]))
-		{
-			$bundle = $segments[0];
-
-			// We shift the bundle name off of the URI segments because it will not
-			// be used to find a controller within the bundle. If we were to leave
-			// it in the segments, every bundle controller would need to be nested
-			// within a sub-directory matching the bundle name.
-			array_shift($segments);
-
-			return static::controller($bundle, $method, $destination, $segments);
-		}
-
-		if ( ! is_null($key = static::controller_key($segments, $directory)))
+		if ( ! is_null($key = static::locate($segments, $directory)))
 		{
 			// First, we'll extract the controller name, then, since we need
 			// to extract the method and parameters, we will remove the name
 			// of the controller from the URI. Then we can shift the method
 			// off of the array of segments. Any remaining segments are the
-			// parameters that should be passed to the controller method.
+			// parameters for the method.
 			$controller = implode('.', array_slice($segments, 0, $key));
 
 			$segments = array_slice($segments, $key);
@@ -248,47 +252,53 @@ class Router {
 	}
 
 	/**
-	 * Get the URI index for the controller that should handle the request.
+	 * Locate the URI segment matching a controller name.
 	 *
 	 * @param  string  $directory
 	 * @param  array   $segments
 	 * @return int
 	 */
-	protected static function controller_key($segments, $directory)
+	protected static function locate($segments, $directory)
 	{
-		$reverse = array_reverse($segments, true);
-
-		// To find the proper controller, we need to iterate backwards through
-		// the URI segments and take the first file that matches. That file
-		// should be the deepest possible controller matched by the URI.
-		// Once we find it, we'll return its index key.
-		foreach ($reverse as $key => $value)
+		for ($i = count($segments) - 1; $i >= 0; $i--)
 		{
-			$controller = implode('/', array_slice($segments, 0, $key + 1)).EXT;
-
-			if (file_exists($directory.$controller))
+			// To find the proper controller, we need to iterate backwards through
+			// the URI segments and take the first file that matches. That file
+			// should be the deepest possible controller matched by the URI.
+			if (file_exists($directory.implode('/', $segments).EXT))
 			{
-				return $key + 1;
+				return $i + 1;
 			}
+
+			// If a controller did not exist for the segments, we will pop
+			// the last segment off of the array so that on the next run
+			// through the loop we'll check one folder up from the one
+			// we checked on this iteration.
+			array_pop($segments);
 		}
 	}
 
 	/**
-	 * Translate route URI wildcards into actual regular expressions.
+	 * Translate route URI wildcards into regular expressions.
 	 *
 	 * @param  string  $key
 	 * @return string
 	 */
 	protected static function wildcards($key)
 	{
+		list($search, $replace) = array_divide(static::$optional);
+
 		// For optional parameters, first translate the wildcards to their
 		// regex equivalent, sans the ")?" ending. We'll add the endings
 		// back on after we know how many replacements we made.
-		$key = str_replace(array_keys(static::$optional), array_values(static::$optional), $key, $count);
+		$key = str_replace($search, $replace, $key, $count);
 
-		$key .= ($count > 0) ? str_repeat(')?', $count) : '';
+		if ($count > 0)
+		{
+			$key .= str_repeat(')?', $count);
+		}
 
-		return str_replace(array_keys(static::$patterns), array_values(static::$patterns), $key);
+		return strtr($key, static::$patterns);
 	}
 
 }

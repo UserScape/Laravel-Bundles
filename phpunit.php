@@ -3,7 +3,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @version  2.2.0 (Beta 1)
+ * @version  3.0.0
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  * @link     http://laravel.com
  */
@@ -14,29 +14,30 @@
 define('DS', DIRECTORY_SEPARATOR);
 
 // --------------------------------------------------------------
-// Override the framework paths if testing Laravel.
-// --------------------------------------------------------------
-foreach ($_SERVER['argv'] as $key => $argument)
-{
-	if ($argument == 'laravel' and $_SERVER['argv'][$key - 1] == '--group')
-	{
-		define('APP_PATH', realpath('tests/laravel/application').DS);
-
-		define('BUNDLE_PATH', realpath('tests/laravel/bundles').DS);
-
-		define('STORAGE_PATH', realpath('tests/laravel/storage').DS);
-	}
-}
-
-// --------------------------------------------------------------
 // Set the core Laravel path constants.
 // --------------------------------------------------------------
 require 'paths.php';
 
 // --------------------------------------------------------------
+// Override the application paths when testing the core.
+// --------------------------------------------------------------
+$config = file_get_contents('phpunit.xml');
+
+if (strpos($config, 'laravel-tests') !== false)
+{
+	$path = path('bundle').'laravel-tests'.DS;
+
+	set_path('app', $path.'application'.DS);
+
+	set_path('bundle', $path.'bundles'.DS);
+
+	set_path('storage', $path.'storage'.DS);
+}
+
+// --------------------------------------------------------------
 // Bootstrap the Laravel core.
 // --------------------------------------------------------------
-require SYS_PATH.'core.php';
+require path('sys').'core.php';
 
 // --------------------------------------------------------------
 // Start the default bundle.

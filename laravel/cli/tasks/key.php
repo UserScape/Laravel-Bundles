@@ -19,7 +19,7 @@ class Key extends Task {
 	 */
 	public function __construct()
 	{
-		$this->path = APP_PATH.'config/application'.EXT;
+		$this->path = path('app').'config/application'.EXT;
 	}
 
 	/**
@@ -48,6 +48,8 @@ class Key extends Task {
 		{
 			echo "An application key already exists!";
 		}
+
+		echo PHP_EOL;
 	}
 
 }

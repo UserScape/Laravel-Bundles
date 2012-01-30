@@ -33,4 +33,7 @@
 |
 */
 
-return array();
+return array(
+	'eloquent',
+	'laravel-oauth2'
+);

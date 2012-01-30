@@ -1,4 +1,4 @@
-<?php namespace Laravel\CLI\Tasks\Bundle; defined('APP_PATH') or die('No direct script access.');
+<?php namespace Laravel\CLI\Tasks\Bundle; defined('DS') or die('No direct script access.');
 
 use Laravel\IoC;
 use Laravel\Bundle;
@@ -14,11 +14,9 @@ class Bundler extends Task {
 	 */
 	public function install($bundles)
 	{
-		$publisher = IoC::resolve('bundle.publisher');
-
 		foreach ($this->get($bundles) as $bundle)
 		{
-			if (is_dir(BUNDLE_PATH.$bundle['name']))
+			if (is_dir(path('bundle').$bundle['name']))
 			{
 				echo "Bundle {$bundle['name']} is already installed.";
 
@@ -35,8 +33,6 @@ class Bundler extends Task {
 			$provider = "bundle.provider: {$bundle['provider']}";
 
 			IoC::resolve($provider)->install($bundle);
-
-			$publisher->publish($bundle['name']);
 		}
 	}
 
@@ -51,13 +47,13 @@ class Bundler extends Task {
 		// If no bundles are passed to the command, we'll just gather all
 		// of the installed bundle names and publish the assets for each
 		// of the bundles to the public directory.
-		if (count($bundles) == 0) $bundles = Bundle::all();
+		if (count($bundles) == 0) $bundles = Bundle::names();
 
 		$publisher = IoC::resolve('bundle.publisher');
 
 		foreach ($bundles as $bundle)
 		{
-			$publisher->publish($bundle['name']);
+			$publisher->publish($bundle);
 		}
 	}
 

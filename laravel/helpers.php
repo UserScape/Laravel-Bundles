@@ -26,7 +26,7 @@ function __($key, $replacements = array(), $language = null)
 	return Laravel\Lang::line($key, $replacements, $language);
 }
 
-/**
+/**a
  * Get an item from an array using "dot" notation.
  *
  * <code>
@@ -220,6 +220,17 @@ function array_strip_slashes($array)
 }
 
 /**
+ * Divide an array into two arrays. One with keys and the other with values.
+ *
+ * @param  array  $array
+ * @return array
+ */
+function array_divide($array)
+{
+	return array(array_keys($array), array_values($array));
+}
+
+/**
  * Determine if "Magic Quotes" are enabled on the server.
  *
  * @return bool
@@ -257,7 +268,7 @@ function head($array)
  * @param  bool    $https
  * @return string
  */
-function path($url = '', $https = false)
+function url($url = '', $https = false)
 {
 	return Laravel\URL::to($url, $https);
 }

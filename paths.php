@@ -3,7 +3,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @version  2.2.0 (Beta 1)
+ * @version  3.0.0
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  * @link     http://laravel.com
  */
@@ -24,43 +24,38 @@ if ( ! defined('DS'))
 // --------------------------------------------------------------
 // Define the path to the base directory.
 // --------------------------------------------------------------
-define('BASE_PATH', __DIR__.DS);
+$GLOBALS['laravel_paths']['base'] = __DIR__.DS;
 
 // --------------------------------------------------------------
 // The path to the application directory.
 // --------------------------------------------------------------
-$paths['APP_PATH'] = 'application';
+$paths['app'] = 'application';
 
 // --------------------------------------------------------------
 // The path to the Laravel directory.
 // --------------------------------------------------------------
-$paths['SYS_PATH'] = 'laravel';
+$paths['sys'] = 'laravel';
 
 // --------------------------------------------------------------
 // The path to the bundles directory.
 // --------------------------------------------------------------
-$paths['BUNDLE_PATH'] = 'bundles';
+$paths['bundle'] = 'bundles';
 
 // --------------------------------------------------------------
 // The path to the storage directory.
 // --------------------------------------------------------------
-$paths['STORAGE_PATH'] = 'storage';
-
-// --------------------------------------------------------------
-// The path to the tests directory.
-// --------------------------------------------------------------
-$paths['TESTS_PATH'] = 'tests';
+$paths['storage'] = 'storage';
 
 // --------------------------------------------------------------
 // The path to the public directory.
 // --------------------------------------------------------------
 if ($web)
 {
-	define('PUBLIC_PATH', realpath('').DS);
+	$GLOBALS['laravel_paths']['public'] = realpath('').DS;
 }
 else
 {
-	$paths['PUBLIC_PATH'] = 'public';
+	$paths['public'] = 'public';
 }
 
 // --------------------------------------------------------------
@@ -68,10 +63,23 @@ else
 // --------------------------------------------------------------
 foreach ($paths as $name => $path)
 {
-	if ( ! defined($name))
-	{
-		if ($web) $path = "../{$path}";
+	if ($web) $path = "../{$path}";
 
-		define($name, realpath($path).DS);
-	}
+	$GLOBALS['laravel_paths'][$name] = realpath($path).DS;
+}
+
+// --------------------------------------------------------------
+// Define a global path helper function.
+// --------------------------------------------------------------
+function path($path)
+{
+	return $GLOBALS['laravel_paths'][$path];
+}
+
+// --------------------------------------------------------------
+// Define a global path setter function.
+// --------------------------------------------------------------
+function set_path($path, $value)
+{
+	$GLOBALS['laravel_paths'][$path] = $value;
 }

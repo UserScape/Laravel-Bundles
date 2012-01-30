@@ -250,7 +250,20 @@ class Str {
 	 */
 	public static function classify($value)
 	{
-		return str_replace(' ', '_', static::title(str_replace(array('_', '.'), ' ', $value)));
+		$search = array('_', '-', '.');
+
+		return str_replace(' ', '_', static::title(str_replace($search, ' ', $value)));
+	}
+
+	/**
+	 * Return the "URI" style segments in a given string.
+	 *
+	 * @param  string  $value
+	 * @return array
+	 */
+	public static function segments($value)
+	{
+		return array_diff(explode('/', trim($value, '/')), array(''));
 	}
 
 	/**

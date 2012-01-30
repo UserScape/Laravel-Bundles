@@ -16,8 +16,8 @@
 */
 
 Autoloader::psr(array(
-	APP_PATH.'models',
-	APP_PATH.'libraries',
+	path('app').'models',
+	path('app').'libraries',
 ));
 
 /*
@@ -37,6 +37,6 @@ Autoloader::psr(array(
 */
 
 Autoloader::map(array(
-	//'User' => APP_PATH.'models/user.php',
-	//'Role' => APP_PATH.'models/role.php',
+	//'User' => path('app').'models/user.php',
+	//'Role' => path('app').'models/role.php',
 ));

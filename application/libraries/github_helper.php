@@ -16,7 +16,7 @@ class Github_helper {
 
 	public static function setup()
 	{
-		require_once APP_PATH.'libraries/Github/Autoloader.php';
+		require_once path('app').'libraries/Github/Autoloader.php';
 		Github_Autoloader::register();
 		return new Github_Client();
 	}
@@ -101,7 +101,7 @@ class Github_helper {
 	 */
 	public static function markdown($string)
 	{
-		require_once(APP_PATH.'/libraries/markdown.php');
+		require_once(path('app').'/libraries/markdown.php');
 		return markdown($string);
 	}
 

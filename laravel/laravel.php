@@ -12,8 +12,8 @@ require 'core.php';
  * default timezone used by all date / timezone functions throughout
  * the entire application.
  */
-
 date_default_timezone_set(Config::get('application.timezone'));
+
 /**
  * Register the PHP exception handler. The framework throws exceptions
  * on every error that cannot be handled. All of those exceptions will
@@ -132,16 +132,6 @@ unset($input[Request::spoofer]);
 Input::$input = $input;
 
 /**
- * Start all of the bundles that are specified in the configuration
- * array of auto-loaded bundles. This lets the developer have an
- * easy way to load bundles for every request.
- */
-foreach (Config::get('application.bundles') as $bundle)
-{
-	Bundle::start($bundle);
-}
-
-/**
  * Load the "application" bundle. Though the application folder is
  * not typically considered a bundle, it is started like one and
  * essentially serves as the "default" bundle.
@@ -149,15 +139,13 @@ foreach (Config::get('application.bundles') as $bundle)
 Bundle::start(DEFAULT_BUNDLE);
 
 /**
- * If the first segment of the URI corresponds with a bundle we'll
- * start that bundle. By convention, bundles handle all URIs which
- * begin with their bundle name.
+ * Start all of the bundles that are specified in the configuration
+ * array of auto-loaded bundles. This lets the developer have an
+ * easy way to load bundles for every request.
  */
-$bundle = URI::segment(1);
-
-if ( ! is_null($bundle) and Bundle::routable($bundle))
+foreach (Bundle::all() as $bundle => $config)
 {
-	Bundle::start($bundle);
+	if ($config['auto']) Bundle::start($bundle);
 }
 
 /**

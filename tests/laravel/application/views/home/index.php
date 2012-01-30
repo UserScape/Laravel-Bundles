@@ -98,11 +98,11 @@
 				is generating this page lives at:
 			</p>
 
-			<pre><code>APP_PATH/routes.php</code></pre>
+			<pre><code>path('app')/routes.php</code></pre>
 
 			<p>And the view sitting before you can be found at:</p>
 
-			<pre><code>APP_PATH/views/home/index.php</code></pre>
+			<pre><code>path('app')/views/home/index.php</code></pre>
 
 			<h3>Create something beautiful.</h3>
 

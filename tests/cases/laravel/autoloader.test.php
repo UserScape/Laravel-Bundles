@@ -10,10 +10,10 @@ class AutoloaderTest extends PHPUnit_Framework_TestCase {
 	public function testMapsCanBeRegistered()
 	{
 		Autoloader::map(array(
-			'Foo' => APP_PATH.'models/foo.php',
+			'Foo' => path('app').'models/foo.php',
 		));
 
-		$this->assertEquals(APP_PATH.'models/foo.php', Autoloader::$mappings['Foo']);
+		$this->assertEquals(path('app').'models/foo.php', Autoloader::$mappings['Foo']);
 	}
 
 	/**
@@ -36,12 +36,12 @@ class AutoloaderTest extends PHPUnit_Framework_TestCase {
 	public function testPsrDirectoriesCanBeRegistered()
 	{
 		Autoloader::psr(array(
-			APP_PATH.'foo'.DS.'bar',
-			APP_PATH.'foo'.DS.'baz'.DS.DS,
+			path('app').'foo'.DS.'bar',
+			path('app').'foo'.DS.'baz'.DS.DS,
 		));
 
-		$this->assertTrue(in_array(APP_PATH.'foo'.DS.'bar'.DS, Autoloader::$psr));
-		$this->assertTrue(in_array(APP_PATH.'foo'.DS.'baz'.DS, Autoloader::$psr));
+		$this->assertTrue(in_array(path('app').'foo'.DS.'bar'.DS, Autoloader::$psr));
+		$this->assertTrue(in_array(path('app').'foo'.DS.'baz'.DS, Autoloader::$psr));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class AutoloaderTest extends PHPUnit_Framework_TestCase {
 	public function testHardcodedClassesCanBeLoaded()
 	{
 		Autoloader::map(array(
-			'Autoloader_HardCoded' => APP_PATH.'models'.DS.'autoloader.php',
+			'Autoloader_HardCoded' => path('app').'models'.DS.'autoloader.php',
 		));
 
 		$this->assertInstanceOf('Autoloader_HardCoded', new Autoloader_HardCoded);

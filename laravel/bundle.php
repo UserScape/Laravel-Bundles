@@ -1,4 +1,4 @@
-<?php namespace Laravel; defined('APP_PATH') or die('No direct script access.');
+<?php namespace Laravel; defined('DS') or die('No direct script access.');
 
 class Bundle {
 
@@ -7,21 +7,54 @@ class Bundle {
 	 *
 	 * @var array
 	 */
-	protected static $bundles;
+	public static $bundles = array();
 
 	/**
 	 * A cache of the parsed bundle elements.
 	 *
 	 * @var array
 	 */
-	protected static $elements = array();
+	public static $elements = array();
 
 	/**
 	 * All of the bundles that have been started.
 	 *
 	 * @var array
 	 */
-	protected static $started = array();
+	public static $started = array();
+
+	/**
+	 * Register a bundle for the application.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $location
+	 * @param  string  $handles
+	 * @return void
+	 */
+	public static function register($bundle, $config = array())
+	{
+		$defaults = array('handles' => null, 'auto' => false);
+
+		// If the given config is actually a string, we will assume it is a location
+		// and convert it to an array so that the developer may conveniently add
+		// bundles to the configuration without making an array for each one.
+		if (is_string($config))
+		{
+			$config = array('location' => $config);
+		}
+
+		if ( ! isset($config['location']))
+		{
+			$config['location'] = $bundle;
+		}
+
+		// We will trim the trailing slash from the location and add it back so
+		// we don't have to worry about the developer adding or not adding it
+		// to the location path for the bundle.
+		$config['location'] = path('bundle').rtrim($config['location'], DS).DS;
+
+		static::$bundles[$bundle] = array_merge($defaults, $config);
+	}
 
 	/**
 	 * Load a bundle by running it's start-up script.
@@ -72,18 +105,21 @@ class Bundle {
 	}
 
 	/**
-	 * Determine if the given bundle is "routable".
+	 * Determine which bundle handles the given URI.
 	 *
-	 * A bundle is considered routable if it has a controller directory or a routes file.
+	 * If no bundle is assigned to handle the URI, the default bundle is returned.
 	 *
 	 * @param  string  $bundle
-	 * @return bool
+	 * @return string
 	 */
-	public static function routable($bundle)
+	public static function handles($uri)
 	{
-		$path = static::path($bundle);
+		foreach (static::$bundles as $key => $value)
+		{
+			if (starts_with($uri, $value['handles'])) return $key;
+		}
 
-		return is_dir($path.'controllers/') or file_exists($path.'routes'.EXT);
+		return DEFAULT_BUNDLE;
 	}
 
 	/**
@@ -94,7 +130,7 @@ class Bundle {
 	 */
 	public static function exists($bundle)
 	{
-		return in_array(strtolower($bundle), static::all());
+		return in_array(strtolower($bundle), static::names());
 	}
 
 	/**
@@ -137,7 +173,7 @@ class Bundle {
 	 *		// Returns the bundle path for the "admin" bundle
 	 *		$path = Bundle::path('admin');
 	 *
-	 *		// Returns the APP_PATH constant as the default bundle
+	 *		// Returns the path('app') constant as the default bundle
 	 *		$path = Bundle::path('application');
 	 * </code>
 	 *
@@ -146,7 +182,7 @@ class Bundle {
 	 */
 	public static function path($bundle)
 	{
-		return ($bundle != DEFAULT_BUNDLE) ? BUNDLE_PATH.strtolower($bundle).DS : APP_PATH;
+		return ($bundle == DEFAULT_BUNDLE) ? path('app') : static::$bundles[$bundle]['location'];
 	}
 
 	/**
@@ -267,30 +303,34 @@ class Bundle {
 	}
 
 	/**
-	 * Detect all of the existing bundles in the application.
+	 * Get the information for a given bundle.
+	 *
+	 * @param  string  $bundle
+	 * @return object
+	 */
+	public static function get($bundle)
+	{
+		return (object) array_get(static::$bundles, $bundle);
+	}
+
+	/**
+	 * Get all of the installed bundles for the application.
 	 *
 	 * @return array
 	 */
 	public static function all()
 	{
-		if (is_array(static::$bundles)) return static::$bundles;
+		return static::$bundles;
+	}
 
-		$bundles = array();
-
-		$files = glob(BUNDLE_PATH.'*');
-
-		// When open_basedir is enabled the glob function returns false on
-		// an empty array. We'll check for this and return an empty array
-		// if the bundle directory doesn't have any bundles.
-		if ($files !== false)
-		{
-			foreach (array_filter($files, 'is_dir') as $bundle)
-			{
-				$bundles[] = basename($bundle);
-			}			
-		}
-
-		return static::$bundles = $bundles;
+	/**
+	 * Get all of the installed bundle names.
+	 *
+	 * @return array
+	 */
+	public static function names()
+	{
+		return array_keys(static::$bundles);
 	}
 
 }
