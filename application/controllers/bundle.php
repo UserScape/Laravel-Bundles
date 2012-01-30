@@ -44,7 +44,7 @@ class Bundle_Controller extends Controller {
 
 		// Get the categories
 		$cats = Category::all();
-		$this->categories[0] = 'Please Select';
+		$this->categories[0] = __('form.please_select');
 		foreach ($cats as $cat)
 		{
 			$this->categories[$cat->id] = $cat->title;
@@ -241,7 +241,7 @@ class Bundle_Controller extends Controller {
 		$listing->save_dependencies($id);
 
 		return Redirect::to('user/'.Auth::user()->username.'/bundles')
-			->with('message', Lang::line('success')->get())
+			->with('message', Lang::line('form.success')->get())
 			->with('message_class', 'success');
 	}
 

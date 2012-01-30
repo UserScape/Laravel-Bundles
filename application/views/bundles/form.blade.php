@@ -22,7 +22,6 @@
 		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 	@endif
 
-
 			<fieldset class="control-group">
 				<label class="control-label" for="normalSelect">{{__('form.provider')}}</label>
 				<div class="controls">

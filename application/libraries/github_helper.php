@@ -43,7 +43,7 @@ class Github_helper {
 			}
 		}
 		sort($repos);
-		$repos[0] = Lang::line('please_select')->get();
+		$repos[0] = __('form.please_select');
 		return $repos;
 	}
 
