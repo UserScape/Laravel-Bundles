@@ -67,8 +67,7 @@ class Gravatar {
 	 */
 	public static function profile_from_hash($hash)
 	{
-		$raw = file_get_contents(self::$profile_base_url . $hash . '.json');
-		if ($raw)
+		if ($raw = file_get_contents(self::$profile_base_url . $hash . '.json'))
 		{
 			$data = json_decode($raw);
 			$entry = $data->entry;
