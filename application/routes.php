@@ -223,7 +223,7 @@ Filter::register('auth', function()
 {
 	if ( ! Auth::check())
 	{
-		return Redirect::to('/user')
+		return Redirect::to('/user/login')
 			->with('message', '<strong>Error!</strong> You must be logged in to access that page.')
 			->with('message_class', 'error');
 	}
