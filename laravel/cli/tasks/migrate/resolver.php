@@ -116,7 +116,7 @@ class Resolver {
 			// naming collisions with other bundle's migrations.
 			$prefix = Bundle::class_prefix($bundle);
 
-			$class = $prefix.substr($name, 11);
+			$class = $prefix.substr($name, 18);
 
 			$migration = new $class;
 
@@ -126,6 +126,14 @@ class Resolver {
 			// when the migration is executed.
 			$instances[] = compact('bundle', 'name', 'migration');
 		}
+
+		// At this point the migrations are only sorted within their
+		// bundles so we need to resort them by name to ensure they
+		// are in a consistent order.
+		usort($migrations, function($a, $b)
+		{
+			return strcmp($a['name'], $b['name']);
+		});
 
 		return $instances;
 	}
