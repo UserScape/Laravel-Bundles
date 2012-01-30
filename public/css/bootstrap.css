@@ -3588,6 +3588,9 @@ table .info {
 table .meta {
   width: 50px;
 }
+table tr.featured td {
+  background: #F4FDFA;
+}
 table tr.status_n {
   opacity: 0.5;
 }
