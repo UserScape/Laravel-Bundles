@@ -146,7 +146,7 @@ class Admin_bundles_Controller extends Controller {
 
 		$rules = array(
 			'location'     => 'required|url',
-			'title'        => 'required|max:200|unique:listings,'.$id,
+			'title'        => 'required|max:200|unique:listings,title,'.$id,
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',

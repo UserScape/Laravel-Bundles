@@ -88,11 +88,11 @@ View::composer('layouts.admin', function($view)
  * Tell laravel to autoload models and libraries.
  */
 Autoloader::psr(array(
-	APP_PATH.'models',
-	APP_PATH.'libraries'
+	path('app').'models',
+	path('app').'libraries',
 ));
 
 Autoloader::map(array(
-	'Github_helper' => APP_PATH.'libraries/github_helper.php',
-	// 'Form' => APP_PATH.'libraries/bootstrap/form.php'
+	'Github_helper' => path('app').'libraries/github_helper.php',
+	// 'Form' => path('app').'libraries/bootstrap/form.php'
 ));
