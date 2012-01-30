@@ -22,10 +22,10 @@
 		@endif
 	</div>
 	<div class="span6">
-		<h2>Recently Updated</h2>
-		@if (count($latest) > 0)
+		<h2>Featured</h2>
+		@if (count($featured) > 0)
 			<table class="table zebra-striped">
-			@foreach ($latest as $bundle)
+			@foreach ($featured as $bundle)
 				<tr>
 					<td>
 						<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>

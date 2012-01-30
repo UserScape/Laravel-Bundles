@@ -51,6 +51,8 @@
 				</div>
 			</fieldset>
 
+			{{Form::field('text', 'class', 'Class', array(Input::old('class', $bundle->class)))}}
+
 			<fieldset class="control-group">
 				<label class="control-label" for="tags">Tags</label>
 				<div class="controls">

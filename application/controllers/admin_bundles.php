@@ -173,6 +173,7 @@ class Admin_bundles_Controller extends Controller {
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->active = Input::get('active', 'n');
+		$listing->class = Input::get('class');
 		// $listing->user_id = 1; //@todo - Get id from the form. See issue #14
 		$listing->uri = $uri;
 		$listing->save();

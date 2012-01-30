@@ -51,12 +51,19 @@ class Home_Controller extends Controller {
 				->get();
 		}
 
+		$featured = DB::table('listings')
+			->where_active('y')
+			->where('class', 'like', '%featured%')
+			->take(5)
+			->get();
+
 		// var_dump(Laravel\Database\Connection::$queries);
 
 		return View::make('layouts.home')
 			->nest('content', 'home.index', array(
 				'latest' => $latest,
 				'popular' => $popular,
+				'featured' => $featured,
 				'categories' => $categories,
 			));
 	}

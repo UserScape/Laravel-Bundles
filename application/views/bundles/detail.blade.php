@@ -13,7 +13,7 @@
 		<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
 		@endif
 		<li><a href="#stats" data-toggle="tab">Stats</a></li>
-		@if (Auth::user()->id == $bundle->user_id)
+		@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
 		<li><a href="{{URL::to('bundle/edit/'.$bundle->id)}}">Edit</a></li>
 		@endif
 	</ul>
