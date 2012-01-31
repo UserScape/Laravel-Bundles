@@ -29,7 +29,10 @@ class Page_Controller extends Base_Controller {
 	 */
 	public function action_detail($uri = '')
 	{
-		$page = Page::where_uri($uri)->first();
+		if ( ! $page = Page::where_uri($uri)->first())
+		{
+			return Response::error('404');
+		}
 
 		return View::make('layouts.default')
 			->nest('content', 'page.details', array(
