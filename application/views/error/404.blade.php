@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>{{$title}} - Laravel Bundles</title>
+		<title>Error 404 - Not Found</title>
 		<meta name="description" content="{{$description}}">
 		{{Asset::styles()}}
 		<!-- fonts -->
@@ -19,8 +19,9 @@
 			<div class="row">
 				<div class="span8">
 					<div class="main">
-						{{View::make('partials.messages')->render()}}
-						{{$content}}
+						{{Bootstrap::header('404 Error')}}
+
+						<p>Sorry but this page is lost in an abyss of nothingness.</p>
 					</div>
 				</div>
 				<div class="span4">
@@ -58,31 +59,5 @@
 				<a href="#" class="btn secondary">Secondary</a>
 			</div>
 		</div>
-
-<script>
-var SITE_URL = "<?php echo URL::to(); ?>";
-var BASE_URL = "<?php echo URL::base(); ?>";
-@if (isset($tags) AND is_array($tags))
-	var initialTags = [
-		@foreach ($tags as $tag)
-			"{{$tag}}",
-		@endforeach
-	];
-@else
-	var initialTags = [];
-@endif
-
-@if (isset($dependencies) AND is_array($dependencies))
-	var initialDependenciesTags = [
-		@foreach ($dependencies as $item)
-			"{{$item}}",
-		@endforeach
-	];
-@else
-	var initialDependenciesTags = [];
-@endif
-</script>
-		{{Asset::scripts()}}
-		<script>$(function () { prettyPrint() })</script>
 	</body>
 </html>

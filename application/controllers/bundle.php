@@ -13,7 +13,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Bundle_Controller extends Controller {
+class Bundle_Controller extends Base_Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -39,6 +39,8 @@ class Bundle_Controller extends Controller {
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		$this->filter('before', array('auth'))
 			->only(array('add', 'edit'));
 
@@ -62,6 +64,7 @@ class Bundle_Controller extends Controller {
 	public function get_add()
 	{
 		return View::make('layouts.default')
+			->with('title', 'Add Bundle')
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
 				'repos' => Github_helper::repos(),
@@ -181,6 +184,7 @@ class Bundle_Controller extends Controller {
 				'action' => 'edit'
 			))
 			->with('tags', $tags)
+			->with('title', 'Edit Bundle')
 			->with('dependencies', $dependencies);
 	}
 
@@ -279,7 +283,10 @@ class Bundle_Controller extends Controller {
 	 */
 	public function get_detail($item = '')
 	{
-		$bundle = Listing::where_uri($item)->first();
+		if ( ! $bundle = Listing::where_uri($item)->first())
+		{
+			return Response::error('404');
+		}
 
 		// This check is so the owner of the listing can
 		// still preview the item when it isn't active.
@@ -313,6 +320,8 @@ class Bundle_Controller extends Controller {
 
 		return View::make('layouts.default')
 			->with('selected_cat', $bundle->category_id)
+			->with('title', $bundle->title)
+			->with('description', $bundle->summary)
 			->nest('content', 'bundles.detail', array(
 				'bundle' => $bundle,
 				'rating_class' => $rating_class,

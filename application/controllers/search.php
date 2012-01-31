@@ -12,7 +12,12 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Search_Controller extends Controller {
+class Search_Controller extends Base_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Tell Laravel we want this class restful. See:

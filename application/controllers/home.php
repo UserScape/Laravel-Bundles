@@ -12,7 +12,12 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Home_Controller extends Controller {
+class Home_Controller extends Base_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Home page

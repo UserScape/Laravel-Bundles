@@ -12,7 +12,12 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Page_Controller extends Controller {
+class Page_Controller extends Base_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Page Detail

@@ -12,7 +12,12 @@
  * @subpackage  Controllers
  * @filesource
  */
-class User_Controller extends Controller {
+class User_Controller extends Base_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Index
@@ -25,7 +30,9 @@ class User_Controller extends Controller {
 
 		if ($user)
 		{
-			$bundles = Listing::where_active('y')->where_user_id($user->id)->paginate(Config::get('application.per_page'));
+			$bundles = Listing::where_active('y')
+				->where_user_id($user->id)
+				->paginate(Config::get('application.per_page'));
 		}
 		else
 		{
@@ -119,7 +126,8 @@ class User_Controller extends Controller {
 	 */
 	public function action_bundles()
 	{
-		$bundles = Listing::where_user_id(Auth::user()->id)->paginate(Config::get('application.per_page'));
+		$bundles = Listing::where_user_id(Auth::user()->id)
+			->paginate(Config::get('application.per_page'));
 
 		return View::make('layouts.default')
 			->nest('content', 'user.listings', array(

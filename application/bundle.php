@@ -60,6 +60,16 @@ View::composer('layouts.default', function($view)
 });
 
 /**
+ * Default error composer
+ */
+View::composer('error.404', function($view)
+{
+	$view->with('categories', Category::all());
+	Asset::add('style', 'css/bootstrap.css');
+	Asset::add('jquery', 'js/jquery.min.js');
+});
+
+/**
  * Admin layout composer
  */
 View::composer('layouts.admin', function($view)
@@ -89,10 +99,10 @@ View::composer('layouts.admin', function($view)
  */
 Autoloader::psr(array(
 	path('app').'models',
-	path('app').'libraries',
+	path('app').'libraries'
 ));
 
 Autoloader::map(array(
 	'Github_helper' => path('app').'libraries/github_helper.php',
-	// 'Form' => path('app').'libraries/bootstrap/form.php'
+	'Base_Controller' => path('app').'controllers/base.php'
 ));
