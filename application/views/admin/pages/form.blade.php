@@ -26,18 +26,6 @@
 				</div>
 			</fieldset>
 
-			<!--
-				<div class="clearfix">
-					<label for="category_id">Parent</label>
-					<div class="input">
-						<?php
-						$selected = (Input::old('parent') != null) ? Input::old('parent') : $page->parent;
-						?>
-						{{Form::select('parent', $parent_pages, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
-					</div>
-				</div>
-			-->
-
 			<fieldset class="control-group">
 				<label class="control-label" for="nav">Show in Nav</label>
 				<div class="controls">

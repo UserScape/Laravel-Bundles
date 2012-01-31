@@ -114,7 +114,7 @@ $(function() {
 		var form_data = $(this).serialize();
 		$.ajax({
 			type: "POST",
-			url: SITE_URL+'admin_cats/delete',
+			url: SITE_URL+'admin/cats/delete',
 			data: form_data,
 			dataType: "json",
 			success: function(resp) {

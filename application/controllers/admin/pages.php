@@ -12,7 +12,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_pages_Controller extends Controller {
+class Admin_Pages_Controller extends Admin_Base_Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -24,9 +24,14 @@ class Admin_pages_Controller extends Controller {
 
 	protected $pages = array();
 
+	/**
+	 * Constructor
+	 *
+	 * Setup the auth and the pages for select
+	 */
 	public function __construct()
 	{
-		$this->filter('before', array('admin_auth'));
+		parent::__construct();
 		$pages = Page::all();
 		$this->pages = array(0 => '');
 		foreach ($pages as $page)
@@ -146,14 +151,14 @@ class Admin_pages_Controller extends Controller {
 
 		$rules = array(
 			'title'       => 'required',
-			'uri'         => 'unique:pages,'.$id,
+			'uri'         => 'unique:pages,uri,'.$id,
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_pages/edit/'.$id)->with_errors($validator);
+			return Redirect::to('admin/pages/edit/'.$id)->with_errors($validator);
 		}
 
 		$title = Input::get('title');
@@ -170,7 +175,7 @@ class Admin_pages_Controller extends Controller {
 		$page->nav = Input::get('nav');
 		$page->save();
 
-		return Redirect::to('admin_pages/edit/'.$id)
+		return Redirect::to('admin/pages/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your page has been saved.')
 			->with('message_class', 'success');
 	}

@@ -12,7 +12,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_bundles_Controller extends Controller {
+class Admin_Bundles_Controller extends Admin_Base_Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -36,7 +36,8 @@ class Admin_bundles_Controller extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->filter('before', array('admin_auth'));
+		parent::__construct();
+
 		// Get the categories
 		$cats = Category::all();
 		$this->categories[0] = 'Any Category';
@@ -158,7 +159,7 @@ class Admin_bundles_Controller extends Controller {
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_bundles/edit/'.$id)->with_errors($validator);
+			return Redirect::to('admin/bundles/edit/'.$id)->with_errors($validator);
 		}
 
 		$title = Input::get('title');
@@ -184,7 +185,7 @@ class Admin_bundles_Controller extends Controller {
 		// Now save dependencies
 		$listing->save_dependencies($id);
 
-		return Redirect::to('admin_bundles/edit/'.$id)
+		return Redirect::to('admin/bundles/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
 			->with('message_class', 'success');
 	}

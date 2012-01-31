@@ -46,7 +46,7 @@ Router::register('GET /user/(:any)/bundles', 'user@bundles');
 Router::register('GET /user/(:any)/logout', 'user@logout');
 Router::register('GET /user/(:any)', 'user@index');
 Router::register('GET /page/(:any)', 'page@detail');
-
+Router::register('GET /admin', 'admin.home@index');
 
 // ------------------------------------------------------------------------
 

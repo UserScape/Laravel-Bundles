@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
 	<h1 class="pull-left">Bundles</h1>
 	<div class="filter pull-right">
-		<form method="get" class="form-search" action="{{URL::to('admin_bundles')}}">
+		<form method="get" class="form-search" action="{{URL::to('admin/bundles')}}">
 			Show Bundles in
 			<?php $selected = Input::get('category'); ?>
 			{{Form::select('category', $categories, $selected, array('class' => 'smallSelect'))}}
@@ -18,7 +18,7 @@
 				@foreach ($bundles->results as $bundle)
 					<tr class="status_{{$bundle->active}}">
 						<td>
-							<h3><a href="{{URL::to('admin_bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
+							<h3><a href="{{URL::to('admin/bundles/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
 							<div class="summary">{{Str::limit($bundle->summary, 100)}}</div>
 						</td>
 						<td class="user">

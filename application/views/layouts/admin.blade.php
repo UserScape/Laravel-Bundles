@@ -17,17 +17,17 @@
 						<li class="{{Nav::active('admin')}}">
 							<a href="{{URL::to('admin')}}"><i class="white icon home"></i> Home</a>
 						</li>
-						<li class="{{Nav::active('admin_bundles*')}}">
-							<a href="{{URL::to('admin_bundles')}}"><i class="white icon book"></i> Bundles</a>
+						<li class="{{Nav::active('admin/bundles*')}}">
+							<a href="{{URL::to('admin/bundles')}}"><i class="white icon book"></i> Bundles</a>
 						</li>
-						<li class="{{Nav::active('admin_users*')}}">
-							<a href="{{URL::to('admin_users')}}"><i class="white icon user"></i> Users</a>
+						<li class="{{Nav::active('admin/users*')}}">
+							<a href="{{URL::to('admin/users')}}"><i class="white icon user"></i> Users</a>
 						</li>
-						<li class="{{Nav::active('admin_pages*')}}">
-							<a href="{{URL::to('admin_pages')}}"><i class="white icon file"></i> Pages</a>
+						<li class="{{Nav::active('admin/pages*')}}">
+							<a href="{{URL::to('admin/pages')}}"><i class="white icon file"></i> Pages</a>
 						</li>
-						<li class="{{Nav::active('admin_cats*')}}">
-							<a href="{{URL::to('admin_cats')}}"><i class="white icon list"></i> Categories</a>
+						<li class="{{Nav::active('admin/cats*')}}">
+							<a href="{{URL::to('admin/cats')}}"><i class="white icon list"></i> Categories</a>
 						</li>
 					</ul>
 					<ul class="nav pull-right">

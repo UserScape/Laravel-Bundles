@@ -12,7 +12,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_users_Controller extends Controller {
+class Admin_Users_Controller extends Admin_Base_Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -40,7 +40,7 @@ class Admin_users_Controller extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->filter('before', array('admin_auth'));
+		parent::__construct();
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Admin_users_Controller extends Controller {
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_users/edit/'.$id)->with_errors($validator);
+			return Redirect::to('admin/users/edit/'.$id)->with_errors($validator);
 		}
 
 		$user = User::find($id);
@@ -140,7 +140,7 @@ class Admin_users_Controller extends Controller {
 		$user->group_id = Input::get('group');
 		$user->save();
 
-		return Redirect::to('admin_users/edit/'.$id)
+		return Redirect::to('admin/users/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your bundle has been saved.')
 			->with('message_class', 'success');
 	}

@@ -12,7 +12,7 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_cats_Controller extends Controller {
+class Admin_Cats_Controller extends Admin_Base_Controller {
 
 	/**
 	 * Tell Laravel we want this class restful. See:
@@ -25,11 +25,11 @@ class Admin_cats_Controller extends Controller {
 	/**
 	 * Construct
 	 *
-	 * Setup the auth
+	 * Setup the parent base controller
 	 */
 	public function __construct()
 	{
-		$this->filter('before', array('admin_auth'));
+		parent::__construct();
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Admin_cats_Controller extends Controller {
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_cats/add')->with_errors($validator);
+			return Redirect::to('admin/cats/add')->with_errors($validator);
 		}
 
 		$title = Input::get('title');
@@ -101,7 +101,7 @@ class Admin_cats_Controller extends Controller {
 		$cat->description = Input::get('description');
 		$cat->save();
 
-		return Redirect::to('admin_cats/')
+		return Redirect::to('admin/cats/')
 			->with('message', '<strong>Saved!</strong> Your category has been saved.')
 			->with('message_class', 'success');
 	}
@@ -157,7 +157,7 @@ class Admin_cats_Controller extends Controller {
 
 		if ($validator->invalid())
 		{
-			return Redirect::to('admin_cats/edit/'.$id)->with_errors($validator);
+			return Redirect::to('admin/cats/edit/'.$id)->with_errors($validator);
 		}
 
 		$title = Input::get('title');
@@ -169,7 +169,7 @@ class Admin_cats_Controller extends Controller {
 		$cat->description = Input::get('description');
 		$cat->save();
 
-		return Redirect::to('admin_cats/edit/'.$id)
+		return Redirect::to('admin/cats/edit/'.$id)
 			->with('message', '<strong>Saved!</strong> Your category has been saved.')
 			->with('message_class', 'success');
 	}

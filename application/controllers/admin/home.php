@@ -10,7 +10,17 @@
  * @subpackage  Controllers
  * @filesource
  */
-class Admin_Controller extends Controller {
+class Admin_Home_Controller extends Admin_Base_Controller {
+
+	/**
+	 * Construct
+	 *
+	 * Setup the parent base controller
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Action Index

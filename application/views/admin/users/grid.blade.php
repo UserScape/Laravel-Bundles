@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
 	<h1 class="pull-left">Users</h1>
 	<div class="filter pull-right">
-		<form method="get" class="form-search" action="{{URL::to('admin_users')}}">
+		<form method="get" class="form-search" action="{{URL::to('admin/users')}}">
 			Show Users in
 			<?php $selected = Input::get('group') ?>
 			{{Form::select('group', $groups, $selected, array('class' => 'smallSelect'))}}
@@ -25,7 +25,7 @@
 					<tr>
 						<td>
 							{{HTML::image(Gravatar::from_email($user->email, 24), $user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}}
-							<h3><a href="{{URL::to('admin_users/edit/'.$user->id)}}">{{$user->name}}</a></h3>
+							<h3><a href="{{URL::to('admin/users/edit/'.$user->id)}}">{{$user->name}}</a></h3>
 						</td>
 						<td>
 							{{$user->username}}
