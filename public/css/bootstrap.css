@@ -3468,6 +3468,15 @@ h1, h2, h3 {
   margin: 0 0 18px;
   border-bottom: 1px solid #EEE;
 }
+.page-header a.rss {
+  background: url(../img/feed-icon-14x14.png) left center no-repeat;
+  padding-left: 20px;
+  font-size: 13px;
+  text-decoration: none;
+}
+.page-header a.rss:hover {
+  text-decoration: none;
+}
 /* Add/Edit Bundles */
 #bundle #ajax-loader {
   display: none;
