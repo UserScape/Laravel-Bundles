@@ -3463,6 +3463,11 @@ h1, h2, h3 {
   padding: 7px 9px 7px;
   font-size: 11px;
 }
+.page-header {
+  padding-bottom: 17px;
+  margin: 0 0 18px;
+  border-bottom: 1px solid #EEE;
+}
 /* Add/Edit Bundles */
 #bundle #ajax-loader {
   display: none;
