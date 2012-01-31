@@ -122,7 +122,7 @@ class Admin_Users_Controller extends Admin_Base_Controller {
 
 		$rules = array(
 			'name'       => 'required',
-			'username'   => 'required|max:200|unique:users,'.$id,
+			'username'   => 'required|max:200|unique:users,username,'.$id,
 			'email'      => 'email',
 		);
 

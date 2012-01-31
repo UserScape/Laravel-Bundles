@@ -43,11 +43,18 @@ class Admin_Home_Controller extends Admin_Base_Controller {
 			->take(5)
 			->get();
 
+		// Get the last updated listings
+		$new_users = DB::table('users')
+			->order_by('created_at', 'desc')
+			->take(5)
+			->get();
+
 		return View::make('layouts.admin')
 			->nest('content', 'admin.index', array(
 				'categories' => array(),
 				'new' => $new,
-				'updated' => $updated
+				'updated' => $updated,
+				'new_users' => $new_users
 			));
 	}
 }

@@ -23,7 +23,7 @@
 						</td>
 						<td class="user">
 							{{HTML::image(Gravatar::from_email($bundle->user->email, 24), $bundle->user->username, array('width' => 24, 'height' => '24', 'class' => 'gravatar'))}}
-							<div>{{HTML::link('admin_users/edit/'.$bundle->user->id, $bundle->user->name)}}</div>
+							<div>{{HTML::link('admin/users/edit/'.$bundle->user->id, $bundle->user->name)}}</div>
 						</td>
 						<td>
 							{{View::make('partials.admin-actions')->with('bundle', $bundle)->render()}}

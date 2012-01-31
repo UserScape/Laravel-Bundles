@@ -1,9 +1,8 @@
 <?php
 /**
- * Bundles controller
+ * Base controller
  *
- * This is used for basic bundle crud operations as well as
- * displaying the bundle details page.
+ * This is used to setup the assets global across all controllers
  *
  * @license     http://www.opensource.org/licenses/mit MIT License
  * @copyright   UserScape, Inc. (http://userscape.com)

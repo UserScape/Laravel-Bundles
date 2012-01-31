@@ -1,9 +1,8 @@
 <?php
 /**
- * Bundles controller
+ * Admin Base controller
  *
- * This is used for basic bundle crud operations as well as
- * displaying the bundle details page.
+ * This is used as a global admin controller to setup assets and handle auth.
  *
  * @license     http://www.opensource.org/licenses/mit MIT License
  * @copyright   UserScape, Inc. (http://userscape.com)
