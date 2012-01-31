@@ -17,6 +17,8 @@
 
 			{{Form::field('text', 'title', 'Title', array(Input::old('title', $category->title), array('class' => 'span6', 'required' => 'required')))}}
 
+			{{Form::field('text', 'uri', 'URI', array(Input::old('uri', $category->uri), array('class' => 'span6', 'required' => 'required')))}}
+
 			<fieldset class="control-group">
 				<label class="control-label" for="description">Description</label>
 				<div class="controls">

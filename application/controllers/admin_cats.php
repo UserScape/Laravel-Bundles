@@ -82,6 +82,7 @@ class Admin_cats_Controller extends Controller {
 
 		$rules = array(
 			'title'       => 'required',
+			'uri'         => 'required|unique:categories',
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -92,7 +93,7 @@ class Admin_cats_Controller extends Controller {
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		$uri = Str::slug(Input::get('uri'), '-');
 
 		$cat = new Category;
 		$cat->title = $title;
@@ -149,6 +150,7 @@ class Admin_cats_Controller extends Controller {
 
 		$rules = array(
 			'title'       => 'required',
+			'uri'         => 'required|unique:categories,uri,'.$id,
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -159,7 +161,7 @@ class Admin_cats_Controller extends Controller {
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		$uri = Str::slug(Input::get('uri'), '-');
 
 		$cat = Category::find($id);
 		$cat->title = $title;
