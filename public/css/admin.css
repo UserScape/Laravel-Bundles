@@ -3359,6 +3359,9 @@ table .item:nth-child(even) {
 table .item {
   border-bottom: 1px solid #E5E5E5;
 }
+table td.page-actions {
+  width: 150px;
+}
 table td span.total {
   font-size: 23px;
   line-height: 1em;

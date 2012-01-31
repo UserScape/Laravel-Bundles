@@ -17,8 +17,21 @@
 						<td>
 							<h3><a href="{{URL::to('admin_pages/edit/'.$page->id)}}">{{$page->title}}</a></h3>
 						</td>
-						<td>
-							<a class="btn danger delete" href="{{URL::to('admin_pages/delete/'.$page->id)}}">Delete</a>
+						<td class="page-actions">
+							<div class="btn-group">
+								<a class="btn" href="#">Actions</a>
+								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a target="_blank" href="{{URL::to('page/'.$page['uri'])}}" class=""><i class="zoom-in"></i> Preview</a></li>
+									<li><a href="{{URL::to('admin_pages/edit/'.$page['id'])}}"><i class="pencil"></i> Edit</a></li>
+									<li class="divider"></li>
+									<li class="remove">
+										<a href="{{URL::to('admin_pages/delete/'.$page['id'])}}" data-id="{{$page['id']}}" class="delete">
+											<i class="trash"></i> Delete
+										</a>
+									</li>
+								</ul>
+							</div>
 						</td>
 					</tr>
 				@endforeach
