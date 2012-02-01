@@ -17,13 +17,6 @@ class Auth {
 	const user_key = 'laravel_user_id';
 
 	/**
-	 * The key used when setting the "remember me" cookie.
-	 *
-	 * @var string
-	 */
-	const remember_key = 'laravel_remember';
-
-	/**
 	 * Determine if the user of the application is not logged in.
 	 *
 	 * This method is the inverse of the "check" method.
@@ -62,7 +55,7 @@ class Auth {
 	{
 		if ( ! is_null(static::$user)) return static::$user;
 
-		$id = IoC::core('session')->get(Auth::user_key);
+		$id = Session::get(Auth::user_key);
 
 		// To retrieve the user, we'll first attempt to use the "user" Closure
 		// defined in the auth configuration file, passing in the ID. The user
@@ -76,7 +69,7 @@ class Auth {
 		// exists, we'll attempt to recall the user based on the cookie value.
 		// Since all cookies contain a fingerprint hash verifying that they
 		// haven't changed, we can trust it.
-		$recaller = Cookie::get(Auth::remember_key);
+		$recaller = Cookie::get($config['cookie']);
 
 		if (is_null(static::$user) and ! is_null($recaller))
 		{
@@ -196,7 +189,9 @@ class Auth {
 
 		extract($config, EXTR_SKIP);
 
-		Cookie::forever(Auth::remember_key, $recaller, $path, $domain, $secure);
+		$cookie = Config::get('auth.cookie');
+
+		Cookie::forever($cookie, $recaller, $path, $domain, $secure);
 	}
 
 	/**
@@ -220,7 +215,9 @@ class Auth {
 		// When forgetting the cookie, we need to also pass in the path and
 		// domain that would have been used when the cookie was originally
 		// set by the framework, otherwise it will not be deleted.
-		Cookie::forget(Auth::remember_key, $path, $domain, $secure);
+		$cookie = Config::get('auth.cookie');
+
+		Cookie::forget($cookie, $path, $domain, $secure);
 
 		Session::forget(Auth::user_key);
 	}
