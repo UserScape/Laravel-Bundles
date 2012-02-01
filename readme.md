@@ -3,6 +3,24 @@
 Laravel bundles is an application that allows you to create a site to list bundles that can
 be installed by the [Laravel](http://laravel.com) framework.
 
+## Installation
+
+Installation is pretty easy however it is not automated. To install this please follow these steps:
+
+* Download the latest release
+* Edit application/config/application.php
+	* Change the key
+* Created your database and modify application/config/database.php
+* Via cli run the following commands:
+
+```bash
+php artisan migrate:install
+php artisan migrate
+```
+
+* Next load the site in your browser and login with GitHub. The first account creted is considered an admin.
+
+
 ## License
 
 The MIT License (MIT)
