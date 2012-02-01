@@ -26,13 +26,27 @@ class Admin_Base_Controller extends Controller {
 		$this->filter('before', array('admin_auth'));
 
 		Asset::add('style', 'css/admin.css');
-		Asset::add('jquery', 'js/jquery.min.js');
-		// Asset::add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js');
-		Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
-		Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
-		Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
-		Asset::add('bootstrap', 'js/bootstrap.min.js', array('jquery'));
-		Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+
+		if (Config::get('application.minify_js'))
+		{
+			Asset::add('jquery', 'js/min/jquery-min.js');
+			Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
+			Asset::add('jquery-tags', 'js/min/jquery.tagit-min.js', array('jquery','jquery-ui'));
+			Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+			Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
+			Asset::add('bootstrap', 'js/min/bootstrap-min.js', array('jquery'));
+			Asset::add('main', 'js/min/jquery.main-min.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+		}
+		else
+		{
+			Asset::add('jquery', 'js/jquery.min.js');
+			Asset::add('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js', 'jquery');
+			Asset::add('jquery-tags', 'js/jquery.tagit.js', array('jquery','jquery-ui'));
+			Asset::add('pretty', 'js/google-code-prettify/prettify.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+			Asset::add('tools', 'http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js', array('jquery'));
+			Asset::add('bootstrap', 'js/bootstrap.min.js', array('jquery'));
+			Asset::add('main', 'js/jquery.main.js', array('jquery', 'jquery-ui', 'jquery-tags'));
+		}
 	}
 
 	/**
