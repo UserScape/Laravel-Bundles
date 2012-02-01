@@ -21,7 +21,7 @@
 					<div class="main">
 						{{Bootstrap::header('404 Error')}}
 
-						<p>Sorry but this page is lost in an abyss of nothingness.</p>
+						<p>Well, this is awkward. Guess you should click another link.</p>
 					</div>
 				</div>
 				<div class="span4">

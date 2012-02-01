@@ -24,6 +24,7 @@ $(function() {
 			success: function(resp) {
 				$('#ajax-loader').fadeOut();
 				$('#title').val(id);
+				$('#path').val(id);
 				$('#location').val(resp.url);
 				$('#summary').val(resp.description);
 				$('#description').val(resp.readme);

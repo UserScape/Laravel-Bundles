@@ -175,6 +175,7 @@ class Admin_Bundles_Controller extends Admin_Base_Controller {
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->active = Input::get('active', 'n');
 		$listing->class = Input::get('class');
+		$listing->path = strtolower(Input::get('path', $title));
 		// $listing->user_id = 1; //@todo - Get id from the form. See issue #14
 		$listing->uri = $uri;
 		$listing->save();

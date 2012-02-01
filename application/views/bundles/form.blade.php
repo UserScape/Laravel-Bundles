@@ -47,9 +47,9 @@
 
 			<div class="bundle_extras">
 
-				{{Form::field('text', 'location', __('form.clone_url'), array(Input::old('location', $bundle->location), array('required' => 'required')))}}
+				{{Form::field('text', 'location', __('form.clone_url'), array(Input::old('location', $bundle->location), array('class' => 'span5','required' => 'required')))}}
 
-				{{Form::field('text', 'title', __('form.title'), array(Input::old('title', $bundle->title), array('required' => 'required')))}}
+				{{Form::field('text', 'title', __('form.title'), array(Input::old('title', $bundle->title), array('class' => 'span5', 'required' => 'required')))}}
 
 				<div class="control-group">
 					<label class="control-label" for="summary">{{__('form.summary')}}</label>
@@ -67,7 +67,18 @@
 					</div>
 				</div>
 
-				{{Form::field('text', 'website', __('form.website'), array(Input::old('website', $bundle->website)))}}
+				<div class="control-group">
+					<label class="control-label" for="path">Install Path</label>
+					<div class="controls">
+						<div class="input-prepend">
+							<span class="add-on">bundles/</span>
+							{{Form::text('path', (Input::old('path')) ? Input::old('path') : $bundle->path, array('class' => 'span5', 'id' => 'path'))}}
+						</div>
+						<p class="help-block">The path where the bundle should be installed.</p>
+					</div>
+				</div>
+
+				{{Form::field('text', 'website', __('form.website'), array(Input::old('website', $bundle->website), array('class' => 'span5')))}}
 
 				<div class="control-group">
 					<label class="control-label" for="category_id">{{__('form.category')}}</label>

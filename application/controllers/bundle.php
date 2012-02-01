@@ -125,6 +125,7 @@ class Bundle_Controller extends Base_Controller {
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->active = Input::get('active', 'n');
+		$listing->path = strtolower(Input::get('path', $title));
 		$listing->user_id = Auth::user()->id;
 		$listing->uri = $uri;
 		$listing->save();
@@ -235,6 +236,7 @@ class Bundle_Controller extends Base_Controller {
 		$listing->provider = Input::get('provider', 'github');
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->active = Input::get('active', 'n');
+		$listing->path = strtolower(Input::get('path', $title));
 		$listing->uri = $uri;
 		$listing->save();
 
