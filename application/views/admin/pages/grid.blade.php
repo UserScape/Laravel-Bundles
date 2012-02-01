@@ -1,7 +1,7 @@
 <div class="page-header clearfix">
 	<h1 class="pull-left">Pages</h1>
 	<div class="pull-right">
-		<a href="{{URL::to('admin/pages/add')}}" class="btn success">Add Page</a>
+		<a href="{{URL::to('admin/pages/add')}}" class="btn btn-success">Add Page</a>
 	</div>
 </div>
 <div class="row">

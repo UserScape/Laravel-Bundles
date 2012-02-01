@@ -13,12 +13,12 @@
 							<a class="btn" href="#">Actions</a>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}" class=""><i class="zoom-in"></i> Preview</a></li>
-								<li><a href="{{URL::to('bundle/edit/'.$bundle->id)}}"><i class="pencil"></i> Edit</a></li>
+								<li><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}" class=""><i class="icon-zoom-in"></i> Preview</a></li>
+								<li><a href="{{URL::to('bundle/edit/'.$bundle->id)}}"><i class="icon-pencil"></i> Edit</a></li>
 								<li class="divider"></li>
 								<li class="remove">
 									<a href="{{URL::to('bundle/delete/'.$bundle->id)}}" data-id="{{$bundle->id}}" class="delete">
-										<i class="trash"></i> Delete
+										<i class="icon-trash"></i> Delete
 									</a>
 								</li>
 							</ul>
@@ -26,9 +26,9 @@
 					</td>
 					<td class="">
 						@if ($bundle->active == 'y')
-							<span class="label success">Active</span>
+							<span class="label label-success">Active</span>
 						@else
-							<span class="label notice">Not Active</span>
+							<span class="label label-notice">Not Active</span>
 						@endif
 					</td>
 				</tr>
