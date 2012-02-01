@@ -304,7 +304,7 @@ class Bundle_Controller extends Base_Controller {
 		{
 			if ( ! Rating::where_user_id($user)->where('listing_id', '=', $bundle->id)->get())
 			{
-				$rating_class = 'active';
+				$rating_class = 'alive';
 			}
 			else
 			{
