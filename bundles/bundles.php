@@ -36,5 +36,5 @@
 return array(
 	'eloquent',
 	'laravel-oauth2',
-	'bug-lost' => array('auto' => true)
+	'bug-lost' => array('auto' => false)
 );

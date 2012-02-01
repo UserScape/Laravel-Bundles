@@ -6262,7 +6262,7 @@ h1, h2, h3 {
 ul.tags {
   border-top: 1px solid #ebebeb;
   padding: 10px 0 0;
-  margin: 0;
+  margin-left: 0;
 }
 ul.tags li.first {
   border-left: none;
