@@ -14,7 +14,7 @@
 		{{View::make('partials.header')->render()}}
 
 		<div class="container">
-			<header class="jumbotron subhead well" id="overview">
+			<header class="jumbotron masthead well" id="overview">
 				<h1>Laravel Bundles</h1>
 				<p class="lead">This site is a Laravel community project that allows developers to easily share and discover bundles.</p>
 			</header>

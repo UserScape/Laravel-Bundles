@@ -6071,23 +6071,14 @@ body {
   font-size: 14px;
   color: #6D6D6D;
 }
-.container {
-  padding: 10px 0;
-}
 h1, h2, h3 {
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
-}
-.navbar-search input {
-  width: 175px;
 }
 .main p {
   font-size: 16px;
   margin-bottom: 20px;
 }
 /* Home Page */
-.jumbotron {
-  padding: 30px 60px;
-}
 .jumbotron h1 {
   margin-right: 0;
   margin-bottom: 9px;
@@ -6099,6 +6090,9 @@ h1, h2, h3 {
   font-size: 18px;
   font-weight: 200;
   line-height: 27px;
+}
+#home td.bundle-label {
+  width: 5%;
 }
 /* Header */
 .navbar h3 {
@@ -6339,7 +6333,7 @@ table .dropdown-menu .remove a:hover {
 }
 /* Footer */
 footer {
-  background: url(../img/footer-bg.png);
+  background: #292d30 url(../img/footer-bg.png) repeat-x;
   height: 100%;
 }
 footer .container {
@@ -6417,6 +6411,12 @@ iframe {
 }
 /* Responsive Docs - @todo after design approval
 -------------------------------------------------- */
+@media (max-width: 980px) {
+  /* Header */
+  .navbar .gravatar {
+    display: none;
+  }
+}
 @media (max-width: 480px) {
   
 }

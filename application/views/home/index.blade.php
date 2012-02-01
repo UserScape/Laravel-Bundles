@@ -9,7 +9,7 @@
 						<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
 						<div class="summary">{{$bundle->summary}}</div>
 					</td>
-					<td>
+					<td class="bundle-label">
 						@if (strtotime($bundle->created_at) >= strtotime('-7 days'))
 						<span class="label label-success">New</span>
 						@elseif (strtotime($bundle->updated_at) >= strtotime('-7 days'))
@@ -31,7 +31,7 @@
 						<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
 						<div class="summary">{{$bundle->summary}}</div>
 					</td>
-					<td>
+					<td class="bundle-label">
 						@if (strtotime($bundle->created_at) >= strtotime('-7 days'))
 						<span class="label label-success">New</span>
 						@elseif (strtotime($bundle->updated_at) >= strtotime('-7 days'))
