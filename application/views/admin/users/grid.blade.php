@@ -35,7 +35,7 @@
 						</td>
 						<td>
 							@if ($user->group_id == 1)
-								<span class="label important">Administrator</span>
+								<span class="label label-important">Administrator</span>
 							@else
 								<span class="label">Normal User</span>
 							@endif

@@ -164,7 +164,6 @@ return array(
 		'Event'      => 'Laravel\\Event',
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
-		'Form'       => 'Bootstrap\\Form',
 		'HTML'       => 'Laravel\\HTML',
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',

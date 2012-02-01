@@ -35,7 +35,7 @@
 				<label class="control-label" for="repo">{{__('form.repo')}}</label>
 				<div class="controls">
 					<!-- @todo - Add this to the db -->
-					{{Form::select('repo', $repos, (Input::old('repo') != null) ? Input::old('repo') : $bundle->title, array('id' => 'repo'))}}
+					{{Form::select('repo', $repos, Form::value('repo', $bundle), array('id' => 'repo'))}}
 					<span id="ajax-loader">{{HTML::image('img/ui-anim_basic_16x16.gif', 'Loading...')}}</span>
 				</div>
 			</div>
@@ -47,14 +47,24 @@
 
 			<div class="bundle_extras">
 
-				{{Form::field('text', 'location', __('form.clone_url'), array(Input::old('location', $bundle->location), array('class' => 'span5','required' => 'required')))}}
+				<div class="control-group">
+					<label class="control-label" for="location">{{__('form.clone_url')}}</label>
+					<div class="controls">
+						{{Form::text('location', Form::value('location', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+					</div>
+				</div>
 
-				{{Form::field('text', 'title', __('form.title'), array(Input::old('title', $bundle->title), array('class' => 'span5', 'required' => 'required')))}}
+				<div class="control-group">
+					<label class="control-label" for="title">{{__('form.title')}}</label>
+					<div class="controls">
+						{{Form::text('title', Form::value('title', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+					</div>
+				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="summary">{{__('form.summary')}}</label>
 					<div class="controls">
-						<textarea required="required" class="input-xlarge" id="summary" name="summary" rows="5">{{(Input::old('summary') != null) ? Input::old('summary') : $bundle->summary}}</textarea>
+						<textarea required="required" class="input-xlarge" id="summary" name="summary" rows="5">{{Form::value('summary', $bundle)}}</textarea>
 						<p class="help-block">{{__('form.summary_txt')}}</p>
 					</div>
 				</div>
@@ -62,7 +72,7 @@
 				<div class="control-group">
 					<label class="control-label" for="description">{{__('form.description')}}</label>
 					<div class="controls">
-						<textarea required="required" class="input-xlarge" id="description" name="description" rows="8">{{(Input::old('description') != null) ? Input::old('description') : $bundle->description}}</textarea>
+						<textarea required="required" class="input-xlarge" id="description" name="description" rows="8">{{Form::value('description', $bundle)}}</textarea>
 						<p class="help-block">{{__('form.description_txt')}}</p>
 					</div>
 				</div>
@@ -72,18 +82,23 @@
 					<div class="controls">
 						<div class="input-prepend">
 							<span class="add-on">bundles/</span>
-							{{Form::text('path', (Input::old('path')) ? Input::old('path') : $bundle->path, array('class' => 'span5', 'id' => 'path'))}}
+							{{Form::text('path', Form::value('path', $bundle), array('class' => 'span5', 'id' => 'path'))}}
 						</div>
 						<p class="help-block">The path where the bundle should be installed.</p>
 					</div>
 				</div>
 
-				{{Form::field('text', 'website', __('form.website'), array(Input::old('website', $bundle->website), array('class' => 'span5')))}}
+				<div class="control-group">
+					<label class="control-label" for="title">{{__('form.website')}}</label>
+					<div class="controls">
+						{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+					</div>
+				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="category_id">{{__('form.category')}}</label>
 					<div class="controls">
-						<?php $selected = (Input::old('category_id') != null) ? Input::old('category_id') : $bundle->category_id; ?>
+						<?php $selected = Form::value('category_id', $bundle); ?>
 						{{Form::select('category_id', $categories, $selected, array('id' => 'category_id', 'required' => 'required'))}}
 					</div>
 				</div>
@@ -105,11 +120,15 @@
 				<div class="control-group">
 					<label class="control-label" for="active">{{__('form.active')}}</label>
 					<div class="controls">
-						{{Form::select('active', array('y' => __('form.yes'), 'n' => __('form.no')), (Input::old('active') != null) ? Input::old('active') : $bundle->active, array('id' => 'active'))}}
+						<?php $selected = Form::value('active', $bundle); ?>
+						{{Form::select('active', array('y' => __('form.yes'), 'n' => __('form.no')), $selected, array('id' => 'active'))}}
 					</div>
 				</div>
 
-				{{Form::actions(array(Form::submit(__('form.save'), array('class' => 'primary')), Form::reset(__('form.cancel'))))}}
+				<div class="form-actions">
+					{{Form::submit(__('form.save'))}}
+					{{Form::reset(__('form.cancel'))}}
+				</div>
 			</div>
 		</fieldset>
 	{{Form::close()}}

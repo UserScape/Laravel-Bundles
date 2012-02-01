@@ -15,13 +15,28 @@
 
 		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 
-			{{Form::field('text', 'username', 'Username', array(Input::old('username', $user->username), array('class' => 'span6', 'required' => 'required')))}}
+			<div class="control-group">
+				<label class="control-label" for="username">Username</label>
+				<div class="controls">
+					{{Form::text('username', Form::value('username', $user), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
 
-			{{Form::field('text', 'name', 'Name', array(Input::old('name', $user->name), array('class' => 'span6', 'required' => 'required')))}}
+			<div class="control-group">
+				<label class="control-label" for="name">Name</label>
+				<div class="controls">
+					{{Form::text('name', Form::value('name', $user), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
 
-			{{Form::field('text', 'email', 'Email', array(Input::old('email', $user->email), array('class' => 'span6', 'required' => 'required')))}}
+			<div class="control-group">
+				<label class="control-label" for="name">Email</label>
+				<div class="controls">
+					{{Form::text('email', Form::value('email', $user), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
 
-			<fieldset class="control-group">
+			<div class="control-group">
 				<label class="control-label" for="category_id">Group</label>
 				<div class="controls">
 					<?php
@@ -29,9 +44,12 @@
 					?>
 					{{Form::select('group', $groups, $selected, array('class' => 'mediumSelect', 'required' => 'required'))}}
 				</div>
-			</fieldset>
+			</div>
 
-			{{Form::actions(array(Form::submit('Save', array('class' => 'primary')), Form::reset('Cancel')))}}
+			<div class="form-actions">
+				{{Form::submit(__('form.save'))}}
+				{{Form::reset(__('form.cancel'))}}
+			</div>
 
 		{{Form::close()}}
 	</div>

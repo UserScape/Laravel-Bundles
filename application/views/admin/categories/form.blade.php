@@ -15,18 +15,31 @@
 
 		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
 
-			{{Form::field('text', 'title', 'Title', array(Input::old('title', $category->title), array('class' => 'span6', 'required' => 'required')))}}
+			<div class="control-group">
+				<label class="control-label" for="title">Title</label>
+				<div class="controls">
+					{{Form::text('title', Form::value('title', $category), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
 
-			{{Form::field('text', 'uri', 'URI', array(Input::old('uri', $category->uri), array('class' => 'span6', 'required' => 'required')))}}
+			<div class="control-group">
+				<label class="control-label" for="uri">URI</label>
+				<div class="controls">
+					{{Form::text('uri', Form::value('uri', $category), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
 
 			<fieldset class="control-group">
 				<label class="control-label" for="description">Description</label>
 				<div class="controls">
-					<textarea class="span6" id="description" name="description" rows="5">{{(Input::old('description') != null) ? Input::old('description') : $category->description}}</textarea>
+					<textarea class="span6" id="description" name="description" rows="5">{{Form::value('description', $category)}}</textarea>
 				</div>
 			</fieldset>
 
-			{{Form::actions(array(Form::submit('Save', array('class' => 'primary')), Form::reset('Cancel')))}}
+			<div class="form-actions">
+				{{Form::submit(__('form.save'))}}
+				{{Form::reset(__('form.cancel'))}}
+			</div>
 
 		{{Form::close()}}
 	</div>

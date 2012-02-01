@@ -68,6 +68,7 @@ class Bundle_Controller extends Base_Controller {
 			->nest('content', 'bundles.form', array(
 				'categories' => $this->categories,
 				'repos' => Github_helper::repos(),
+				'action' => 'add'
 			));
 	}
 
