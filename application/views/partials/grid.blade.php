@@ -11,9 +11,9 @@
 				</td>
 				<td class="meta">
 					@if (strtotime($bundle->created_at) >= strtotime('-7 days'))
-					<span class="label success">New</span>
+					<span class="label label-success">New</span>
 					@elseif (strtotime($bundle->updated_at) >= strtotime('-7 days'))
-					<span class="label notice">Updated</span>
+					<span class="label label-notice">Updated</span>
 					@endif
 				</td>
 			</tr>
