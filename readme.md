@@ -5,7 +5,7 @@ be installed by the [Laravel](http://laravel.com) framework.
 
 ## Installation
 
-Installation is pretty easy however it is not automated. To install this please follow these steps:
+Installation is fairly easy however it is not automated. To install this please follow these steps:
 
 * Download the latest release
 * Edit application/config/application.php
@@ -17,9 +17,16 @@ Installation is pretty easy however it is not automated. To install this please 
 php artisan migrate:install
 php artisan migrate
 ```
-
+* Visit [GitHub](https://github.com/account/applications/new) and register your application. The urls you will need are:
+	* URL: http://yoursite.com
+	* Callback: http://yoursite.com/user/login/github
+* Modify application/config/github.php with your GitHub keys
 * Next load the site in your browser and login with GitHub. The first account creted is considered an admin.
 
+## Support
+
+If you need support please use the GitHub issue tracker. If you want to fix a bug or make an improvement consider
+forking and submitting a pull request. The world is small, make your mark!
 
 ## License
 

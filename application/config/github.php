@@ -9,6 +9,9 @@ return array(
 	|
 	| The id and secret code github assigns when registering an application.
 	|
+	| You can register your application here:
+	| https://github.com/account/applications/new
+	|
 	*/
 
 	'id' => '5cadb2b49f5975a8760a',
