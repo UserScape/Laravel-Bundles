@@ -101,7 +101,7 @@ Router::register('GET /tags', function(){
 	{
 		$tags[] = $tag->tag;
 	}
-	exit(json_encode($tags));
+	return json_encode($tags);
 });
 
 // ------------------------------------------------------------------------
@@ -119,7 +119,7 @@ Router::register('GET /dependencies', function(){
 	{
 		$tags[] = $tag->title;
 	}
-	exit(json_encode($tags));
+	return json_encode($tags);
 });
 
 // ------------------------------------------------------------------------
@@ -150,7 +150,7 @@ Router::register('POST /rate', function(){
 		$vars['success'] = 'true';
 		exit(json_encode($vars));
 	}
-	exit(json_encode(array('error' => 'Could not save your rating.')));
+	return json_encode(array('error' => 'Could not save your rating.'));
 });
 
 /*
