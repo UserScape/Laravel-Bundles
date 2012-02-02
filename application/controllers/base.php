@@ -55,6 +55,6 @@ class Base_Controller extends Controller {
 	 */
 	public function __call($method, $args)
 	{
-		return Response::error('404', $data);
+		return Response::error('404');
 	}
 }
