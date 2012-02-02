@@ -37,7 +37,7 @@
 						</ul>
 					</li>
 					@else
-					<li class="login">{{HTML::link('user/login', 'Login with GitHub', array('class' => 'btn primary'))}}</li>
+					<li class="login">{{HTML::link('user/login', 'Login with GitHub', array('class' => 'btn btn-small btn-primary'))}}</li>
 					@endif
 				</ul>
 			</div>
