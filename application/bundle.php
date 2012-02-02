@@ -21,20 +21,18 @@ $shared = function($view)
 	$view->with('categories', Category::all());
 };
 
-$error = function($view)
-{
-	$view->with('categories', Category::all());
-	Asset::add('style', 'css/style.css');
-	Asset::add('jquery', 'js/min/jquery-min.js');
-	Asset::add('bootstrap', 'js/min/bootstrap-min.js', array('jquery'));
-};
-
 /**
  * Main composers
  */
 View::composer('layouts.home', $shared);
 View::composer('layouts.default', $shared);
-View::composer('error.404', $error);
+View::composer('error.404', $shared);
+View::composer('error.404', function($view)
+{
+	Asset::add('style', 'css/style.css');
+	Asset::add('jquery', 'js/min/jquery-min.js');
+	Asset::add('bootstrap', 'js/min/bootstrap-min.js', array('jquery'));
+});
 
 /**
  * Autoloader
