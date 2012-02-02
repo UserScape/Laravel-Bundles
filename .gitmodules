@@ -4,6 +4,3 @@
 [submodule "bundles/eloquent"]
 	path = bundles/eloquent
 	url = git://github.com/taylorotwell/eloquent.git
-[submodule "bundles/bug-lost"]
-	path = bundles/bug-lost
-	url = git@github.com:taylorotwell/laravel-bug-lost.git
