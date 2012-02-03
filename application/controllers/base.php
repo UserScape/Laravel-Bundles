@@ -53,7 +53,7 @@ class Base_Controller extends Controller {
 	 * layout data assigned.
 	 *
 	 */
-	public function __call($method, $args)
+	public function __call($method, $parameters)
 	{
 		return Response::error('404');
 	}
