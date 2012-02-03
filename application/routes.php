@@ -70,11 +70,14 @@ Router::register('GET /api/(:any)', function($item)
 		}
 
 		$output = array(
-			'name' => $bundle->title,
-			'provider' => $bundle->provider,
-			'location' => $bundle->clone_url,
-			'path' => $bundle->path,
-			'dependencies' => $dependencies
+			'status' => 'ok',
+			'bundle' => array(
+				'name' => $bundle->title,
+				'provider' => $bundle->provider,
+				'location' => $bundle->clone_url,
+				'path' => $bundle->path,
+				'dependencies' => $dependencies
+			)
 		);
 
 		// update the install log for record keeping.
@@ -82,8 +85,12 @@ Router::register('GET /api/(:any)', function($item)
 		$install->bundle_id = $bundle->id;
 		$install->save();
 	}
+	else
+	{
+		$output = array('status' => 'not-found');
+	}
 
-	return $output;
+	return json_encode($output);
 });
 
 // ------------------------------------------------------------------------
