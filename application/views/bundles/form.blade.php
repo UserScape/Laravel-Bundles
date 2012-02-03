@@ -83,8 +83,8 @@
 						<div class="input-prepend">
 							<span class="add-on">bundles/</span>
 							{{Form::text('path', Form::value('path', $bundle), array('class' => 'span5', 'id' => 'path'))}}
+							<p class="help-block">The path where the bundle should be installed.</p>
 						</div>
-						<p class="help-block">The path where the bundle should be installed.</p>
 					</div>
 				</div>
 
