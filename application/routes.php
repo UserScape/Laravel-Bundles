@@ -197,7 +197,8 @@ Filter::register('before', function()
 	// wildcard filtering.
 	$ignored_pages = array(
 		'user/login',
-		'user/login/github'
+		'user/login/github',
+		'favicon.ico'
 	);
 
 	// If it is not an ignored page then set a goto session.
