@@ -16,8 +16,6 @@ class Github_helper {
 
 	public static function setup()
 	{
-		require_once path('app').'libraries/Github/Autoloader.php';
-		Github_Autoloader::register();
 		return new Github_Client();
 	}
 

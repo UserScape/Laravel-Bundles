@@ -35,5 +35,6 @@
 
 return array(
 	'eloquent',
-	'laravel-oauth2'
+	'laravel-oauth2',
+	'github-api'
 );
