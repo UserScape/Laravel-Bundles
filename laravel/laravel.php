@@ -149,26 +149,37 @@ foreach (Bundle::all() as $bundle => $config)
 }
 
 /**
- * Route the request to the proper route in the application. If a
- * route is found, the route will be called via the request class
- * static property. If no route is found, the 404 response will
- * be returned to the browser.
+ * If the requset URI has too many segments, we will bomb out of
+ * the request. This is too avoid potential DDoS attacks against
+ * the framework by overloading the controller lookup method
+ * with thousands of segments.
  */
+$uri = URI::current();
+
 if (count(URI::$segments) > 15)
 {
 	throw new \Exception("Invalid request. Too many URI segments.");
 }
 
-Request::$route = Routing\Router::route(Request::method(), URI::current());
+/**
+ * Route the request to the proper route in the application. If a
+ * route is found, the route will be called via the request class
+ * static property. If no route is found, the 404 response will
+ * be returned to the browser.
+ */
+Request::$route = Routing\Router::route(Request::method(), $uri);
 
-if ( ! is_null(Request::$route))
+if (is_null(Request::$route))
 {
-	$response = Request::$route->call();
-}
-else
-{
+	Request::$route = new Routing\Route('GET /404', array(function()
+	{
+		return Response::error('404');
+	}));
+
 	$response = Response::error('404');
 }
+
+$response = Request::$route->call();
 
 /**
  * Close the session and write the active payload to persistent

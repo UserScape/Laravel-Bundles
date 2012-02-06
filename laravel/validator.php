@@ -59,13 +59,6 @@ class Validator {
 	protected $size_rules = array('size', 'between', 'min', 'max');
 
 	/**
-	 * The inclusion related validation rules.
-	 *
-	 * @var array
-	 */
-	protected $inclusion_rules = array('in', 'not_in', 'mimes');
-
-	/**
 	 * The numeric related validation rules.
 	 *
 	 * @var array
@@ -253,9 +246,7 @@ class Validator {
 	 */
 	protected function validate_confirmed($attribute, $value)
 	{
-		$confirmed = $attribute.'_confirmation';
-
-		return isset($this->attributes[$confirmed]) and $value == $this->attributes[$confirmed];
+		return $this->validate_same($attribute, $value, array($attribute.'_confirmation'));
 	}
 
 	/**
@@ -270,6 +261,36 @@ class Validator {
 	protected function validate_accepted($attribute, $value)
 	{
 		return $this->validate_required($attribute, $value) and ($value == 'yes' or $value == '1');
+	}
+
+	/**
+	 * Validate that an attribute is the same as another attribute.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_same($attribute, $value, $parameters)
+	{
+		$other = $parameters[0];
+
+		return isset($this->attributes[$other]) and $value == $this->attributes[$other];
+	}
+
+	/**
+	 * Validate that an attribute is different from another attribute.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_different($attribute, $value, $parameters)
+	{
+		$other = $parameters[0];
+
+		return isset($this->attributes[$other]) and $value != $this->attributes[$other];
 	}
 
 	/**
@@ -686,28 +707,138 @@ class Validator {
 	{
 		$message = str_replace(':attribute', $this->attribute($attribute), $message);
 
-		if (in_array($rule, $this->size_rules))
+		if (method_exists($this, $replacer = 'replace_'.$rule))
 		{
-			// Even though every size rule will not have a place-holder for min, max,
-			// and size, we will go ahead and make replacements for all of them just
-			// for convenience. Except for "between", every replacement should be
-			// the first parameter in the array.
-			$max = ($rule == 'between') ? $parameters[1] : $parameters[0];
-
-			$replace =  array($parameters[0], $parameters[0], $max);
-
-			$message = str_replace(array(':size', ':min', ':max'), $replace, $message);
-		}
-
-		// The :values place-holder is used for rules that accept a list of
-		// values, such as "in" and "not_in". The place-holder value will
-		// be replaced with a comma delimited list of the values.
-		elseif (in_array($rule, $this->inclusion_rules))
-		{
-			$message = str_replace(':values', implode(', ', $parameters), $message);
+			$message = $this->$replacer($message, $attribute, $rule, $parameters);
 		}
 
 		return $message;
+	}
+
+	/**
+	 * Replace all place-holders for the between rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_between($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(array(':min', ':max'), $parameters, $message);
+	}
+
+	/**
+	 * Replace all place-holders for the size rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_size($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':size', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the min rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_min($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':min', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the max rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_max($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':max', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_in($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the not_in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_not_in($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the not_in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_mimes($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the same rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_same($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':other', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the different rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_different($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':other', $parameters[0], $message);
 	}
 
 	/**
@@ -727,7 +858,9 @@ class Validator {
 		// If no language line has been specified for the attribute, all of
 		// the underscores will be removed from the attribute name and that
 		// will be used as the attribtue name in the message.
-		$display = Lang::line("{$bundle}validation.attributes.{$attribute}")->get($this->language);
+		$line = "{$bundle}validation.attributes.{$attribute}";
+
+		$display = Lang::line($line)->get($this->language);
 
 		return (is_null($display)) ? str_replace('_', ' ', $attribute) : $display;
 	}
@@ -813,7 +946,7 @@ class Validator {
 	/**
 	 * Get the database connection for the Validator.
 	 *
-	 * @return Connection
+	 * @return Database\Connection
 	 */
 	protected function db()
 	{

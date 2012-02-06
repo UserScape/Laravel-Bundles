@@ -53,7 +53,6 @@ class Route {
 	{
 		$this->key = $key;
 		$this->action = $action;
-		$this->parameters = $parameters;
 
 		// Extract each URI from the route key. Since the route key has the request
 		// method, we will extract that from the string. If the URI points to the
@@ -67,6 +66,8 @@ class Route {
 		// the bundle so we know if we need to run a bundle's global filters
 		// when executing the route.
 		$this->bundle = Bundle::resolve(head(explode('/', $this->uris[0])));
+
+		$this->parameters = array_map('urldecode', $parameters);
 	}
 
 	/**
@@ -141,7 +142,7 @@ class Route {
 	 *
 	 * If the route belongs to a bundle, the bundle's global filters are returned too.
 	 *
-	 * @param  string  $filter
+	 * @param  string  $event
 	 * @return array
 	 */
 	protected function filters($event)

@@ -93,7 +93,7 @@ class File {
 	/**
 	 * Get the file size of a given file.
 	 *
-	 * @param  string  $file
+	 * @param  string  $path
 	 * @return int
 	 */
 	public static function size($path)
@@ -149,7 +149,7 @@ class File {
 	 *		$image = File::is(array('jpg', 'png', 'gif'), 'path/to/file');
 	 * </code>
 	 *
-	 * @param  array|string  $extension
+	 * @param  array|string  $extensions
 	 * @param  string        $path
 	 * @return bool
 	 */
@@ -239,6 +239,36 @@ class File {
 		}
 
 		if ($delete) rmdir($source);
+	}
+
+	/**
+	 * Recursively delete a directory.
+	 *
+	 * @param  string  $directory
+	 * @return void
+	 */
+	public static function rmdir($directory)
+	{
+		if ( ! is_dir($directory)) return;
+
+		$items = new fIterator($directory);
+
+		foreach ($items as $item)
+		{
+			// If the item is a directory, we can just recurse into the
+			// function and delete that sub-directory, otherwise we'll
+			// just deleete the file and keep going!
+			if ($item->isDir())
+			{
+				static::rmdir($item->getRealPath());
+			}
+			else
+			{
+				@unlink($item->getRealPath());
+			}
+		}
+
+		@rmdir($directory);
 	}
 
 	/**
