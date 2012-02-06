@@ -2,3 +2,4 @@
 storage/views/
 storage/sessions/
 utilities/
+application/config/production/
