@@ -6,8 +6,6 @@
 		{{Asset::styles()}}
 		<!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="http://bundles.laravel.com/img/favicon.ico">
 	</head>
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
@@ -24,14 +22,6 @@
 		</div>
 
 		{{View::make('partials.footer')->with('categories', $categories)->render()}}
-
-		<script>
-		var SITE_URL = "<?php echo URL::to(); ?>";
-		var BASE_URL = "<?php echo URL::base(); ?>";
-		var initialTags = [];
-		var initialDependenciesTags = [];
-		</script>
-		{{Asset::scripts()}}
 
 	</body>
 </html>

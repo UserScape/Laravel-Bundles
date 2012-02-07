@@ -7,8 +7,11 @@ $(function() {
 	$('.tabs a').tabs('show');
 
 	// Adding / Editing Bundles
-	$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
-	$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
+	if (typeof initialTags != 'undefined' && initialTags instanceof Array)
+	{
+		$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
+		$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
+	}
 	$('#repo').change(function(){
 		var id = $(this).find("option:selected").text();
 		$.ajax({

@@ -35,3 +35,22 @@
 		</div>
 	</div>
 </footer>
+
+<div id="modal-from-dom" class="modal hide fade">
+	<div class="modal-header">
+		<a href="#" class="close" data-dismiss="modal">&times;</a>
+		<h3 class="title">Modal Heading</h3>
+	</div>
+	<div class="modal-body">
+		<p>One fine body…</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+</div>
+
+<script>
+var SITE_URL = "<?php echo URL::to(); ?>";
+</script>
+{{Asset::scripts()}}
+<script>$(function(){prettyPrint()})</script>

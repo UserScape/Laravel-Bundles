@@ -91,7 +91,7 @@
 				<div class="control-group">
 					<label class="control-label" for="title">{{__('form.website')}}</label>
 					<div class="controls">
-						{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+						{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5'))}}
 					</div>
 				</div>
 
@@ -133,3 +133,25 @@
 		</fieldset>
 	{{Form::close()}}
 </section>
+
+<script>
+@if (isset($tags) AND is_array($tags))
+	var initialTags = [
+		@foreach ($tags as $tag)
+		"{{$tag}}",
+		@endforeach
+	];
+@else
+	var initialTags = [];
+@endif
+
+@if (isset($dependencies) AND is_array($dependencies))
+	var initialDependenciesTags = [
+	@foreach ($dependencies as $item)
+		"{{$item}}",
+	@endforeach
+	];
+@else
+	var initialDependenciesTags = [];
+@endif
+</script>

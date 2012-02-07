@@ -8,7 +8,6 @@
 		<!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="{{URL::to_asset('img/favicon.ico')}}">
-
 	</head>
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 
@@ -45,43 +44,5 @@
 
 		{{View::make('partials.footer')->with('categories', $categories)->render()}}
 
-		<div id="modal-from-dom" class="modal hide fade">
-			<div class="modal-header">
-				<a href="#" class="close" data-dismiss="modal">&times;</a>
-				<h3 class="title">Modal Heading</h3>
-			</div>
-			<div class="modal-body">
-				<p>One fine body…</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-			</div>
-		</div>
-
-<script>
-var SITE_URL = "<?php echo URL::to(); ?>";
-var BASE_URL = "<?php echo URL::base(); ?>";
-@if (isset($tags) AND is_array($tags))
-	var initialTags = [
-		@foreach ($tags as $tag)
-			"{{$tag}}",
-		@endforeach
-	];
-@else
-	var initialTags = [];
-@endif
-
-@if (isset($dependencies) AND is_array($dependencies))
-	var initialDependenciesTags = [
-		@foreach ($dependencies as $item)
-			"{{$item}}",
-		@endforeach
-	];
-@else
-	var initialDependenciesTags = [];
-@endif
-</script>
-		{{Asset::scripts()}}
-		<script>$(function () { prettyPrint() })</script>
 	</body>
 </html>

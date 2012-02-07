@@ -201,11 +201,11 @@ class Bundle_Controller extends Base_Controller {
 				'categories' => $this->categories,
 				'bundle' => $bundle,
 				'repos' => Github_helper::repos(),
-				'action' => 'edit'
+				'action' => 'edit',
+				'tags' => $tags,
+				'dependencies' => $dependencies
 			))
-			->with('tags', $tags)
-			->with('title', 'Edit Bundle')
-			->with('dependencies', $dependencies);
+			->with('title', 'Edit Bundle');
 	}
 
 	/**
