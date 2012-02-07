@@ -4,9 +4,9 @@
 	<div class="span12">
 		<div class="tabbable tabs-top">
 			<ul id="tab" class="nav nav-tabs">
-				<li class="active"><a href="#new" data-toggle="tab"><i class="icon inbox"></i> New Bundles</a></li>
-				<li><a href="#updated" data-toggle="tab"><i class="icon edit"></i> Recently Updated</a></li>
-				<li><a href="#new_users" data-toggle="tab"><i class="icon user"></i> New Users</a></li>
+				<li class="active"><a href="#new" data-toggle="tab"><i class="icon-inbox"></i> New Bundles</a></li>
+				<li><a href="#updated" data-toggle="tab"><i class="icon-edit"></i> Recently Updated</a></li>
+				<li><a href="#new_users" data-toggle="tab"><i class="icon-user"></i> New Users</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="new">
