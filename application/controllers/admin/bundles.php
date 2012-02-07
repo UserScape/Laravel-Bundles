@@ -99,12 +99,13 @@ class Admin_Bundles_Controller extends Admin_Base_Controller {
 			return Response::error('404');
 		}
 
-		// Get the tags and assign them to the layout for js.
-		$tag_query = Tag::where('tag', 'like', Input::get('term').'%')->get();
-		$tags = array();
-		foreach ($tag_query as $key => $tag)
+		// Get the associated tags.
+		if (count($bundle->tags) > 0)
 		{
-			$tags[$key] = $tag->tag;
+			foreach ($bundle->tags as $key => $tag)
+			{
+				$tags[$key] = $tag->tag;
+			}
 		}
 
 		// Get the dependencies and assign them to the layout for js.

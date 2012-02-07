@@ -6181,6 +6181,9 @@ ul.tags li {
   margin: 0;
   border-left: 1px solid #ebebeb;
 }
+#admin.bundles textarea {
+  width: 80%;
+}
 #admin_users .gravatar {
   float: left;
   margin-right: 10px;
