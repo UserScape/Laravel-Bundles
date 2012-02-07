@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<h3><a class="brand" href="#">Laravel Bundles</a></h3>
+			<h3><a class="brand" href="http://bundles.laravel.com">Laravel Bundles</a></h3>
 
 			<div class="nav-collapse">
 				<ul class="nav">
