@@ -24,10 +24,17 @@ class Bundle {
 	public static $started = array();
 
 	/**
+	 * All of the bundles that have their routes files loaded.
+	 *
+	 * @var array
+	 */
+	public static $routed = array();
+
+	/**
 	 * Register a bundle for the application.
 	 *
 	 * @param  string  $bundle
-	 * @param  mixed   $config  Array of 'location', 'handles' and 'auto'; or string of location.
+	 * @param  mixed   $config
 	 * @return void
 	 */
 	public static function register($bundle, $config = array())
@@ -51,6 +58,14 @@ class Bundle {
 		// we don't have to worry about the developer adding or not adding it
 		// to the location path for the bundle.
 		$config['location'] = path('bundle').rtrim($config['location'], DS).DS;
+
+		// If the handles clause is set, we will append a trailing slash so
+		// that it is not ultra-greedy. Otherwise, bundles that handle "s"
+		// would handle all bundles that start with "s".
+		if (isset($config['handles']))
+		{
+			$config['handles'] = $config['handles'].'/';
+		}
 
 		static::$bundles[$bundle] = array_merge($defaults, $config);
 	}
@@ -78,7 +93,7 @@ class Bundle {
 		// dependent bundles so that they are available.
 		if (file_exists($path = static::path($bundle).'bundle'.EXT))
 		{
-			require_once $path;
+			require $path;
 		}
 
 		// Each bundle may also have a "routes" file which is responsible for
@@ -99,10 +114,14 @@ class Bundle {
 	 */
 	public static function routes($bundle)
 	{
-		if (file_exists($path = static::path($bundle).'routes'.EXT))
+		$path = static::path($bundle).'routes'.EXT;
+
+		if ( ! static::routed($bundle) and file_exists($path))
 		{
-			require_once $path;
+			require $path;
 		}
+
+		static::$routed[] = $bundle;
 	}
 
 	/**
@@ -115,6 +134,8 @@ class Bundle {
 	 */
 	public static function handles($uri)
 	{
+		$uri = rtrim($uri, '/').'/';
+
 		foreach (static::$bundles as $key => $value)
 		{
 			if (starts_with($uri, $value['handles'])) return $key;
@@ -143,6 +164,17 @@ class Bundle {
 	public static function started($bundle)
 	{
 		return in_array(strtolower($bundle), static::$started);
+	}
+
+	/**
+	 * Determine if a given bundle has its routes file loaded.
+	 *
+	 * @param  string  $bundle
+	 * @return void
+	 */
+	public static function routed($bundle)
+	{
+		return in_array(strtolower($bundle), static::$routed);
 	}
 
 	/**

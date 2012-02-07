@@ -10,6 +10,16 @@ class URL {
 	public static $base;
 
 	/**
+	 * Get the full URL for the current request.
+	 *
+	 * @return string
+	 */
+	public static function current()
+	{
+		return static::to(URI::current());
+	}
+
+	/**
 	 * Get the base URL of the application.
 	 *
 	 * @return string
@@ -27,8 +37,7 @@ class URL {
 		{
 			$base = $url;
 		}
-
-		if (isset($_SERVER['HTTP_HOST']))
+		elseif (isset($_SERVER['HTTP_HOST']))
 		{
 			$protocol = (Request::secure()) ? 'https://' : 'http://';
 

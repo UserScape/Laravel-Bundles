@@ -87,9 +87,6 @@ class Auth {
 	 */
 	protected static function recall($recaller)
 	{
-		// When the remember me cookie is stored, it is encrypted and contains
-		// the user's ID and a long, random string. The segments are separated
-		// by a pipe character so we'll explode on that.
 		$recaller = explode('|', Crypter::decrypt($recaller));
 
 		// We'll pass the ID that was stored in the cookie into the same user
@@ -127,16 +124,10 @@ class Auth {
 
 		// When attempting to login the user, we will call the "attempt" closure
 		// from the configuration file. This gives the developer the freedom to
-		// authenticate based on the needs of their application.
-		//
-		// All of the password hashing and checking and left totally up to the
-		// developer, as this gives them the freedom to use any hashing scheme
-		// or authentication provider they wish.
+		// authenticate based on the needs of their application, even allowing
+		// the user of third-party providers.
 		$user = call_user_func($config['attempt'], $username, $password);
 
-		// If the user credentials were authenticated by the closure, we will
-		// log the user into the application, which will store their user ID
-		// in the session for subsequent requests.
 		if (is_null($user)) return false;
 
 		static::login($user, $remember);

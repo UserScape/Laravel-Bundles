@@ -626,12 +626,12 @@ class Query {
 	 * Get an aggregate value.
 	 *
 	 * @param  string  $aggregator
-	 * @param  string  $column
+	 * @param  array   $columns
 	 * @return mixed
 	 */
-	public function aggregate($aggregator, $column)
+	public function aggregate($aggregator, $columns)
 	{
-		$this->aggregate = compact('aggregator', 'column');
+		$this->aggregate = compact('aggregator', 'columns');
 
 		$sql = $this->grammar->select($this);
 
@@ -655,19 +655,19 @@ class Query {
 	public function paginate($per_page = 20, $columns = array('*'))
 	{
 		// Because some database engines may throw errors if we leave orderings
-		// on the query when retrieving the total number of records, we will
-		// remove all of the ordreings and put them back on the query after
-		// we have the count.
+		// on the query when retrieving the total number of records, we'll drop
+		// all of the ordreings and put them back on the query after we have
+		// retrieved the count from the table.
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
-		$page = Paginator::page($total = $this->count(), $per_page);
+		$page = Paginator::page($total = $this->count($columns), $per_page);
 
 		$this->orderings = $orderings;
 
-		// Now we're ready to get the actual pagination results from the
-		// database table. The "for_page" method provides a convenient
-		// way to set the limit and offset so we get the correct span
-		// of results from the table.
+		// Now we're ready to get the actual pagination results from the table
+		// using the for_page and get methods. The "for_page" method provides
+		// a convenient way to set the limit and offset so we get the correct
+		// span of results from the table.
 		$results = $this->for_page($page, $per_page)->get($columns);
 
 		return Paginator::make($results, $total, $per_page);
@@ -818,14 +818,9 @@ class Query {
 
 		if (in_array($method, array('count', 'min', 'max', 'avg', 'sum')))
 		{
-			if ($method == 'count')
-			{
-				return $this->aggregate(strtoupper($method), '*');
-			}
-			else
-			{
-				return $this->aggregate(strtoupper($method), $parameters[0]);
-			}
+			if (count($parameters) == 0) $parameters[0] = '*';
+
+			return $this->aggregate(strtoupper($method), (array) $parameters[0]);
 		}
 
 		throw new \Exception("Method [$method] is not defined on the Query class.");
