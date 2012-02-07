@@ -219,7 +219,7 @@ class Bundle_Controller extends Base_Controller {
 	public function post_edit($id = 0)
 	{
 		// Make sure we are valid.
-		if ( ! $bundle = Listing::where_uri($id)->first())
+		if ( ! $listing = Listing::where_uri($id)->first())
 		{
 			return Response::error('404');
 		}
@@ -228,7 +228,7 @@ class Bundle_Controller extends Base_Controller {
 
 		$rules = array(
 			'location'     => 'required',
-			'title'        => 'required|max:200|unique:listings,title,'.$bundle->id,
+			'title'        => 'required|max:200|unique:listings,title,'.$listing->id,
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',
@@ -250,7 +250,6 @@ class Bundle_Controller extends Base_Controller {
 		$title = Input::get('title');
 		$uri = Str::slug($title, '-');
 
-		$listing = Listing::find($bundle->id);
 		$listing->title = $title;
 		$listing->summary = strip_tags(Input::get('summary'));
 		$listing->description = strip_tags(Input::get('description'));
