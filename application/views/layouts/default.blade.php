@@ -47,15 +47,14 @@
 
 		<div id="modal-from-dom" class="modal hide fade">
 			<div class="modal-header">
-				<a href="#" class="close">&times;</a>
+				<a href="#" class="close" data-dismiss="modal">&times;</a>
 				<h3 class="title">Modal Heading</h3>
 			</div>
 			<div class="modal-body">
 				<p>One fine body…</p>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn primary">Primary</a>
-				<a href="#" class="btn secondary">Secondary</a>
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
 			</div>
 		</div>
 
