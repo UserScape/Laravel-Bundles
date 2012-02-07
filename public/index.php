@@ -18,6 +18,10 @@ if ($host == 'laravel-bundles.dev' OR strpos($host, 'localhost') !== FALSE)
 {
 	$_SERVER['LARAVEL_ENV'] = 'local';
 }
+elseif ($host == 'bundles.laravel.com')
+{
+	$_SERVER['LARAVEL_ENV'] = 'production';
+}
 else
 {
 	$_SERVER['LARAVEL_ENV'] = 'staging';
