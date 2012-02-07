@@ -35,13 +35,13 @@ class Github_helper {
 		if ($all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
 		{
 			// format repos into a select list
+			$repos[0] = __('form.please_select');
 			foreach ($all_repos as $repo)
 			{
 				$repos[$repo['name']] = $repo['name'];
 			}
 		}
 		sort($repos);
-		$repos[0] = __('form.please_select');
 		return $repos;
 	}
 
