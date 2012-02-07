@@ -85,6 +85,7 @@ class User_Controller extends Base_Controller {
 				}
 				else
 				{
+
 					$user = new User;
 					$user->username = $github_user['nickname'];
 					$user->name = ($github_user['name'] ?: '');
@@ -98,6 +99,11 @@ class User_Controller extends Base_Controller {
 
 				if (Auth::attempt($github_user['nickname'], $params->access_token, true))
 				{
+					if (Auth::user()->name == '' OR Auth::user()->email == '')
+					{
+						return Redirect::to('user/edit');
+					}
+
 					if ($goto = Session::get('goto'))
 					{
 						$goto = strip_tags($goto);
@@ -114,6 +120,37 @@ class User_Controller extends Base_Controller {
 				return Redirect::to('/');
 			}
 		}
+	}
+
+	public function action_edit()
+	{
+		$rules = array(
+			'name'     => 'required',
+			'email'    => 'required|email'
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		$user = User::find(Auth::user()->id);
+
+		if ($validator->invalid())
+		{
+			return View::make('layouts.default')
+				->with('title', 'Join')
+				->nest('content', 'user.join');
+		}
+
+		$user->name = Input::get('name');
+		$user->email = Input::get('email');
+		$user->save();
+
+		if ($goto = Session::get('goto'))
+		{
+			$goto = strip_tags($goto);
+			$goto = str_replace('.', '', $goto);
+			return Redirect::to($goto);
+		}
+		return Redirect::to('/');
 	}
 
 	/**

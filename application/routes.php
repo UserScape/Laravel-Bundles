@@ -42,6 +42,7 @@
 
 Router::register('GET /category/(:any)', 'category@detail');
 Router::register('GET /user/login', 'user@login');
+Router::register('GET /user/edit', 'user@edit');
 Router::register('GET /user/(:any)/bundles', 'user@bundles');
 Router::register('GET /user/(:any)/logout', 'user@logout');
 Router::register('GET /user/(:any)', 'user@index');
@@ -147,7 +148,7 @@ Router::register('POST /rate', function(){
 	$rated = Rating::where('listing_id', '=', Input::get('id'))
 		->where('user_id', '=', Auth::user()->id)
 		->count();
-	
+
 	if ($rated == 0 and $listing = Listing::find(Input::get('id')))
 	{
 		// update the install log for record keeping.
@@ -203,6 +204,7 @@ Filter::register('before', function()
 	$ignored_pages = array(
 		'user/login',
 		'user/login/github',
+		'user/edit',
 		'favicon.ico'
 	);
 
