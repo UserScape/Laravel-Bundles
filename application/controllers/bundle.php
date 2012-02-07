@@ -84,6 +84,10 @@ class Bundle_Controller extends Base_Controller {
 		$github = Github_helper::setup();
 		$vars = $github->getRepoApi()->show(Auth::user()->username, Input::get('repo'));
 		$vars['readme'] = Github_helper::load_readme(Auth::user()->username, Input::get('repo'));
+
+		// Strip out the url to generate the location
+		$vars['url'] = str_replace('https://github.com/', '', $vars['url']);
+
 		return json_encode($vars);
 	}
 
@@ -106,7 +110,7 @@ class Bundle_Controller extends Base_Controller {
 			'provider'     => '',
 			'category_id'  => 'required|numeric|min:1'
 		);
-		
+
 		$messages = array(
 			'min' => 'The :attribute field is required.',
 		);
@@ -221,7 +225,7 @@ class Bundle_Controller extends Base_Controller {
 			'provider'     => '',
 			'category_id'  => 'required|numeric|min:1'
 		);
-		
+
 		$messages = array(
 			'min' => 'The :attribute field is required.',
 		);
