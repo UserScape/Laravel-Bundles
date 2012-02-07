@@ -78,8 +78,6 @@ class User_Controller extends Base_Controller {
 				// Save or update the user data
 				if ($existing = User::where('username', '=', $github_user['nickname'])->first())
 				{
-					$existing->name = $github_user['name'];
-					$existing->email = $github_user['email'];
 					$existing->ip_address = Request::ip();
 					$existing->github_uid = $github_user['uid'];
 					$existing->github_token = Crypter::encrypt($params->access_token);
@@ -89,8 +87,8 @@ class User_Controller extends Base_Controller {
 				{
 					$user = new User;
 					$user->username = $github_user['nickname'];
-					$user->name = $github_user['name'];
-					$user->email = $github_user['email'];
+					$user->name = ($github_user['name'] ?: '');
+					$user->email = ($github_user['email'] ?: '');
 					$user->ip_address = Request::ip();
 					$user->github_uid = $github_user['uid'];
 					$user->github_token = Crypter::encrypt($params->access_token);
