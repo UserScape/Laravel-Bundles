@@ -104,10 +104,14 @@ class Bundle_Controller extends Base_Controller {
 			'description'  => 'required',
 			'website'      => 'url',
 			'provider'     => '',
-			'category_id'  => 'required'
+			'category_id'  => 'required|numeric|min:1'
+		);
+		
+		$messages = array(
+			'min' => 'The :attribute field is required.',
 		);
 
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make(Input::all(), $rules, $messages);
 
 		if ($validator->invalid())
 		{
@@ -215,10 +219,14 @@ class Bundle_Controller extends Base_Controller {
 			'description'  => 'required',
 			'website'      => 'url',
 			'provider'     => '',
-			'category_id'  => 'required'
+			'category_id'  => 'required|numeric|min:1'
+		);
+		
+		$messages = array(
+			'min' => 'The :attribute field is required.',
 		);
 
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make(Input::all(), $rules, $messages);
 
 		if ($validator->invalid())
 		{
