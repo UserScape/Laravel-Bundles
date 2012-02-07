@@ -5,7 +5,7 @@
 			@foreach ($bundles->results as $bundle)
 				<tr class="status_{{$bundle->active}}">
 					<td>
-						<h3>{{$bundle->title}}</h3>
+						<h3><a href="{{URL::to('bundle/edit/'.$bundle->id)}}">{{$bundle->title}}</a></h3>
 						<div class="summary">{{$bundle->summary}}</div>
 					</td>
 					<td>
