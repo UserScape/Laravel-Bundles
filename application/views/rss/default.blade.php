@@ -15,7 +15,7 @@
 		<dc:rights>Copyright <?php echo date("Y"); ?></dc:rights>
 		<dc:date><?php echo gmdate("Y-m-d\TH:i:s\Z", time()); ?></dc:date>
 		<admin:generatorAgent rdf:resource="http://bundles.laravel.com/" />
-		<atom:link href="{{URL::base().'/'.URI::current()}}" rel="self" type="application/rss+xml" />
+		<atom:link href="{{URL::current()}}" rel="self" type="application/rss+xml" />
 
 			@if (count($bundles) > 0)
 				@foreach ($bundles as $bundle)
