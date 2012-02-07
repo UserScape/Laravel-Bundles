@@ -143,7 +143,12 @@ Router::register('POST /rate', function(){
 		exit(json_encode(array('error' => 'You must be logged in')));
 	}
 
-	if ($listing = Listing::find(Input::get('id')))
+	// Have we already rated?
+	$rated = Rating::where('listing_id', '=', Input::get('id'))
+		->where('user_id', '=', Auth::user()->id)
+		->count();
+	
+	if ($rated == 0 and $listing = Listing::find(Input::get('id')))
 	{
 		// update the install log for record keeping.
 		$rating = new Rating;

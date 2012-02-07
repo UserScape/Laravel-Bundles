@@ -61,6 +61,7 @@ $(function() {
 
 		$.ajax({
 			beforeSend: function() {
+				$('#rate').attr('data-active', 'rated');
 				$('#rate').addClass('rated');
 			},
 			type: "POST",
