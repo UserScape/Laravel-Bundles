@@ -108,8 +108,8 @@ class Github_helper {
 	 */
 	public static function markdown($string)
 	{
-		require_once(path('app').'/libraries/markdown.php');
-		return markdown($string);
+		require_once(path('bundle').'markdown-extra-extended/markdown_extended.php');
+		return MarkdownExtended($string, array('pre' => 'prettyprint'));
 	}
 
 	/**

@@ -36,5 +36,6 @@
 return array(
 	'eloquent',
 	'laravel-oauth2',
-	'github-api'
+	'github-api',
+	'markdown-extra-extended'
 );

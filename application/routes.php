@@ -44,6 +44,7 @@ Router::register('GET /category/(:any)', 'category@detail');
 
 Router::register('GET /bundle/(:any)', 'bundle@detail');
 Router::register('GET /bundle/(:any)/edit', 'bundle@edit');
+Router::register('POST /bundle/(:any)/edit', 'bundle@edit');
 Router::register('GET /bundle/add', 'bundle@add');
 
 Router::register('GET /user/login', 'user@login');
@@ -223,11 +224,6 @@ Filter::register('before', function()
 	{
 		Session::forget('goto');
 	}
-});
-
-Filter::register('after', function()
-{
-	// Do stuff after every request to your application...
 });
 
 Filter::register('csrf', function()
