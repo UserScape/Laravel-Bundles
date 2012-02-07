@@ -122,6 +122,13 @@ class User_Controller extends Base_Controller {
 		}
 	}
 
+	/**
+	 * Edit
+	 *
+	 * Edit the account so they can either either there name
+	 * or email. These items may or may not be pulled from github.
+	 *
+	 */
 	public function action_edit()
 	{
 		$rules = array(
