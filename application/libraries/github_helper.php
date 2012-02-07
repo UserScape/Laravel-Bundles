@@ -34,14 +34,23 @@ class Github_helper {
 
 		if ($all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
 		{
-			// format repos into a select list
-			$repos[0] = __('form.please_select');
+			// format repos into a sorted select list
+			foreach ($all_repos as $key => $row)
+			{
+				$pushed[$key]  = $row['pushed_at'];
+				$name[$key] = $row['name'];
+			}
+
+			array_multisort($pushed, SORT_DESC, $name, SORT_ASC, $all_repos);
+
 			foreach ($all_repos as $repo)
 			{
 				$repos[$repo['name']] = $repo['name'];
 			}
+
+			$repos = array_merge(array(__('form.please_select')), $repos);
 		}
-		sort($repos);
+
 		return $repos;
 	}
 
