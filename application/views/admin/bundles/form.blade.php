@@ -59,7 +59,7 @@
 			<div class="control-group">
 				<label class="control-label" for="website">{{__('form.website')}}</label>
 				<div class="controls">
-					{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+					{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5'))}}
 				</div>
 			</div>
 
