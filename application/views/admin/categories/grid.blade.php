@@ -42,7 +42,7 @@
 				@endforeach
 			</table>
 		@else
-			<p>No categories was found matching your request.</p>
+			<p>Sorry the category can not be found.</p>
 		@endif
 	</div>
 </div>

@@ -102,7 +102,7 @@ class Bundle_Controller extends Base_Controller {
 	{
 		Input::flash();
 		$rules = array(
-			'location'     => 'required|url',
+			'location'     => 'required',
 			'title'        => 'required|max:200|unique:listings',
 			'summary'      => 'required',
 			'description'  => 'required',
@@ -217,7 +217,7 @@ class Bundle_Controller extends Base_Controller {
 		Input::flash();
 
 		$rules = array(
-			'location'     => 'required|url',
+			'location'     => 'required',
 			'title'        => 'required|max:200|unique:listings,title,'.$id,
 			'summary'      => 'required',
 			'description'  => 'required',

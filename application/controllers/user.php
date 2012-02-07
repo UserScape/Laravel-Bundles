@@ -40,6 +40,7 @@ class User_Controller extends Base_Controller {
 		}
 
 		return View::make('layouts.default')
+			->with('title', $user->name)
 			->nest('content', 'user.bundles', array(
 				'user' => $user,
 				'bundles' => $bundles

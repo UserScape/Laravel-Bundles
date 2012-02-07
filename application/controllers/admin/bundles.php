@@ -147,7 +147,7 @@ class Admin_Bundles_Controller extends Admin_Base_Controller {
 		Input::flash();
 
 		$rules = array(
-			'location'     => 'required|url',
+			'location'     => 'required',
 			'title'        => 'required|max:200|unique:listings,title,'.$id,
 			'summary'      => 'required',
 			'description'  => 'required',

@@ -57,9 +57,16 @@
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="title">{{__('form.website')}}</label>
+				<label class="control-label" for="website">{{__('form.website')}}</label>
 				<div class="controls">
 					{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="class">Class</label>
+				<div class="controls">
+					{{Form::text('class', Form::value('class', $bundle), array('class' => 'span5'))}}
 				</div>
 			</div>
 

@@ -25,5 +25,5 @@
 		{{$bundles->links()}}
 	@endif
 @else
-	<p>No bundles was found matching your request.</p>
+	<p>Sorry, No bundles were found matching your request.</p>
 @endif
