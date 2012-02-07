@@ -6197,6 +6197,10 @@ h1, h2, h3 {
   color: #ccc;
   border-bottom: none;
 }
+#bundle.detail pre code {
+  border: none;
+  color: #333;
+}
 #bundle.detail h2 {
   margin: 20px 0;
 }
