@@ -74,7 +74,7 @@ Router::register('GET /api/(:any)', function($item)
 			'bundle' => array(
 				'name' => $bundle->title,
 				'provider' => $bundle->provider,
-				'location' => $bundle->clone_url,
+				'location' => $bundle->location,
 				'path' => $bundle->path,
 				'dependencies' => $dependencies
 			)
