@@ -20,6 +20,16 @@ class Category_Controller extends Base_Controller {
 	}
 
 	/**
+	 * Index
+	 *
+	 * Show all categories
+	 */
+	public function action_index()
+	{
+		return Redirect::to('/categories');
+	}
+
+	/**
 	 * Detail
 	 *
 	 * Load a category by its uri and display bundles.

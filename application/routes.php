@@ -41,11 +41,17 @@
 */
 
 Router::register('GET /category/(:any)', 'category@detail');
+
+Router::register('GET /bundle/(:any)', 'bundle@detail');
+Router::register('GET /bundle/(:any)/edit', 'bundle@edit');
+Router::register('GET /bundle/add', 'bundle@add');
+
 Router::register('GET /user/login', 'user@login');
 Router::register('GET /user/edit', 'user@edit');
 Router::register('GET /user/(:any)/bundles', 'user@bundles');
 Router::register('GET /user/(:any)/logout', 'user@logout');
 Router::register('GET /user/(:any)', 'user@index');
+
 Router::register('GET /page/(:any)', 'page@detail');
 Router::register('GET /admin', 'admin.home@index');
 

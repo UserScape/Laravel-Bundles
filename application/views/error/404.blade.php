@@ -26,8 +26,8 @@
 				</div>
 				<div class="span4">
 					<div class="well" style="padding: 8px 0;">
-						<ul class="nav list">
-							<li class="list-header">
+						<ul class="nav nav-list">
+							<li class="nav-header">
 								Categories
 							</li>
 						@foreach ($categories as $category)

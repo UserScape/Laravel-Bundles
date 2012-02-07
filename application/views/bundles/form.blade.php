@@ -15,9 +15,9 @@
 			@endforeach
 			</ul>
 		</div>
-		{{Form::open(null, 'POST', array('class' => 'form-horizontal error'))}}
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal error '.$action))}}
 	@else
-		{{Form::open(null, 'POST', array('class' => 'form-horizontal'))}}
+		{{Form::open(null, 'POST', array('class' => 'form-horizontal '.$action))}}
 	@endif
 		<fieldset>
 

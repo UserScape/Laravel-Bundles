@@ -54,6 +54,16 @@ class Bundle_Controller extends Base_Controller {
 	}
 
 	/**
+	 * Index
+	 *
+	 * Show all categories
+	 */
+	public function get_index()
+	{
+		return Redirect::to('/bundles');
+	}
+
+	/**
 	 * Add a bundle
 	 *
 	 * Create the add bundle form which will send the posted
@@ -161,7 +171,7 @@ class Bundle_Controller extends Base_Controller {
 	public function get_edit($id = 0)
 	{
 		// See if we can get the bundle
-		if ( ! $bundle = Listing::find($id))
+		if ( ! $bundle = Listing::where_uri($id)->first())
 		{
 			return Response::error('404');
 		}

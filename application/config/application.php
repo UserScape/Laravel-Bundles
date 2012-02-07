@@ -62,7 +62,7 @@ return array(
 	| debugging.
 	|
 	*/
-	'minify_js' => true,
+	'minify_js' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -168,6 +168,7 @@ return array(
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',
 		'Lang'       => 'Laravel\\Lang',
+		'Log'       => 'Laravel\\Log',
 		'Memcached'  => 'Laravel\\Memcached',
 		'Paginator'  => 'Laravel\\Paginator',
 		'URL'        => 'Laravel\\URL',
