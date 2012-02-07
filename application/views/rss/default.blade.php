@@ -1,5 +1,6 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'."\n"; ?>
 <rss version="2.0"
+	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 	xmlns:admin="http://webns.net/mvcb/"
@@ -14,6 +15,7 @@
 		<dc:rights>Copyright <?php echo date("Y"); ?></dc:rights>
 		<dc:date><?php echo gmdate("Y-m-d\TH:i:s\Z", time()); ?></dc:date>
 		<admin:generatorAgent rdf:resource="http://bundles.laravel.com/" />
+		<atom:link href="{{URL::base().'/'.URI::current()}}" rel="self" type="application/rss+xml" />
 
 			@if (count($bundles) > 0)
 				@foreach ($bundles as $bundle)
