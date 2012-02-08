@@ -14,44 +14,83 @@
  */
 class Github_helper {
 
+	/**
+	 * Setup
+	 *
+	 * Instantiate the github client
+	 *
+	 * @return object
+	 */
 	public static function setup()
 	{
 		return new Github_Client();
 	}
 
 	/**
-	 * Setup GitHub
+	 * Location
 	 *
-	 * Includes the api and sets up the repo list
+	 * Generate the git location based on the url.
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public static function location($url)
+	{
+		return str_replace('https://github.com/', '', $url);
+	}
+
+	/**
+	 * Repos
+	 *
+	 * Generates a repo array for a select list
 	 *
 	 * @return array
 	 */
 	public static function repos()
 	{
 		$github = self::setup();
-
 		$repos = array();
 
-		if ($all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
+		// Get all the users repos from github
+		if ( ! $all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
 		{
-			// format repos into a sorted select list
-			foreach ($all_repos as $key => $row)
-			{
-				$pushed[$key]  = $row['pushed_at'];
-				$name[$key] = $row['name'];
-			}
-
-			array_multisort($pushed, SORT_DESC, $name, SORT_ASC, $all_repos);
-
-			foreach ($all_repos as $repo)
-			{
-				$repos[$repo['name']] = $repo['name'];
-			}
-
-			$repos = array_merge(array(__('form.please_select')), $repos);
+			return null;
 		}
 
-		return $repos;
+		// See if they have any existing and remove them from the array.
+		if ($existing = Listing::where_user_id(Auth::user()->id)->get())
+		{
+			foreach ($existing as $bundle)
+			{
+				foreach ($all_repos as $key => $repo)
+				{
+					if ($bundle->location == self::location($repo['url']))
+					{
+						unset($all_repos[$key]);
+					}
+				}
+			}
+		}
+
+		// format repos into a sorted select list
+		foreach ($all_repos as $key => $row)
+		{
+			$pushed[$key]  = $row['pushed_at'];
+			$name[$key] = $row['name'];
+		}
+
+		// Sort by last pushed date. That should make the ones they are wanting to add be
+		// at the top of the list
+		array_multisort($pushed, SORT_DESC, $name, SORT_ASC, $all_repos);
+
+		// Convert this into an array that can be used by Form::select
+		foreach ($all_repos as $repo)
+		{
+			$repos[$repo['name']] = $repo['name'];
+		}
+
+		// Add the "please select" option as the first item.
+		return array_merge(array(__('form.please_select')), $repos);
 	}
 
 	/**
