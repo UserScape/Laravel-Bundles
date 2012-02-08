@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>{{$title}} - Laravel Bundles</title>
+		<title>{{(isset($title) ? $title.' - ' : '')}}Laravel Bundles</title>
 		<meta name="description" content="{{$description}}">
 		{{Asset::styles()}}
 		<!-- fonts -->
