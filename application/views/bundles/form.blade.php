@@ -49,12 +49,7 @@
 
 			<div class="bundle_extras">
 
-				<div class="control-group">
-					<label class="control-label" for="location">{{__('form.clone_url')}}</label>
-					<div class="controls">
-						{{Form::text('location', Form::value('location', $bundle), array('class' => 'span5', 'required' => 'required'))}}
-					</div>
-				</div>
+				{{Form::hidden('location', Form::value('location', $bundle), array('class' => 'span5', 'required' => 'required'))}}
 
 				<div class="control-group">
 					<label class="control-label" for="title">{{__('form.title')}}</label>

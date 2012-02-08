@@ -8,7 +8,6 @@ return array(
 	'repo'            => 'Repo',
 	'note'            => 'Note:',
 	'note_txt'        => 'Once you select your repo the details section will load',
-	'clone_url'       => 'Clone URL',
 	'title'           => 'Title',
 	'summary'         => 'Summary',
 	'summary_txt'     => 'The summary will be displayed in the bundle list.',
