@@ -1,5 +1,4 @@
 *.DS_Store
-storage/views/
-storage/sessions/
 utilities/
+application/config/staging/
 application/config/production/
