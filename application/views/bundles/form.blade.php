@@ -21,6 +21,7 @@
 	@endif
 		<fieldset>
 
+			<!--
 			<div class="control-group">
 				{{Form::label('normalSelect', __('form.provider'), array('class' => 'control-label'))}}
 				<div class="controls">
@@ -29,6 +30,7 @@
 					</select>
 				</div>
 			</div>
+			-->
 
 			@if ($action != 'edit')
 			<div class="control-group">
