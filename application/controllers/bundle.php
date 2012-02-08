@@ -41,7 +41,7 @@ class Bundle_Controller extends Base_Controller {
 	{
 		parent::__construct();
 
-		$this->filter('before', array('auth'))
+		$this->filter('before', array('auth|csrf'))
 			->only(array('add', 'edit'));
 
 		// Get the categories

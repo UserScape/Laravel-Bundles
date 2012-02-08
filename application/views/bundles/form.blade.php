@@ -19,6 +19,7 @@
 	@else
 		{{Form::open(null, 'POST', array('class' => 'form-horizontal '.$action))}}
 	@endif
+		{{Form::token()}}
 		<fieldset>
 
 			<!--
