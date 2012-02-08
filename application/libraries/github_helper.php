@@ -104,7 +104,7 @@ class Github_helper {
 	public static function url_exists($url)
 	{
 		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_NOBODY, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
@@ -128,9 +128,9 @@ class Github_helper {
 	public static function get_file($url)
 	{
 		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_URL,$url);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
+		curl_setopt($ch, CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,1);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		$content = curl_exec($ch);
 		curl_close($ch);
@@ -168,8 +168,7 @@ class Github_helper {
 		{
 			if (self::url_exists($url.$file))
 			{
-				$file = self::get_file($url.$file);
-				return $file; // self::markdown($file);
+				return self::get_file($url.$file);
 			}
 		}
 		return null;

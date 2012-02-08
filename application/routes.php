@@ -1,62 +1,19 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Simply tell Laravel the HTTP verbs and URIs it should respond to. It is a
-| breeze to setup your applications using Laravel's RESTful routing, and it
-| is perfectly suited for building both large applications and simple APIs.
-| Enjoy the fresh air and simplicity of the framework.
-|
-| Let's respond to a simple GET request to http://example.com/hello:
-|
-|		Router::register('GET /hello', function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| You can even respond to more than one URI:
-|
-|		Router::register('GET /hello, GET /world', function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| It's easy to allow URI wildcards using (:num) or (:any):
-|
-|		Router::register('GET /hello/(:any)', function($name)
-|		{
-|			return "Welcome, $name.";
-|		});
-|
-| Routes to controllers:
-|
-| Router::register('GET /', 'home@index');
-|
-| Or, if you want to use a named route with a controller action:
-|
-| Router::register('GET /', array('name' => 'home', 'uses' => 'home@index'));
-*/
-
+/**
+ * Application Routes
+ */
 Router::register('GET /category/(:any)', 'category@detail');
-
 Router::register('GET /bundle/(:any)', 'bundle@detail');
 Router::register('GET /bundle/(:any)/edit', 'bundle@edit');
 Router::register('POST /bundle/(:any)/edit', 'bundle@edit');
 Router::register('GET /bundle/add', 'bundle@add');
-
 Router::register('GET /user/login', 'user@login');
 Router::register('GET /user/edit', 'user@edit');
 Router::register('GET /user/(:any)/bundles', 'user@bundles');
 Router::register('GET /user/(:any)/logout', 'user@logout');
 Router::register('GET /user/(:any)', 'user@index');
-
 Router::register('GET /page/(:any)', 'page@detail');
 Router::register('GET /admin', 'admin.home@index');
-
-// ------------------------------------------------------------------------
 
 /**
  * Api
@@ -101,8 +58,6 @@ Router::register('GET /api/(:any)', function($item)
 	return json_encode($output);
 });
 
-// ------------------------------------------------------------------------
-
 /**
  * Tags List
  *
@@ -119,8 +74,6 @@ Router::register('GET /tags', function(){
 	return json_encode($tags);
 });
 
-// ------------------------------------------------------------------------
-
 /**
  * Dependencies
  *
@@ -136,8 +89,6 @@ Router::register('GET /dependencies', function(){
 	}
 	return json_encode($tags);
 });
-
-// ------------------------------------------------------------------------
 
 /**
  * Rating
@@ -173,37 +124,14 @@ Router::register('POST /rate', function(){
 	return json_encode(array('error' => 'Could not save your rating.'));
 });
 
-/*
-|--------------------------------------------------------------------------
-| Route Filters
-|--------------------------------------------------------------------------
-|
-| Filters provide a convenient method for attaching functionality to your
-| routes. The built-in "before" and "after" filters are called before and
-| after every request to your application, and you may even create other
-| filters that can be attached to individual routes.
-|
-| Let's walk through an example...
-|
-| First, define a filter:
-|
-|		Filter::register('filter', function()
-|		{
-|			return 'Filtered!';
-|		});
-|
-| Next, attach the filter to a route:
-|
-|		Router::register('GET /', array('before' => 'filter', function()
-|		{
-|			return 'Hello World!';
-|		}));
-|
-*/
-
+/**
+ * Before Filter
+ *
+ * Used to set a "goto" session item so we know
+ * where to redirect the user to.
+ */
 Filter::register('before', function()
 {
-	// Do stuff before every request to your application...
 	$current_page = URI::current();
 
 	// Set an array of ignored pages. This should ideally be switched to use
@@ -226,11 +154,22 @@ Filter::register('before', function()
 	}
 });
 
+/**
+ * CSRF
+ *
+ * Check our tokens.
+ */
 Filter::register('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
 });
 
+/**
+ * Auth check for admin
+ *
+ * Performs the same auth as below but the user also must be in the
+ * administrator user group.
+ */
 Filter::register('admin_auth', function()
 {
 	if ( ! Auth::check() OR Auth::user()->group_id != 1)
@@ -241,6 +180,11 @@ Filter::register('admin_auth', function()
 	}
 });
 
+/**
+ * Auth check
+ *
+ * Validates they are logged in.
+ */
 Filter::register('auth', function()
 {
 	if ( ! Auth::check())
