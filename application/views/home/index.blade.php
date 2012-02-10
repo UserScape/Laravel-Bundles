@@ -6,7 +6,7 @@
 			@foreach ($popular as $bundle)
 				<tr>
 					<td>
-						<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
+						<h3><a href="{{URL::to('bundle/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
 						<div class="summary">{{$bundle->summary}}</div>
 					</td>
 					<td class="bundle-label">
@@ -28,7 +28,7 @@
 			@foreach ($featured as $bundle)
 				<tr>
 					<td>
-						<h3><a href="{{URL::to('bundle/detail/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
+						<h3><a href="{{URL::to('bundle/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
 						<div class="summary">{{$bundle->summary}}</div>
 					</td>
 					<td class="bundle-label">

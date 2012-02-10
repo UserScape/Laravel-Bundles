@@ -26,7 +26,7 @@ class Gravatar {
 	 */
 	public static function from_email($email, $size = null, $rating = null, $default = null)
 	{
-		return self::from_hash(md5($email), $rating, $size, $default);
+		return static::from_hash(md5($email), $rating, $size, $default);
 	}
 
 	/*
@@ -47,7 +47,7 @@ class Gravatar {
 		if ($size) $options[] = "size=$size";
 		if ($default) $options[] = "default=$default";
 		// put together the URL and return it
-		return self::$image_base_url . '?' . implode($options, '&');
+		return static::$image_base_url . '?' . implode($options, '&');
 	}
 
 	/*
@@ -57,7 +57,7 @@ class Gravatar {
 	 */
 	public static function profile_from_email($email)
 	{
-		return self::profile_from_hash(md5($email));
+		return static::profile_from_hash(md5($email));
 	}
 
 	/*

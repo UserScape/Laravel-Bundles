@@ -59,14 +59,14 @@ class Nav {
 	 */
 	public static function cat_count($cat)
 	{
-		if (empty(self::$all))
+		if (empty(static::$all))
 		{
-			self::$all = Listing::where_active('y')->get();
+			static::$all = Listing::where_active('y')->get();
 		}
 
 		$count = 0;
 
-		foreach (self::$all as $item)
+		foreach (static::$all as $item)
 		{
 			if ($item->category_id == $cat)
 			{

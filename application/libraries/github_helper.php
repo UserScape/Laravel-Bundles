@@ -48,7 +48,7 @@ class Github_helper {
 	 */
 	public static function repos()
 	{
-		$github = self::setup();
+		$github = static::setup();
 		$repos = array();
 
 		// Get all the users repos from github
@@ -64,7 +64,7 @@ class Github_helper {
 			{
 				foreach ($all_repos as $key => $repo)
 				{
-					if ($bundle->location == self::location($repo['url']))
+					if ($bundle->location == static::location($repo['url']))
 					{
 						unset($all_repos[$key]);
 					}
@@ -166,9 +166,9 @@ class Github_helper {
 		$url = 'https://raw.github.com/'.$user.'/'.$repo.'/master/';
 		foreach ($files AS $file)
 		{
-			if (self::url_exists($url.$file))
+			if (static::url_exists($url.$file))
 			{
-				return self::get_file($url.$file);
+				return static::get_file($url.$file);
 			}
 		}
 		return null;

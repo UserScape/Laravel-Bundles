@@ -116,9 +116,9 @@ class User_Controller extends Base_Controller {
 			}
 			catch (Exception $e)
 			{
-				Log::error($e);
 				// I am hiding the exception and will just redirect with a message
-				return Redirect::to('/');
+				Log::error($e);
+				return Redirect::to('/')->with('message', 'Sorry we could not create your account.');
 			}
 		}
 	}

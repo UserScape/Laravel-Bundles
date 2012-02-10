@@ -6178,49 +6178,49 @@ h1, h2, h3 {
   border-left-width: 0;
 }
 /* Bundle Details */
-#bundle.detail h1 {
+#bundle h1 {
   margin: 0;
   font-family: HelveticaNeue-CondensedBold, Roboto-Condensed, sans-serif;
 }
-#bundle.detail .meta {
+#bundle .meta {
   font-size: 12px;
   margin: 0 0 20px 0;
   padding: 0;
   color: #ccc;
 }
-#bundle.detail .meta a {
+#bundle .meta a {
   color: #ccc;
   text-decoration: none;
   border-bottom: 1px solid #ccc;
 }
-#bundle.detail .meta a:hover {
+#bundle .meta a:hover {
   color: #ccc;
   border-bottom: none;
 }
-#bundle.detail pre code {
+#bundle pre code {
   border: none;
   color: #333;
 }
-#bundle.detail h2 {
+#bundle h2 {
   margin: 20px 0;
 }
-#bundle.detail #installation {
+#bundle #installation {
   width: 500px;
 }
-#bundle.detail #installation pre:before {
+#bundle #installation pre:before {
   content: " $ ";
   color: #93A1A1;
 }
-#bundle.detail #readme code {
+#bundle #readme code {
   background: none;
 }
-#bundle.detail .rating {
+#bundle .rating {
   float: right;
 }
-#bundle.detail .rating #rate.notactive, #bundle.detail .rating #rate.rated {
+#bundle .rating #rate.notactive, #bundle .rating #rate.rated {
   opacity: 0.5;
 }
-#bundle.detail .rating #rate span {
+#bundle .rating #rate span {
   background: url(../img/thumbsup.png) no-repeat left center;
   padding-left: 20px;
 }
