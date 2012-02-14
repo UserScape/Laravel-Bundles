@@ -2,18 +2,25 @@
 /**
  * Application Routes
  */
-Router::register('GET /category/(:any)', 'category@detail');
-Router::register('GET /bundle/(:any)', 'bundle@detail');
-Router::register('GET /bundle/(:any)/edit', 'bundle@edit');
-Router::register('POST /bundle/(:any)/edit', 'bundle@edit');
-Router::register('GET /bundle/add', 'bundle@add');
-Router::register('GET /user/login', 'user@login');
-Router::register('GET /user/edit', 'user@edit');
-Router::register('GET /user/(:any)/bundles', 'user@bundles');
-Router::register('GET /user/(:any)/logout', 'user@logout');
-Router::register('GET /user/(:any)', 'user@index');
-Router::register('GET /page/(:any)', 'page@detail');
-Router::register('GET /admin', 'admin.home@index');
+Route::get('category/(:any)', 'category@detail');
+Route::get('bundle/(:any)', 'bundle@detail');
+Route::get('bundle/(:any)/edit', 'bundle@edit');
+Route::post('bundle/(:any)/edit', 'bundle@edit');
+Route::get('bundle/add', 'bundle@add');
+Route::get('user/login', 'user@login');
+Route::get('user/edit', 'user@edit');
+Route::get('user/(:any)/bundles', 'user@bundles');
+Route::get('user/(:any)/logout', 'user@logout');
+Route::get('user/(:any)', 'user@index');
+Route::get('page/(:any)', 'page@detail');
+Route::get('admin', 'admin.home@index');
+Route::get('page/(:any)', 'page@detail');
+
+Route::controller(array(
+	'home', 'bundle', 'bundles',
+	'categories', 'category', 'page',
+	'rss', 'search', 'user'
+));
 
 /**
  * Api
@@ -23,7 +30,7 @@ Router::register('GET /admin', 'admin.home@index');
  * @param string $item
  * @return array
  */
-Router::register('GET /api/(:any)', function($item)
+Route::get('api/(:any)', function($item)
 {
 	$output = array();
 	if ($bundle = Listing::where_uri($item)->first())
@@ -63,7 +70,7 @@ Router::register('GET /api/(:any)', function($item)
  *
  * Generate a list of tags from an ajax call.
  */
-Router::register('GET /tags', function(){
+Route::get('tags', function(){
 
 	$query = Tag::where('tag', 'like', '%'.Input::get('term').'%')->get();
 	$tags = array();
@@ -79,7 +86,7 @@ Router::register('GET /tags', function(){
  *
  * Generate a list of dependencies from an ajax call.
  */
-Router::register('GET /dependencies', function(){
+Route::get('dependencies', function(){
 
 	$query = Listing::where('title', 'like', '%'.Input::get('term').'%')->get();
 	$tags = array();
@@ -95,7 +102,7 @@ Router::register('GET /dependencies', function(){
  *
  * Rate a listing
  */
-Router::register('POST /rate', function(){
+Route::post('rate', function(){
 
 	if ( ! Auth::check())
 	{
@@ -124,13 +131,23 @@ Router::register('POST /rate', function(){
 	return json_encode(array('error' => 'Could not save your rating.'));
 });
 
+Event::listen('404', function()
+{
+	return Response::error('404');
+});
+
+Event::listen('500', function()
+{
+	return Response::error('500');
+});
+
 /**
  * Before Filter
  *
  * Used to set a "goto" session item so we know
  * where to redirect the user to.
  */
-Filter::register('before', function()
+Route::filter('before', function()
 {
 	$current_page = URI::current();
 
@@ -159,7 +176,7 @@ Filter::register('before', function()
  *
  * Check our tokens.
  */
-Filter::register('csrf', function()
+Route::filter('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
 });
@@ -170,7 +187,7 @@ Filter::register('csrf', function()
  * Performs the same auth as below but the user also must be in the
  * administrator user group.
  */
-Filter::register('admin_auth', function()
+Route::filter('admin_auth', function()
 {
 	if ( ! Auth::check() OR Auth::user()->group_id != 1)
 	{
@@ -185,7 +202,7 @@ Filter::register('admin_auth', function()
  *
  * Validates they are logged in.
  */
-Filter::register('auth', function()
+Route::filter('auth', function()
 {
 	if ( ! Auth::check())
 	{

@@ -3,7 +3,6 @@
 use Closure;
 use Laravel\Database;
 use Laravel\Paginator;
-use Laravel\Database\Query\Grammars\Grammar;
 use Laravel\Database\Query\Grammars\SQLServer;
 
 class Query {
@@ -107,7 +106,7 @@ class Query {
 	 * @param  string      $table
 	 * @return void
 	 */
-	public function __construct(Connection $connection, Grammar $grammar, $table)
+	public function __construct(Connection $connection, Query\Grammars\Grammar $grammar, $table)
 	{
 		$this->from = $table;
 		$this->grammar = $grammar;
@@ -147,9 +146,28 @@ class Query {
 	 * @param  string  $type
 	 * @return Query
 	 */
-	public function join($table, $column1, $operator, $column2, $type = 'INNER')
+	public function join($table, $column1, $operator = null, $column2 = null, $type = 'INNER')
 	{
-		$this->joins[] = compact('type', 'table', 'column1', 'operator', 'column2');
+		// If the "column" is really an instance of a Closure, the developer is
+		// trying to create a join with a complex "ON" clause. So, we will add
+		// the join, and then call the Closure with the join.
+		if ($column1 instanceof Closure)
+		{
+			$this->joins[] = new Query\Join($type, $table);
+
+			call_user_func($column1, end($this->joins));
+		}
+		// If the column is just a string, we can assume that the join just
+		// has a simple on clause, and we'll create the join instance and
+		// add the clause automatically for the develoepr.
+		else
+		{
+			$join = new Query\Join($type, $table);
+
+			$join->on($column1, $operator, $column2);
+
+			$this->joins[] = $join;
+		}
 
 		return $this;
 	}
@@ -380,14 +398,14 @@ class Query {
 
 		// To handle a nested where statement, we will actually instantiate a
 		// new Query instance and run the callback over that instance, which
-		// will allow the developer to have a fresh query to work with.
+		// will allow the developer to have a fresh query.
 		$query = new Query($this->connection, $this->grammar, $this->from);
+
+		call_user_func($callback, $query);
 
 		// Once the callback has been run on the query, we will store the
 		// nested query instance on the where clause array so that it's
-		// passed to the query grammar.
-		call_user_func($callback, $query);
-
+		// passed to the query's query grammar instance.
 		$this->wheres[] = compact('type', 'query', 'connector');
 
 		$this->bindings = array_merge($this->bindings, $query->bindings);
@@ -604,8 +622,7 @@ class Query {
 
 		// If the query has an offset and we are using the SQL Server grammar,
 		// we need to spin through the results and remove the "rownum" from
-		// each of the objects. Unfortunately SQL Server does not have an
-		// offset keyword, so we have to use row numbers in the query.
+		// each of the objects since there is no "offset".
 		if ($this->offset > 0 and $this->grammar instanceof SQLServer)
 		{
 			array_walk($results, function($result)
@@ -660,7 +677,9 @@ class Query {
 		// retrieved the count from the table.
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
-		$page = Paginator::page($total = $this->count($columns), $per_page);
+		$total = $this->count(reset($columns));
+
+		$page = Paginator::page($total, $per_page);
 
 		$this->orderings = $orderings;
 

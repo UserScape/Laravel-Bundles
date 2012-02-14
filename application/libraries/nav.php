@@ -33,7 +33,7 @@ class Nav {
 	 */
 	public static function active($route = '')
 	{
-		return (Request::route()->handles($route)) ? 'active' : '';
+		return (URI::is($route)) ? 'active' : '';
 	}
 
 	/**

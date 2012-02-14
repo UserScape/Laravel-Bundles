@@ -67,7 +67,7 @@ class View implements ArrayAccess {
 		//
 		// This makes error display in the view extremely convenient, since the
 		// developer can always assume they have a message container instance
-		// available to them in the view.
+		// available to them in the view's variables.
 		if ( ! isset($this->data['errors']))
 		{
 			if (Session::started() and Session::has('errors'))
@@ -213,7 +213,7 @@ class View implements ArrayAccess {
 		//
 		// Also, if the Blade view has expired or doesn't exist it will be
 		// re-compiled and placed in the view storage directory. The Blade
-		// views are re-compiled each time the original view is changed.
+		// views are re-compiled the original view changes.
 		if (strpos($this->path, BLADE_EXT) !== false)
 		{
 			$this->path = $this->compile();

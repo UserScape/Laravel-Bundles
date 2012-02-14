@@ -47,11 +47,11 @@ class Base_Controller extends Controller {
 	}
 
 	/**
-	 * Error Override
+	 * Catch-all method for requests that can't be matched.
 	 *
-	 * This is used to throw a 404 page with our
-	 * layout data assigned.
-	 *
+	 * @param  string    $method
+	 * @param  array     $parameters
+	 * @return Response
 	 */
 	public function __call($method, $parameters)
 	{
