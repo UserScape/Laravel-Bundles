@@ -52,7 +52,9 @@
 					</ul>
 
 					<div class="btns">
+						@if ( ! Auth::check())
 						<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
+						@endif
 						<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 					</div>
 				</div>

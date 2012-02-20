@@ -41,7 +41,7 @@ class Bundle_Controller extends Base_Controller {
 	{
 		parent::__construct();
 
-		$this->filter('before', 'auth|csrf')
+		$this->filter('before', 'auth')
 			->only(array('add', 'edit'));
 
 		// Get the categories
@@ -73,9 +73,6 @@ class Bundle_Controller extends Base_Controller {
 	 */
 	public function get_add()
 	{
-		var_dump('INSIDE GET_ADD');
-		var_dump(Auth::check());
-		die;
 		return View::make('layouts.default')
 			->with('title', 'Add Bundle')
 			->nest('content', 'bundles.form', array(
@@ -271,7 +268,7 @@ class Bundle_Controller extends Base_Controller {
 		// Now save dependencies
 		$listing->save_dependencies($id);
 
-		return Redirect::to('user/'.Auth::user()->username.'/bundles')
+		return Redirect::to('bundle/'.$uri)
 			->with('message', Lang::line('form.success')->get())
 			->with('message_class', 'success');
 	}

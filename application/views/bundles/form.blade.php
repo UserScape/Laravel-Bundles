@@ -1,9 +1,9 @@
 <section id="add">
 
 	@if ($action == 'edit')
-		{{Bootstrap::header(__('form.edit'))}}
+		<h1>{{__('form.edit')}}</h1>
 	@else
-		{{Bootstrap::header(__('form.add'))}}
+		<h1>{{__('form.add')}}</h1>
 	@endif
 
 	@if (count($errors->messages) > 0)
@@ -15,12 +15,12 @@
 			@endforeach
 			</ul>
 		</div>
-		{{Form::open(null, 'POST', array('class' => 'form-horizontal error '.$action))}}
+		{{Form::open(null, 'POST', array('class' => 'error '.$action))}}
 	@else
-		{{Form::open(null, 'POST', array('class' => 'form-horizontal '.$action))}}
+		{{Form::open(null, 'POST', array('class' => $action))}}
 	@endif
 		{{Form::token()}}
-		<fieldset>
+
 
 			<!--
 			<div class="control-group">
@@ -125,10 +125,10 @@
 
 				<div class="form-actions">
 					{{Form::submit(__('form.save'))}}
-					{{Form::reset(__('form.cancel'))}}
+					{{Form::reset('Reset')}}
 				</div>
 			</div>
-		</fieldset>
+
 	{{Form::close()}}
 </section>
 

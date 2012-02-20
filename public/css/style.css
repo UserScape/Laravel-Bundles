@@ -209,7 +209,26 @@ i.lock {
 i.plus {
   background-position: -105px -2px;
 }
-.ui-autocomplete {
+/* Add/Edit Bundles */
+#bundle #ajax-loader {
+  display: none;
+}
+#bundle textarea {
+  width: 80%;
+}
+#bundle .add .bundle_extras {
+  display: none;
+}
+#bundle .add .error .alert {
+  display: none;
+}
+#bundle .add .error .bundle_extras {
+  display: block;
+}
+#bundle .edit .info {
+  display: none;
+}
+/* End */.ui-autocomplete {
   background-color: #fff;
   position: absolute;
   cursor: default;
@@ -235,16 +254,18 @@ i.plus {
   padding: 4px 6px;
   margin: 0;
   text-decoration: none;
-  line-height: 12px;
   border-bottom: 1px solid #E5E5E5;
   border-top: 1px solid #fff;
-  color: #78959D;
+  color: #484A4A;
+  font-family: "proxima-nova", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
 }
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
 .ui-autocomplete .ui-menu-item a.ui-state-active {
-  background-color: #c0d1e2;
+  background-color: #ccc;
   color: #555;
-  border-color: #a6cef7;
+  border-color: #c8cccc;
 }
 .ui-autocomplete-loading {
   background: #ffffff url(../img/ui-anim_basic_16x16.gif) right center no-repeat;
@@ -269,17 +290,43 @@ ul.tagit li {
   position: relative;
 }
 ul.tagit li.tagit-choice {
-  background-color: #DEE7F8;
-  border: 1px solid #CAD8F3;
+  font-family: "proxima-nova", sans-serif;
+  border: 1px solid #e6b543;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   padding: 2px 13px 3px 4px;
+  background-color: #fbcb65;
+  background-image: -moz-linear-gradient(top, #fcd271, #fac153);
+  background-image: -ms-linear-gradient(top, #fcd271, #fac153);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fcd271), to(#fac153));
+  background-image: -webkit-linear-gradient(top, #fcd271, #fac153);
+  background-image: -o-linear-gradient(top, #fcd271, #fac153);
+  background-image: linear-gradient(top, #fcd271, #fac153);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcd271', endColorstr='#fac153', GradientType=0);
+  border-color: #fac153 #fac153 #f8a609;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #99722f;
+  text-decoration: none;
 }
 ul.tagit li.tagit-choice.selected {
   background-color: #f5b0b0;
   border-color: #f76464;
 }
 ul.tagit li.tagit-choice:hover {
-  background-color: #bbcef1;
-  border-color: #6d95e0;
+  border: 1px solid #e6b543;
+  background-color: #fbc85f;
+  background-image: -moz-linear-gradient(top, #fac153, #fcd271);
+  background-image: -ms-linear-gradient(top, #fac153, #fcd271);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fac153), to(#fcd271));
+  background-image: -webkit-linear-gradient(top, #fac153, #fcd271);
+  background-image: -o-linear-gradient(top, #fac153, #fcd271);
+  background-image: linear-gradient(top, #fac153, #fcd271);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fac153', endColorstr='#fcd271', GradientType=0);
+  border-color: #fcd271 #fcd271 #faba26;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 ul.tagit li.tagit-new {
   padding: 2px 4px 3px;
@@ -294,7 +341,7 @@ ul.tagit li.tagit-choice input {
   padding-bottom: 2px;
 }
 ul.tagit li.tagit-choice a.tagit-close {
-  color: #777777;
+  color: #99722F;
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
@@ -305,7 +352,6 @@ ul.tagit li.tagit-choice a.tagit-close {
   display: block;
   top: 0;
   right: 3px;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 ul.tagit li.tagit-choice a.tagit-close:hover {
   color: #535353;
@@ -322,5 +368,8 @@ ul.tagit input[type="text"] {
 .form-search .tagit-hiddenSelect,
 .form-inline .tagit-hiddenSelect,
 .form-horizontal .tagit-hiddenSelect {
+  display: none;
+}
+.tagit-hiddenSelect {
   display: none;
 }

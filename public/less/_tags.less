@@ -29,18 +29,19 @@
     padding: 4px 6px;
     margin: 0;
     text-decoration: none;
-    line-height: 12px;
     border-bottom: 1px solid #E5E5E5;
     border-top: 1px solid #fff;
-    color: #78959D;
-
+    color: #484A4A;
+    font-family: @sansFont;
+    font-size: 12px;
+    line-height: 24px;
 }
 
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
 .ui-autocomplete .ui-menu-item a.ui-state-active {
-    background-color: #c0d1e2;
+    background-color: #ccc;
     color: #555;
-    border-color: #a6cef7;
+    border-color: #c8cccc;
 }
 
 .ui-autocomplete-loading {
@@ -69,9 +70,16 @@ ul.tagit li {
 }
 
 ul.tagit li.tagit-choice {
-    background-color: #DEE7F8;
-    border: 1px solid #CAD8F3;
+    font-family: @sansFont;
+    border: 1px solid #e6b543;
+    .border-radius(4px);
     padding: 2px 13px 3px 4px;
+    .gradientBar(#fcd271, #fac153);
+    color: #99722f;
+    text-decoration: none;
+    //background-color: #DEE7F8;
+    //border: 1px solid #CAD8F3;
+    //padding: 2px 13px 3px 4px;
 }
 
 ul.tagit li.tagit-choice.selected {
@@ -80,8 +88,8 @@ ul.tagit li.tagit-choice.selected {
 }
 
 ul.tagit li.tagit-choice:hover {
-    background-color: #bbcef1;
-    border-color: #6d95e0;
+    border: 1px solid #e6b543;
+    .gradientBar(#fac153, #fcd271);
 }
 
 ul.tagit li.tagit-new {
@@ -99,7 +107,7 @@ ul.tagit li.tagit-choice input {
 }
 
 ul.tagit li.tagit-choice a.tagit-close {
-    color: #777777;
+    color: #99722F;
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
@@ -110,7 +118,6 @@ ul.tagit li.tagit-choice a.tagit-close {
     display: block;
     top: 0;
     right: 3px;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 ul.tagit li.tagit-choice a.tagit-close:hover {
@@ -133,4 +140,8 @@ ul.tagit input[type="text"] {
     .tagit-hiddenSelect {
         display:none;
     }
+}
+
+.tagit-hiddenSelect {
+  display: none;
 }
