@@ -1,5 +1,4 @@
 <section id="bundles">
-	<div class="page-header">
 	@if (isset($tag))
 		<h1>Bundles tagged: {{$tag->tag}}</h1>
 	@elseif (isset($user))
@@ -11,7 +10,6 @@
 	@else
 		<h1>All Bundles</h1>
 	@endif
-	</div>
 
 	{{View::make('partials.grid')->with('bundles', $bundles)->render()}}
 </section>

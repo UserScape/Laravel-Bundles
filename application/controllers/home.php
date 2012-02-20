@@ -51,7 +51,8 @@ class Home_Controller extends Base_Controller {
 			// Now get the listing info
 			$popular = DB::table('listings')
 				->where_active('y')
-				->where_in('id', $ratings_in)
+				->where_in('listings.id', $ratings_in)
+				->left_join('users', 'users.id', '=', 'listings.user_id')
 				->take(5)
 				->get();
 		}
@@ -59,6 +60,7 @@ class Home_Controller extends Base_Controller {
 		$featured = DB::table('listings')
 			->where_active('y')
 			->where('class', 'like', '%featured%')
+			->left_join('users', 'users.id', '=', 'listings.user_id')
 			->take(5)
 			->get();
 

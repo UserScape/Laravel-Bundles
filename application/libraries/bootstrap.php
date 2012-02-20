@@ -26,7 +26,8 @@ class Bootstrap {
 	{
 		if ( ! is_null($text))
 		{
-			$text = '<div class="page-header"><h1>'.$text.'</h1></div>';
+			// $text = '<div class="page-header"><h1>'.$text.'</h1></div>';
+			$text = '<h1>'.$text.'</h1>';
 		}
 		return $text;
 	}

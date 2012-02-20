@@ -6,6 +6,22 @@
  * Designed by wearafixel and built with bootstrap.
  * See humans.txt for full site credits.
  */
+#home table td {
+  border: none;
+  border-bottom: 1px dashed #6a6a6a;
+}
+#home h3 a {
+  color: #fbcc62;
+}
+#home h4 {
+  margin: 0;
+  text-transform: uppercase;
+  color: #C8CCCC;
+  font-size: 12px;
+}
+#home h4 a {
+  color: #fff;
+}
 .sidebar {
   margin-top: 40px;
 }
@@ -163,6 +179,8 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
 }
 #bundle .rating:hover {
   -webkit-border-radius: 4px;
@@ -228,7 +246,16 @@ i.plus {
 #bundle .edit .info {
   display: none;
 }
-/* End */.ui-autocomplete {
+/* End */
+/* Tables */
+table td.gravatar {
+  width: 70px;
+}
+table img.gravatar {
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+.ui-autocomplete {
   background-color: #fff;
   position: absolute;
   cursor: default;
