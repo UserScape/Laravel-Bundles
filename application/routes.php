@@ -19,7 +19,8 @@ Route::get('page/(:any)', 'page@detail');
 Route::controller(array(
 	'home', 'bundle', 'bundles',
 	'categories', 'category', 'page',
-	'rss', 'search', 'user'
+	'rss', 'search', 'user', 'admin.bundles',
+	'admin.cats', 'admin.pages', 'admin.users'
 ));
 
 /**
