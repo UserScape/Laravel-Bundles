@@ -10,7 +10,7 @@
 		<meta name="application-name" content="Laravel">
 		<link rel="author" href="humans.txt">
 		<link rel="dns-prefetch" href="//ajax.googleapis.com">
-		<link rel="shortcut icon" href="<?php echo URL::to_asset('img/favicon.png'); ?>">
+		<link rel="shortcut icon" href="http://laravel.com/img/favicon.png">
 
 		<!-- styles -->
 		<link href="http://localhost/laravel/laravel.com/public/css/style.css" rel="stylesheet" type="text/css">
@@ -52,15 +52,15 @@
 					</ul>
 
 					<div class="btns">
-						<a class="btn"><i class="icon-lock"></i> Login with GitHub</a>
-						<a class="btn"><i class="icon-plus"></i> Submit a Bundle</a>
+						<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
+						<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 					</div>
 				</div>
 				<div class="content bundles span9">
 					@if (URI::segment(1) == 'bundle' and $bundle)
 						<div class="tabbable">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#readme" data-toggle="tab">Readme</a></li>
+							<li class="active"><a href="#readme" data-toggle="tab">Overview</a></li>
 							<li><a href="#installation" data-toggle="tab">Installation</a></li>
 							@if (count($bundle->dependencies) > 0)
 							<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
