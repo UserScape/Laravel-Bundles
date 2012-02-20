@@ -14,11 +14,6 @@
  */
 class Category_Controller extends Base_Controller {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	/**
 	 * Index
 	 *
@@ -26,7 +21,8 @@ class Category_Controller extends Base_Controller {
 	 */
 	public function action_index()
 	{
-		return Redirect::to('/categories');
+		return $this->layout->with('title', 'Categories')
+			->nest('content', 'bundles::category.grid');
 	}
 
 	/**
@@ -47,8 +43,7 @@ class Category_Controller extends Base_Controller {
 			->where_category_id($category->id)
 			->paginate(Config::get('application.per_page'));
 
-		return View::make('layouts.default')
-			->with('title', $category->title)
+		return $this->layout->with('title', $category->title)
 			->nest('content', 'category.detail', array(
 				'category' => $category,
 				'bundles' => $bundles

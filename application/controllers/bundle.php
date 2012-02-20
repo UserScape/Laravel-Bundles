@@ -345,10 +345,10 @@ class Bundle_Controller extends Base_Controller {
 		// Get the total ratings
 		$ratings = Rating::where_listing_id($bundle->id)->count();
 
-		return View::make('layouts.default')
-			->with('selected_cat', $bundle->category_id)
+		return $this->layout->with('selected_cat', $bundle->category_id)
 			->with('title', $bundle->title)
 			->with('description', $bundle->summary)
+			->with('bundle', $bundle)
 			->nest('content', 'bundles.detail', array(
 				'bundle' => $bundle,
 				'rating_class' => $rating_class,

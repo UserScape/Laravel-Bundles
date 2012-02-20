@@ -1,37 +1,20 @@
 <footer>
 	<div class="container">
 		<div class="row">
-			<div class="span4">
-				<h3>Resources</h3>
-				<ul class="footer unstyled resources">
-					<li>{{HTML::link('http://laravel.com', 'Laravel Framework')}}</li>
-					<li>{{HTML::link('http://laravel.com/docs', 'User Guide')}}</li>
-					<li>{{HTML::link('http://forums.laravel.com', 'Community Forums')}}</li>
-					<li>{{HTML::link('page/about', 'About this app')}}</li>
-				</ul>
-			</div>
-			<div class="span4">
-				<h3>Categories</h3>
-				<div class="clearfix">
-					<ul class="pull-left unstyled cats">
-						@foreach ($categories as $key => $category)
-							@if ($key <= 3)
-							<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} ({{Nav::cat_count($category->id)}})</li>
-							@endif
-						@endforeach
-					</ul>
-					<ul class="pull-left unstyled cats">
-						@foreach ($categories as $key => $category)
-							@if ($key >= 4)
-								<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} ({{Nav::cat_count($category->id)}})</li>
-							@endif
-						@endforeach
-					</ul>
-				</div>
-			</div>
-			<div class="span4">
-				<a href="http://userscape.com">{{HTML::image('img/createdbyuserscape.png')}}</a>
-			</div>
+			<ul class="span7">
+				<li><a href="<?php echo URL::to(); ?>">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="http://forums.laravel.com">Forums</a></li>
+				<li><a href="http://bundles.laravel.com">Bundles</a></li>
+				<li><a href="#">Learn</a></li>
+				<li class="download">
+					<a href="http://laravel.com/download">Download <i class="download"></i></a>
+				</li>
+			</ul>
+			<ul class="social span3 offset2">
+				<li><a href="http://github.com/laravel"><i class="github"></i> GitHub</a></li>
+				<li><a href="http://twitter.com/laravelphp"><i class="twitter"></i> Twitter</a></li>
+			</ul>
 		</div>
 	</div>
 </footer>
@@ -52,5 +35,11 @@
 <script>
 var SITE_URL = "<?php echo URL::to(); ?>";
 </script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost/laravel/laravel.com/public/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="http://localhost/laravel/laravel.com/public/js/bootstrap.js"></script>
+<script src="http://localhost/laravel/laravel.com/public/js/main-min.js"></script>
 {{Asset::scripts()}}
+<script src="http://beta.laravel.com/js/google-code-prettify/prettify.js"></script>
 <script>$(function(){prettyPrint()})</script>

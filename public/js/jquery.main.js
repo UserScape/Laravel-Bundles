@@ -1,10 +1,7 @@
 $(function() {
 
-	// Header pull down
-	$('#topbar').dropdown();
-
 	// Bundle detail page tabs
-	$('.tabs a').tabs('show');
+	// $('.tabs a').tabs('show');
 
 	// Adding / Editing Bundles
 	if (typeof initialTags != 'undefined' && initialTags instanceof Array)
@@ -45,7 +42,7 @@ $(function() {
 		if (status == 'notactive') {
 			$('#modal-from-dom h3.title').html('Error');
 			$('.modal-body').html('<p>You must be logged in to rate.</p>');
-			$('.modal-footer').hide();
+			//$('.modal-footer').hide();
 			$('#modal-from-dom').modal({
 				show: true,
 				backdrop: true
@@ -72,6 +69,7 @@ $(function() {
 			data: "id="+id,
 			dataType: "json",
 			success: function(resp) {
+				console.log(resp);
 				if (resp.success){
 					$('#ratings').html(resp.ratings +' likes');
 					$('#msg_text').html('Thank you for rating.');
