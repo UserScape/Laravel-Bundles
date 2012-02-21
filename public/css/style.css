@@ -116,6 +116,9 @@
   margin: 6px;
   border: 1px solid #6a6a6a;
 }
+#bundle fieldset ul {
+  margin-left: 70px;
+}
 #bundle fieldset li {
   margin: 0;
   padding: 0;
@@ -203,6 +206,20 @@
 #bundle .rating:hover i {
   background-position: -68px -2px;
 }
+#bundle .rated {
+  background: #ebebeb;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#bundle .rated:hover {
+  background: #ebebeb;
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #111;
+}
+#bundle .rated:hover i {
+  background-position: -87px -2px;
+}
 #bundle pre code {
   border: none;
 }
@@ -254,6 +271,13 @@ table td.gravatar {
 table img.gravatar {
   border: 1px solid #ccc;
   padding: 2px;
+}
+.rss {
+  background-image: url(../img/feed-icon-14x14.png);
+  text-indent: -9000px;
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 .ui-autocomplete {
   background-color: #fff;
