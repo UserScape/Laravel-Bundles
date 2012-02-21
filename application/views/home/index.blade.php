@@ -14,7 +14,7 @@
 					<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 				</div>
 
-				<form class="search-form">
+				<form method="get" class="search-form" action="{{URL::to('search')}}">
 					<input type="search" style="span5" placeholder="Search Bundles">
 				</form>
 			</div>
