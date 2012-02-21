@@ -11,7 +11,10 @@
 					<a href="http://laravel.com/download">Download <i class="download"></i></a>
 				</li>
 			</ul>
-			<ul class="social span3 offset2">
+			<div class="span2">
+				<a class="sponsor" href="http://userscape.com">Sponsored by UserScape</a>
+			</div>
+			<ul class="social span3">
 				<li><a href="http://github.com/laravel"><i class="github"></i> GitHub</a></li>
 				<li><a href="http://twitter.com/laravelphp"><i class="twitter"></i> Twitter</a></li>
 			</ul>

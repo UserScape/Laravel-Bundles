@@ -132,6 +132,14 @@
   padding-left: 65px;
   margin-bottom: 36px;
 }
+.sponsor {
+  width: 149px;
+  height: 60px;
+  margin-top: 20px;
+  display: block;
+  text-indent: -9000px;
+  background: transparent url(../img/userscape.png) no-repeat 0 0;
+}
 #bundle .row h1 {
   border: none;
   margin: 0 0 10px 0;
