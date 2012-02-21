@@ -41,7 +41,6 @@ $(function() {
 				data: data,
 				dataType: "json",
 				success: function(resp) {
-					console.log(resp);
 					$('.select-repo').fadeOut();
 					$('#ajax-loader').fadeOut();
 					$('#title').val(title);
