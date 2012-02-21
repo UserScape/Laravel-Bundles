@@ -336,6 +336,9 @@ class Bundle_Controller extends Base_Controller {
 			}
 		}
 
+		$bundle_array = explode('/', $bundle->location);
+		$repo = Github_helper::setup()->getRepoApi()->show($bundle_array[0], $bundle_array[1]);
+
 		// installs
 		$installs = Install::where_bundle_id($bundle->id)->count();
 
@@ -347,10 +350,11 @@ class Bundle_Controller extends Base_Controller {
 			->with('description', $bundle->summary)
 			->with('bundle', $bundle)
 			->nest('content', 'bundles.detail', array(
-				'bundle' => $bundle,
+				'bundle'       => $bundle,
 				'rating_class' => $rating_class,
-				'ratings' => $ratings,
-				'installs' => $installs,
+				'ratings'      => $ratings,
+				'installs'     => $installs,
+				'repo'         => $repo,
 			));
 	}
 

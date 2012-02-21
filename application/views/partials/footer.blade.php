@@ -2,8 +2,8 @@
 	<div class="container">
 		<div class="row">
 			<ul class="span7">
-				<li><a href="<?php echo URL::to(); ?>">Home</a></li>
-				<li><a href="#">About</a></li>
+				<li><a href="http://laravel.com">Home</a></li>
+				<li><a href="http://laravel.com/about">About</a></li>
 				<li><a href="http://forums.laravel.com">Forums</a></li>
 				<li><a href="http://bundles.laravel.com">Bundles</a></li>
 				<li><a href="#">Learn</a></li>

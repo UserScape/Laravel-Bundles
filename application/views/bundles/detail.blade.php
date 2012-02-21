@@ -1,9 +1,4 @@
-<div class="row">
-	<div class="span5">
-		<h1>{{$bundle->title}}</h1>
-		<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="rating {{$rating_class}}"><span><i class="thumb-grey"></i> Thumbs Up</span></button>
-	</div>
-	<div class="span3">
+<div class="span3 pull-right">
 		<fieldset>
 			<legend>Details</legend>
 			{{HTML::image(Gravatar::from_email($bundle->user->email, 54), $bundle->user->username, array('width' => 54, 'height' => '54', 'class' => 'gravatar'))}}
@@ -16,7 +11,9 @@
 			</ul>
 		</fieldset>
 	</div>
-</div>
+
+<h1>{{$bundle->title}}</h1>
+		<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="rating {{$rating_class}}"><span><i class="thumb-grey"></i> Thumbs Up</span></button>
 
 <div class="tab-content">
 	<div class="tab-pane active" id="readme">
@@ -33,7 +30,10 @@
 	</div>
 	<div class="tab-pane" id="installation">
 		<h3>Installation</h3>
+		<p>You can install this bundle by running the following CLI command:</p>
 		<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->uri}}</pre>
+		<p>Alternatively you can download it directly from GitHub:<br />
+		<a href="http://github.com/{{$bundle->location}}">http://github.com/{{$bundle->location}}</a></p>
 	</div>
 	@if (count($bundle->dependencies) > 0)
 	<div class="tab-pane" id="bundle-dependencies">
@@ -50,8 +50,10 @@
 	<div class="tab-pane" id="stats">
 		<h3>Stats</h3>
 		<ul>
-			<li>{{$ratings}} likes</li>
-			<li>{{$installs}} installs</li>
+			<li><strong>Watchers:</strong> {{$repo['watchers']}}</li>
+			<li><strong>Forks:</strong> {{$repo['forks']}}</li>
+			<li><strong>Ratings:</strong> {{$ratings}} likes</li>
+			<li><strong>Installs:</strong> {{$installs}}</li>
 		</ul>
 	</div>
 </div>
