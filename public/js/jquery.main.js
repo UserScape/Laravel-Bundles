@@ -9,7 +9,56 @@ $(function() {
 		$('#tags').tagit({tagSource: SITE_URL+"tags", select: true, initialTags: initialTags});
 		$('#dependencies').tagit({tagSource: SITE_URL+"dependencies", select: true, initialTags: initialDependenciesTags});
 	}
-	$('#repo').change(function(){
+
+	$('#submit-repo').click(function(){
+		var btn = $(this);
+		btn.html(btn.data('loading-text'));
+		btn.attr("disabled", "disabled");
+
+		var data = '';
+		var title = '';
+		// First see if they manually entered a repo
+		if ($('#manual_repo').val() != '') {
+			var repo = $('#manual_repo').val().split('/');
+			title = repo[1];
+			data = 'user='+repo[0]+'&repo='+repo[1];
+		} else {
+			var repo = $('#repo').find("option:selected").text();
+			title = repo;
+			data = 'repo='+repo;
+		}
+
+		if (data)
+		{
+			$.ajax({
+				beforeSend: function() {
+					//$('#ajax-loader').fadeIn();
+					//$('.info').fadeOut();
+					$('.bundle_extras').fadeOut();
+				},
+				type: "POST",
+				url: SITE_URL+'bundle/repo',
+				data: data,
+				dataType: "json",
+				success: function(resp) {
+					console.log(resp);
+					$('.select-repo').fadeOut();
+					$('#ajax-loader').fadeOut();
+					$('#title').val(title);
+					$('#path').val(title);
+					$('#location').val(resp.url);
+					$('#summary').val(resp.description);
+					$('#description').val(resp.readme);
+					$('#website').val(resp.homepage);
+					$('.bundle_extras').fadeIn();
+				}
+			});
+		}
+
+		return false;
+	});
+
+	$('#dep_repo').change(function(){
 		var id = $(this).find("option:selected").text();
 		$.ajax({
 			beforeSend: function() {

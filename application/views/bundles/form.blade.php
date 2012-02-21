@@ -34,19 +34,36 @@
 			-->
 
 			@if ($action != 'edit')
-			<div class="control-group">
-				<label class="control-label" for="repo">{{__('form.repo')}}</label>
-				<div class="controls">
-					<!-- @todo - Add this to the db -->
-					{{Form::select('repo', $repos, Form::value('repo', $bundle), array('id' => 'repo'))}}
-					<span id="ajax-loader">{{HTML::image('img/ui-anim_basic_16x16.gif', 'Loading...')}}</span>
+			<div class="select-repo">
+				<div class="row">
+					<div class="span4">
+						<label class="control-label" for="repo">Select a repo</label>
+						<div class="controls relative">
+							{{Form::select('repo', $repos, Form::value('repo', $bundle), array('id' => 'repo'))}}
+							<span class="or">OR</span>
+						</div>
+
+					</div>
+					<div class="span4">
+						<label class="control-label" for="repo">Add it manually:</label>
+						<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on">http://github.com/</span>
+								{{Form::text('manual_repo', Form::value('manual_repo', $bundle), array('class' => 'span2', 'id' => 'manual_repo'))}}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="continue">
+					<button id="submit-repo" class="loading btn btn-primary" data-loading-text="Processing..."><span id="ajax-loader">{{HTML::image('img/ui-anim_basic_16x16.gif', 'Loading...')}}</span>Continue</button>
+				</div>
+
+				<div class="alert alert-info info hide">
+					<strong>{{__('form.note')}}</strong> {{__('form.note_txt')}}
 				</div>
 			</div>
 			@endif
-
-			<div class="alert alert-info info">
-				<strong>{{__('form.note')}}</strong> {{__('form.note_txt')}}
-			</div>
 
 			<div class="bundle_extras">
 
