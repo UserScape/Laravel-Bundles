@@ -4,59 +4,45 @@
 		<meta charset="utf-8">
 		<title>Error 404 - Not Found</title>
 		<meta name="description" content="{{$description}}">
+
+		<!-- styles -->
+		<link href="http://laravel.com/css/style.css" rel="stylesheet" type="text/css">
 		{{Asset::styles()}}
-		<!-- fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-		<link rel="shortcut icon" href="{{URL::to_asset('img/favicon.ico')}}">
+
+		<!-- Js for fonts and tracking -->
+		<script type="text/javascript" src="http://use.typekit.com/dlj4kfm.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<script type="text/javascript" src="http://laravel.com/js/modernizr-2.5.2.min.js"></script>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-23865777-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
 
 	</head>
 	<body id="{{URI::segment(1, 'home')}}" class="{{URI::segment(2, 'index')}}">
 
 		{{View::make('partials.header')->render()}}
 
-		<div class="container">
-
+		<div class="container main">
 			<div class="row">
-				<div class="span8">
-					<div class="main">
-						{{Bootstrap::header('404 Error')}}
+				<div class="content docs span12">
+					<div class="well">
 
-						<p>Well, this is awkward. Guess you should click another link.</p>
+						<h1>404 Not Found</h1>
+
+						<p>Sorry this page can not be found</p>
+
 					</div>
-				</div>
-				<div class="span4">
-					<div class="well" style="padding: 8px 0;">
-						<ul class="nav nav-list">
-							<li class="nav-header">
-								Categories
-							</li>
-						@foreach ($categories as $category)
-							@if (isset($selected_cat) AND $selected_cat == $category->id)
-							<li class="active"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a></li>
-							@else
-							<li class="{{Nav::cat('category/'.$category->uri)}}"><a href="{{URL::to('category/'.$category->uri)}}">{{$category->title}}</a>
-							</li>
-							@endif
-						@endforeach
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		{{View::make('partials.footer')->with('categories', $categories)->render()}}
-
-		<div id="modal-from-dom" class="modal hide fade">
-			<div class="modal-header">
-				<a href="#" class="close">&times;</a>
-				<h3 class="title">Modal Heading</h3>
-			</div>
-			<div class="modal-body">
-				<p>One fine body…</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn primary">Primary</a>
-				<a href="#" class="btn secondary">Secondary</a>
+				</div>
 			</div>
 		</div>
 	</body>
