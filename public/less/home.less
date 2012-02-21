@@ -1,8 +1,101 @@
+// HERO UNIT
+// ---------
+
+.bundles-hero-unit {
+	z-index: 5;
+	margin-top: -15px;
+	background-color: #e9edee;
+	min-height: 212px;
+	position: relative;
+	font-family: @jumboFontFamily;
+	text-align: left;
+	.container {
+		background: url(../img/jumbotron.png) no-repeat center top;
+		height: 212px;
+	}
+	h1 {
+		padding: 40px 0 0;
+		text-transform: none;
+		font-size: @jumboFontSize;
+		line-height: @jumboLineHeight;
+		font-family: @serifFont;
+		margin: 0;
+		font-weight: normal;
+	}
+	p {
+		font-size: 14px;
+		line-height: 24px;
+		color: #7a7d7d;
+	}
+	.login-bar {
+		padding: 0 0 13px 0;
+		margin-bottom: 10px;
+		.btn {
+			padding: 0px 10px 0px;
+			background: #fff;
+		}
+		a {
+			position: relative;
+		}
+		a.welcome {
+			padding-left: 42px;
+			font-weight: bold;
+		}
+		.gravatar {
+			position: absolute;
+			left: 0px;
+			top: -5px;
+			border: 1px solid #ccc;
+		}
+	}
+	form {
+		margin: 0;
+		input {
+			@shadow: inset 0 1px 1px rgba(240, 243, 244, 1), 0 0 8px rgba(47,48,48,.6);
+			.box-shadow(@shadow);
+			.border-radius(100px);
+			width: 350px;
+			font-size: 18px;
+			line-height: 24px;
+			padding: 10px 15px;
+			background: #fff url(../img/loupe.png) no-repeat 340px center;
+		}
+	}
+}
+.featured-box {
+	z-index: 25;
+	min-height: 150px;
+	background: #fff;
+	.border-radius(5px);
+	margin: 45px 0 0;
+	padding: 20px 30px;
+	h2 {
+		font-family: @sansFont;
+		font-size: 24px;
+		line-height: 24px;
+		font-weight: bold;
+		margin-bottom: 16px;
+		span {
+			font-weight: 400;
+		}
+	}
+	a {
+		font-family: @sansFont;
+		font-size: 14px;
+		line-height: 24px;
+		text-transform: uppercase;
+	}
+	img {
+		float: left;
+		margin-right: 20px;
+	}
+}
 #home {
 	table {
 		td {
 			border: none;
 			border-bottom: 1px dashed #6a6a6a;
+			padding-left: 0;
 		}
 	}
 	h3 a {
@@ -17,4 +110,21 @@
 			color: #fff;
 		}
 	}
+}
+
+.midcontent {
+	z-index: 10;
+	background-image: none;
+	padding: 0;
+}
+
+.popular {
+	background: url(../img/popular.png) no-repeat 5px top;
+	padding-left: 65px;
+	margin-bottom: 36px;
+}
+.updated {
+	background: url(../img/updated.png) no-repeat 5px top;
+	padding-left: 65px;
+	margin-bottom: 36px;
 }

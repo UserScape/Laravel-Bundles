@@ -31,7 +31,8 @@ class Home_Controller extends Base_Controller {
 		// Get the last updated listings
 		$latest = DB::table('listings')
 			->where_active('y')
-			->order_by('updated_at', 'desc')
+			->order_by('listings.updated_at', 'desc')
+			->left_join('users', 'users.id', '=', 'listings.user_id')
 			->take(5)
 			->get();
 
@@ -61,8 +62,7 @@ class Home_Controller extends Base_Controller {
 			->where_active('y')
 			->where('class', 'like', '%featured%')
 			->left_join('users', 'users.id', '=', 'listings.user_id')
-			->take(5)
-			->get();
+			->first();
 
 		// var_dump(Laravel\Database\Connection::$queries);
 

@@ -6,9 +6,104 @@
  * Designed by wearafixel and built with bootstrap.
  * See humans.txt for full site credits.
  */
+.bundles-hero-unit {
+  z-index: 5;
+  margin-top: -15px;
+  background-color: #e9edee;
+  min-height: 212px;
+  position: relative;
+  font-family: "droid-serif", serif;
+  text-align: left;
+}
+.bundles-hero-unit .container {
+  background: url(../img/jumbotron.png) no-repeat center top;
+  height: 212px;
+}
+.bundles-hero-unit h1 {
+  padding: 40px 0 0;
+  text-transform: none;
+  font-size: 30px;
+  line-height: 42px;
+  font-family: "droid-serif", serif;
+  margin: 0;
+  font-weight: normal;
+}
+.bundles-hero-unit p {
+  font-size: 14px;
+  line-height: 24px;
+  color: #7a7d7d;
+}
+.bundles-hero-unit .login-bar {
+  padding: 0 0 13px 0;
+  margin-bottom: 10px;
+}
+.bundles-hero-unit .login-bar .btn {
+  padding: 0px 10px 0px;
+  background: #fff;
+}
+.bundles-hero-unit .login-bar a {
+  position: relative;
+}
+.bundles-hero-unit .login-bar a.welcome {
+  padding-left: 42px;
+  font-weight: bold;
+}
+.bundles-hero-unit .login-bar .gravatar {
+  position: absolute;
+  left: 0px;
+  top: -5px;
+  border: 1px solid #ccc;
+}
+.bundles-hero-unit form {
+  margin: 0;
+}
+.bundles-hero-unit form input {
+  -webkit-box-shadow: inset 0 1px 1px #f0f3f4, 0 0 8px rgba(47, 48, 48, 0.6);
+  -moz-box-shadow: inset 0 1px 1px #f0f3f4, 0 0 8px rgba(47, 48, 48, 0.6);
+  box-shadow: inset 0 1px 1px #f0f3f4, 0 0 8px rgba(47, 48, 48, 0.6);
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  width: 350px;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 10px 15px;
+  background: #ffffff url(../img/loupe.png) no-repeat 340px center;
+}
+.featured-box {
+  z-index: 25;
+  min-height: 150px;
+  background: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin: 45px 0 0;
+  padding: 20px 30px;
+}
+.featured-box h2 {
+  font-family: "proxima-nova", sans-serif;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+.featured-box h2 span {
+  font-weight: 400;
+}
+.featured-box a {
+  font-family: "proxima-nova", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+.featured-box img {
+  float: left;
+  margin-right: 20px;
+}
 #home table td {
   border: none;
   border-bottom: 1px dashed #6a6a6a;
+  padding-left: 0;
 }
 #home h3 a {
   color: #fbcc62;
@@ -21,6 +116,21 @@
 }
 #home h4 a {
   color: #fff;
+}
+.midcontent {
+  z-index: 10;
+  background-image: none;
+  padding: 0;
+}
+.popular {
+  background: url(../img/popular.png) no-repeat 5px top;
+  padding-left: 65px;
+  margin-bottom: 36px;
+}
+.updated {
+  background: url(../img/updated.png) no-repeat 5px top;
+  padding-left: 65px;
+  margin-bottom: 36px;
 }
 #bundle .row h1 {
   border: none;
@@ -303,9 +413,9 @@ table img.gravatar {
   background: #484a4a;
   color: #afb2b2;
   border: none;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
   line-height: 12px;
 }
 .sidebar form:-moz-placeholder {
@@ -321,11 +431,15 @@ table img.gravatar {
 }
 .sidebar .btns {
   text-align: right;
-  font-family: Helvetica, Arial, sans-serif;
 }
 .sidebar .btns .btn {
-  color: #474747;
   margin: 10px 0;
+}
+.btns {
+  font-family: Helvetica, Arial, sans-serif;
+}
+.btns .btn {
+  color: #474747;
 }
 .ui-autocomplete {
   background-color: #fff;

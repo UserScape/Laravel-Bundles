@@ -37,16 +37,6 @@
 
 		{{View::make('partials.header')->render()}}
 
-		<div class="hero-unit">
-			<div class="container">
-				<h1>Bundles</h1>
-				<p>Laravel is a clean and classy framework for PHP web development. Freeing you from
-					spaghetti code, Laravel helps you<br> create wonderful applications using simple, expressive
-					syntax. Development should be a creative experience<br> that you enjoy, not something that is
-					painful. Enjoy the fresh air.</p>
-			</div>
-		</div>
-
 		{{$content}}
 
 		{{View::make('partials.footer')->with('categories', $categories)->render()}}
