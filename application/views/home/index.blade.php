@@ -15,7 +15,7 @@
 				</div>
 
 				<form method="get" class="search-form" action="{{URL::to('search')}}">
-					<input type="search" style="span5" placeholder="Search Bundles">
+					<input type="search" style="span5" name="q" placeholder="Search Bundles">
 				</form>
 			</div>
 			<div class="span7">
