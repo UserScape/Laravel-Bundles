@@ -22,37 +22,6 @@
 #home h4 a {
   color: #fff;
 }
-.sidebar {
-  margin-top: 40px;
-}
-.sidebar form input {
-  background: #484a4a;
-  color: #afb2b2;
-  border: none;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  line-height: 12px;
-}
-.sidebar form:-moz-placeholder {
-  color: #afb2b2;
-}
-.sidebar form::-webkit-input-placeholder {
-  color: black;
-  font-family: "droid-serif", serif;
-  font-size: 12px;
-}
-.sidebar span {
-  color: #fff;
-}
-.sidebar .btns {
-  text-align: right;
-  font-family: Helvetica, Arial, sans-serif;
-}
-.sidebar .btns .btn {
-  color: #474747;
-  margin: 10px 0;
-}
 #bundle .row h1 {
   border: none;
   margin: 0 0 10px 0;
@@ -223,6 +192,24 @@
 #bundle pre code {
   border: none;
 }
+#bundle #readme h1 {
+  font-size: 28px;
+  text-transform: none;
+  margin-bottom: 10px;
+}
+#bundle #readme h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+#bundle #readme h3 {
+  font-size: 16px;
+}
+#bundle #readme h4 {
+  font-size: 14px;
+}
+#bundle #readme h5 {
+  font-size: 12px;
+}
 #installation {
   width: 500px;
   border: none;
@@ -245,6 +232,12 @@ i.plus {
   background-position: -105px -2px;
 }
 /* Add/Edit Bundles */
+#bundle .center {
+  text-align: center;
+}
+#bundle .continue {
+  margin: 0 0 20px 20px;
+}
 #bundle #ajax-loader {
   display: none;
 }
@@ -263,6 +256,17 @@ i.plus {
 #bundle .edit .info {
   display: none;
 }
+#bundle .relative {
+  position: relative;
+}
+#bundle .or {
+  position: absolute;
+  top: 3px;
+  right: 16px;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: "proxima-nova", sans-serif;
+}
 /* End */
 /* Tables */
 table td.gravatar {
@@ -278,6 +282,37 @@ table img.gravatar {
   width: 14px;
   height: 14px;
   display: block;
+}
+.sidebar {
+  margin-top: 40px;
+}
+.sidebar form input {
+  background: #484a4a;
+  color: #afb2b2;
+  border: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  line-height: 12px;
+}
+.sidebar form:-moz-placeholder {
+  color: #afb2b2;
+}
+.sidebar form::-webkit-input-placeholder {
+  color: black;
+  font-family: "droid-serif", serif;
+  font-size: 12px;
+}
+.sidebar span {
+  color: #fff;
+}
+.sidebar .btns {
+  text-align: right;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.sidebar .btns .btn {
+  color: #474747;
+  margin: 10px 0;
 }
 .ui-autocomplete {
   background-color: #fff;

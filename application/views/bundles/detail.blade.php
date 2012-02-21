@@ -1,22 +1,23 @@
 <div class="span3 pull-right">
-		<fieldset>
-			<legend>Details</legend>
-			{{HTML::image(Gravatar::from_email($bundle->user->email, 54), $bundle->user->username, array('width' => 54, 'height' => '54', 'class' => 'gravatar'))}}
-			<ul class="unstyled">
-				<li><strong>Author:</strong> {{HTML::link('user/'.$bundle->user->username, $bundle->user->name)}}</li>
-				<li><strong>Added On:</strong> {{date("d.m.Y", strtotime($bundle->created_at))}}</li>
-				@if ($bundle->website)
-				<li><a href="{{$bundle->website}}">Bundle Website</a></li>
-				@endif
-			</ul>
-		</fieldset>
-	</div>
+	<fieldset>
+		<legend>Details</legend>
+		{{HTML::image(Gravatar::from_email($bundle->user->email, 54), $bundle->user->username, array('width' => 54, 'height' => '54', 'class' => 'gravatar'))}}
+		<ul class="unstyled">
+			<li><strong>Author:</strong> {{HTML::link('user/'.$bundle->user->username, $bundle->user->name)}}</li>
+			<li><strong>Added On:</strong> {{date("d.m.Y", strtotime($bundle->created_at))}}</li>
+			@if ($bundle->website)
+			<li><a href="{{$bundle->website}}">Bundle Website</a></li>
+			@endif
+		</ul>
+	</fieldset>
+</div>
 
 <h1>{{$bundle->title}}</h1>
-		<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="rating {{$rating_class}}"><span><i class="thumb-grey"></i> Thumbs Up</span></button>
+<button id="rate" data-id="{{$bundle->id}}" data-active="{{$rating_class}}" class="rating {{$rating_class}}"><span><i class="thumb-grey"></i> Thumbs Up</span></button>
 
 <div class="tab-content">
 	<div class="tab-pane active" id="readme">
+
 		{{Github_helper::markdown($bundle->description)}}
 
 		@if (count($bundle->tags) > 0)

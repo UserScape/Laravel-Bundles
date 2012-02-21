@@ -1,34 +1,4 @@
-.sidebar {
-	margin-top: 40px;
-	form {
-		input {
-			background: #484a4a;
-			color: #afb2b2;
-			border: none;
-			.border-radius(6px);
-			line-height: 12px;
-		}
-		&:-moz-placeholder {
-			color: #afb2b2;
-		}
-		&::-webkit-input-placeholder {
-			color: black;
-			font-family: "droid-serif", serif;
-			font-size: 12px;
-		}
-	}
-	span {
-		color: #fff;
-	}
-	.btns {
-		text-align:right;
-		font-family: Helvetica, Arial, sans-serif;
-		.btn {
-			color: #474747;
-			margin: 10px 0;
-		}
-	}
-}
+
 #bundle {
 	.row h1 {
 		border: none;
@@ -171,6 +141,27 @@
 	}
 }
 
+#bundle #readme {
+	h1 {
+		font-size: 28px;
+		text-transform: none;
+		margin-bottom: 10px;
+	}
+	h2 {
+		font-size: 22px;
+		margin-bottom: 10px;
+	}
+	h3 {
+		font-size: 16px;
+	}
+	h4 {
+		font-size: 14px;
+	}
+	h5 {
+		font-size: 12px;
+	}
+}
+
 #installation {
 	width: 500px;
 	border: none;
@@ -200,6 +191,12 @@ i {
 
 /* Add/Edit Bundles */
 #bundle {
+	.center {
+		text-align: center;
+	}
+	.continue {
+		margin: 0 0 20px 20px;
+	}
 	#ajax-loader {
 		display: none;
 	}
@@ -217,6 +214,17 @@ i {
 	}
 	.edit .info {
 		display: none;
+	}
+	.relative {
+		position: relative;
+	}
+	.or {
+		position: absolute;
+		top: 3px;
+		right: 16px;
+		font-weight: bold;
+		font-size: 16px;
+		font-family: @sansFont;
 	}
 }
 /* End */
