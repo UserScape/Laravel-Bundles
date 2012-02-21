@@ -13,7 +13,7 @@
 		<link rel="shortcut icon" href="http://laravel.com/img/favicon.png">
 
 		<!-- styles -->
-		<link href="http://localhost/laravel/laravel.com/public/css/style.css" rel="stylesheet" type="text/css">
+		<link href="http://beta.laravel.com/css/style.css" rel="stylesheet" type="text/css">
 		{{Asset::styles()}}
 
 		<!-- Js for fonts and tracking -->
@@ -40,7 +40,7 @@
 
 		<div class="container main">
 			<div class="row">
-				<div class="sidebar span3 <?php echo $section ?>">
+				<div class="sidebar span3 <?php echo (URI::segment(1) == 'bundle' and $bundle) ? 'bundle_detail' : ''; ?>">
 					<form method="get" action="{{URL::to('search')}}">
 						<input type="search" results="5" class="" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
 					</form>
@@ -61,17 +61,19 @@
 				<div class="content bundles span9">
 					@if (URI::segment(1) == 'bundle' and $bundle)
 						<div class="tabbable">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#readme" data-toggle="tab">Overview</a></li>
-							<li><a href="#installation" data-toggle="tab">Installation</a></li>
-							@if (count($bundle->dependencies) > 0)
-							<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
-							@endif
-							<li><a href="#stats" data-toggle="tab">Stats</a></li>
-							@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
-							<li><a href="{{URL::to('bundle/'.$bundle->uri.'/edit')}}">Edit</a></li>
-							@endif
-						</ul>
+							<div class="bundle-tabs">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#readme" data-toggle="tab">Overview</a></li>
+									<li><a href="#installation" data-toggle="tab">Installation</a></li>
+									@if (count($bundle->dependencies) > 0)
+									<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
+									@endif
+									<li><a href="#stats" data-toggle="tab">Stats</a></li>
+									@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
+									<li><a href="{{URL::to('bundle/'.$bundle->uri.'/edit')}}">Edit</a></li>
+									@endif
+								</ul>
+							</div>
 					@endif
 					<div class="well">
 						{{View::make('partials.messages')->render()}}

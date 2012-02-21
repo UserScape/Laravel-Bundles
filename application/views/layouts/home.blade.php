@@ -13,7 +13,7 @@
 		<link rel="shortcut icon" href="http://laravel.com/img/favicon.png">
 
 		<!-- styles -->
-		<link href="http://localhost/laravel/laravel.com/public/css/style.css" rel="stylesheet" type="text/css">
+		<link href="http://beta.laravel.com/css/style.css" rel="stylesheet" type="text/css">
 		{{Asset::styles()}}
 
 		<!-- Js for fonts and tracking -->

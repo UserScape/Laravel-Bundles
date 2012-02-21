@@ -57,31 +57,6 @@ $(function() {
 		return false;
 	});
 
-	$('#dep_repo').change(function(){
-		var id = $(this).find("option:selected").text();
-		$.ajax({
-			beforeSend: function() {
-				$('#ajax-loader').fadeIn();
-				$('.info').fadeOut();
-				$('.bundle_extras').fadeOut();
-			},
-			type: "POST",
-			url: SITE_URL+'bundle/repo',
-			data: "repo="+id,
-			dataType: "json",
-			success: function(resp) {
-				$('#ajax-loader').fadeOut();
-				$('#title').val(id);
-				$('#path').val(id);
-				$('#location').val(resp.url);
-				$('#summary').val(resp.description);
-				$('#description').val(resp.readme);
-				$('#website').val(resp.homepage);
-				$('.bundle_extras').fadeIn();
-			}
-		});
-	});
-
 	// Bundle Rating
 	$('#rate').click(function(){
 		var id = $(this).attr('data-id');

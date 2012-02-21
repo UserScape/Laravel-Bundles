@@ -26,10 +26,22 @@
   border: none;
   margin: 0 0 10px 0;
 }
+#bundle .content .bundle-tabs {
+  *zoom: 1;
+}
+#bundle .content .bundle-tabs:before,
+#bundle .content .bundle-tabs:after {
+  display: table;
+  content: "";
+}
+#bundle .content .bundle-tabs:after {
+  clear: both;
+}
 #bundle .content .nav-tabs {
-  margin: 0 0 1px 50%;
+  margin: 0 10px 1px 0;
   text-align: right;
   border: none;
+  float: right;
 }
 #bundle .content .nav-tabs li {
   margin: 0 2px -1px;
@@ -191,6 +203,7 @@
 }
 #bundle pre code {
   border: none;
+  color: #333;
 }
 #bundle #readme h1 {
   font-size: 28px;
@@ -283,7 +296,7 @@ table img.gravatar {
   height: 14px;
   display: block;
 }
-.sidebar {
+.sidebar.bundle_detail {
   margin-top: 40px;
 }
 .sidebar form input {
