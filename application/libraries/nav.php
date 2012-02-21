@@ -57,8 +57,13 @@ class Nav {
 	 * @param int $cat
 	 * @return int
 	 */
-	public static function cat_count($cat)
+	public static function cat_count($cat = null)
 	{
+		if ($cat === null)
+		{
+			return Listing::where_active('y')->count();
+		}
+
 		if (empty(static::$all))
 		{
 			static::$all = Listing::where_active('y')->get();

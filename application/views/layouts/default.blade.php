@@ -49,7 +49,7 @@
 					@foreach ($categories as $key => $category)
 						<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} <span>({{Nav::cat_count($category->id)}})</span></li>
 					@endforeach
-						<li class="">{{HTML::link('bundles', 'All Bundles')}}</li>
+						<li class="">{{HTML::link('bundles', 'All Bundles')}} <span>({{Nav::cat_count()}})</span></li>
 					</ul>
 
 					<div class="btns">
