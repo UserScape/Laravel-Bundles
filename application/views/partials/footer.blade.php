@@ -6,7 +6,7 @@
 				<li><a href="http://laravel.com/about">About</a></li>
 				<li><a href="http://forums.laravel.com">Forums</a></li>
 				<li><a href="http://bundles.laravel.com">Bundles</a></li>
-				<li><a href="#">Learn</a></li>
+				<li><a href="http://laravel.com/docs">Learn</a></li>
 				<li class="download">
 					<a href="http://laravel.com/download">Download <i class="download"></i></a>
 				</li>
