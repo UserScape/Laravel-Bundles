@@ -12,10 +12,10 @@
 							<li><a href="http://forums.laravel.com">FORUMS</a></li>
 							<li><a href="http://bundles.laravel.com">BUNDLES</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">LEARN <b class="caret"></b></a>
+								<a href="http://laravel.com/docs" class="dropdown-toggle" data-toggle="dropdown">LEARN <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="http://laravel.com/docs">DOCUMENTATION</a></li>
-									<li><a href="#">SCREENCASTS</a></li>
+									<li><a href="http://www.screenr.com/user/laravel">SCREENCASTS</a></li>
 									<li class="divider"></li>
 									<li><a href="http://laravel.com/api">DEVELOPER API</a></li>
 								</ul>
