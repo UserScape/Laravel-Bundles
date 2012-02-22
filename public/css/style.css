@@ -462,6 +462,9 @@ table td.meta {
 .sidebar .btns .btn {
   margin: 10px 0;
 }
+.sidebar li.active a {
+  color: #FB503B;
+}
 .btns {
   font-family: Helvetica, Arial, sans-serif;
 }
