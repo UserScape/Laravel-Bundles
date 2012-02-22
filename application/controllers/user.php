@@ -32,6 +32,7 @@ class User_Controller extends Base_Controller {
 		{
 			$bundles = Listing::where_active('y')
 				->where_user_id($user->id)
+				->order_by('updated_at', 'desc')
 				->paginate(Config::get('application.per_page'));
 		}
 		else

@@ -1,5 +1,7 @@
 <section id="bundles">
-	@if (isset($tag))
+	@if (isset($cat_title))
+		<h1>{{$cat_title}}</h1>
+	@elseif (isset($tag))
 		<h1>Bundles tagged: {{$tag->tag}}</h1>
 	@elseif (isset($user))
 		<h1>Bundles by {{$user->name}}</h1>

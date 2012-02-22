@@ -41,6 +41,7 @@ class Category_Controller extends Base_Controller {
 
 		$bundles = Listing::where_active('y')
 			->where_category_id($category->id)
+			->order_by('updated_at', 'desc')
 			->paginate(Config::get('application.per_page'));
 
 		return $this->layout->with('title', $category->title)

@@ -22,7 +22,7 @@
 				<div class="featured-box">
 					<h2>Featured Bundle: <span>{{$featured->title}}</span></h2>
 					<img src="{{URL::to_asset('img/featured-img.png')}}">
-					<p>{{$featured->summary}}</p>
+					<p>Eloquent is a polite little ORM. It is named "Eloquent" because it allows you to work with your database objects and relationships using an eloquent and expressive syntax.</p>
 					<a href="{{URL::to('bundle/'.$featured->uri);}}">Bundle Details</a>
 				</div>
 			</div>
@@ -35,8 +35,8 @@
 
 		<div class="boxes row">
 			<div class="span6">
-				<div class="popular">
-					<h3>MOST POPULAR</h3>
+				<div class="popular-box">
+					<h3>MOST POPULAR <small><a href="{{URL::to('bundles/popular')}}">View All</a></small></h3>
 					@if (count($popular) > 0)
 						<table class="table">
 						@foreach ($popular as $bundle)
@@ -54,7 +54,7 @@
 			</div>
 			<div class="span6">
 				<div class="updated">
-					<h3>RECENTLY UPDATED BUNDLES</h3>
+					<h3>RECENTLY UPDATED BUNDLES <small><a href="{{URL::to('bundles')}}">View All</a></small></h3>
 					@if (count($latest) > 0)
 						<table class="table zebra-striped">
 						@foreach ($latest as $bundle)
