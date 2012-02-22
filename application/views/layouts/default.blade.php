@@ -13,13 +13,13 @@
 		<link rel="shortcut icon" href="http://laravel.com/img/favicon.png">
 
 		<!-- styles -->
-		<link href="http://beta.laravel.com/css/style.css" rel="stylesheet" type="text/css">
+		<link href="http://laravel.com/css/style.css" rel="stylesheet" type="text/css">
 		{{Asset::styles()}}
 
 		<!-- Js for fonts and tracking -->
 		<script type="text/javascript" src="http://use.typekit.com/dlj4kfm.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-		<script type="text/javascript" src="http://beta.laravel.com/js/modernizr-2.5.2.min.js"></script>
+		<script type="text/javascript" src="http://laravel.com/js/modernizr-2.5.2.min.js"></script>
 
 		<script type="text/javascript">
 			var _gaq = _gaq || [];

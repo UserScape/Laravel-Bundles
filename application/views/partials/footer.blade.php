@@ -40,9 +40,9 @@ var SITE_URL = "<?php echo URL::to(); ?>";
 </script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="http://beta.laravel.com/js/jquery-1.7.1.min.js"><\/script>')</script>
-<script src="http://beta.laravel.com/js/bootstrap.js"></script>
-<script src="http://beta.laravel.com/js/main-min.js"></script>
+<script>window.jQuery || document.write('<script src="http://laravel.com/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="http://laravel.com/js/bootstrap.js"></script>
+<script src="http://laravel.com/js/main-min.js"></script>
 {{Asset::scripts()}}
-<script src="http://beta.laravel.com/js/google-code-prettify/prettify.js"></script>
+<script src="http://laravel.com/js/google-code-prettify/prettify.js"></script>
 <script>$(function(){prettyPrint()})</script>
