@@ -123,6 +123,10 @@
 #home h4 a {
   color: #fff;
 }
+#home .span6 div div {
+  padding: 0;
+  margin: 0;
+}
 .midcontent {
   z-index: 10;
   background-image: none;
