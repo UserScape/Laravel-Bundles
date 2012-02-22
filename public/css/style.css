@@ -134,12 +134,15 @@
   margin-bottom: 36px;
 }
 .popular-box h3 small {
-  padding: 0 0 3px 10px;
+  padding: 0 0 3px 5px;
 }
 .updated {
   background: url(../img/updated.png) no-repeat 5px top;
   padding-left: 65px;
   margin-bottom: 36px;
+}
+.updated h3 small {
+  padding: 0 0 3px 5px;
 }
 .sponsor {
   width: 149px;
