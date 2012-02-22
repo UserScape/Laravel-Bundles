@@ -21,7 +21,7 @@
 			<div class="span7">
 				<div class="featured-box">
 					<h2>Featured Bundle: <span>{{$featured->title}}</span></h2>
-					<img src="{{URL::to_asset('img/featured-img.png')}}">
+					<img src="{{URL::to_asset('uploads/eloquent.png')}}">
 					<p>Eloquent is a polite little ORM. It is named "Eloquent" because it allows you to work with your database objects and relationships using an eloquent and expressive syntax.</p>
 					<a href="{{URL::to('bundle/'.$featured->uri);}}">Bundle Details</a>
 				</div>
