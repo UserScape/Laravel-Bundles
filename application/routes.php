@@ -1,83 +1,214 @@
 <?php
+/**
+ * Application Routes
+ */
+Route::get('category/(:any)', 'category@detail');
+Route::get('bundle/(:any)', 'bundle@detail');
+Route::get('bundle/(:any)/edit', 'bundle@edit');
+Route::post('bundle/(:any)/edit', 'bundle@edit');
+Route::get('bundle/add', 'bundle@add');
+Route::get('user/login', 'user@login');
+Route::get('user/edit', 'user@edit');
+Route::get('user/(:any)/bundles', 'user@bundles');
+Route::get('user/(:any)/logout', 'user@logout');
+Route::get('user/(:any)', 'user@index');
+Route::get('page/(:any)', 'page@detail');
+Route::get('admin', 'admin.home@index');
+Route::get('page/(:any)', 'page@detail');
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Simply tell Laravel the HTTP verbs and URIs it should respond to. It is a
-| breeze to setup your applications using Laravel's RESTful routing, and it
-| is perfectly suited for building both large applications and simple APIs.
-| Enjoy the fresh air and simplicity of the framework.
-|
-| Let's respond to a simple GET request to http://example.com/hello:
-|
-|		Router::register('GET /hello', function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| You can even respond to more than one URI:
-|
-|		Router::register('GET /hello, GET /world', function()
-|		{
-|			return 'Hello World!';
-|		});
-|
-| It's easy to allow URI wildcards using (:num) or (:any):
-|
-|		Router::register('GET /hello/(:any)', function($name)
-|		{
-|			return "Welcome, $name.";
-|		});
-|
-*/
+Route::controller(array(
+	'home', 'bundle', 'bundles',
+	'categories', 'category', 'page',
+	'rss', 'search', 'user', 'admin.bundles',
+	'admin.cats', 'admin.pages', 'admin.users'
+));
 
-Router::register(array('GET /test', 'GET /test'), function()
+/**
+ * Api
+ *
+ * Generates an array of the bundle information for artisan.
+ *
+ * @param string $item
+ * @return array
+ */
+Route::get('api/(:any)', function($item)
 {
-	return View::make('layouts.default')
-		->nest('content', 'home.index', array('name' => 'Taylor'));
+	$output = array();
+	if ($bundle = Listing::where_uri($item)->first())
+	{
+		$dependencies = array();
+		foreach ($bundle->dependencies AS $dependency)
+		{
+			$dependencies[] = $dependency->dependency_id;
+		}
+
+		$output = array(
+			'status' => 'ok',
+			'bundle' => array(
+				'name' => $bundle->title,
+				'provider' => $bundle->provider,
+				'location' => $bundle->location,
+				'path' => $bundle->path,
+				'dependencies' => $dependencies
+			)
+		);
+
+		// update the install log for record keeping.
+		$install = new Install;
+		$install->bundle_id = $bundle->id;
+		$install->save();
+	}
+	else
+	{
+		$output = array('status' => 'not-found');
+	}
+
+	return json_encode($output);
 });
 
-/*
-|--------------------------------------------------------------------------
-| Route Filters
-|--------------------------------------------------------------------------
-|
-| Filters provide a convenient method for attaching functionality to your
-| routes. The built-in "before" and "after" filters are called before and
-| after every request to your application, and you may even create other
-| filters that can be attached to individual routes.
-|
-| Let's walk through an example...
-|
-| First, define a filter:
-|
-|		Filter::register('filter', function()
-|		{
-|			return 'Filtered!';
-|		});
-|
-| Next, attach the filter to a route:
-|
-|		Router::register('GET /', array('before' => 'filter', function()
-|		{
-|			return 'Hello World!';
-|		}));
-|
-*/
+/**
+ * Tags List
+ *
+ * Generate a list of tags from an ajax call.
+ */
+Route::get('tags', function(){
 
-Filter::register('before', function()
-{
-	// Do stuff before every request to your application...
+	$query = Tag::where('tag', 'like', '%'.Input::get('term').'%')->get();
+	$tags = array();
+	foreach ($query as $key => $tag)
+	{
+		$tags[] = $tag->tag;
+	}
+	return json_encode($tags);
 });
 
-Filter::register('after', function()
-{
-	// Do stuff after every request to your application...
+/**
+ * Dependencies
+ *
+ * Generate a list of dependencies from an ajax call.
+ */
+Route::get('dependencies', function(){
+
+	$query = Listing::where('title', 'like', '%'.Input::get('term').'%')->get();
+	$tags = array();
+	foreach ($query as $key => $tag)
+	{
+		$tags[] = $tag->title;
+	}
+	return json_encode($tags);
 });
 
-Filter::register('csrf', function()
+/**
+ * Rating
+ *
+ * Rate a listing
+ */
+Route::post('rate', function(){
+
+	if ( ! Auth::check())
+	{
+		exit(json_encode(array('error' => 'You must be logged in')));
+	}
+
+	// Have we already rated?
+	$rated = Rating::where('listing_id', '=', Input::get('id'))
+		->where('user_id', '=', Auth::user()->id)
+		->count();
+
+	if ($rated == 0 and $listing = Listing::find(Input::get('id')))
+	{
+		// update the install log for record keeping.
+		$rating = new Rating;
+		$rating->listing_id = $listing->id;
+		$rating->user_id = Auth::user()->id;
+		$rating->ip_address = Request::ip();
+		$rating->save();
+
+		// Get the total ratings
+		$vars['ratings'] = Rating::where_listing_id($listing->id)->count();
+		$vars['success'] = 'true';
+		exit(json_encode($vars));
+	}
+	return json_encode(array('error' => 'Could not save your rating.'));
+});
+
+Event::listen('404', function()
+{
+	return Response::error('404');
+});
+
+Event::listen('500', function()
+{
+	return Response::error('500');
+});
+
+/**
+ * Before Filter
+ *
+ * Used to set a "goto" session item so we know
+ * where to redirect the user to.
+ */
+Route::filter('before', function()
+{
+	$current_page = URI::current();
+
+	// Set an array of ignored pages. This should ideally be switched to use
+	// wildcard filtering.
+	$ignored_pages = array(
+		'user/login',
+		'user/login/github',
+		'user/edit',
+		'favicon.ico'
+	);
+
+	// If it is not an ignored page then set a goto session.
+	if ( ! Auth::check() AND ! in_array($current_page, $ignored_pages))
+	{
+		Session::put('goto', $current_page);
+	}
+	elseif (Auth::check() AND Session::has('goto'))
+	{
+		Session::forget('goto');
+	}
+});
+
+/**
+ * CSRF
+ *
+ * Check our tokens.
+ */
+Route::filter('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
+});
+
+/**
+ * Auth check for admin
+ *
+ * Performs the same auth as below but the user also must be in the
+ * administrator user group.
+ */
+Route::filter('admin_auth', function()
+{
+	if ( ! Auth::check() OR Auth::user()->group_id != 1)
+	{
+		return Redirect::to('/')
+			->with('message', '<strong>Error!</strong> You must be an administrator to access that page.')
+			->with('message_class', 'error');
+	}
+});
+
+/**
+ * Auth check
+ *
+ * Validates they are logged in.
+ */
+Route::filter('auth', function()
+{
+	if ( ! Auth::check())
+	{
+		return Redirect::to('/user/login')
+			->with('message', '<strong>Error!</strong> You must be logged in to access that page.')
+			->with('message_class', 'error');
+	}
 });

@@ -40,7 +40,29 @@ return array(
 	|
 	*/
 
-	'key' => 'a;jkvnask;;ls',
+	'key' => 'agg2XMT3RhMPNTFqRlQM8Wrj2sT4nPO2',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Per Page
+	|--------------------------------------------------------------------------
+	|
+	| Defines the max number of results to show per page.
+	|
+	*/
+
+	'per_page' => 10,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Minify JS
+	|--------------------------------------------------------------------------
+	|
+	| Bool to define if you want to use the minified js. Set to false for
+	| debugging.
+	|
+	*/
+	'minify_js' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -108,7 +130,10 @@ return array(
 	|
 	*/
 
-	'bundles' => array(),
+	'bundle' => array(
+		'cache' => 0,
+		'auto'  => array(),
+	),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -129,6 +154,7 @@ return array(
 	'aliases' => array(
 		'Arr'        => 'Laravel\\Arr',
 		'Asset'      => 'Laravel\\Asset',
+		'Auth'       => 'Laravel\\Auth',
 		'Autoloader' => 'Laravel\\Autoloader',
 		'Benchmark'  => 'Laravel\\Benchmark',
 		'Bundle'     => 'Laravel\\Bundle',
@@ -141,11 +167,11 @@ return array(
 		'Event'      => 'Laravel\\Event',
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
-		'Form'       => 'Laravel\\Form',
 		'HTML'       => 'Laravel\\HTML',
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',
 		'Lang'       => 'Laravel\\Lang',
+		'Log'       => 'Laravel\\Log',
 		'Memcached'  => 'Laravel\\Memcached',
 		'Paginator'  => 'Laravel\\Paginator',
 		'URL'        => 'Laravel\\URL',
@@ -153,11 +179,13 @@ return array(
 		'Redis'      => 'Laravel\\Redis',
 		'Request'    => 'Laravel\\Request',
 		'Response'   => 'Laravel\\Response',
+		'Route'      => 'Laravel\\Routing\\Route',
 		'Router'     => 'Laravel\\Routing\\Router',
 		'Schema'     => 'Laravel\\Database\\Schema',
 		'Section'    => 'Laravel\\Section',
 		'Session'    => 'Laravel\\Session',
 		'Str'        => 'Laravel\\Str',
+		'Task'       => 'Laravel\\CLI\\Tasks\\Task',
 		'URI'        => 'Laravel\\URI',
 		'Validator'  => 'Laravel\\Validator',
 		'View'       => 'Laravel\\View',

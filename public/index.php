@@ -3,7 +3,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @version  2.0.7
+ * @version  3.0.0
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  * @link     http://laravel.com
  */
@@ -13,32 +13,36 @@
 // --------------------------------------------------------------
 define('LARAVEL_START', microtime(true));
 
-// --------------------------------------------------------------
-// The path to the application directory.
-// --------------------------------------------------------------
-define('APP_PATH', realpath('../application').'/');
+$host = $_SERVER['HTTP_HOST'];
+if ($host == 'laravel-bundles.dev' OR strpos($host, 'localhost') !== FALSE)
+{
+	$_SERVER['LARAVEL_ENV'] = 'local';
+}
+elseif ($host == 'bundles.laravel.com')
+{
+	$_SERVER['LARAVEL_ENV'] = 'production';
+}
+else
+{
+	$_SERVER['LARAVEL_ENV'] = 'staging';
+}
 
 // --------------------------------------------------------------
-// The path to the bundles directory.
+// Indicate that the request is from the web.
 // --------------------------------------------------------------
-define('BUNDLE_PATH', realpath('../bundles').'/');
+$web = true;
 
 // --------------------------------------------------------------
-// The path to the storage directory.
+// Set the core Laravel path constants.
 // --------------------------------------------------------------
-define('STORAGE_PATH', realpath('../storage').'/');
+require '../paths.php';
 
 // --------------------------------------------------------------
-// The path to the Laravel directory.
+// Unset the temporary web variable.
 // --------------------------------------------------------------
-define('SYS_PATH', realpath('../laravel').'/');
-
-// --------------------------------------------------------------
-// The path to the public directory.
-// --------------------------------------------------------------
-define('PUBLIC_PATH', realpath(__DIR__).'/');
+unset($web);
 
 // --------------------------------------------------------------
 // Launch Laravel.
 // --------------------------------------------------------------
-require SYS_PATH.'/laravel.php';
+require path('sys').'laravel.php';

@@ -1,4 +1,4 @@
-<?php namespace Laravel\Database; use PDO, PDOStatement;
+<?php namespace Laravel\Database; use PDO, PDOStatement, Laravel\Event;
 
 class Connection {
 
@@ -14,7 +14,7 @@ class Connection {
 	 *
 	 * @var array
 	 */
-	protected $config;
+	public $config;
 
 	/**
 	 * The query grammar instance for the connection.
@@ -74,13 +74,13 @@ class Connection {
 		switch (isset($this->config['grammar']) ? $this->config['grammar'] : $this->driver())
 		{
 			case 'mysql':
-				return $this->grammar = new Query\Grammars\MySQL;
+				return $this->grammar = new Query\Grammars\MySQL($this);
 
 			case 'sqlsrv':
-				return $this->grammar = new Query\Grammars\SQLServer;
+				return $this->grammar = new Query\Grammars\SQLServer($this);
 
 			default:
-				return $this->grammar = new Query\Grammars\Grammar;
+				return $this->grammar = new Query\Grammars\Grammar($this);
 		}
 	}
 
@@ -196,22 +196,23 @@ class Connection {
 	 */
 	protected function execute($sql, $bindings = array())
 	{
+		$bindings = (array) $bindings;
+
 		// Since expressions are injected into the query as strings, we need to
 		// remove them from the array of bindings. After we have removed them,
-		// we'll reset the array so there are no gaps in the numeric keys.
+		// we'll reset the array so there aren't gaps in the keys.
 		$bindings = array_values(array_filter($bindings, function($binding)
 		{
 			return ! $binding instanceof Expression;
 		}));
 
-		$sql = $this->transform($sql, $bindings);
+		$sql = $this->grammar()->shortcut($sql, $bindings);
 
 		$statement = $this->pdo->prepare($sql);
 
 		// Every query is timed so that we can log the executinon time along
 		// with the query SQL and array of bindings. This should be make it
-		// convenient for the developer to profile the application's query
-		// performance to diagnose bottlenecks.
+		// convenient for the developer to profile performance.
 		$time = microtime(true);
 
 		$result = $statement->execute($bindings);
@@ -220,44 +221,25 @@ class Connection {
 
 		// Once we have execute the query, we log the SQL, bindings, and
 		// execution time in a static array that is accessed by all of
-		// the connections used by the application. This allows us to
-		// review all of the SQL that is executed by the framework.
-		static::$queries[] = compact('sql', 'bindings', 'time');
+		// the connections used by the application.
+		$this->log($sql, $bindings, $time);
 
 		return array($statement, $result);
 	}
 
 	/**
-	 * Transform an SQL query into an executable query.
+	 * Log the query and fire the core query event.
 	 *
 	 * @param  string  $sql
 	 * @param  array   $bindings
-	 * @return string
+	 * @param  int     $time
+	 * @return void
 	 */
-	protected function transform($sql, $bindings)
+	protected function log($sql, $bindings, $time)
 	{
-		// Laravel provides an easy short-cut notation for writing raw
-		// WHERE IN statements. If (...) is in the query, it will be
-		// replaced with the correct number of parameters based on
-		// the bindings for the query.
-		if (strpos($sql, '(...)') !== false)
-		{
-			for ($i = 0; $i < count($bindings); $i++)
-			{
-				// If the binding is an array, we can assume it is being used
-				// to fill a "where in" condition, so we'll replace the next
-				// place-holder in the SQL query with the correct number of
-				// parameters based on the elements in the binding.
-				if (is_array($bindings[$i]))
-				{
-					$parameters = implode(', ', array_fill(0, count($bindings[$i]), '?'));
+		Event::fire('laravel: query', array($sql, $bindings, $time));
 
-					$sql = preg_replace('~\(\.\.\.\)~', "({$parameters})", $sql, 1);
-				}
-			}			
-		}
-
-		return trim($sql);
+		static::$queries = compact('sql', 'bindings', 'time');
 	}
 
 	/**

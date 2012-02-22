@@ -23,9 +23,9 @@ class SQLServer extends Grammar {
 	{
 		$columns = implode(', ', $this->columns($table));
 
-		// First we will generate the base table creation statement. Other than
-		// auto-incrementing keys, no indexes will be created during the first
-		// creation of the table. They will be added in separate commands.
+		// First we will generate the base table creation statement. Other than auto
+		// incrementing keys, no indexes will be created during the first creation
+		// of the table as they're added in separate commands.
 		$sql = 'CREATE TABLE '.$this->wrap($table).' ('.$columns.')';
 
 		return $sql;
@@ -42,9 +42,9 @@ class SQLServer extends Grammar {
 	{
 		$columns = $this->columns($table);
 
-		// Once we the array of column definitions, we need to add "add"
-		// to the front of each definition, then we'll concatenate the
-		// definitions using commas like normal and generate the SQL.
+		// Once we the array of column definitions, we need to add "add" to the
+		// front of each definition, then we'll concatenate the definitions
+		// using commas like normal and generate the SQL.
 		$columns = implode(', ', array_map(function($column)
 		{
 			return 'ADD '.$column;
@@ -69,10 +69,10 @@ class SQLServer extends Grammar {
 			// Each of the data type's have their own definition creation method,
 			// which is responsible for creating the SQL for the type. This lets
 			// us to keep the syntax easy and fluent, while translating the
-			// types to the types used by the database system.
+			// types to the types used by the database.
 			$sql = $this->wrap($column).' '.$this->type($column);
 
-			$elements = array('incrementer', 'nullable', 'default_value');
+			$elements = array('incrementer', 'nullable', 'defaults');
 
 			foreach ($elements as $element)
 			{
@@ -104,7 +104,7 @@ class SQLServer extends Grammar {
 	 * @param  Fluent  $column
 	 * @return string
 	 */
-	protected function default_value(Table $table, Fluent $column)
+	protected function defaults(Table $table, Fluent $column)
 	{
 		if ( ! is_null($column->default))
 		{
@@ -166,17 +166,18 @@ class SQLServer extends Grammar {
 	{
 		$columns = $this->columnize($command->columns);
 
-		// SQL Server requires the creation of a full-text "catalog" before
-		// creating a full-text index, so we'll first create the catalog
-		// then add another statement to the array for the real index.
+		$table = $this->wrap($table);
+
+		// SQL Server requires the creation of a full-text "catalog" before creating
+		// a full-text index, so we'll first create the catalog then add another
+		// separate statement for the index.
 		$sql[] = "CREATE FULLTEXT CATALOG {$command->catalog}";
 
-		$create =  "CREATE FULLTEXT INDEX ON ".$this->wrap($table)." ({$columns}) ";
+		$create =  "CREATE FULLTEXT INDEX ON ".$table." ({$columns}) ";
 
-		// Full-text indexes must specify a unique, non-nullable column as
-		// the index "key" and this should have been created manually by
-		// the developer in a separate column addition command, so we
-		// can just specify the name in this statement.
+		// Full-text indexes must specify a unique, non-null column as the index
+		// "key" and this should have been created manually by the developer in
+		// a separate column addition command.
 		$sql[] = $create .= "KEY INDEX {$command->key} ON {$command->catalog}";
 
 		return $sql;
@@ -226,17 +227,17 @@ class SQLServer extends Grammar {
 	/**
 	 * Generate the SQL statement for a drop column command.
 	 *
-	 * @param  Table   $table
-	 * @param  Fluent  $command
+	 * @param  Table    $table
+	 * @param  Fluent   $command
 	 * @return string
 	 */
 	public function drop_column(Table $table, Fluent $command)
 	{
 		$columns = array_map(array($this, 'wrap'), $command->columns);
 
-		// Once we have wrapped all of the columns, we need to add "drop"
-		// to the front of each column name, then we'll concatenate the
-		// columns using commas like normal and generate the SQL.
+		// Once we the array of column names, we need to add "drop" to the front
+		// of each column, then we'll concatenate the columns using commas and
+		// generate the alter statement SQL.
 		$columns = implode(', ', array_map(function($column)
 		{
 			return 'DROP '.$column;
@@ -318,7 +319,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_string(Fluent $column)
 	{
-		return 'VARCHAR('.$column->length.')';
+		return 'NVARCHAR('.$column->length.')';
 	}
 
 	/**
@@ -384,7 +385,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_text(Fluent $column)
 	{
-		return 'TEXT';
+		return 'NVARCHAR(MAX)';
 	}
 
 	/**
@@ -395,7 +396,7 @@ class SQLServer extends Grammar {
 	 */
 	protected function type_blob(Fluent $column)
 	{
-		return 'BINARY';
+		return 'VARBINARY(MAX)';
 	}
 
 }

@@ -21,6 +21,7 @@ class IoC {
 	 *
 	 * @param  string   $name
 	 * @param  Closure  $resolver
+	 * @param  bool     $singleton
 	 * @return void
 	 */
 	public static function register($name, Closure $resolver, $singleton = false)
@@ -71,6 +72,18 @@ class IoC {
 	}
 
 	/**
+	 * Register a controller with the IoC container.
+	 *
+	 * @param  string   $name
+	 * @param  Closure  $resolver
+	 * @return void
+	 */
+	public static function controller($name, $resolver)
+	{
+		static::register("controller: {$name}", $resolver);
+	}
+
+	/**
 	 * Resolve a core Laravel class from the container.
 	 *
 	 * <code>
@@ -110,11 +123,6 @@ class IoC {
 		if (array_key_exists($name, static::$singletons))
 		{
 			return static::$singletons[$name];
-		}
-
-		if ( ! static::registered($name))
-		{
-			throw new \Exception("Error resolving [$name]. No resolver has been registered.");
 		}
 
 		$object = call_user_func(static::$registry[$name]['resolver'], $parameters);

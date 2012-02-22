@@ -46,6 +46,10 @@ function array_get($array, $key, $default = null)
 {
 	if (is_null($key)) return $array;
 
+	// To retrieve the array item using dot syntax, we'll iterate through
+	// each segment in the key and look for that value. If it exists, we
+	// will return it, otherwise we will set the depth of the array and
+	// look for the next segment.
 	foreach (explode('.', $key) as $segment)
 	{
 		if ( ! is_array($array) or ! array_key_exists($segment, $array))
@@ -86,14 +90,14 @@ function array_set(&$array, $key, $value)
 	// This loop allows us to dig down into the array to a dynamic depth by
 	// setting the array value for each level that we dig into. Once there
 	// is one key left, we can fall out of the loop and set the value as
-	// we should be at the proper depth within the array.
+	// we should be at the proper depth.
 	while (count($keys) > 1)
 	{
 		$key = array_shift($keys);
 
 		// If the key doesn't exist at this depth, we will just create an
 		// empty array to hold the next value, allowing us to create the
-		// arrays necessary to hold the final value at the proper depth.
+		// arrays to hold the final value.
 		if ( ! isset($array[$key]) or ! is_array($array[$key]))
 		{
 			$array[$key] = array();
@@ -127,7 +131,7 @@ function array_forget(&$array, $key)
 	// This loop functions very similarly to the loop in the "set" method.
 	// We will iterate over the keys, setting the array value to the new
 	// depth at each iteration. Once there is only one key left, we will
-	// be at the proper depth in the array to "forget" the value.
+	// be at the proper depth in the array.
 	while (count($keys) > 1)
 	{
 		$key = array_shift($keys);
@@ -135,7 +139,7 @@ function array_forget(&$array, $key)
 		// Since this method is supposed to remove a value from the array,
 		// if a value higher up in the chain doesn't exist, there is no
 		// need to keep digging into the array, since it is impossible
-		// for the final value to even exist in the array.
+		// for the final value to even exist.
 		if ( ! isset($array[$key]) or ! is_array($array[$key]))
 		{
 			return;
@@ -186,6 +190,57 @@ function array_spin($array, $callback)
 }
 
 /**
+ * Recursively remove slashes from array keys and values.
+ *
+ * @param  array  $array
+ * @return array
+ */
+function array_strip_slashes($array)
+{
+	$result = array();
+
+	foreach($array as $key => $value)
+	{
+		$key = stripslashes($key);
+
+		// If the value is an array, we will just recurse back into the
+		// function to keep stripping the slashes out of the array,
+		// otherwise we will set the stripped value.
+		if (is_array($value))
+		{
+			$result[$key] = array_strip_slashes($value);
+		}
+		else
+		{
+			$result[$key] = stripslashes($value);
+		}
+	}
+
+	return $result;
+}
+
+/**
+ * Divide an array into two arrays. One with keys and the other with values.
+ *
+ * @param  array  $array
+ * @return array
+ */
+function array_divide($array)
+{
+	return array(array_keys($array), array_values($array));
+}
+
+/**
+ * Determine if "Magic Quotes" are enabled on the server.
+ *
+ * @return bool
+ */
+function magic_quotes()
+{
+	return function_exists('get_magic_quotes_gpc') and get_magic_quotes_gpc();
+}
+
+/**
  * Return the first element of an array.
  *
  * This is simply a convenient wrapper around the "reset" method.
@@ -196,6 +251,80 @@ function array_spin($array, $callback)
 function head($array)
 {
 	return reset($array);
+}
+
+/**
+ * Generate an application URL.
+ *
+ * <code>
+ *		// Create a URL to a location within the application
+ *		$url = path('user/profile');
+ *
+ *		// Create a HTTPS URL to a location within the application
+ *		$url = path('user/profile', true);
+ * </code>
+ *
+ * @param  string  $url
+ * @param  bool    $https
+ * @return string
+ */
+function url($url = '', $https = false)
+{
+	return Laravel\URL::to($url, $https);
+}
+
+/**
+ * Generate an application URL to an asset.
+ *
+ * @param  string  $url
+ * @param  bool    $https
+ * @return string
+ */
+function asset($url, $https = false)
+{
+	return Laravel\URL::to_asset($url, $https);
+}
+
+/**
+ * Generate a URL to a controller action.
+ *
+ * <code>
+ *		// Generate a URL to the "index" method of the "user" controller
+ *		$url = action('user@index');
+ *
+ *		// Generate a URL to http://example.com/user/profile/taylor
+ *		$url = action('user@profile', array('taylor'));
+ * </code>
+ *
+ * @param  string  $action
+ * @param  array   $parameters
+ * @param  bool    $https
+ * @return string
+ */
+function action($action, $parameters = array(), $https = false)
+{
+	return Laravel\URL::to_action($action, $parameters, $https);
+}
+
+/**
+ * Generate a URL from a route name.
+ *
+ * <code>
+ *		// Create a URL to the "profile" named route
+ *		$url = route('profile');
+ *
+ *		// Create a URL to the "profile" named route with wildcard parameters
+ *		$url = route('profile', array($username));
+ * </code>
+ *
+ * @param  string  $name
+ * @param  array   $parameters
+ * @param  bool    $https
+ * @return string
+ */
+function route($name, $parameters = array(), $https = false)
+{
+	return Laravel\URL::to_route($name, $parameters, $https);
 }
 
 /**
@@ -211,6 +340,18 @@ function starts_with($haystack, $needle)
 }
 
 /**
+ * Determine if a given string ends with a given value.
+ *
+ * @param  string  $haystack
+ * @param  string  $needle
+ * @return bool
+ */
+function ends_with($haystack, $needle)
+{
+	return $needle == substr($haystack, strlen($haystack) - strlen($needle));
+}
+
+/**
  * Determine if a given string contains a given sub-string.
  *
  * @param  string  $haystack
@@ -220,6 +361,18 @@ function starts_with($haystack, $needle)
 function str_contains($haystack, $needle)
 {
 	return strpos($haystack, $needle) !== false;
+}
+
+/**
+ * Cap a string with a single instance of the given string.
+ *
+ * @param  string  $value
+ * @param  string  $cap
+ * @return string
+ */
+function str_finish($value, $cap)
+{
+	return rtrim($value, $cap).$cap;
 }
 
 /**
@@ -233,4 +386,26 @@ function str_contains($haystack, $needle)
 function value($value)
 {
 	return ($value instanceof Closure) ? call_user_func($value) : $value;
+}
+
+/**
+ * Short-cut for constructor method chaining.
+ *
+ * @param  mixed  $object
+ * @return mixed
+ */
+function with($object)
+{
+	return $object;
+}
+
+/**
+ * Determine if the current version of PHP is at least the supplied version.
+ *
+ * @param  string  $version
+ * @return bool
+ */
+function has_php($version)
+{
+	return version_compare(PHP_VERSION, $version) >= 0;
 }

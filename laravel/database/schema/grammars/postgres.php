@@ -16,9 +16,9 @@ class Postgres extends Grammar {
 	{
 		$columns = implode(', ', $this->columns($table));
 
-		// First we will generate the base table creation statement. Other than
-		// auto-incrementing keys, no indexes will be created during the first
-		// creation of the table. They will be added in separate commands.
+		// First we will generate the base table creation statement. Other than auto
+		// incrementing keys, no indexes will be created during the first creation
+		// of the table as they're added in separate commands.
 		$sql = 'CREATE TABLE '.$this->wrap($table).' ('.$columns.')';
 
 		return $sql;
@@ -35,9 +35,9 @@ class Postgres extends Grammar {
 	{
 		$columns = $this->columns($table);
 
-		// Once we the array of column definitions, we'll add "add column"
-		// to the front of each definition, then we'll concatenate the
-		// definitions using commas like normal and generate the SQL.
+		// Once we the array of column definitions, we need to add "add" to the
+		// front of each definition, then we'll concatenate the definitions
+		// using commas like normal and generate the SQL.
 		$columns = implode(', ', array_map(function($column)
 		{
 			return 'ADD COLUMN '.$column;
@@ -62,10 +62,10 @@ class Postgres extends Grammar {
 			// Each of the data type's have their own definition creation method,
 			// which is responsible for creating the SQL for the type. This lets
 			// us to keep the syntax easy and fluent, while translating the
-			// types to the types used by the database system.
+			// types to the types used by the database.
 			$sql = $this->wrap($column).' '.$this->type($column);
 
-			$elements = array('incrementer', 'nullable', 'default_value');
+			$elements = array('incrementer', 'nullable', 'defaults');
 
 			foreach ($elements as $element)
 			{
@@ -97,7 +97,7 @@ class Postgres extends Grammar {
 	 * @param  Fluent  $column
 	 * @return string
 	 */
-	protected function default_value(Table $table, Fluent $column)
+	protected function defaults(Table $table, Fluent $column)
 	{
 		if ( ! is_null($column->default))
 		{
@@ -114,10 +114,9 @@ class Postgres extends Grammar {
 	 */
 	protected function incrementer(Table $table, Fluent $column)
 	{
-		// We don't actually need to specify an "auto_increment" keyword since
-		// we handle the auto-increment definition in the type definition for
-		// integers by changing the type to "serial", which is a convenient
-		// notational short-cut provided by Postgres.
+		// We don't actually need to specify an "auto_increment" keyword since we
+		// handle the auto-increment definition in the type definition for
+		// integers by changing the type to "serial".
 		if ($column->type == 'integer' and $column->increment)
 		{
 			return ' PRIMARY KEY';
@@ -218,12 +217,12 @@ class Postgres extends Grammar {
 	{
 		$columns = array_map(array($this, 'wrap'), $command->columns);
 
-		// Once we have wrapped all of the columns, we'll add "drop_column"
-		// to the front of each column name, then we'll concatenate the
-		// columns using commas like normal and generate the SQL.
+		// Once we the array of column names, we need to add "drop" to the front
+		// of each column, then we'll concatenate the columns using commas and
+		// generate the alter statement SQL.
 		$columns = implode(', ', array_map(function($column)
 		{
-			return 'DROP COLUMN '.$column.' RESTRICT';
+			return 'DROP COLUMN '.$column;
 
 		}, $columns));
 

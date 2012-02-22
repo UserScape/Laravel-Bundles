@@ -41,9 +41,27 @@ class Event {
 	}
 
 	/**
-	 * Fire an event so that all listeners are called.
+	 * Fire an event and return the first response.
 	 *
-	 * The responses from the events will be returned in an array.
+	 * <code>
+	 *		// Fire the "start" event
+	 *		$response = Event::first('start');
+	 *
+	 *		// Fire the "start" event passing an array of parameters
+	 *		$response = Event::first('start', array('Laravel', 'Framework'));
+	 * </code>
+	 *
+	 * @param  string  $event
+	 * @param  array   $parameters
+	 * @return mixed
+	 */
+	public static function first($event, $parameters = array())
+	{
+		return head(static::fire($event, $parameters));
+	}
+
+	/**
+	 * Fire an event so that all listeners are called.
 	 *
 	 * <code>
 	 *		// Fire the "start" event

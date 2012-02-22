@@ -8,11 +8,6 @@ use Laravel\Session;
 use Laravel\Session\Drivers\Driver;
 use Laravel\Session\Drivers\Sweeper;
 
-if (Config::get('application.key') === '')
-{
-	throw new \Exception("An application key is required to use sessions.");
-}
-
 class Payload {
 
 	/**
@@ -23,18 +18,18 @@ class Payload {
 	public $session;
 
 	/**
-	 * Indicates if the session already exists in storage.
-	 *
-	 * @var bool
-	 */
-	protected $exists = true;
-
-	/**
 	 * The session driver used to retrieve and store the session payload.
 	 *
 	 * @var Driver
 	 */
-	protected $driver;
+	public $driver;
+
+	/**
+	 * Indicates if the session already exists in storage.
+	 *
+	 * @var bool
+	 */
+	public $exists = true;
 
 	/**
 	 * Create a new session payload instance.
@@ -60,7 +55,7 @@ class Payload {
 		// If the session doesn't exist or is invalid, we will create a new session
 		// array and mark the session as being non-existent. Some drivers, such as
 		// the database driver, need to know whether the session exists in storage
-		// so they can know whether to "insert" or "update" the session.
+		// so they can know whether to insert or update the session.
 		if (is_null($this->session) or static::expired($this->session))
 		{
 			$this->exists = false;
@@ -207,7 +202,7 @@ class Payload {
 	 *		Session::keep(array('name', 'email'));
 	 * </code>
 	 *
-	 * @param  string|array  $key
+	 * @param  string|array  $keys
 	 * @return void
 	 */
 	public function keep($keys)
@@ -265,6 +260,16 @@ class Payload {
 	public function token()
 	{
 		return $this->get(Session::csrf_token);
+	}
+
+	/**
+	 * Get the last activity for the session.
+	 *
+	 * @return int
+	 */
+	public function activity()
+	{
+		return $this->session['last_activity'];
 	}
 
 	/**

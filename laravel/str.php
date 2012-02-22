@@ -133,7 +133,11 @@ class Str {
 	 */
 	public static function singular($value)
 	{
-		return array_get(array_flip(Config::get('strings.inflection')), $value, $value);
+		$inflection = Config::get('strings.inflection');
+
+		$singular = array_get(array_flip($inflection), strtolower($value), $value);
+
+		return (ctype_upper($value[0])) ? static::title($singular) : $singular;
 	}
 
 	/**
@@ -150,13 +154,16 @@ class Str {
 	 * </code>
 	 *
 	 * @param  string  $value
+	 * @param  int     $count
 	 * @return string
 	 */
 	public static function plural($value, $count = 2)
 	{
 		if ((int) $count == 1) return $value;
 
-		return array_get(Config::get('strings.inflection'), $value, $value);
+		$plural = array_get(Config::get('strings.inflection'), strtolower($value), $value);
+
+		return (ctype_upper($value[0])) ? static::title($plural) : $plural;
 	}
 
 	/**
@@ -171,7 +178,7 @@ class Str {
 	 * </code>
 	 *
 	 * @param  string  $value
-	 * @param  int     $length
+	 * @param  int     $words
 	 * @param  string  $end
 	 * @return string
 	 */
@@ -250,7 +257,20 @@ class Str {
 	 */
 	public static function classify($value)
 	{
-		return str_replace(' ', '_', static::title(str_replace(array('_', '.'), ' ', $value)));
+		$search = array('_', '-', '.');
+
+		return str_replace(' ', '_', static::title(str_replace($search, ' ', $value)));
+	}
+
+	/**
+	 * Return the "URI" style segments in a given string.
+	 *
+	 * @param  string  $value
+	 * @return array
+	 */
+	public static function segments($value)
+	{
+		return array_diff(explode('/', trim($value, '/')), array(''));
 	}
 
 	/**

@@ -1,77 +1,77 @@
 <?php
+/**
+ * Home controller
+ *
+ * Responsible for building the home page.
+ *
+ * @license     http://www.opensource.org/licenses/mit MIT License
+ * @copyright   UserScape, Inc. (http://userscape.com)
+ * @author      UserScape Dev Team
+ * @link        http://bundles.laravel.com
+ * @package     Laravel-Bundles
+ * @subpackage  Controllers
+ * @filesource
+ */
+class Home_Controller extends Base_Controller {
 
-class Home_Controller extends Controller {
-
-	/*
-	|--------------------------------------------------------------------------
-	| The Default Controller
-	|--------------------------------------------------------------------------
-	|
-	| Instead of using RESTful routes and anonymous functions, you might wish
-	| to use controllers to organize your application API. You'll love them.
-	|
-	| To start using this controller, simply remove the default route from the
-	| application "routes.php" file. Laravel is smart enough to find this
-	| controller and call the default method, which is "action_index".
-	|
-	| This controller responds to URIs beginning with "home", and it also
-	| serves as the default controller for the application, meaning it
-	| handles requests to the root of the application.
-	|
-	| You can respond to GET requests to "/home/profile" like so:
-	|
-	|		public function action_profile()
-	|		{
-	|			return "This is your profile!";
-	|		}
-	|
-	| Any extra segments are passed to the method as parameters:
-	|
-	|		public function action_profile($id)
-	|		{
-	|			return "This is the profile for user {$id}.";
-	|		}
-	|
-	*/
-
-	public function action_index()
+	public function __construct()
 	{
-		return View::make('home.index');
+		parent::__construct();
 	}
 
-	public function action_session($provider)
+	/**
+	 * Home page
+	 *
+	 * Handles all the queries to get the home page data
+	 *
+	 * @return mixed
+	 */
+	public function action_index()
 	{
-		Bundle::start('laravel-oauth2');
+		// Get the last updated listings
+		$latest = DB::table('listings')
+			->where_active('y')
+			->order_by('listings.updated_at', 'desc')
+			->left_join('users', 'users.id', '=', 'listings.user_id')
+			->take(5)
+			->get();
 
-		$provider = OAuth2::provider($provider, array(
-			'id' => '5cadb2b49f5975a8760a',
-			'secret' => '265ea9eb57184a294e8fa61766e16c47e4f9b130',
-		));
+		$categories = Category::all();
 
-		if (empty($_POST))
+		$popular = null;
+
+		// Get the most popular
+		if ($ratings = DB::query('SELECT listing_id, COUNT(*) as total FROM rating GROUP BY listing_id ORDER BY total desc'))
 		{
-			// By sending no options it'll come back here
-			return $provider->authorize();
-		}
-		else
-		{
-			// Howzit?
-			try
+			$ratings_in = array();
+			foreach ($ratings as $item)
 			{
-				$code = (isset($_GET['code'])) ? $_GET['code'] : $_POST['code'];
-				$params = $provider->access($code);
-				$user = $provider->get_user_info($params['access_token']);
-
-				// Here you should use this information to A) look for a user B) help a new user sign up with existing data.
-				// If you store it all in a cookie and redirect to a registration page this is crazy-simple.
-				echo "<pre>";
-				var_dump($user);
+				$ratings_in[] = $item->listing_id;
 			}
 
-			catch (OAuth2_Exception $e)
-			{
-				show_error('That didnt work: '.$e);
-			}
+			// Now get the listing info
+			$popular = DB::table('listings')
+				->where_active('y')
+				->where_in('listings.id', $ratings_in)
+				->left_join('users', 'users.id', '=', 'listings.user_id')
+				->take(5)
+				->get();
 		}
+
+		$featured = DB::table('listings')
+			->where_active('y')
+			->where('class', 'like', '%featured%')
+			->left_join('users', 'users.id', '=', 'listings.user_id')
+			->first();
+
+		// var_dump(Laravel\Database\Connection::$queries);
+
+		return View::make('layouts.home')
+			->nest('content', 'home.index', array(
+				'latest' => $latest,
+				'popular' => $popular,
+				'featured' => $featured,
+				'categories' => $categories,
+			));
 	}
 }

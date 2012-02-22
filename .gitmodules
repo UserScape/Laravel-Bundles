@@ -1,3 +1,0 @@
-[submodule "bundles/laravel-oauth2"]
-	path = bundles/laravel-oauth2
-	url = git://github.com/taylorotwell/laravel-oauth2.git

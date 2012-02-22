@@ -59,13 +59,6 @@ class Validator {
 	protected $size_rules = array('size', 'between', 'min', 'max');
 
 	/**
-	 * The inclusion related validation rules.
-	 *
-	 * @var array
-	 */
-	protected $inclusion_rules = array('in', 'not_in', 'mimes');
-
-	/**
 	 * The numeric related validation rules.
 	 *
 	 * @var array
@@ -253,9 +246,7 @@ class Validator {
 	 */
 	protected function validate_confirmed($attribute, $value)
 	{
-		$confirmed = $attribute.'_confirmation';
-
-		return isset($this->attributes[$confirmed]) and $value == $this->attributes[$confirmed];
+		return $this->validate_same($attribute, $value, array($attribute.'_confirmation'));
 	}
 
 	/**
@@ -270,6 +261,36 @@ class Validator {
 	protected function validate_accepted($attribute, $value)
 	{
 		return $this->validate_required($attribute, $value) and ($value == 'yes' or $value == '1');
+	}
+
+	/**
+	 * Validate that an attribute is the same as another attribute.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_same($attribute, $value, $parameters)
+	{
+		$other = $parameters[0];
+
+		return isset($this->attributes[$other]) and $value == $this->attributes[$other];
+	}
+
+	/**
+	 * Validate that an attribute is different from another attribute.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_different($attribute, $value, $parameters)
+	{
+		$other = $parameters[0];
+
+		return isset($this->attributes[$other]) and $value != $this->attributes[$other];
 	}
 
 	/**
@@ -406,7 +427,7 @@ class Validator {
 	/**
 	 * Validate the uniqueness of an attribute value on a given database table.
 	 *
-	 * If a database column is not specified, the attribute name will be used.
+	 * If a database column is not specified, the attribute will be used.
 	 *
 	 * @param  string  $attribute
 	 * @param  mixed   $value
@@ -415,11 +436,70 @@ class Validator {
 	 */
 	protected function validate_unique($attribute, $value, $parameters)
 	{
-		if ( ! isset($parameters[1])) $parameters[1] = $attribute;
+		// We allow the table column to be specified just in case the column does
+		// not have the same name as the attribute. It must be within the second
+		// parameter position, right after the database table name.
+		if (isset($parameters[1])) $attribute = $parameters[1];
 
-		if (is_null($this->db)) $this->db = Database::connection();
+		$query = $this->db()->table($parameters[0])->where($attribute, '=', $value);
 
-		return $this->db->table($parameters[0])->where($parameters[1], '=', $value)->count() == 0;
+		// We also allow an ID to be specified that will not be included in the
+		// uniqueness check. This makes updating columns easier since it is
+		// fine for the given ID to exist in the table.
+		if (isset($parameters[2]))
+		{
+			$id = (isset($parameters[3])) ? $parameters[3] : 'id';
+
+			$query->where($id, '<>', $parameters[2]);
+		}
+
+		return $query->count() == 0;
+	}
+
+	/**
+	 * Validate the existence of an attribute value in a database table.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_exists($attribute, $value, $parameters)
+	{
+		if (isset($parameters[1])) $attribute = $parameters[1];
+
+		// Grab the number of elements we are looking for. If the given value is
+		// in array, we'll count all of the values in the array, otherwise we
+		// can just make sure the count is greater or equal to one.
+		$count = (is_array($value)) ? count($value) : 1;
+
+		$query = $this->db()->table($parameters[0]);
+
+		// If the given value is an array, we will check for the existence of
+		// all the values in the database, otherwise we'll check for the
+		// presence of the single given value in the database.
+		if (is_array($value))
+		{
+			$query = $query->where_in($attribute, $value);
+		}
+		else
+		{
+			$query = $query->where($attribute, '=', $value);
+		}
+
+		return $query->count() >= $count;
+	}
+
+	/**
+	 * Validate that an attribute is a valid IP.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @return bool
+	 */
+	protected function validate_ip($attribute, $value)
+	{
+		return filter_var($value, FILTER_VALIDATE_IP) !== false;
 	}
 
 	/**
@@ -545,9 +625,15 @@ class Validator {
 		// First we'll check for developer specified, attribute specific messages.
 		// These messages take first priority. They allow the fine-grained tuning
 		// of error messages for each rule.
-		if (array_key_exists($attribute.'_'.$rule, $this->messages))
+		$custom = $attribute.'_'.$rule;
+
+		if (array_key_exists($custom, $this->messages))
 		{
-			return $this->messages[$attribute.'_'.$rule];
+			return $this->messages[$custom];
+		}
+		elseif (Lang::has($custom = "validation.custom.{$custom}", $this->language))
+		{
+			return Lang::line($custom)->get($this->language);
 		}
 
 		// Next we'll check for developer specified, rule specific error messages.
@@ -621,28 +707,138 @@ class Validator {
 	{
 		$message = str_replace(':attribute', $this->attribute($attribute), $message);
 
-		if (in_array($rule, $this->size_rules))
+		if (method_exists($this, $replacer = 'replace_'.$rule))
 		{
-			// Even though every size rule will not have a place-holder for min, max,
-			// and size, we will go ahead and make replacements for all of them just
-			// for convenience. Except for "between", every replacement should be
-			// the first parameter in the array.
-			$max = ($rule == 'between') ? $parameters[1] : $parameters[0];
-
-			$replace =  array($parameters[0], $parameters[0], $max);
-
-			$message = str_replace(array(':size', ':min', ':max'), $replace, $message);
-		}
-
-		// The :values place-holder is used for rules that accept a list of
-		// values, such as "in" and "not_in". The place-holder value will
-		// be replaced with a comma delimited list of the values.
-		elseif (in_array($rule, $this->inclusion_rules))
-		{
-			$message = str_replace(':values', implode(', ', $parameters), $message);
+			$message = $this->$replacer($message, $attribute, $rule, $parameters);
 		}
 
 		return $message;
+	}
+
+	/**
+	 * Replace all place-holders for the between rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_between($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(array(':min', ':max'), $parameters, $message);
+	}
+
+	/**
+	 * Replace all place-holders for the size rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_size($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':size', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the min rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_min($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':min', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the max rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_max($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':max', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_in($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the not_in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_not_in($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the not_in rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_mimes($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':values', implode(', ', $parameters), $message);
+	}
+
+	/**
+	 * Replace all place-holders for the same rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_same($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':other', $parameters[0], $message);
+	}
+
+	/**
+	 * Replace all place-holders for the different rule.
+	 *
+	 * @param  string  $message
+	 * @param  string  $attribute
+	 * @param  string  $rule
+	 * @param  array   $parameters
+	 * @return string
+	 */
+	protected function replace_different($message, $attribute, $rule, $parameters)
+	{
+		return str_replace(':other', $parameters[0], $message);
 	}
 
 	/**
@@ -657,12 +853,14 @@ class Validator {
 
 		// More reader friendly versions of the attribute names may be stored
 		// in the validation language file, allowing a more readable version
-		// of the attribute name to be used in the validation message.
+		// of the attribute name to be used in the message.
 		//
 		// If no language line has been specified for the attribute, all of
 		// the underscores will be removed from the attribute name and that
-		// will be used as the attribtue name in the message.
-		$display = Lang::line("{$bundle}validation.attributes.{$attribute}")->get($this->language);
+		// will be used as the attribtue name.
+		$line = "{$bundle}validation.attributes.{$attribute}";
+
+		$display = Lang::line($line)->get($this->language);
 
 		return (is_null($display)) ? str_replace('_', ' ', $attribute) : $display;
 	}
@@ -743,6 +941,18 @@ class Validator {
 	{
 		$this->db = $connection;
 		return $this;
+	}
+
+	/**
+	 * Get the database connection for the Validator.
+	 *
+	 * @return Database\Connection
+	 */
+	protected function db()
+	{
+		if ( ! is_null($this->db)) return $this->db;
+
+		return $this->db = Database::connection();
 	}
 
 	/**

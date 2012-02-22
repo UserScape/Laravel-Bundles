@@ -21,7 +21,7 @@ class View implements ArrayAccess {
 	 *
 	 * @var string
 	 */
-	protected $path;
+	public $path;
 
 	/**
 	 * All of the shared view data.
@@ -67,13 +67,17 @@ class View implements ArrayAccess {
 		//
 		// This makes error display in the view extremely convenient, since the
 		// developer can always assume they have a message container instance
-		// available to them in the view.
-		if (Config::get('session.driver') !== '' and Session::started() and ! isset($this['errors']))
+		// available to them in the view's variables.
+		if ( ! isset($this->data['errors']))
 		{
-			$this->data['errors'] = Session::get('errors', function()
+			if (Session::started() and Session::has('errors'))
 			{
-				return new Messages;
-			});
+				$this->data['errors'] = Session::get('errors');
+			}
+			else
+			{
+				$this->data['errors'] = new Messages;
+			}
 		}
 	}
 
@@ -179,7 +183,7 @@ class View implements ArrayAccess {
 	 * </code>
 	 *
 	 * @param  string   $view
-	 * @param  Closure  
+	 * @param  Closure  $composer
 	 * @return void
 	 */
 	public static function composer($view, $composer)
@@ -209,7 +213,7 @@ class View implements ArrayAccess {
 		//
 		// Also, if the Blade view has expired or doesn't exist it will be
 		// re-compiled and placed in the view storage directory. The Blade
-		// views are re-compiled each time the original view is changed.
+		// views are re-compiled the original view changes.
 		if (strpos($this->path, BLADE_EXT) !== false)
 		{
 			$this->path = $this->compile();
@@ -257,7 +261,7 @@ class View implements ArrayAccess {
 		// hash of their path. This allows us to easily store the views in
 		// the directory without worrying about re-creating the entire
 		// application view directory structure.
-		$compiled = STORAGE_PATH.'views/'.md5($this->path);
+		$compiled = path('storage').'views/'.md5($this->path);
 
 		// The view will only be re-compiled if the view has been modified
 		// since the last compiled version of the view was created or no
@@ -351,6 +355,30 @@ class View implements ArrayAccess {
 	public function offsetUnset($offset)
 	{
 		unset($this->data[$offset]);
+	}
+
+	/**
+	 * Magic Method for handling dynamic data access.
+	 */
+	public function __get($key)
+	{
+		return $this->data[$key];
+	}
+
+	/**
+	 * Magic Method for handling the dynamic setting of data.
+	 */
+	public function __set($key, $value)
+	{
+		$this->data[$key] = $value;
+	}
+
+	/**
+	 * Magic Method for checking dynamically-set data.
+	 */
+	public function __isset($key)
+	{
+		return isset($this->data[$key]);
 	}
 
 	/**

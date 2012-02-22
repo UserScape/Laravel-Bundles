@@ -1,3 +1,4 @@
 *.DS_Store
-storage/views/
-public/.sass-cache/
+utilities/
+application/config/staging/
+application/config/production/

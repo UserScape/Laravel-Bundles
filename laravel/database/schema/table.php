@@ -79,7 +79,7 @@ class Table {
 	 * @param  string        $name
 	 * @return Fluent
 	 */
-	public function unique($columns, $name = null)
+	public function unique($columns, $name)
 	{
 		return $this->key(__FUNCTION__, $columns, $name);
 	}
@@ -91,7 +91,7 @@ class Table {
 	 * @param  string        $name
 	 * @return Fluent
 	 */
-	public function fulltext($columns, $name = null)
+	public function fulltext($columns, $name)
 	{
 		return $this->key(__FUNCTION__, $columns, $name);
 	}
@@ -99,9 +99,11 @@ class Table {
 	/**
 	 * Create a new index on the table.
 	 *
-	 * @param  string|array
+	 * @param  string|array  $columns
+	 * @param  string        $name
+	 * @return Fluent
 	 */
-	public function index($columns, $name = null)
+	public function index($columns, $name)
 	{
 		return $this->key(__FUNCTION__, $columns, $name);
 	}
@@ -114,7 +116,7 @@ class Table {
 	 * @param  string        $name
 	 * @return Fluent
 	 */
-	public function key($type, $columns, $name = null)
+	public function key($type, $columns, $name)
 	{
 		$parameters = array('name' => $name, 'columns' => (array) $columns);
 
@@ -148,7 +150,7 @@ class Table {
 	 * @param  string  $name
 	 * @return void
 	 */
-	public function drop_primary($name)
+	public function drop_primary($name = null)
 	{
 		return $this->drop_key(__FUNCTION__, $name);
 	}
@@ -237,7 +239,6 @@ class Table {
 	 * Add a float column to the table.
 	 *
 	 * @param  string  $name
-	 * @param  bool    $increment
 	 * @return Fluent
 	 */
 	public function float($name)
@@ -254,6 +255,18 @@ class Table {
 	public function boolean($name)
 	{
 		return $this->column(__FUNCTION__, compact('name'));
+	}
+
+	/**
+	 * Create date-time columns for creation and update timestamps.
+	 *
+	 * @return void
+	 */
+	public function timestamps()
+	{
+		$this->date('created_at');
+
+		$this->date('updated_at');
 	}
 
 	/**
