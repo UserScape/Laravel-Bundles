@@ -38,51 +38,53 @@
 
 		{{View::make('partials.header')->render()}}
 
-		<div class="container main">
-			<div class="row">
-				<div class="sidebar span3 <?php echo (URI::segment(1) == 'bundle' and $bundle) ? 'bundle_detail' : ''; ?>">
-					<form method="get" action="{{URL::to('search')}}">
-						<input type="search" results="5" class="" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
-					</form>
-					<h3>Categories</h3>
-					<ul>
-					@foreach ($categories as $key => $category)
-						<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} <span>({{Nav::cat_count($category->id)}})</span></li>
-					@endforeach
-						<li class="">{{HTML::link('bundles', 'All Bundles')}} <span>({{Nav::cat_count()}})</span></li>
-					</ul>
+		<div class="mid-content">
+			<div class="container main">
+				<div class="row">
+					<div class="sidebar span3 <?php echo (URI::segment(1) == 'bundle' and $bundle) ? 'bundle_detail' : ''; ?>">
+						<form method="get" action="{{URL::to('search')}}">
+							<input type="search" results="5" autosave="laravelbundles" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
+						</form>
+						<h3>Categories</h3>
+						<ul>
+						@foreach ($categories as $key => $category)
+							<li class="{{Nav::cat('category/'.$category->uri)}}">{{HTML::link('category/'.$category->uri, $category->title)}} <span>({{Nav::cat_count($category->id)}})</span></li>
+						@endforeach
+							<li class="">{{HTML::link('bundles', 'All Bundles')}} <span>({{Nav::cat_count()}})</span></li>
+						</ul>
 
-					<div class="btns">
-						@if ( ! Auth::check())
-						<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
-						@endif
-						<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
-					</div>
-				</div>
-				<div class="content bundles span9">
-					@if (URI::segment(1) == 'bundle' and $bundle)
-						<div class="tabbable">
-							<div class="bundle-tabs">
-								<ul class="nav nav-tabs">
-									<li class="active"><a href="#readme" data-toggle="tab">Overview</a></li>
-									<li><a href="#installation" data-toggle="tab">Installation</a></li>
-									@if (count($bundle->dependencies) > 0)
-									<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
-									@endif
-									<li><a href="#stats" data-toggle="tab">Stats</a></li>
-									@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
-									<li><a href="{{URL::to('bundle/'.$bundle->uri.'/edit')}}">Edit</a></li>
-									@endif
-								</ul>
-							</div>
-					@endif
-					<div class="well">
-						{{View::make('partials.messages')->render()}}
-						{{$content}}
-					</div>
-					@if (URI::segment(1) == 'bundle' and $bundle)
+						<div class="btns">
+							@if ( ! Auth::check())
+							<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
+							@endif
+							<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 						</div>
-					@endif
+					</div>
+					<div class="content bundles span9">
+						@if (URI::segment(1) == 'bundle' and $bundle)
+							<div class="tabbable">
+								<div class="bundle-tabs">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#readme" data-toggle="tab">Overview</a></li>
+										<li><a href="#installation" data-toggle="tab">Installation</a></li>
+										@if (count($bundle->dependencies) > 0)
+										<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
+										@endif
+										<li><a href="#stats" data-toggle="tab">Stats</a></li>
+										@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
+										<li><a href="{{URL::to('bundle/'.$bundle->uri.'/edit')}}">Edit</a></li>
+										@endif
+									</ul>
+								</div>
+						@endif
+						<div class="well">
+							{{View::make('partials.messages')->render()}}
+							{{$content}}
+						</div>
+						@if (URI::segment(1) == 'bundle' and $bundle)
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
 		</div>

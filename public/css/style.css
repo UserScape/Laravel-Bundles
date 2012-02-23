@@ -122,6 +122,7 @@
 }
 #home h4 a {
   color: #fff;
+  padding: 0 1px;
 }
 #home .span6 div div {
   padding: 0;
@@ -461,6 +462,9 @@ table td.meta {
 }
 .sidebar .btns .btn {
   margin: 10px 0;
+}
+.sidebar li.active a {
+  color: #FB503B;
 }
 .btns {
   font-family: Helvetica, Arial, sans-serif;
