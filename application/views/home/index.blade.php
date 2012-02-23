@@ -43,7 +43,7 @@
 							<tr>
 								<td>
 									<h3><a href="{{URL::to('bundle/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
-									<h4>Posted by <a href="{{URL::to('user/'.$bundle->username)}}">{{$bundle->name}}</a> On {{date("d.m.Y", strtotime($bundle->created_at))}}</h4>
+									<h4>Posted by <a href="{{URL::to('user/'.$bundle->username)}}">{{$bundle->name}}</a> On {{date("m.d.Y", strtotime($bundle->created_at))}}</h4>
 									<div class="summary">{{$bundle->summary}}</div>
 								</td>
 							</tr>
@@ -61,7 +61,7 @@
 							<tr>
 								<td>
 									<h3><a href="{{URL::to('bundle/'.$bundle->uri)}}">{{$bundle->title}}</a></h3>
-									<h4>Posted by <a href="{{URL::to('user/'.$bundle->username)}}">{{$bundle->name}}</a> On {{date("d.m.Y", strtotime($bundle->created_at))}}</h4>
+									<h4>Posted by <a href="{{URL::to('user/'.$bundle->username)}}">{{$bundle->name}}</a> On {{date("m.d.Y", strtotime($bundle->created_at))}}</h4>
 									<div class="summary">{{$bundle->summary}}</div>
 								</td>
 							</tr>
