@@ -104,6 +104,14 @@
 				</div>
 
 				<div class="control-group">
+					<label class="control-label" for="install_text">Install Instructions</label>
+					<div class="controls">
+						<textarea class="input-xlarge" id="install_text" name="install_text" rows="8">{{Form::value('install_text', $bundle)}}</textarea>
+						<p class="help-block">Please enter any additional instructions outside of the artisan bundle install command.</p>
+					</div>
+				</div>
+
+				<div class="control-group">
 					<label class="control-label" for="title">{{__('form.website')}}</label>
 					<div class="controls">
 						{{Form::text('website', Form::value('website', $bundle), array('class' => 'span5'))}}

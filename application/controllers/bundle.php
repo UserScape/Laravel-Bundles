@@ -148,6 +148,7 @@ class Bundle_Controller extends Base_Controller {
 		$listing->active = Input::get('active', 'n');
 		$listing->path = strtolower(Input::get('path', $title));
 		$listing->user_id = Auth::user()->id;
+		$listing->install_text = Input::get('install_text');
 		$listing->uri = $uri;
 		$listing->save();
 
@@ -261,6 +262,7 @@ class Bundle_Controller extends Base_Controller {
 		$listing->category_id = Input::get('category_id', 1);
 		$listing->active = Input::get('active', 'n');
 		$listing->path = strtolower(Input::get('path', $title));
+		$listing->install_text = strip_tags(Input::get('install_text'));
 		$listing->uri = $uri;
 		$listing->save();
 

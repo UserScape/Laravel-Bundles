@@ -31,6 +31,9 @@
 			@endforeach
 		</ul>
 		@endif
+
+		{{Github_helper::markdown($bundle->install_text)}}
+
 	</div>
 	<div class="tab-pane" id="installation">
 		<h3>Installation</h3>
