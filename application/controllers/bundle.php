@@ -326,7 +326,7 @@ class Bundle_Controller extends Base_Controller {
 
 		// See if we can rate or have already rated
 		$rating_class = 'notactive';
-		if ($user = Auth::user()->id)
+		if (Auth::check() AND $user = Auth::user()->id)
 		{
 			if ( ! Rating::where_user_id($user)->where('listing_id', '=', $bundle->id)->get())
 			{

@@ -30,7 +30,7 @@ class User_Controller extends Base_Controller {
 
 		if ($user)
 		{
-			if (Auth::user()->id == $user->id OR Auth::user()->group_id == 1)
+			if (Auth::check() AND (Auth::user()->id == $user->id OR Auth::user()->group_id == 1))
 			{
 				$bundles = Listing::where_user_id($user->id)
 					->order_by('updated_at', 'desc')
