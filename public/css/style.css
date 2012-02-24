@@ -133,6 +133,10 @@
   background-image: none;
   padding: 0;
 }
+.midcontent .boxes {
+  margin-top: 50px;
+  padding-top: 40px;
+}
 .popular-box {
   background: url(../img/popular.png) no-repeat 5px top;
   padding-left: 65px;
