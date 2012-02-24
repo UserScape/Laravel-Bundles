@@ -34,7 +34,7 @@ class Home_Controller extends Base_Controller {
 			->order_by('listings.updated_at', 'desc')
 			->left_join('users', 'users.id', '=', 'listings.user_id')
 			->take(5)
-			->get();
+			->get(array('title', 'uri', 'listings.created_at', 'summary', 'class', 'username', 'name'));
 
 		$categories = Category::all();
 
@@ -55,7 +55,7 @@ class Home_Controller extends Base_Controller {
 				->where_in('listings.id', $ratings_in)
 				->left_join('users', 'users.id', '=', 'listings.user_id')
 				->take(5)
-				->get();
+				->get(array('title', 'uri', 'listings.created_at', 'summary', 'class', 'username', 'name'));
 		}
 
 		$featured = DB::table('listings')

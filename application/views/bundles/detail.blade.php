@@ -35,7 +35,7 @@
 	<div class="tab-pane" id="installation">
 		<h3>Installation</h3>
 		<p>You can install this bundle by running the following CLI command:</p>
-		<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->path}}</pre>
+		<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->uri}}</pre>
 
 		<p>Alternatively you can download it directly from GitHub:<br />
 		<a href="http://github.com/{{$bundle->location}}">http://github.com/{{$bundle->location}}</a></p>
