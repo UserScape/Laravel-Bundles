@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>{{(isset($title) ? $title.' - ' : '')}}Laravel Bundles</title>
-		<meta name="description" content="{{$description}}">
+		<meta name="description" content="{{(isset($description)) ? $description : 'Laravel Bundles'}}">
 		<meta name="keywords" content="php framework, framework, restful routing, restful, clean php">
 		<meta name="robots" content="index,follow">
 		<meta name="application-name" content="Laravel">

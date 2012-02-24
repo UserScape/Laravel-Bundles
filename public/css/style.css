@@ -168,8 +168,7 @@
 #bundle .content .bundle-tabs {
   *zoom: 1;
 }
-#bundle .content .bundle-tabs:before,
-#bundle .content .bundle-tabs:after {
+#bundle .content .bundle-tabs:before, #bundle .content .bundle-tabs:after {
   display: table;
   content: "";
 }
@@ -431,6 +430,9 @@ i.plus {
 }
 /* End */
 /* Tables */
+table tr.bundle_n {
+  opacity: 0.5;
+}
 table td.gravatar {
   width: 70px;
 }
@@ -519,8 +521,7 @@ table td.meta {
   font-size: 12px;
   line-height: 24px;
 }
-.ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active {
+.ui-autocomplete .ui-menu-item a.ui-state-hover, .ui-autocomplete .ui-menu-item a.ui-state-active {
   background-color: #ccc;
   color: #555;
   border-color: #c8cccc;
@@ -623,9 +624,7 @@ ul.tagit input[type="text"] {
   width: inherit !important;
   outline: none;
 }
-.form-search .tagit-hiddenSelect,
-.form-inline .tagit-hiddenSelect,
-.form-horizontal .tagit-hiddenSelect {
+.form-search .tagit-hiddenSelect, .form-inline .tagit-hiddenSelect, .form-horizontal .tagit-hiddenSelect {
   display: none;
 }
 .tagit-hiddenSelect {
