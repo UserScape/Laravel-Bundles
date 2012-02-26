@@ -72,6 +72,11 @@ class Github_helper {
 			}
 		}
 
+		if ( ! isset($all_repos) OR empty($all_repos))
+		{
+			return array('' => __('form.please_select'));
+		}
+
 		// format repos into a sorted select list
 		foreach ($all_repos as $key => $row)
 		{
