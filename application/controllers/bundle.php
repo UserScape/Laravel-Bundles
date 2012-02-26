@@ -178,6 +178,14 @@ class Bundle_Controller extends Base_Controller {
 			return Response::error('404');
 		}
 
+		if ($bundle->user_id != Auth::user()->id)
+		{
+			if (Auth::user()->group_id != 1)
+			{
+				return Response::error('404');
+			}
+		}
+
 		// Get the associated tags.
 		if (count($bundle->tags) > 0)
 		{
