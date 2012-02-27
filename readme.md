@@ -23,19 +23,16 @@ php artisan migrate
 * Modify application/config/github.php with your GitHub keys
 * Next load the site in your browser and login with GitHub. The first account creted is considered an admin.
 
-### Removing a bundle
-
-To remove an added bundle you will need to follow these steps:
-
-* Open .gitmodules and remove the section about the bundle.
-* Open .git/config and remove the bundles entry
-* Run `git rm --cached bundles/bundlefolder` to remove it from the cache.
-
-
 ## Support
 
 If you need support please use the GitHub issue tracker. If you want to fix a bug or make an improvement consider
 forking and submitting a pull request. The world is small, make your mark!
+
+### Contributing to Laravel
+
+Contributions are encouraged and welcome; however, please review the Developer Certificate of Origin in the "bundles.license.txt" file included in the repository. All commits must be signed off using the "-s" switch.
+
+	git commit -s -m "thie commit will be signed off automatically!"
 
 ## License
 
