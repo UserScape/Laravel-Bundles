@@ -56,6 +56,8 @@
 						<div class="btns">
 							@if ( ! Auth::check())
 							<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
+							@else
+							<a class="btn" href="{{URL::to('user/'.Auth::user()->username.'/logout')}}"><i class="lock"></i> Logout</a><br>
 							@endif
 							<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 						</div>
