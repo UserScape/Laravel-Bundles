@@ -15,7 +15,7 @@
 				<a class="sponsor" href="http://userscape.com">Sponsored by UserScape</a>
 			</div>
 			<ul class="social span3">
-				<li><a href="http://github.com/laravel"><i class="github"></i> GitHub</a></li>
+				<li><a href="https://github.com/UserScape/Laravel-Bundles"><i class="github"></i> Source Code</a></li>
 				<li><a href="http://twitter.com/laravelphp"><i class="twitter"></i> Twitter</a></li>
 			</ul>
 		</div>
