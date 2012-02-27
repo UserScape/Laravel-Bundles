@@ -450,6 +450,10 @@ table td.meta {
   height: 14px;
   display: block;
 }
+.help-block {
+  margin: 5px 0 0;
+  color: #999999;
+}
 .sidebar.bundle_detail {
   margin-top: 40px;
 }

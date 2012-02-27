@@ -70,9 +70,18 @@
 				{{Form::hidden('location', Form::value('location', $bundle), array('class' => 'span5', 'required' => 'required'))}}
 
 				<div class="control-group">
+					<label class="control-label" for="uri">Name</label>
+					<div class="controls">
+						{{Form::text('uri', Form::value('uri', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+						<p class="help-block">The keyword used to install and register your bundle.</p>
+					</div>
+				</div>
+
+				<div class="control-group">
 					<label class="control-label" for="title">{{__('form.title')}}</label>
 					<div class="controls">
 						{{Form::text('title', Form::value('title', $bundle), array('class' => 'span5', 'required' => 'required'))}}
+						<p class="help-block">The title displayed in the bundle list.</p>
 					</div>
 				</div>
 
