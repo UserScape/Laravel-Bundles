@@ -1,7 +1,7 @@
 @if (count($bundles->results) > 0)
 	<table class="table zebra-striped">
 		@foreach ($bundles->results as $bundle)
-			<tr class="{{$bundle->class}}">
+			<tr class="bundle_{{$bundle->active}} {{$bundle->class}}">
 				<td class="gravatar">
 					{{HTML::image(Gravatar::from_email($bundle->user->email, 60), $bundle->user->username, array('width' => 60, 'height' => '60', 'class' => 'gravatar'))}}
 				</td>

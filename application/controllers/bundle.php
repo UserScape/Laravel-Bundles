@@ -116,6 +116,7 @@ class Bundle_Controller extends Base_Controller {
 		$rules = array(
 			'location'     => 'required',
 			'title'        => 'required|max:200|unique:listings',
+			'uri'          => 'required|alpha_dash|max:200|unique:listings',
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',
@@ -134,11 +135,10 @@ class Bundle_Controller extends Base_Controller {
 			return Redirect::to('bundle/add')->with_errors($validator);
 		}
 
-		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		$uri = Input::get('uri');
 
 		$listing = new Listing;
-		$listing->title = $title;
+		$listing->title = Input::get('title');
 		$listing->summary = strip_tags(Input::get('summary'));
 		$listing->description = strip_tags(Input::get('description'));
 		$listing->website = Input::get('website');
@@ -176,6 +176,14 @@ class Bundle_Controller extends Base_Controller {
 		if ( ! $bundle = Listing::where_uri($id)->first())
 		{
 			return Response::error('404');
+		}
+
+		if ($bundle->user_id != Auth::user()->id)
+		{
+			if (Auth::user()->group_id != 1)
+			{
+				return Response::error('404');
+			}
 		}
 
 		// Get the associated tags.
@@ -231,6 +239,7 @@ class Bundle_Controller extends Base_Controller {
 		$rules = array(
 			'location'     => 'required',
 			'title'        => 'required|max:200|unique:listings,title,'.$listing->id,
+			'uri'          => 'required|alpha_dash|max:200|unique:listings,uri,'.$listing->id,
 			'summary'      => 'required',
 			'description'  => 'required',
 			'website'      => 'url',
@@ -250,7 +259,7 @@ class Bundle_Controller extends Base_Controller {
 		}
 
 		$title = Input::get('title');
-		$uri = Str::slug($title, '-');
+		$uri = Input::get('uri');
 
 		$listing->title = $title;
 		$listing->summary = strip_tags(Input::get('summary'));
@@ -326,7 +335,7 @@ class Bundle_Controller extends Base_Controller {
 
 		// See if we can rate or have already rated
 		$rating_class = 'notactive';
-		if ($user = Auth::user()->id)
+		if (Auth::check() AND $user = Auth::user()->id)
 		{
 			if ( ! Rating::where_user_id($user)->where('listing_id', '=', $bundle->id)->get())
 			{

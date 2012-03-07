@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>{{(isset($title) ? $title.' - ' : '')}}Laravel Bundles</title>
-		<meta name="description" content="{{$description}}">
+		<meta name="description" content="{{(isset($description)) ? $description : 'Laravel Bundles'}}">
 		<meta name="keywords" content="php framework, framework, restful routing, restful, clean php">
 		<meta name="robots" content="index,follow">
 		<meta name="application-name" content="Laravel">
@@ -56,6 +56,8 @@
 						<div class="btns">
 							@if ( ! Auth::check())
 							<a class="btn" href="{{URL::to('user/login')}}"><i class="lock"></i> Login with GitHub</a>
+							@else
+							<a class="btn" href="{{URL::to('user/'.Auth::user()->username.'/logout')}}"><i class="lock"></i> Logout</a><br>
 							@endif
 							<a class="btn" href="{{URL::to('bundle/add')}}"><i class="plus"></i> Submit a Bundle</a>
 						</div>
@@ -71,7 +73,7 @@
 										<li><a href="#bundle-dependencies" data-toggle="tab">Dependencies</a></li>
 										@endif
 										<li><a href="#stats" data-toggle="tab">Stats</a></li>
-										@if (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1)
+										@if (Auth::check() AND (Auth::user()->id == $bundle->user_id OR Auth::user()->group_id == 1))
 										<li><a href="{{URL::to('bundle/'.$bundle->uri.'/edit')}}">Edit</a></li>
 										@endif
 									</ul>

@@ -45,7 +45,7 @@ Route::get('api/(:any)', function($item)
 		$output = array(
 			'status' => 'ok',
 			'bundle' => array(
-				'name' => $bundle->title,
+				'name' => $bundle->uri,
 				'provider' => $bundle->provider,
 				'location' => $bundle->location,
 				'path' => $bundle->path,

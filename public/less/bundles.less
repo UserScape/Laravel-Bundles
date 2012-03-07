@@ -144,6 +144,14 @@
 		border: none;
 		color: #333;
 	}
+	.tab-content img {
+		padding: 6px;
+		background: #fff;
+		display: block;
+		line-height: 1;
+		border: 1px solid #ccc;
+		.box-shadow(0 1px 1px rgba(0,0,0,.075));
+	}
 }
 
 #bundle #readme {
@@ -236,6 +244,9 @@ i {
 
 /* Tables */
 table {
+	tr.bundle_n {
+		opacity: 0.5;
+	}
 	td.gravatar {
 		width: 70px;
 	}
@@ -254,4 +265,9 @@ table {
 	width: 14px;
 	height: 14px;
 	display: block;
+}
+
+.help-block {
+	margin: 5px 0 0;
+	color: @grayLight;
 }

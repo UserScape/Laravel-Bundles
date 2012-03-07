@@ -4,9 +4,12 @@
 		{{HTML::image(Gravatar::from_email($bundle->user->email, 54), $bundle->user->username, array('width' => 54, 'height' => '54', 'class' => 'gravatar'))}}
 		<ul class="unstyled">
 			<li><strong>Author:</strong> {{HTML::link('user/'.$bundle->user->username, $bundle->user->name)}}</li>
-			<li><strong>Added On:</strong> {{date("d.m.Y", strtotime($bundle->created_at))}}</li>
+			<li><strong>Added On:</strong> {{date("m.d.Y", strtotime($bundle->created_at))}}</li>
 			@if ($bundle->website)
 			<li><a href="{{$bundle->website}}">Bundle Website</a></li>
+			@endif
+			@if ($bundle->website != 'https://github.com/'.$bundle->location.'/')
+			<li><a href="https://github.com/{{$bundle->location}}">GitHub</a></li>
 			@endif
 		</ul>
 	</fieldset>
@@ -33,8 +36,11 @@
 		<h3>Installation</h3>
 		<p>You can install this bundle by running the following CLI command:</p>
 		<pre class="prettyprint bsh">php artisan bundle:install {{$bundle->uri}}</pre>
+
 		<p>Alternatively you can download it directly from GitHub:<br />
 		<a href="http://github.com/{{$bundle->location}}">http://github.com/{{$bundle->location}}</a></p>
+
+
 	</div>
 	@if (count($bundle->dependencies) > 0)
 	<div class="tab-pane" id="bundle-dependencies">
