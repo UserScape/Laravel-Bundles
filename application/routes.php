@@ -39,7 +39,7 @@ Route::get('api/(:any)', function($item)
 		$dependencies = array();
 		foreach ($bundle->dependencies AS $dependency)
 		{
-			$dependencies[] = $dependency->dependency_id;
+			$dependencies[] = $dependency->id;
 		}
 
 		$output = array(
