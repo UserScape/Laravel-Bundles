@@ -24,6 +24,7 @@
 						<link>{{URL::to('bundle/detail/'.$bundle->uri)}}</link>
 						<guid>{{URL::to('bundle/detail/'.$bundle->uri)}}</guid>
 						<description>{{$bundle->summary}}</description>
+						<description><?php echo '<![CDATA['; ?>{{$bundle->summary}}]]></description>
 						<dc:date>{{gmdate("Y-m-d\TH:i:s\Z", strtotime($bundle->created_at))}}</dc:date>
 					</item>
 				@endforeach
