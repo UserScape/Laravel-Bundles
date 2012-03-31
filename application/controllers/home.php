@@ -41,22 +41,7 @@ class Home_Controller extends Base_Controller {
 		$popular = null;
 
 		// Get the most popular
-		if ($ratings = DB::query('SELECT listing_id, COUNT(*) as total FROM rating GROUP BY listing_id ORDER BY total desc'))
-		{
-			$ratings_in = array();
-			foreach ($ratings as $item)
-			{
-				$ratings_in[] = $item->listing_id;
-			}
-
-			// Now get the listing info
-			$popular = DB::table('listings')
-				->where_active('y')
-				->where_in('listings.id', $ratings_in)
-				->left_join('users', 'users.id', '=', 'listings.user_id')
-				->take(5)
-				->get(array('title', 'uri', 'listings.created_at', 'summary', 'class', 'username', 'name'));
-		}
+		$popular = DB::query('SELECT listings.*, users.username, users.name, rating.listing_id, COUNT(*) as total FROM rating LEFT JOIN listings ON listings.id = rating.listing_id INNER JOIN users ON listings.user_id = users.id GROUP BY listing_id ORDER BY total desc LIMIT 5');
 
 		$featured = DB::table('listings')
 			->where_active('y')
