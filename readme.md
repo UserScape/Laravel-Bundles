@@ -17,7 +17,7 @@ Installation is fairly easy however it is not automated. To install this please 
 php artisan migrate:install
 php artisan migrate
 ```
-* Visit [GitHub](https://github.com/account/applications/new) and register your application. The urls you will need are:
+* Visit [GitHub](https://github.com/settings/applications/new) and register your application. The urls you will need are:
 	* URL: http://yoursite.com
 	* Callback: http://yoursite.com/user/login/github
 * Modify application/config/github.php with your GitHub keys
