@@ -30,6 +30,27 @@ class URL {
 	}
 
 	/**
+	 * Get the URL for the application root.
+	 *
+	 * @param  bool    $https
+	 * @return string
+	 */
+	public static function home($https = false)
+	{
+		$route = Router::find('home');
+
+		// If a route named "home" exists, we'll route to that instead of using
+		// the single slash root URI. THis allows the HTTPS attribute to be
+		// respected instead of being hard-coded in the redirect.
+		if ( ! is_null($route))
+		{
+			return static::to_route('home');
+		}
+
+		return static::to('/', $https);
+	}
+
+	/**
 	 * Get the base URL of the application.
 	 *
 	 * @return string
@@ -40,28 +61,16 @@ class URL {
 
 		$base = 'http://localhost';
 
-		// If the application URL configuration is set, we will just use that
+		// If the application's URL configuration is set, we will just use that
 		// instead of trying to guess the URL from the $_SERVER array's host
-		// and script variables as this is more reliable.
+		// and script variables as this is a more reliable method.
 		if (($url = Config::get('application.url')) !== '')
 		{
 			$base = $url;
 		}
-		elseif (isset($_SERVER['HTTP_HOST']))
+		else
 		{
-			$protocol = (Request::secure()) ? 'https://' : 'http://';
-
-			// Basically, by removing the basename, we are removing everything after the
-			// and including the front controller from the request URI. Leaving us with
-			// the path in which the framework is installed.
-			$script = $_SERVER['SCRIPT_NAME'];
-
-			$path = str_replace(basename($script), '', $script);
-
-			// Now that we have the base URL, all we need to do is attach the protocol
-			// and the HTTP_HOST to build the full URL for the application. We also
-			// trim off trailing slashes to clean the URL.
-			$base = rtrim($protocol.$_SERVER['HTTP_HOST'].$path, '/');
+			$base = Request::foundation()->getRootUrl();
 		}
 
 		return static::$base = $base;
@@ -84,7 +93,13 @@ class URL {
 	 */
 	public static function to($url = '', $https = false)
 	{
-		if (filter_var($url, FILTER_VALIDATE_URL) !== false) return $url;
+		// If the given URL is already valid or begins with a hash, we'll just return
+		// the URL unchanged since it is already well formed. Otherwise we will add
+		// the base URL of the application and return the full URL.
+		if (static::valid($url) or starts_with($url, '#'))
+		{
+			return $url;
+		}
 
 		$root = static::base().'/'.Config::get('application.index');
 
@@ -94,6 +109,10 @@ class URL {
 		if ($https and Config::get('application.ssl'))
 		{
 			$root = preg_replace('~http://~', 'https://', $root, 1);
+		}
+		else
+		{
+			$root = preg_replace('~https://~', 'http://', $root, 1);
 		}
 
 		return rtrim($root, '/').'/'.ltrim($url, '/');
@@ -138,7 +157,7 @@ class URL {
 		}
 		// If no route was found that handled the given action, we'll just
 		// generate the URL using the typical controller routing setup
-		// for URIs and turn SSL to false.
+		// for URIs and turn SSL to false by default.
 		else
 		{
 			return static::convention($action, $parameters);
@@ -175,7 +194,7 @@ class URL {
 
 		// If a bundle exists for the action, we will attempt to use it's "handles"
 		// clause as the root of the generated URL, as the bundle can only handle
-		// URIs that begin with that string.
+		// URIs that begin with that string and no others.
 		$root = $bundle['handles'] ?: '';
 
 		$https = false;
@@ -184,7 +203,7 @@ class URL {
 
 		// We'll replace both dots and @ signs in the URI since both are used
 		// to specify the controller and action, and by convention should be
-		// translated into URI slashes.
+		// translated into URI slashes for the URL.
 		$uri = $root.'/'.str_replace(array('.', '@'), '/', $action);
 
 		$uri = static::to(str_finish($uri, '/').$parameters);
@@ -271,10 +290,21 @@ class URL {
 
 		// If there are any remaining optional place-holders, we'll just replace
 		// them with empty strings since not every optional parameter has to be
-		// in the array of parameters that were passed.
-		$uri = str_replace(array_keys(Router::$optional), '', $uri);
+		// in the array of parameters that were passed to us.
+		$uri = preg_replace('/\(.+?\)/', '', $uri);
 
 		return trim($uri, '/');
+	}
+
+	/**
+	 * Determine if the given URL is valid.
+	 *
+	 * @param  string  $url
+	 * @return bool
+	 */
+	public static function valid($url)
+	{
+		return filter_var($url, FILTER_VALIDATE_URL) !== false;
 	}
 
 }

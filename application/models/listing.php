@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Listing extends Eloquent\Model {
+class Listing extends Eloquent {
 
 	/**
 	 * Manually set the table

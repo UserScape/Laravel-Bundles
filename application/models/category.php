@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Category extends Eloquent\Model {
+class Category extends Eloquent {
 
 	/**
 	 * Manually assign the table.

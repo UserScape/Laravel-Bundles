@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class User extends Eloquent\Model {
+class User extends Eloquent {
 
 	public static $table = 'users';
 

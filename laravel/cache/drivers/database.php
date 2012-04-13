@@ -75,7 +75,7 @@ class Database extends Driver {
 		$expiration = $this->expiration($minutes);
 
 		// To update the value, we'll first attempt an insert against the
-		// database and if we catch an exception, we'll assume that the
+		// database and if we catch an exception we'll assume that the
 		// primary key already exists in the table and update.
 		try
 		{
@@ -85,6 +85,18 @@ class Database extends Driver {
 		{
 			$this->table()->where('key', '=', $key)->update(compact('value', 'expiration'));
 		}
+	}
+
+	/**
+	 * Write an item to the cache for five years.
+	 *
+	 * @param  string  $key
+	 * @param  mixed   $value
+	 * @return void
+	 */
+	public function forever($key, $value)
+	{
+		return $this->put($key, $value, 2628000);
 	}
 
 	/**

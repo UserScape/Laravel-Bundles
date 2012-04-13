@@ -34,7 +34,6 @@
 */
 
 return array(
-	'eloquent',
 	'laravel-oauth2',
 	'markdown-extra-extended'
 );

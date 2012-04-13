@@ -3,6 +3,13 @@
 class Str {
 
 	/**
+	 * The pluralizer instance.
+	 *
+	 * @var Pluralizer
+	 */
+	public static $pluralizer;
+
+	/**
 	 * Get the default string encoding for the application.
 	 *
 	 * This method is simply a short-cut to Config::get('application.encoding').
@@ -124,49 +131,6 @@ class Str {
 	}
 
 	/**
-	 * Get the singular form of the given word.
-	 *
-	 * The word should be defined in the "strings" configuration file.
-	 *
-	 * @param  string  $value
-	 * @return string
-	 */
-	public static function singular($value)
-	{
-		$inflection = Config::get('strings.inflection');
-
-		$singular = array_get(array_flip($inflection), strtolower($value), $value);
-
-		return (ctype_upper($value[0])) ? static::title($singular) : $singular;
-	}
-
-	/**
-	 * Get the plural form of the given word.
-	 *
-	 * The word should be defined in the "strings" configuration file.
-	 *
-	 * <code>
-	 *		// Returns the plural form of "child"
-	 *		$plural = Str::plural('child', 10);
-	 *
-	 *		// Returns the singular form of "octocat" since count is one
-	 *		$plural = Str::plural('octocat', 1);
-	 * </code>
-	 *
-	 * @param  string  $value
-	 * @param  int     $count
-	 * @return string
-	 */
-	public static function plural($value, $count = 2)
-	{
-		if ((int) $count == 1) return $value;
-
-		$plural = array_get(Config::get('strings.inflection'), strtolower($value), $value);
-
-		return (ctype_upper($value[0])) ? static::title($plural) : $plural;
-	}
-
-	/**
 	 * Limit the number of words in a string.
 	 *
 	 * <code>
@@ -192,6 +156,49 @@ class Str {
 		}
 
 		return rtrim($matches[0]).$end;
+	}
+
+	/**
+	 * Get the singular form of the given word.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public static function singular($value)
+	{
+		return static::pluralizer()->singular($value);
+	}
+
+	/**
+	 * Get the plural form of the given word.
+	 *
+	 * <code>
+	 *		// Returns the plural form of "child"
+	 *		$plural = Str::plural('child', 10);
+	 *
+	 *		// Returns the singular form of "octocat" since count is one
+	 *		$plural = Str::plural('octocat', 1);
+	 * </code>
+	 *
+	 * @param  string  $value
+	 * @param  int     $count
+	 * @return string
+	 */
+	public static function plural($value, $count = 2)
+	{
+		return static::pluralizer()->plural($value, $count);
+	}
+
+	/**
+	 * Get the pluralizer instance.
+	 *
+	 * @return Pluralizer
+	 */
+	protected static function pluralizer()
+	{
+		$config = Config::get('strings');
+
+		return static::$pluralizer ?: static::$pluralizer = new Pluralizer($config);
 	}
 
 	/**
@@ -291,6 +298,30 @@ class Str {
 	public static function random($length, $type = 'alnum')
 	{
 		return substr(str_shuffle(str_repeat(static::pool($type), 5)), 0, $length);
+	}
+
+	/**
+	 * Determine if a given string matches a given pattern.
+	 *
+	 * @param  string  $pattern
+	 * @param  string  $value
+	 * @return bool
+	 */
+	public static function is($pattern, $value)
+	{
+		// Asterisks are translated into zero-or-more regular expression wildcards
+		// to make it convenient to check if the URI starts with a given pattern
+		// such as "library/*". This is only done when not root.
+		if ($pattern !== '/')
+		{
+			$pattern = str_replace('*', '(.*)', $pattern).'\z';
+		}
+		else
+		{
+			$pattern = '^/$';
+		}
+
+		return preg_match('#'.$pattern.'#', $value);
 	}
 
 	/**

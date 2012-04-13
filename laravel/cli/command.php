@@ -28,9 +28,11 @@ class Command {
 
 		// If the task exists within a bundle, we will start the bundle so that any
 		// dependencies can be registered in the application IoC container. If the
-		// task is registered in the container, it will be resolved via the
-		// container instead of by this class.
-		if (Bundle::exists($bundle)) Bundle::start($bundle);
+		// task is registered in the container,  we'll resolve it.
+		if (Bundle::exists($bundle))
+		{
+			Bundle::start($bundle);
+		}
 
 		$task = static::resolve($bundle, $task);
 
@@ -42,7 +44,7 @@ class Command {
 			throw new \Exception("Sorry, I can't find that task.");
 		}
 
-		if(is_callable(array($task, $method)))
+		if (is_callable(array($task, $method)))
 		{
 			$task->$method(array_slice($arguments, 1));
 		}
@@ -112,7 +114,7 @@ class Command {
 
 		// First we'll check to see if the task has been registered in the
 		// application IoC container. This allows all dependencies to be
-		// injected into tasks for more testability.
+		// injected into tasks for more flexible testability.
 		if (IoC::registered("task: {$identifier}"))
 		{
 			return IoC::resolve("task: {$identifier}");

@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Page extends Eloquent\Model {
+class Page extends Eloquent {
 
 	/**
 	 * Manually set the table

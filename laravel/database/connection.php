@@ -1,4 +1,4 @@
-<?php namespace Laravel\Database; use PDO, PDOStatement, Laravel\Event;
+<?php namespace Laravel\Database; use PDO, PDOStatement, Laravel\Config, Laravel\Event;
 
 class Connection {
 
@@ -85,6 +85,33 @@ class Connection {
 	}
 
 	/**
+	 * Execute a callback wrapped in a database transaction.
+	 *
+	 * @param  Closure  $callback
+	 * @return void
+	 */
+	public function transaction($callback)
+	{
+		$this->pdo->beginTransaction();
+
+		// After beginning the database transaction, we will call the Closure
+		// so that it can do its database work. If an exception occurs we'll
+		// rollback the transaction and re-throw back to the developer.
+		try
+		{
+			call_user_func($callback);
+		}
+		catch (\Exception $e)
+		{
+			$this->pdo->rollBack();
+
+			throw $e;
+		}
+
+		$this->pdo->commit();
+	}
+
+	/**
 	 * Execute a SQL query against the connection and return a single column result.
 	 *
 	 * <code>
@@ -140,49 +167,21 @@ class Connection {
 	{
 		list($statement, $result) = $this->execute($sql, $bindings);
 
-		return $statement->fetchAll(PDO::FETCH_CLASS, 'stdClass');
-	}
-
-	/**
-	 * Execute a SQL UPDATE query and return the affected row count.
-	 *
-	 * @param  string  $sql
-	 * @param  array   $bindings
-	 * @return int
-	 */
-	public function update($sql, $bindings = array())
-	{
-		list($statement, $result) = $this->execute($sql, $bindings);
-
-		return $statement->rowCount();
-	}
-
-	/**
-	 * Execute a SQL DELETE query and return the affected row count.
-	 *
-	 * @param  string  $sql
-	 * @param  array   $bindings
-	 * @return int
-	 */
-	public function delete($sql, $bindings = array())
-	{
-		list($statement, $result) = $this->execute($sql, $bindings);
-
-		return $statement->rowCount();
-	}
-
-	/**
-	 * Execute an SQL query and return the boolean result of the PDO statement.
-	 *
-	 * @param  string  $sql
-	 * @param  array   $bindings
-	 * @return bool
-	 */
-	public function statement($sql, $bindings = array())
-	{
-		list($statement, $result) = $this->execute($sql, $bindings);
-
-		return $result;
+		// The result we return depends on the type of query executed against the
+		// database. On SELECT clauses, we will return the result set, for update
+		// and deletes we will return the affected row count.
+		if (stripos($sql, 'select') === 0)
+		{
+			return $this->fetch($statement, Config::get('database.fetch'));
+		}
+		elseif (stripos($sql, 'update') === 0 or stripos($sql, 'delete') === 0)
+		{
+			return $statement->rowCount();
+		}
+		else
+		{
+			return $result;
+		}
 	}
 
 	/**
@@ -200,31 +199,81 @@ class Connection {
 
 		// Since expressions are injected into the query as strings, we need to
 		// remove them from the array of bindings. After we have removed them,
-		// we'll reset the array so there aren't gaps in the keys.
-		$bindings = array_values(array_filter($bindings, function($binding)
+		// we'll reset the array so there are not gaps within the keys.
+		$bindings = array_filter($bindings, function($binding)
 		{
 			return ! $binding instanceof Expression;
-		}));
+		});
+
+		$bindings = array_values($bindings);
 
 		$sql = $this->grammar()->shortcut($sql, $bindings);
 
-		$statement = $this->pdo->prepare($sql);
+		// Next we need to translate all DateTime bindings to their date-time
+		// strings that are compatible with the database. Each grammar may
+		// define it's own date-time format according to its needs.
+		$datetime = $this->grammar()->datetime;
 
-		// Every query is timed so that we can log the executinon time along
-		// with the query SQL and array of bindings. This should be make it
-		// convenient for the developer to profile performance.
-		$time = microtime(true);
+		for ($i = 0; $i < count($bindings); $i++)
+		{
+			if ($bindings[$i] instanceof \DateTime)
+			{
+				$bindings[$i] = $bindings[$i]->format($datetime);
+			}
+		}
 
-		$result = $statement->execute($bindings);
+		// Each database operation is wrapped in a try / catch so we can wrap
+		// any database exceptions in our custom exception class, which will
+		// set the message to include the SQL and query bindings.
+		try
+		{
+			$statement = $this->pdo->prepare($sql);
 
-		$time = number_format((microtime(true) - $time) * 1000, 2);
+			$start = microtime(true);
+
+			$result = $statement->execute($bindings);
+		}
+		// If an exception occurs, we'll pass it into our custom exception
+		// and set the message to include the SQL and query bindings so
+		// debugging is much easier on the developer.
+		catch (\Exception $exception)
+		{
+			$exception = new Exception($sql, $bindings, $exception);
+
+			throw $exception;
+		}
 
 		// Once we have execute the query, we log the SQL, bindings, and
 		// execution time in a static array that is accessed by all of
-		// the connections used by the application.
-		$this->log($sql, $bindings, $time);
+		// the connections actively being used by the application.
+		if (Config::get('database.profile'))
+		{
+			$this->log($sql, $bindings, $start);
+		}
 
 		return array($statement, $result);
+	}
+
+	/**
+	 * Fetch all of the rows for a given statement.
+	 *
+	 * @param  PDOStatement  $statement
+	 * @param  int           $style
+	 * @return array
+	 */
+	protected function fetch($statement, $style)
+	{
+		// If the fetch style is "class", we'll hydrate an array of PHP
+		// stdClass objects as generic containers for the query rows,
+		// otherwise we'll just use the fetch styel value.
+		if ($style === PDO::FETCH_CLASS)
+		{
+			return $statement->fetchAll(PDO::FETCH_CLASS, 'stdClass');
+		}
+		else
+		{
+			return $statement->fetchAll($style);
+		}
 	}
 
 	/**
@@ -232,14 +281,16 @@ class Connection {
 	 *
 	 * @param  string  $sql
 	 * @param  array   $bindings
-	 * @param  int     $time
+	 * @param  int     $start
 	 * @return void
 	 */
-	protected function log($sql, $bindings, $time)
+	protected function log($sql, $bindings, $start)
 	{
-		Event::fire('laravel: query', array($sql, $bindings, $time));
+		$time = number_format((microtime(true) - $start) * 1000, 2);
 
-		static::$queries = compact('sql', 'bindings', 'time');
+		Event::fire('laravel.query', array($sql, $bindings, $time));
+
+		static::$queries[] = compact('sql', 'bindings', 'time');
 	}
 
 	/**

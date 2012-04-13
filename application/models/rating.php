@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Rating extends Eloquent\Model {
+class Rating extends Eloquent {
 
 	public static $table = 'rating';
 

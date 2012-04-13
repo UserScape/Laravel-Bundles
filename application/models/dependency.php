@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Dependency extends Eloquent\Model {
+class Dependency extends Eloquent {
 
 	/**
 	 * Manually set the table name.

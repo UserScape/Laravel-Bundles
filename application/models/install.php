@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Install extends Eloquent\Model {
+class Install extends Eloquent {
 
 	/**
 	 * Manually set the table

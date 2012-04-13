@@ -89,7 +89,7 @@ class Schema {
 				// needs multiple queries to complete.
 				foreach ((array) $statements as $statement)
 				{
-					$connection->statement($statement);
+					$connection->query($statement);
 				}
 			}
 		}
@@ -120,9 +120,16 @@ class Schema {
 		{
 			foreach (array('primary', 'unique', 'fulltext', 'index') as $key)
 			{
-				if (isset($column->attributes[$key]))
+				if (isset($column->$key))
 				{
-					$table->$key($column->name, $column->$key);
+					if ($column->$key === true)
+					{
+						$table->$key($column->name);
+					}
+					else
+					{
+						$table->$key($column->name, $column->$key);
+					}
 				}
 			}
 		}

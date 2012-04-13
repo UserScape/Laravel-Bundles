@@ -150,13 +150,14 @@ class Query {
 	{
 		// If the "column" is really an instance of a Closure, the developer is
 		// trying to create a join with a complex "ON" clause. So, we will add
-		// the join, and then call the Closure with the join.
+		// the join, and then call the Closure with the join/
 		if ($column1 instanceof Closure)
 		{
 			$this->joins[] = new Query\Join($type, $table);
 
 			call_user_func($column1, end($this->joins));
 		}
+
 		// If the column is just a string, we can assume that the join just
 		// has a simple on clause, and we'll create the join instance and
 		// add the clause automatically for the develoepr.
@@ -181,7 +182,7 @@ class Query {
 	 * @param  string  $column2
 	 * @return Query
 	 */
-	public function left_join($table, $column1, $operator, $column2)
+	public function left_join($table, $column1, $operator = null, $column2 = null)
 	{
 		return $this->join($table, $column1, $operator, $column2, 'LEFT');
 	}
@@ -236,7 +237,7 @@ class Query {
 	 */
 	public function where($column, $operator = null, $value = null, $connector = 'AND')
 	{
-		// If a CLosure is passed into the method, it means a nested where
+		// If a Closure is passed into the method, it means a nested where
 		// clause is being initiated, so we will take a different course
 		// of action than when the statement is just a simple where.
 		if ($column instanceof Closure)
@@ -392,20 +393,20 @@ class Query {
 	 * @param  string   $connector
 	 * @return Query
 	 */
-	protected function where_nested($callback, $connector)
+	public function where_nested($callback, $connector = 'AND')
 	{
 		$type = 'where_nested';
 
-		// To handle a nested where statement, we will actually instantiate a
-		// new Query instance and run the callback over that instance, which
-		// will allow the developer to have a fresh query.
+		// To handle a nested where statement, we will actually instantiate a new
+		// Query instance and run the callback over that instance, which will
+		// allow the developer to have a fresh query instance
 		$query = new Query($this->connection, $this->grammar, $this->from);
 
 		call_user_func($callback, $query);
 
-		// Once the callback has been run on the query, we will store the
-		// nested query instance on the where clause array so that it's
-		// passed to the query's query grammar instance.
+		// Once the callback has been run on the query, we will store the nested
+		// query instance on the where clause array so that it's passed to the
+		// query's query grammar instance when building.
 		$this->wheres[] = compact('type', 'query', 'connector');
 
 		$this->bindings = array_merge($this->bindings, $query->bindings);
@@ -428,32 +429,31 @@ class Query {
 
 		$segments = preg_split('/(_and_|_or_)/i', $finder, -1, $flags);
 
-		// The connector variable will determine which connector will be
-		// used for the condition. We'll change it as we come across new
+		// The connector variable will determine which connector will be used
+		// for the condition. We'll change it as we come across new boolean
 		// connectors in the dynamic method string.
 		//
-		// The index variable helps us get the correct parameter value
-		// for the where condition. We increment it each time we add
-		// a condition to the query.
+		// The index variable helps us get the correct parameter value for
+		// the where condition. We increment it each time we add another
+		// condition to the query's where clause.
 		$connector = 'AND';
 
 		$index = 0;
 
 		foreach ($segments as $segment)
 		{
-			// If the segment is not a boolean connector, we can assume it
-			// it is a column name, and we'll add it to the query as a new
-			// where clause.
-			//
-			// Otherwise, we'll store the connector so that we know how to
-			// connection the next where clause we find to the query, as
-			// all connectors should precede a new where clause.
+			// If the segment is not a boolean connector, we can assume it it is
+			// a column name, and we'll add it to the query as a new constraint
+			// of the query's where clause and keep iterating the segments.
 			if ($segment != '_and_' and $segment != '_or_')
 			{
 				$this->where($segment, '=', $parameters[$index], $connector);
 
 				$index++;
 			}
+			// Otherwise, we will store the connector so we know how the next
+			// where clause we find in the query should be connected to the
+			// previous one and will add it when we find the next one.
 			else
 			{
 				$connector = trim(strtoupper($segment), '_');
@@ -648,15 +648,18 @@ class Query {
 	 */
 	public function aggregate($aggregator, $columns)
 	{
+		// We'll set the aggregate value so the grammar does not try to compile
+		// a SELECT clause on the query. If an aggregator is present, it's own
+		// grammar function will be used to build the SQL syntax.
 		$this->aggregate = compact('aggregator', 'columns');
 
 		$sql = $this->grammar->select($this);
 
 		$result = $this->connection->only($sql, $this->bindings);
 
-		// Reset the aggregate so more queries can be performed using
-		// the same instance. This is helpful for getting aggregates
-		// and then getting actual results from the query.
+		// Reset the aggregate so more queries can be performed using the same
+		// instance. This is helpful for getting aggregates and then getting
+		// actual results from the query such as during paging.
 		$this->aggregate = null;
 
 		return $result;
@@ -673,8 +676,7 @@ class Query {
 	{
 		// Because some database engines may throw errors if we leave orderings
 		// on the query when retrieving the total number of records, we'll drop
-		// all of the ordreings and put them back on the query after we have
-		// retrieved the count from the table.
+		// all of the ordreings and put them back on the query.
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
 		$total = $this->count(reset($columns));
@@ -685,8 +687,7 @@ class Query {
 
 		// Now we're ready to get the actual pagination results from the table
 		// using the for_page and get methods. The "for_page" method provides
-		// a convenient way to set the limit and offset so we get the correct
-		// span of results from the table.
+		// a convenient way to set the paging limit and offset.
 		$results = $this->for_page($page, $per_page)->get($columns);
 
 		return Paginator::make($results, $total, $per_page);
@@ -717,7 +718,7 @@ class Query {
 
 		$sql = $this->grammar->insert($this, $values);
 
-		return $this->connection->statement($sql, $bindings);
+		return $this->connection->query($sql, $bindings);
 	}
 
 	/**
@@ -731,7 +732,7 @@ class Query {
 	{
 		$sql = $this->grammar->insert($this, $values);
 
-		$this->connection->statement($sql, array_values($values));
+		$this->connection->query($sql, array_values($values));
 
 		// Some database systems (Postgres) require a sequence name to be
 		// given when retrieving the auto-incrementing ID, so we'll pass
@@ -773,10 +774,12 @@ class Query {
 	 */
 	protected function adjust($column, $amount, $operator)
 	{
-		// To make the adjustment to the column, we'll wrap the expression
-		// in an Expression instance, which forces the adjustment to be
-		// injected into the query as a string instead of bound.
-		$value = Database::raw($this->grammar->wrap($column).$operator.$amount);
+		$wrapped = $this->grammar->wrap($column);
+
+		// To make the adjustment to the column, we'll wrap the expression in an
+		// Expression instance, which forces the adjustment to be injected into
+		// the query as a string instead of bound.
+		$value = Database::raw($wrapped.$operator.$amount);
 
 		return $this->update(array($column => $value));
 	}
@@ -789,15 +792,14 @@ class Query {
 	 */
 	public function update($values)
 	{
-		// For update statements, we need to merge the bindings such that
-		// the update values occur before the where bindings in the array
-		// since the set statements will precede any of the where clauses
-		// in the SQL syntax that is generated.
+		// For update statements, we need to merge the bindings such that the update
+		// values occur before the where bindings in the array since the sets will
+		// precede any of the where clauses in the SQL syntax that is generated.
 		$bindings =  array_merge(array_values($values), $this->bindings);
 
 		$sql = $this->grammar->update($this, $values);
 
-		return $this->connection->update($sql, $bindings);
+		return $this->connection->query($sql, $bindings);
 	}
 
 	/**
@@ -810,9 +812,9 @@ class Query {
 	 */
 	public function delete($id = null)
 	{
-		// If an ID is given to the method, we'll set the where clause
-		// to match on the value of the ID. This allows the developer
-		// to quickly delete a row by its primary key value.
+		// If an ID is given to the method, we'll set the where clause to
+		// match on the value of the ID. This allows the developer to
+		// quickly delete a row by its primary key value.
 		if ( ! is_null($id))
 		{
 			$this->where('id', '=', $id);
@@ -820,7 +822,7 @@ class Query {
 
 		$sql = $this->grammar->delete($this);
 
-		return $this->connection->delete($sql, $this->bindings);		
+		return $this->connection->query($sql, $this->bindings);		
 	}
 
 	/**
@@ -835,6 +837,9 @@ class Query {
 			return $this->dynamic_where($method, $parameters, $this);
 		}
 
+		// All of the aggregate methods are handled by a single method, so we'll
+		// catch them all here and then pass them off to the agregate method
+		// instead of creating methods for each one of them.
 		if (in_array($method, array('count', 'min', 'max', 'avg', 'sum')))
 		{
 			if (count($parameters) == 0) $parameters[0] = '*';

@@ -21,6 +21,13 @@ class Config {
 	public static $cache = array();
 
 	/**
+	 * The configuration loader event name.
+	 *
+	 * @var string
+	 */
+	const loader = 'laravel.config.loader';
+
+	/**
 	 * Determine if a configuration item or file exists.
 	 *
 	 * <code>
@@ -56,18 +63,19 @@ class Config {
 	 * </code>
 	 *
 	 * @param  string  $key
+	 * @param  mixed   $default
 	 * @return array
 	 */
-	public static function get($key)
+	public static function get($key, $default = null)
 	{
 		list($bundle, $file, $item) = static::parse($key);
 
-		if ( ! static::load($bundle, $file)) return;
+		if ( ! static::load($bundle, $file)) return value($default);
 
 		$items = static::$items[$bundle][$file];
 
 		// If a specific configuration item was not requested, the key will be null,
-		// meaning we need to return the entire array of configuration item from the
+		// meaning we'll to return the entire array of configuration item from the
 		// requested configuration file. Otherwise we can return the item.
 		if (is_null($item))
 		{
@@ -75,7 +83,7 @@ class Config {
 		}
 		else
 		{
-			return array_get($items, $item);
+			return array_get($items, $item, $default);
 		}
 	}
 
@@ -105,8 +113,7 @@ class Config {
 
 		// If the item is null, it means the developer wishes to set the entire
 		// configuration array to a given value, so we will pass the entire
-		// array for the bundle into the array_set method, otherwise we'll
-		// only pass the file array for the bundle.
+		// array for the bundle into the array_set method.
 		if (is_null($item))
 		{
 			array_set(static::$items[$bundle], $file, $value);
@@ -141,7 +148,7 @@ class Config {
 
 		// If there are not at least two segments in the array, it means that the
 		// developer is requesting the entire configuration array to be returned.
-		// If that is the case, we'll make the item field of the array "null".
+		// If that is the case, we'll make the item field "null".
 		if (count($segments) >= 2)
 		{
 			$parsed = array($bundle, $segments[0], implode('.', array_slice($segments, 1)));
@@ -165,6 +172,31 @@ class Config {
 	{
 		if (isset(static::$items[$bundle][$file])) return true;
 
+		// We allow a "config.loader" event to be registered which is responsible for
+		// returning an array representing the configuration for the bundle and file
+		// requested. This allows many types of config "drivers".
+		$config = Event::first(static::loader, func_get_args());
+
+		// If configuration items were actually found for the bundle and file we
+		// will add them to the configuration array and return true, otherwise
+		// we will return false indicating the file was not found.
+		if (count($config) > 0)
+		{
+			static::$items[$bundle][$file] = $config;
+		}
+
+		return isset(static::$items[$bundle][$file]);
+	}
+
+	/**
+	 * Load the configuration items from a configuration file.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $file
+	 * @return array
+	 */
+	public static function file($bundle, $file)
+	{
 		$config = array();
 
 		// Configuration files cascade. Typically, the bundle configuration array is
@@ -178,12 +210,7 @@ class Config {
 			}
 		}
 
-		if (count($config) > 0)
-		{
-			static::$items[$bundle][$file] = $config;
-		}
-
-		return isset(static::$items[$bundle][$file]);
+		return $config;
 	}
 
 	/**

@@ -12,7 +12,7 @@
  * @subpackage  Models
  * @filesource
  */
-class Tag extends Eloquent\Model {
+class Tag extends Eloquent {
 
 	public static $table = 'tags';
 
