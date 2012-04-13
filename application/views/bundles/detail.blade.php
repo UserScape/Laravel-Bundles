@@ -57,8 +57,8 @@
 	<div class="tab-pane" id="stats">
 		<h3>Stats</h3>
 		<ul>
-			<li><strong>Watchers:</strong> {{$repo['watchers']}}</li>
-			<li><strong>Forks:</strong> {{$repo['forks']}}</li>
+			<li><strong>Watchers:</strong> {{$repo->watchers}}</li>
+			<li><strong>Forks:</strong> {{$repo->forks}}</li>
 			<li><strong>Ratings:</strong> {{$ratings}} likes</li>
 			<li><strong>Installs:</strong> {{$installs}}</li>
 		</ul>

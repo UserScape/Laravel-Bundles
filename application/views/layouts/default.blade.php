@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>{{(isset($title) ? $title.' - ' : '')}}Laravel Bundles</title>
-		<meta name="description" content="{{(isset($description)) ? $description : 'Laravel Bundles'}}">
+		<meta name="description" content="{{ (isset($description)) ? $description : 'Laravel Bundles' }}">
 		<meta name="keywords" content="php framework, framework, restful routing, restful, clean php">
 		<meta name="robots" content="index,follow">
 		<meta name="application-name" content="Laravel">
@@ -41,7 +41,7 @@
 		<div class="mid-content">
 			<div class="container main">
 				<div class="row">
-					<div class="sidebar span3 <?php echo (URI::segment(1) == 'bundle' and $bundle) ? 'bundle_detail' : ''; ?>">
+					<div class="sidebar span3 <?php echo (URI::segment(1) == 'bundle' and isset($bundle)) ? 'bundle_detail' : ''; ?>">
 						<form method="get" action="{{URL::to('search')}}">
 							<input type="search" results="5" autosave="laravelbundles" placeholder="Search Bundles" name="q" value="{{strip_tags(Input::get('q'))}}">
 						</form>
@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<div class="content bundles span9">
-						@if (URI::segment(1) == 'bundle' and $bundle)
+						@if (URI::segment(1) == 'bundle' and isset($bundle))
 							<div class="tabbable">
 								<div class="bundle-tabs">
 									<ul class="nav nav-tabs">
@@ -83,7 +83,7 @@
 							{{View::make('partials.messages')->render()}}
 							{{$content}}
 						</div>
-						@if (URI::segment(1) == 'bundle' and $bundle)
+						@if (URI::segment(1) == 'bundle' and isset($bundle))
 							</div>
 						@endif
 					</div>

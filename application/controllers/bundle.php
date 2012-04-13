@@ -348,7 +348,12 @@ class Bundle_Controller extends Base_Controller {
 		}
 
 		$bundle_array = explode('/', $bundle->location);
-		$repo = Github_helper::setup()->getRepoApi()->show($bundle_array[0], $bundle_array[1]);
+		$location = 'repos/'.$bundle_array[0].'/'.$bundle_array[1];
+
+		$repo = Cache::remember('repos-'.$bundle_array[0].'-'.$bundle_array[1], function() use ($location)
+		{
+			return Github_helper::github_request($location);
+		}, 90);
 
 		// installs
 		$installs = Install::where_bundle_id($bundle->id)->count();

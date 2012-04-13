@@ -32,6 +32,10 @@ class Form extends \Laravel\Form {
 	 */
 	public static function value($name, &$object, $field = null, $default = null)
 	{
+		if ( ! $object)
+		{
+			return '';
+		}
 		$field = ($field ?: $name);
 		return Input::old($name, ($object->$field ?: $default));
 	}

@@ -52,11 +52,14 @@ class Github_helper {
 		$repos = array();
 
 		// Get all the users repos from github
-		if ( ! $all_repos = $github->getRepoApi()->getUserRepos(Auth::user()->username))
+		$all_repos = static::github_request('user/repos');
+
+		if ( ! $all_repos)
 		{
-			return null;
+			return array('No github repos found');
 		}
 
+		//var_dump($all_repos);
 		// See if they have any existing and remove them from the array.
 		if ($existing = Listing::where_user_id(Auth::user()->id)->get())
 		{
@@ -64,7 +67,7 @@ class Github_helper {
 			{
 				foreach ($all_repos as $key => $repo)
 				{
-					if ($bundle->location == static::location($repo['url']))
+					if ($bundle->location == static::location($repo->url))
 					{
 						unset($all_repos[$key]);
 					}
@@ -80,8 +83,8 @@ class Github_helper {
 		// format repos into a sorted select list
 		foreach ($all_repos as $key => $row)
 		{
-			$pushed[$key]  = $row['pushed_at'];
-			$name[$key] = $row['name'];
+			$pushed[$key]  = $row->updated_at;
+			$name[$key] = $row->name;
 		}
 
 		// Sort by last pushed date. That should make the ones they are wanting to add be
@@ -91,11 +94,32 @@ class Github_helper {
 		// Convert this into an array that can be used by Form::select
 		foreach ($all_repos as $repo)
 		{
-			$repos[$repo['name']] = $repo['name'];
+			$repos[$repo->name] = $repo->name;
 		}
 
 		// Add the "please select" option as the first item.
 		return array_merge(array(__('form.please_select')), $repos);
+	}
+
+	/**
+	 * Perform a github request
+	 *
+	 * @param  string $url
+	 * @return mixed
+	 */
+	public static function github_request($url)
+	{
+		$url = 'https://api.github.com/'.$url.'?'.http_build_query(array(
+			'access_token' => Crypter::decrypt(Auth::user()->github_token),
+		));
+
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$content = curl_exec($ch);
+		$headers = curl_getinfo($ch);
+		curl_close($ch);
+		return ($headers['http_code'] == 200) ? json_decode($content) : null;
 	}
 
 	/**

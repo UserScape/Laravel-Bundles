@@ -96,7 +96,6 @@ class User_Controller extends Base_Controller {
 				}
 				else
 				{
-
 					$user = new User;
 					$user->username = $github_user['nickname'];
 					$user->name = ($github_user['name'] ?: '');
