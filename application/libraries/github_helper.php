@@ -15,18 +15,6 @@
 class Github_helper {
 
 	/**
-	 * Setup
-	 *
-	 * Instantiate the github client
-	 *
-	 * @return object
-	 */
-	public static function setup()
-	{
-		return new Github_Client();
-	}
-
-	/**
 	 * Location
 	 *
 	 * Generate the git location based on the url.
@@ -48,7 +36,6 @@ class Github_helper {
 	 */
 	public static function repos()
 	{
-		$github = static::setup();
 		$repos = array();
 
 		// Get all the users repos from github
