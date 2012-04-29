@@ -39,7 +39,7 @@ class Github_helper {
 		$repos = array();
 
 		// Get all the users repos from github
-		$all_repos = static::github_request('user/repos');
+		$all_repos = static::secure_request('user/repos');
 
 		if ( ! $all_repos)
 		{
@@ -89,17 +89,38 @@ class Github_helper {
 	}
 
 	/**
-	 * Perform a github request
+	 * Perform a secure github request
 	 *
 	 * @param  string $url
 	 * @return mixed
 	 */
-	public static function github_request($url)
+	public static function secure_request($url)
 	{
 		$url = 'https://api.github.com/'.$url.'?'.http_build_query(array(
 			'access_token' => Crypter::decrypt(Auth::user()->github_token),
 		));
+		return static::make_request($url);
+	}
 
+	/**
+	 * Perform a simple GET type github request
+	 *
+	 * @param  string $url
+	 * @return mixed
+	 */
+	public static function request($url)
+	{
+		return static::make_request('https://api.github.com/'.$url);
+	}
+
+	/**
+	 * Do the curl call to github
+	 *
+	 * @param  string $url
+	 * @return mixed
+	 */
+	private static function make_request($url)
+	{
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, 0);

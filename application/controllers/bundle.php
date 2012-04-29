@@ -352,7 +352,7 @@ class Bundle_Controller extends Base_Controller {
 
 		$repo = Cache::remember('repos-'.$bundle_array[0].'-'.$bundle_array[1], function() use ($location)
 		{
-			return Github_helper::github_request($location);
+			return Github_helper::request($location);
 		}, 90);
 
 		// installs
