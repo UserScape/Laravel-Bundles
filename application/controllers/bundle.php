@@ -234,6 +234,8 @@ class Bundle_Controller extends Base_Controller {
 			return Response::error('404');
 		}
 
+		$id = $listing->id;
+
 		Input::flash();
 
 		$rules = array(
