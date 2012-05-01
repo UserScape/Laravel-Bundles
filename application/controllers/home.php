@@ -41,7 +41,7 @@ class Home_Controller extends Base_Controller {
 		$popular = null;
 
 		// Get the most popular
-		$popular = DB::query('SELECT listings.*, users.username, users.name, rating.listing_id, COUNT(*) as total FROM rating LEFT JOIN listings ON listings.id = rating.listing_id INNER JOIN users ON listings.user_id = users.id GROUP BY listing_id ORDER BY total desc LIMIT 5');
+		$popular = DB::query('SELECT listings.*, users.username, users.name, rating.listing_id, COUNT(*) as total FROM rating LEFT JOIN listings ON listings.id = rating.listing_id INNER JOIN users ON listings.user_id = users.id WHERE active = "y" GROUP BY listing_id ORDER BY total desc LIMIT 5');
 
 		$featured = DB::table('listings')
 			->where_active('y')
