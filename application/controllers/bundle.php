@@ -91,14 +91,14 @@ class Bundle_Controller extends Base_Controller {
 	 */
 	public function post_repo()
 	{
-		$github = Github_helper::setup();
+		//$github = Github_helper::setup();
 		$repo = Input::get('repo');
 		$user = Input::get('user', Auth::user()->username);
-		$vars = $github->getRepoApi()->show($user, $repo);
+		//$vars = $github->getRepoApi()->show($user, $repo);
 		$vars['readme'] = Github_helper::load_readme($user, $repo);
 
 		// Strip out the url to generate the location
-		$vars['url'] = Github_helper::location($vars['url']);
+		$vars['url'] = Github_helper::location($repo);
 
 		return json_encode($vars);
 	}

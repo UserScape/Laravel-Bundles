@@ -22,7 +22,7 @@
 				<div class="featured-box">
 					<h2>Featured Bundle: <span>{{$featured->title}}</span></h2>
 					<img src="{{URL::to_asset('uploads/eloquent.png')}}">
-					<p>Eloquent is a polite little ORM. It is named "Eloquent" because it allows you to work with your database objects and relationships using an eloquent and expressive syntax.</p>
+					<p>Bob builds all kinds of resources for your project from the artisan command line interface. Generate controllers, views, models, tasks, tests and more!</p>
 					<a href="{{URL::to('bundle/'.$featured->uri);}}">Bundle Details</a>
 				</div>
 			</div>
