@@ -98,7 +98,7 @@ class Bundle_Controller extends Base_Controller {
 		$vars['readme'] = Github_helper::load_readme($user, $repo);
 
 		// Strip out the url to generate the location
-		$vars['url'] = Github_helper::location($repo);
+		$vars['url'] = Github_helper::location($user.'/'.$repo);
 
 		return json_encode($vars);
 	}
