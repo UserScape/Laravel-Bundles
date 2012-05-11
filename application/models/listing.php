@@ -76,7 +76,8 @@ class Listing extends Eloquent\Model {
 
 		if ( ! $dependencies = Input::get('dependencies'))
 		{
-			return false;
+			// Delete any existing
+			return DB::table('dependencies')->where('listing_id', '=', $id)->delete();
 		}
 
 		foreach ($dependencies as $dependency)
