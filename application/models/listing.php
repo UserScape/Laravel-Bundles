@@ -85,7 +85,7 @@ class Listing extends Eloquent\Model {
 			// Rest the where clause to keep from have the wrong query.
 			self::reset_where();
 
-			$bundle = self::where_title($dependency)->first();
+			$bundle = self::where_uri($dependency)->first();
 			if (is_null($bundle))
 			{
 				continue;

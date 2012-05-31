@@ -201,7 +201,7 @@ class Bundle_Controller extends Base_Controller {
 		{
 			foreach ($bundle->dependencies as $key => $dependency)
 			{
-				$dependencies[$key] = $dependency->title;
+				$dependencies[$key] = $dependency->uri;
 			}
 		}
 
