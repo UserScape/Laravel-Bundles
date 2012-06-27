@@ -9,6 +9,7 @@
 						<ul class="nav pull-right">
 							<li><a href="http://laravel.com">HOME</a></li>
 							<li><a href="http://laravel.com/about">ABOUT</a></li>
+							<li><a href="http://laravel.com/about#donations">DONATE</a></li>
 							<li><a href="http://bundles.laravel.com">BUNDLES</a></li>
 							<li class="dropdown">
 								<a href="http://laravel.com/docs" class="dropdown-toggle" data-toggle="dropdown">LEARN <b class="caret"></b></a>
