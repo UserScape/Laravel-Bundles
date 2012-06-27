@@ -16,6 +16,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="http://laravel.com/docs">DOCUMENTATION</a></li>
 									<li><a href="http://screenr.com/user/laravel">SCREENCASTS</a></li>
+									<li><a href="http://leanpub.com/codehappy">BOOK</a></li>
 									<li class="divider"></li>
 									<li><a href="http://laravel.com/api">DEVELOPER API</a></li>
 								</ul>
