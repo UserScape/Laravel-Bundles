@@ -9,12 +9,14 @@
 						<ul class="nav pull-right">
 							<li><a href="http://laravel.com">HOME</a></li>
 							<li><a href="http://laravel.com/about">ABOUT</a></li>
+							<li><a href="http://laravel.com/about#donations">DONATE</a></li>
 							<li><a href="http://bundles.laravel.com">BUNDLES</a></li>
 							<li class="dropdown">
 								<a href="http://laravel.com/docs" class="dropdown-toggle" data-toggle="dropdown">LEARN <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="http://laravel.com/docs">DOCUMENTATION</a></li>
 									<li><a href="http://screenr.com/user/laravel">SCREENCASTS</a></li>
+									<li><a href="http://leanpub.com/codehappy">BOOK</a></li>
 									<li class="divider"></li>
 									<li><a href="http://laravel.com/api">DEVELOPER API</a></li>
 								</ul>
